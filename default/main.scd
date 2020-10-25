@@ -82,7 +82,7 @@
 	s.sendMsg("/g_new", g, 1, 0);
 
 	// scsynth maxes out a single core after about 150 personal mixes
-	if (~clients > 150, {
+	if (~clients > 100, {
 		Synth("jt_master_out", [], g, \addToTail);
 		("Created synth" + "jt_master_out " + n).postln;
 	}, {
