@@ -95,7 +95,8 @@
 	});
 };
 
-~main = {
+~main = Routine {
+	~serverReady.wait;
 	s.freeAll;
 	~sendSynthDefs.value;
 	~startSynths.value;

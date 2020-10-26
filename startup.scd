@@ -1,3 +1,5 @@
+~serverReady = Condition.new;
+
 ~waitForServer = Routine {
 	var retries = 10;
 	s.notify;
@@ -15,6 +17,9 @@
 			1.sleep;
 		});
 	});
+
+	~serverReady.test = true;
+	~serverReady.signal;
 };
 
 "Connecting to server".postln;
