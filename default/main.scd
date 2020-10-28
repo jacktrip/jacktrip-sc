@@ -66,7 +66,7 @@
 		});
 	});
 
-	s.sendMsg("/g_new", g, 1, 0);
+	s.sendMsg("/p_new", g, 1, 0);
 
 	~clients.do { | clientNum |
 		var b = ~inputBuses[clientNum];
@@ -79,7 +79,7 @@
 
 	g = 200;
 	n = 2000;
-	s.sendMsg("/g_new", g, 1, 0);
+	s.sendMsg("/p_new", g, 1, 0);
 
 	// scsynth maxes out a single core after about 150 personal mixes
 	if (~clients > 100, {
