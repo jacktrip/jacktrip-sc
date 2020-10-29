@@ -1,6 +1,5 @@
-~clients = 100;
-~channels_in = 2;
-~panslots = 2;
-
-"/home/jacktrip/jacktrip-sc/default/main.scd".load;
+~maxClients = 12;
+~inputChannelsPerClient = 2;
+~outputChannelsPerClient = 2;
+"./simple/main.scd".load;
 ~main.value;
