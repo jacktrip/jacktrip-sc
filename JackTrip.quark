@@ -1,0 +1,9 @@
+(
+	\name: 			"JackTrip",
+	\path: 			"JackTrip",
+	\summary:		"SuperCollider extension for JackTrip",
+	\author: 		"Mike Dickey",
+	\organization:	"JackTrip LLC",
+	\since: 		"2020",
+	\status:		"alpha"
+)
