@@ -73,21 +73,21 @@ SimpleMix : BaseMix {
 
 			// send synthDefs
 			this.sendSynthDefs.value;
-			
+
 			// create group
 			server.sendMsg("/p_new", g, 1, 0);
 
 			// wait for server to receive synthdefs
 			server.sync;
+
+			// create unique output for jamulus that excludes itself
+			node = Synth("jamulus_simple_out", [], g, \addToTail);
+			("Created synth jamulus_simple_out" + node.nodeID).postln;
+
+			// create output for all jacktrip clients that includes jamulus
+			node = Synth("jacktrip_simple_out", [], g, \addToTail);
+			("Created synth jacktrip_simple_out" + node.nodeID).postln;
 		}.run;
-
-		// create unique output for jamulus that excludes itself
-		node = Synth("jamulus_simple_out", [], g, \addToTail);
-		("Created synth jamulus_simple_out" + node.nodeID).postln;
-
-		// create output for all jacktrip clients that includes jamulus
-		node = Synth("jacktrip_simple_out", [], g, \addToTail);
-		("Created synth jacktrip_simple_out" + node.nodeID).postln;
 	}
 
 	// stop all audio on the server

@@ -132,58 +132,58 @@ AutoPanMix : BaseMix {
 
 			// wait for server to receive synthdefs
 			server.sync;
-		}.run;
 
-		if (pSlots > maxClients, { pSlots = maxClients; });
-		if (pSlots < 2, {
-			panValues = [0];
-			pSlots = 1;
-		}, {
-			panValues = Array.fill(pSlots, { arg i;
-				LinLin.kr((i % pSlots) + 1, 0, pSlots + 1, -1, 1);
+			if (pSlots > maxClients, { pSlots = maxClients; });
+			if (pSlots < 2, {
+				panValues = [0];
+				pSlots = 1;
+			}, {
+				panValues = Array.fill(pSlots, { arg i;
+					LinLin.kr((i % pSlots) + 1, 0, pSlots + 1, -1, 1);
+				});
 			});
-		});
-		("automatically panning clients across" + pSlots + "slots").postln;
+			("automatically panning clients across" + pSlots + "slots").postln;
 
-		// start client input synths
-		maxClients.do { | clientNum |
-			var b = inputBuses[clientNum];
-			var p = panValues[clientNum % pSlots];
-			var node = Synth("jacktrip_autopan_in", [\client, clientNum, \out, b, \pan, p], g, \addToTail);
-			("Created synth" + "jacktrip_autopan_in" + node.nodeID + "on bus" + b.index + "pan" + p).postln;
-		};
-
-		g = 200;
-
-		// scsynth starts to max out a core after about 100 personal mixes,
-		// and supernova throws mysterous bad_alloc errors
-		if (maxClients > 100, {
-			var node;
-
-			// create unique output for jamulus that excludes itself
-			node = Synth("jamulus_autopan_out", [], g, \addToTail);
-			("Created synth" + "jamulus_autopan_out" + node.nodeID).postln;
-
-			// create output for all jacktrip clients that includes jamulus
-			node = Synth("jacktrip_autopan_out", [], g, \addToTail);
-			("Created synth" + "jacktrip_autopan_out " + node.nodeID).postln;
-		}, {
-			// create a unique output synth for each client to handle personal mixes
+			// start client input synths
 			maxClients.do { | clientNum |
-				var mix = 1 ! maxClients;
+				var b = inputBuses[clientNum];
+				var p = panValues[clientNum % pSlots];
+				var node = Synth("jacktrip_autopan_in", [\client, clientNum, \out, b, \pan, p], g, \addToTail);
+				("Created synth" + "jacktrip_autopan_in" + node.nodeID + "on bus" + b.index + "pan" + p).postln;
+			};
+
+			g = 200;
+
+			// scsynth starts to max out a core after about 100 personal mixes,
+			// and supernova throws mysterous bad_alloc errors
+			if (maxClients > 100, {
 				var node;
 
-				if (clientNum == 0, {
-					// create a unique mix for jamulus that excludes itself
-					mix[0] = 0;
-				}, {
-					mix[clientNum] = selfLevel;
-				});
+				// create unique output for jamulus that excludes itself
+				node = Synth("jamulus_autopan_out", [], g, \addToTail);
+				("Created synth" + "jamulus_autopan_out" + node.nodeID).postln;
 
-				node = Synth("jacktrip_personalmix_out", [\client, clientNum, \mix: mix], g, \addToTail);
-				("Created synth jacktrip_personalmix_out" + node.nodeID).postln;
-			};
-		});
+				// create output for all jacktrip clients that includes jamulus
+				node = Synth("jacktrip_autopan_out", [], g, \addToTail);
+				("Created synth" + "jacktrip_autopan_out " + node.nodeID).postln;
+			}, {
+				// create a unique output synth for each client to handle personal mixes
+				maxClients.do { | clientNum |
+					var mix = 1 ! maxClients;
+					var node;
+
+					if (clientNum == 0, {
+						// create a unique mix for jamulus that excludes itself
+						mix[0] = 0;
+					}, {
+						mix[clientNum] = selfLevel;
+					});
+
+					node = Synth("jacktrip_personalmix_out", [\client, clientNum, \mix: mix], g, \addToTail);
+					("Created synth jacktrip_personalmix_out" + node.nodeID).postln;
+				};
+			});
+		}.run;
 	}
 
 	// stop all audio on the server
