@@ -2,19 +2,17 @@
  * AutoPanMix: automatically pans clients across a stereo sound field,
  *             and supports personal mixes up to 100 clients
  *
- * \panSlots: number of panning slots to use across a stereo sound field
- * \selfLevel: default level used for self in personal mix
  * \maxClients: maximum number of clients that may connect to the audio server
- * \serverIp: IP address or hostname of remote audio server
- * \serverPort: port number of remote audio server
+ * \panSlots: number of panning slots to use across a stereo sound field
+ * \selfVolume: default volume level multiplier used for yourself in your personal mix, when enabled
  */ 
 AutoPanMix : BaseMix {
-	var <>panSlots, <>selfLevel;
+	var <>panSlots, <>selfVolume;
 	var inputBuses;
 
 	// create a new instance
-	*new { | panSlots = 3, selfLevel = 1.0, maxClients = 16, serverIp = "127.0.0.1", serverPort = 57110 |
-		^super.new(maxClients, serverIp, serverPort).panSlots_(panSlots).selfLevel_(selfLevel);
+	*new { | maxClients = 16, panSlots = 3, selfVolume = 1.0 |
+		^super.new(maxClients).panSlots_(panSlots);
 	}
 
 	// sendSynthDefs method sends definitions to the server for use in audio mixing
@@ -55,7 +53,7 @@ AutoPanMix : BaseMix {
 			var panned = Pan2.ar(mono, \pan.kr(0));
 
 			// send sound to output bus
-			Out.ar(\out.ir(0), panned * \mul.kr(1));
+			Out.ar(\out.ir(0), panned * masterVolume * \mul.kr(1));
 		}).send(server);
 
 		/*
@@ -176,7 +174,7 @@ AutoPanMix : BaseMix {
 						// create a unique mix for jamulus that excludes itself
 						mix[0] = 0;
 					}, {
-						mix[clientNum] = selfLevel;
+						mix[clientNum] = selfVolume;
 					});
 
 					node = Synth("jacktrip_personalmix_out", [\client, clientNum, \mix: mix], g, \addToTail);

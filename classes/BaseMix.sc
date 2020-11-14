@@ -2,18 +2,19 @@
  * BaseMix: base class for other JackTrip Virtual Studio mixers
  *
  * \maxClients: maximum number of clients that may connect to the audio server
- * \serverIp: IP address or hostname of remote audio server
- * \serverPort: port number of remote audio server
  */
 BaseMix : Object {
-	var <>maxClients, <>serverIp, <>serverPort;
+	var <>maxClients;
+	var <>masterVolume = 1.0;		// master volume level multiplier
+	var <>serverIp = "127.0.0.1";	// IP address or hostname of remote audio server
+	var <>serverPort = 57110;		// port number of remote audio server
 	var <>serverReady, <>server;
 	classvar inputChannelsPerClient = 2;
 	classvar outputChannelsPerClient = 2;
 
 	// create a new instance
-	*new { | maxClients = 16, serverIp = "127.0.0.1", serverPort = 57110 |
-		^super.newCopyArgs(maxClients, serverIp, serverPort).serverReady_(Condition.new);
+	*new { | maxClients = 16 |
+		^super.newCopyArgs(maxClients).serverReady_(Condition.new);
 	}
 
 	// connect to a remote server

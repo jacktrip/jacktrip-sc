@@ -8,8 +8,8 @@
 SimpleMix : BaseMix {
 
 	// create a new instance
-	*new { | maxClients = 16, serverIp = "127.0.0.1", serverPort = 57110 |
-		^super.new(maxClients, serverIp, serverPort);
+	*new { | maxClients = 16 |
+		^super.new(maxClients);
 	}
 
 	// sendSynthDefs method sends definitions to the server for use in audio mixing
@@ -33,7 +33,7 @@ SimpleMix : BaseMix {
 				});
 			});
 			// send only to jamulus on channel 0
-			Out.ar(0, in * \mul.kr(1));
+			Out.ar(0, in * masterVolume * \mul.kr(1));
 		}).send(server);
 
 		/*
@@ -55,7 +55,7 @@ SimpleMix : BaseMix {
 			var out = Array.fill(maxClients - 1, { arg n;
 				(n + 1) * outputChannelsPerClient;
 			});
-			Out.ar(out, in * \mul.kr(1));
+			Out.ar(out, in * masterVolume * \mul.kr(1));
 		}).send(server);
 	}
 
