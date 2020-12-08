@@ -188,4 +188,89 @@ AutoPanMix : BaseMix {
 	stop {
 		server.freeAll;
 	}
+
+	// display a graphical user interface for mixing controls
+	gui { | maxSlidersPerRow = 48, maxMultiplier = 5, startNode = 1000 |
+		var in;
+		var out;
+		var mix = 1 ! maxClients;
+		var rows = 1;
+		var cols = maxClients + 1;
+		var window;
+		var master;
+		var sliders = Array.newClear(maxClients);
+		var panKnobs = Array.newClear(maxClients);
+		var serverInput;
+		var connectButton;
+		var x = 0;
+		var y = 0;
+
+		// run this when connect button is clicked
+		var connectToServer = Routine {
+			// update serverIp and connect to remote server
+			serverIp = serverInput.string.stripWhiteSpace;
+			this.connect;
+			serverReady.wait;
+
+			defer {
+				// initialize levels to 1.0
+				in = ParGroup.basicNew(server, 100);
+				in.set(\mul, 1);
+				out = ParGroup.basicNew(server, 200);
+				out.set(\mul, 1);
+				master.value = 1.0 / maxMultiplier;
+				maxClients.do({ arg n;
+					var node = Node.basicNew(server, startNode + n);
+					sliders[n].value = 1.0 / maxMultiplier;
+				});
+			};
+		};
+
+		// prepare slider grid
+		if (maxClients >= maxSlidersPerRow, {
+			rows = (maxClients + 1 / maxSlidersPerRow).roundUp;
+			cols = maxSlidersPerRow;
+		});
+
+		// create a new window
+		window = Window.new("JackTrip AutoPan Mixer", Rect(50,50,(50*cols)+30,(300*rows)+60));
+
+		// add master slider
+		master = Slider.new(window, Rect(20,80,40,200));
+		master.background = "black";
+		master.action_( { arg me;
+			var mul = me.value * maxMultiplier;
+			("master vol ="+mul).postln;
+			out.set(\mul, mul);
+		});
+		StaticText(window, Rect(20, 280, 40, 20)).string_("Master");
+
+		// add controls for each client
+		maxClients.do({ arg n;
+			if ((x+1) < cols, { x = x + 1; }, { x = 0; y = y + 1; });
+
+			sliders[n] = Slider.new(window, Rect(20+(x*50), 80+(300*y), 40, 200)).action_( { arg me;
+				var mul = me.value * maxMultiplier;
+				("ch"+n+"vol ="+mul).postln;
+				server.sendMsg("/n_set", startNode + n, \mul, mul);
+			});
+
+			StaticText(window, Rect(30+(x*50), 280+(300*y), 40, 20)).string_(n);
+
+			panKnobs[n] = Knob.new(window, Rect(20+(x*50), 305+(300*y), 40, 40)).action_( { arg me;
+				var p = LinLin.kr(me.value, 0, 1, -1, 1);
+				("ch"+n+"pan ="+p).postln;
+				server.sendMsg("/n_set", startNode + n, \pan, p);
+			});
+		});
+
+		// add input box for server and connect button
+		serverInput = TextField(window, Rect(20,20,300,40)).value_(serverIp);
+		connectButton = Button(window, Rect(340,20,100,40));
+		connectButton.states_([["Connect"]]);
+		connectButton.action_(connectToServer);
+
+		// display the window
+		window.front;
+	}
 }
