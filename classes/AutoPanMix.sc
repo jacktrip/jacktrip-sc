@@ -181,6 +181,10 @@ AutoPanMix : BaseMix {
 					("Created synth jacktrip_personalmix_out" + node.nodeID).postln;
 				};
 			});
+
+			// signal that the mix has started
+			this.mixStarted.test = true;
+			this.mixStarted.signal;
 		}.run;
 	}
 

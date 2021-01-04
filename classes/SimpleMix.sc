@@ -87,6 +87,10 @@ SimpleMix : BaseMix {
 			// create output for all jacktrip clients that includes jamulus
 			node = Synth("jacktrip_simple_out", [], g, \addToTail);
 			("Created synth jacktrip_simple_out" + node.nodeID).postln;
+
+			// signal that the mix has started
+			this.mixStarted.test = true;
+			this.mixStarted.signal;
 		}.run;
 	}
 
