@@ -7,11 +7,11 @@ BaseMix : Object {
 	var <>maxClients;
 	var <>masterVolume = 1.0;		// master volume level multiplier
 	var <>serverIp = "127.0.0.1";	// IP address or hostname of remote audio server
-	var <>serverPort = 57110;		// port number of remote audio server
-	var <>serverReady, <>server;
-	var <>mixStarted;
-	classvar inputChannelsPerClient = 2;
-	classvar outputChannelsPerClient = 2;
+	var <>serverPort = 57110;		// port number of remote audio server (default SC port)
+	var <>serverReady, <>server;    // state of the server and the server object
+	var <>mixStarted;				// Condition object used to pause execution until the server is ready
+	classvar inputChannelsPerClient = 2;	// for stereo audio inputs
+	classvar outputChannelsPerClient = 2;	// for stereo audio outputs
 
 	// create a new instance
 	*new { | maxClients = 16 |
@@ -25,6 +25,7 @@ BaseMix : Object {
 			server.notify;
 			server.initTree;
 
+			// Make 10 attempts to connect to the server
 			{retries > 0}.while({
 				server.serverRunning.postln;
 				Server.allRunningServers.postln;
@@ -42,17 +43,23 @@ BaseMix : Object {
 			serverReady.signal;
 		};
 
+		// Create a new server object using the IP address and Port
+		// server can be used as one might use the 's' global variable locally
 		("Connecting to server"+serverIp++":"++serverPort).postln;
 		server = Server.remote(\remote, NetAddr(serverIp, serverPort));
 		server.doWhenBooted({waitForServer.value});
 	}
 
 	// wait for mix to start
+	// mixStarted is the Condition object and pauses execution until
+	// the value is set to true and mixStarted is signalled
 	wait {
 		mixStarted.wait;
 	}
 
 	// run a routine after mix has started
+	// mixStarted must have value of true and must be signalled
+	// in order for r to run
 	after { | r |
 		Routine {
 			this.wait;
