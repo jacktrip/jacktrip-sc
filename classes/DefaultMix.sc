@@ -234,7 +234,7 @@ DefaultMix : BaseMix {
 				// LinLin maps a range of input values linearly to a range of
 				// output values
 				panValues = Array.fill(pSlots, { arg i;
-					LinLin.kr((i % pSlots) + 1, 0, pSlots + 1, -1 * panCalibration, panCalbiration);
+					LinLin.kr((i % pSlots) + 1, 0, pSlots + 1, -1 * panCalibration, panCalibration);
 				});
 			});
 			("automatically panning clients across" + pSlots + "slots").postln;
