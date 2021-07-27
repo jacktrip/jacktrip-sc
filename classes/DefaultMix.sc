@@ -70,8 +70,12 @@ DefaultMix : BaseMix {
 	var <>panSlots, <>selfVolume;
 	var inputBuses;
 
+	// calibrates the user's 100% to correspond to supercollider's 50%
+	classvar selfVolumeCalibration = 0.5;
+	classvar panCalibration = 0.75;
+
 	// create a new instance
-	*new { | maxClients = 16, panSlots = 3, selfVolume = 1.0 |
+	*new { | maxClients = 16, panSlots = 1, selfVolume = 1.0 |
 		^super.new(maxClients).panSlots_(panSlots);
 	}
 
@@ -230,7 +234,7 @@ DefaultMix : BaseMix {
 				// LinLin maps a range of input values linearly to a range of
 				// output values
 				panValues = Array.fill(pSlots, { arg i;
-					LinLin.kr((i % pSlots) + 1, 0, pSlots + 1, -1, 1);
+					LinLin.kr((i % pSlots) + 1, 0, pSlots + 1, -1 * panCalibration, panCalbiration);
 				});
 			});
 			("automatically panning clients across" + pSlots + "slots").postln;
@@ -271,7 +275,7 @@ DefaultMix : BaseMix {
 						// create a unique mix for jamulus that excludes itself
 						mix[0] = 0;
 					}, {
-						mix[clientNum] = selfVolume;
+						mix[clientNum] = selfVolume * selfVolumeCalibration;
 					});
 
 					// Since this is executed from within the do-statement, a separate Synth instance
