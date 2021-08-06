@@ -23,7 +23,7 @@
  * UGen's 0-index starts at the first hardware output bus. The Out UGen's 
  * 0-index starts at the first hardware output bus as well.
  *
- * Internally, a "jacktrip_autopan_in" Synth is created for each client, which
+ * Internally, a "jacktrip_panned_in" Synth is created for each client, which
  * reads stereo audio from the hardware input buses to the corresponding private
  * buses, which are also stereo (see the instance variable inputBuses, which is an array
  * of Bus objects that automatically allocates the correct number of private channels).
@@ -34,7 +34,7 @@
  * If there are fewer than 100 clients, a \mix is created for each client, and
  * a "jacktrip_personalmix_out" Synth is created (also one per client). Each client's
  * \mix (which accounts for things like self-volume) is passed to their corresponding 
- * Synth to generate a personal mix. The "jacktrip_autopan_out" SynthDef reads 
+ * Synth to generate a personal mix. The "jacktrip_simple_out" SynthDef reads 
  * signals from the instance variable inputBuses, which corresponds to the private 
  * channels. The \mix variable is unique for each client and can also be thought of 
  * as an array of weights for the audio signals for each client. The
@@ -43,11 +43,11 @@
  * hardware output channel.
  *
  * If there are 100 clients or more, then no personal mixes are created. Rather, only a
- * single Synth instance of "jamulus_autopan_out" and only a single Synth instance of
- * "jacktrip_autopan_out" is created for the server. These two synths essentially do the
- * same thing, but the "jamulus_autopan_out" Synth excludes its own input (as an edge
- * case that is handled separately for channel 0). "jamulus_autopan_out" creates one mix
- * that is sent to Jamulus on channel 0, and "jacktrip_autopan_out" creates one mix that
+ * single Synth instance of "jamulus_simple_out" and only a single Synth instance of
+ * "jacktrip_simple_out" is created for the server. These two synths essentially do the
+ * same thing, but the "jamulus_simple_out" Synth excludes its own input (as an edge
+ * case that is handled separately for channel 0). "jamulus_simple_out" creates one mix
+ * that is sent to Jamulus on channel 0, and "jacktrip_simple_out" creates one mix that
  * is sent to all other clients. This only happens when there are greater than 100 clients
  * for performance reasons, though if there are fewer than 100 clients, personal mixes are
  * generated.
@@ -65,14 +65,17 @@
  */ 
 AutoPanMix : BaseMix {
 	
-	// panSlots, selfVolume, and inputBuses are instance variables
+	// autopan, panSlots, selfVolume, and inputBuses are instance variables
+	// * autopan is a boolean that if true, will automatically pan clients across stereo field
+	// * panSlots is the number of positions to use for panning, if autopan is true
+	// * selfVolume sets the default volume level that each client will hear themselves at (requires personal mixes)
 	// the '<' is shorthand for a getter method and '>' is shorthand for a setter method
-	var <>panSlots, <>selfVolume;
+	var <>autopan, <>panSlots, <>selfVolume;
 	var inputBuses;
 
 	// create a new instance
-	*new { | maxClients = 16, panSlots = 3, selfVolume = 1.0 |
-		^super.new(maxClients).panSlots_(panSlots);
+	*new { | maxClients = 16, autopan = true, panSlots = 3, selfVolume = 1.0 |
+		^super.new(maxClients).autopan_(autopan).panSlots_(panSlots);
 	}
 
 	// sendSynthDefs method sends definitions to the server for use in audio mixing
@@ -94,7 +97,37 @@ AutoPanMix : BaseMix {
 		});
 
 		/*
-		* jacktrip_autopan_in is used to apply leveling, filters and panning to a specific client input, 
+		* jacktrip_simple_in is used to apply leveling and filters to a specific client input, 
+		* and send it to an audio bus
+		*
+		* \client : client number to use for bus & input channel offsets
+		* \lpf : frequency to use for low pass filter (default 20000)
+		* \hpf : frequency to use for high pass filter (default 20)
+		* \out : output bus to use for sending audio (default 0)
+		* \mul : amplitude level multiplier (default 1.0)
+		*/
+		"Sending SynthDef: jacktrip_simple_in".postln;
+		SynthDef("jacktrip_simple_in", {
+			var client = \client.ir(0);
+
+			// create an array containing all audio input channels for a specific client
+			var mix = Array.fill(2, { arg channelNum;
+				// start with the raw audio input
+				var in = SoundIn.ar((client*inputChannelsPerClient)+channelNum);
+
+				// add a low pass filter
+				in = LPF.ar(in, \lpf.kr(20000));
+
+				// add a high pass filter
+				HPF.ar(in, \hpf.kr(20));
+			});
+
+			// send sound to output bus
+			Out.ar(\out.ir(0), mix * masterVolume * \mul.kr(1));
+		}).send(server);
+
+		/*
+		* jacktrip_panned_in is used to apply leveling, filters and panning to a specific client input, 
 		* and send it to an audio bus
 		*
 		* \client : client number to use for bus & input channel offsets
@@ -104,8 +137,8 @@ AutoPanMix : BaseMix {
 		* \out : output bus to use for sending audio (default 0)
 		* \mul : amplitude level multiplier (default 1.0)
 		*/
-		"Sending SynthDef: jacktrip_autopan_in".postln;
-		SynthDef("jacktrip_autopan_in", {
+		"Sending SynthDef: jacktrip_panned_in".postln;
+		SynthDef("jacktrip_panned_in", {
 			var client = \client.ir(0);
 
 			// squash stereo input channels into mono
@@ -158,12 +191,12 @@ AutoPanMix : BaseMix {
 		}).send(server);
 
 		/*
-		* jamulus_autopan_out is used to create a unique mix for output to jamulus bridge
+		* jamulus_simple_out is used to create a unique mix for output to jamulus bridge
 		*
 		* \mul : amplitude level multiplier (default 1.0)
 		*/
-		"Sending SynthDef: jamulus_autopan_out".postln;
-		SynthDef("jamulus_autopan_out", {
+		"Sending SynthDef: jamulus_simple_out".postln;
+		SynthDef("jamulus_simple_out", {
 			// always exclude jamulus input from the mix sent back to jamulus
 			var in = Mix.fill(maxClients - 1, { arg n;
 				var b = inputBuses[n + 1];
@@ -174,13 +207,13 @@ AutoPanMix : BaseMix {
 		}).send(server);
 
 		/*
-		* jamulus_autopan_out is used to create a single master mix for jacktrip client output
+		* jacktrip_simple_out is used to create a single master mix for jacktrip client output
 		*
 		* \mul : amplitude level multiplier (default 1.0)
 		*/
-		"Sending SynthDef: jacktrip_autopan_out".postln;
-		SynthDef("jacktrip_autopan_out", {
-			// exclude sending to jamulus on channel 0 (handled by jamulus_autopan_out)
+		"Sending SynthDef: jacktrip_simple_out".postln;
+		SynthDef("jacktrip_simple_out", {
+			// exclude sending to jamulus on channel 0 (handled by jamulus_simple_out)
 			var in = Mix.fill(maxClients, { arg n;
 				In.ar(inputBuses[n], inputChannelsPerClient);
 			});
@@ -221,30 +254,45 @@ AutoPanMix : BaseMix {
 			// wait for server to receive synthdefs
 			server.sync;
 
-			if (pSlots > maxClients, { pSlots = maxClients; });
-			if (pSlots < 2, {
-				panValues = [0];
-				pSlots = 1;
-			}, {
+			if (autopan, {
+				// automatically pan clients across stereo field
+				if (pSlots > maxClients, { pSlots = maxClients; });
+				if (pSlots < 2, {
+					panValues = [0];
+					pSlots = 1;
+				}, {
 
-				// LinLin maps a range of input values linearly to a range of
-				// output values
-				panValues = Array.fill(pSlots, { arg i;
-					LinLin.kr((i % pSlots) + 1, 0, pSlots + 1, -1, 1);
+					// LinLin maps a range of input values linearly to a range of
+					// output values
+					panValues = Array.fill(pSlots, { arg i;
+						LinLin.kr((i % pSlots) + 1, 0, pSlots + 1, -1, 1);
+					});
 				});
-			});
-			("automatically panning clients across" + pSlots + "slots").postln;
+				("automatically panning clients across" + pSlots + "slots").postln;
 
-			// start client input synths
-			// the do command basically acts as a for loop, from 0 to maxClients - 1
-			// the add to tail means that within the execution group specified by g on the server,
-			// the new Synth will be added to the end of the list of executing nodes.
-			maxClients.do { | clientNum |
-				var b = inputBuses[clientNum];
-				var p = panValues[clientNum % pSlots];
-				var node = Synth("jacktrip_autopan_in", [\client, clientNum, \out, b, \pan, p], g, \addToTail);
-				("Created synth" + "jacktrip_autopan_in" + node.nodeID + "on bus" + b.index + "pan" + p).postln;
-			};
+				// start client input synths
+				// the do command basically acts as a for loop, from 0 to maxClients - 1
+				// the add to tail means that within the execution group specified by g on the server,
+				// the new Synth will be added to the end of the list of executing nodes.
+				maxClients.do { | clientNum |
+					var b = inputBuses[clientNum];
+					var p = panValues[clientNum % pSlots];
+					var node = Synth("jacktrip_panned_in", [\client, clientNum, \out, b, \pan, p], g, \addToTail);
+					("Created synth" + "jacktrip_panned_in" + node.nodeID + "on bus" + b.index + "pan" + p).postln;
+				};
+			}, {
+				// do not pan clients; mix down mono channels instead
+
+				// start client input synths
+				// the do command basically acts as a for loop, from 0 to maxClients - 1
+				// the add to tail means that within the execution group specified by g on the server,
+				// the new Synth will be added to the end of the list of executing nodes.
+				maxClients.do { | clientNum |
+					var b = inputBuses[clientNum];
+					var node = Synth("jacktrip_simple_in", [\client, clientNum, \out, b], g, \addToTail);
+					("Created synth" + "jacktrip_simple_in" + node.nodeID + "on bus" + b.index).postln;
+				};
+			})
 
 			g = 200;
 
@@ -254,12 +302,12 @@ AutoPanMix : BaseMix {
 				var node;
 
 				// create unique output for jamulus that excludes itself
-				node = Synth("jamulus_autopan_out", [], g, \addToTail);
-				("Created synth" + "jamulus_autopan_out" + node.nodeID).postln;
+				node = Synth("jamulus_simple_out", [], g, \addToTail);
+				("Created synth" + "jamulus_simple_out" + node.nodeID).postln;
 
 				// create output for all jacktrip clients that includes jamulus
-				node = Synth("jacktrip_autopan_out", [], g, \addToTail);
-				("Created synth" + "jacktrip_autopan_out " + node.nodeID).postln;
+				node = Synth("jacktrip_simple_out", [], g, \addToTail);
+				("Created synth" + "jacktrip_simple_out " + node.nodeID).postln;
 			}, {
 				// create a unique output synth for each client to handle personal mixes
 				// the do command basically acts as a for loop, from 0 to maxClients - 1
