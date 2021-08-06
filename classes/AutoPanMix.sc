@@ -292,7 +292,7 @@ AutoPanMix : BaseMix {
 					var node = Synth("jacktrip_simple_in", [\client, clientNum, \out, b], g, \addToTail);
 					("Created synth" + "jacktrip_simple_in" + node.nodeID + "on bus" + b.index).postln;
 				};
-			})
+			});
 
 			g = 200;
 
