@@ -1,11 +1,11 @@
 /*
- * SimpleMix: a minimal mix that scales well
+ * StereoMix: a minimal mix that scales well
  *
  * \maxClients: maximum number of clients that may connect to the audio server
  * \serverIp: IP address or hostname of remote audio server
  * \serverPort: port number of remote audio server
  */
-SimpleMix : BaseMix {
+StereoMix : BaseMix {
 
 	// create a new instance
 	*new { | maxClients = 16 |
@@ -18,13 +18,13 @@ SimpleMix : BaseMix {
 		var defaultMix = 1 ! maxClients;
 
 		/*
-		* jamulus_simple_out is used to create a unique mix for output to jamulus bridge
+		* jamulus_stereo_out is used to create a unique mix for output to jamulus bridge
 		*
 		* \mix : array of levels used for output mix (default [1 ! maxClients])
 		* \mul : amplitude level multiplier (default 1.0)
 		*/
-		"Sending SynthDef: jamulus_simple_out".postln;
-		SynthDef("jamulus_simple_out", {
+		"Sending SynthDef: jamulus_stereo_out".postln;
+		SynthDef("jamulus_stereo_out", {
 			// exclude jamulus input from the mix sent back to jamulus
 			var in = Mix.fill(maxClients - 1, { arg n;
 				var offset = (n + 1) * inputChannelsPerClient;
@@ -37,13 +37,13 @@ SimpleMix : BaseMix {
 		}).send(server);
 
 		/*
-		* jamulus_simple_out is used to create a single master mix for jacktrip client output
+		* jamulus_stereo_out is used to create a single master mix for jacktrip client output
 		*
 		* \mix : array of levels used for output mix (default [1 ! maxClients])
 		* \mul : amplitude level multiplier (default 1.0)
 		*/
-		"Sending SynthDef: jacktrip_simple_out".postln;
-		SynthDef("jacktrip_simple_out", {
+		"Sending SynthDef: jacktrip_stereo_out".postln;
+		SynthDef("jacktrip_stereo_out", {
 			// mix together all input channels
 			var in = Mix.fill(maxClients, { arg n;
 				var offset = n * inputChannelsPerClient;
@@ -51,7 +51,7 @@ SimpleMix : BaseMix {
 					SoundIn.ar(offset+ch) * \mix.kr(defaultMix)[n];
 				});
 			});
-			// exclude sending to jamulus on channel 0 (handled by jamulus_simple_out)
+			// exclude sending to jamulus on channel 0 (handled by jamulus_stereo_out)
 			var out = Array.fill(maxClients - 1, { arg n;
 				(n + 1) * outputChannelsPerClient;
 			});
@@ -81,12 +81,12 @@ SimpleMix : BaseMix {
 			server.sync;
 
 			// create unique output for jamulus that excludes itself
-			node = Synth("jamulus_simple_out", [], g, \addToTail);
-			("Created synth jamulus_simple_out" + node.nodeID).postln;
+			node = Synth("jamulus_stereo_out", [], g, \addToTail);
+			("Created synth jamulus_stereo_out" + node.nodeID).postln;
 
 			// create output for all jacktrip clients that includes jamulus
-			node = Synth("jacktrip_simple_out", [], g, \addToTail);
-			("Created synth jacktrip_simple_out" + node.nodeID).postln;
+			node = Synth("jacktrip_stereo_out", [], g, \addToTail);
+			("Created synth jacktrip_stereo_out" + node.nodeID).postln;
 
 			// signal that the mix has started
 			this.mixStarted.test = true;
@@ -139,7 +139,7 @@ SimpleMix : BaseMix {
 		});
 
 		// create a new window
-		window = Window.new("JackTrip Simple Mixer", Rect(50,50,(50*cols)+30,(260*rows)+60));
+		window = Window.new("JackTrip Stereo Mixer", Rect(50,50,(50*cols)+30,(260*rows)+60));
 
 		// add master slider
 		master = Slider.new(window, Rect(20,80,40,200));
