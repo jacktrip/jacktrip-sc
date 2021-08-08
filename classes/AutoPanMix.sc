@@ -79,7 +79,7 @@ AutoPanMix : BaseMix {
 
 	// create a new instance
 	*new { | maxClients = 16, autopan = true, panSlots = 3, selfVolume = 1.0, hpf = 20, lpf = 20000 |
-		^super.new(maxClients).autopan_(autopan).panSlots_(panSlots);
+		^super.new(maxClients).autopan_(autopan).panSlots_(panSlots).hpf_(hpf).lpf_(lpf);
 	}
 
 	// sendSynthDefs method sends definitions to the server for use in audio mixing
