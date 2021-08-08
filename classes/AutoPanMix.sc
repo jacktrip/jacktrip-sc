@@ -111,7 +111,7 @@ AutoPanMix : BaseMix {
 			var client = \client.ir(0);
 
 			// create an array containing all audio input channels for a specific client
-			var mix = Array.fill(2, { arg channelNum;
+			var mix = Array.fill(inputChannelsPerClient, { arg channelNum;
 				// start with the raw audio input
 				var in = SoundIn.ar((client*inputChannelsPerClient)+channelNum);
 
