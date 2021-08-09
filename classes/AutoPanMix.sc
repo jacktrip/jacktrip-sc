@@ -65,17 +65,21 @@
  */ 
 AutoPanMix : BaseMix {
 	
-	// autopan, panSlots, selfVolume, and inputBuses are instance variables
+	// the following parameters are instance variables
 	// * autopan is a boolean that if true, will automatically pan clients across stereo field
 	// * panSlots is the number of positions to use for panning, if autopan is true
 	// * selfVolume sets the default volume level that each client will hear themselves at (requires personal mixes)
+	// * hpf sets the default high-pass filter frequency used for all clients
+	// * lpf sets the default low-pass filter frequency used for all clients
 	// the '<' is shorthand for a getter method and '>' is shorthand for a setter method
-	var <>autopan, <>panSlots, <>selfVolume;
+	var <>autopan, <>panSlots, <>selfVolume, <>hpf, <>lpf;
+
+	// inputBuses is an array (one per client) of stereo audio busses, after applying any processing
 	var inputBuses;
 
 	// create a new instance
-	*new { | maxClients = 16, autopan = true, panSlots = 3, selfVolume = 1.0 |
-		^super.new(maxClients).autopan_(autopan).panSlots_(panSlots);
+	*new { | maxClients = 16, autopan = true, panSlots = 3, selfVolume = 1.0, hpf = 20, lpf = 20000 |
+		^super.new(maxClients).autopan_(autopan).panSlots_(panSlots).hpf_(hpf).lpf_(lpf);
 	}
 
 	// sendSynthDefs method sends definitions to the server for use in audio mixing
@@ -277,7 +281,7 @@ AutoPanMix : BaseMix {
 				maxClients.do { | clientNum |
 					var b = inputBuses[clientNum];
 					var p = panValues[clientNum % pSlots];
-					var node = Synth("jacktrip_panned_in", [\client, clientNum, \out, b, \pan, p], g, \addToTail);
+					var node = Synth("jacktrip_panned_in", [\client, clientNum, \out, b, \hpf, hpf, \lpf, lpf, \pan, p], g, \addToTail);
 					("Created synth" + "jacktrip_panned_in" + node.nodeID + "on bus" + b.index + "pan" + p).postln;
 				};
 			}, {
@@ -289,7 +293,7 @@ AutoPanMix : BaseMix {
 				// the new Synth will be added to the end of the list of executing nodes.
 				maxClients.do { | clientNum |
 					var b = inputBuses[clientNum];
-					var node = Synth("jacktrip_simple_in", [\client, clientNum, \out, b], g, \addToTail);
+					var node = Synth("jacktrip_simple_in", [\client, clientNum, \out, b, \hpf, hpf, \lpf, lpf], g, \addToTail);
 					("Created synth" + "jacktrip_simple_in" + node.nodeID + "on bus" + b.index).postln;
 				};
 			});
