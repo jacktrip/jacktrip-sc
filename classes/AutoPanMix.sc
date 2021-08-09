@@ -77,8 +77,12 @@ AutoPanMix : BaseMix {
 	// inputBuses is an array (one per client) of stereo audio busses, after applying any processing
 	var inputBuses;
 
+	// calibrates the user's 100% to correspond to supercollider's 50%
+	classvar selfVolumeCalibration = 0.5;
+	classvar panCalibration = 0.75;
+
 	// create a new instance
-	*new { | maxClients = 16, autopan = true, panSlots = 3, selfVolume = 1.0, hpf = 20, lpf = 20000 |
+	*new { | maxClients = 16, autopan = true, panSlots = 1, selfVolume = 1.0, hpf = 20, lpf = 20000 |
 		^super.new(maxClients).autopan_(autopan).panSlots_(panSlots).hpf_(hpf).lpf_(lpf);
 	}
 
@@ -269,7 +273,7 @@ AutoPanMix : BaseMix {
 					// LinLin maps a range of input values linearly to a range of
 					// output values
 					panValues = Array.fill(pSlots, { arg i;
-						LinLin.kr((i % pSlots) + 1, 0, pSlots + 1, -1, 1);
+						LinLin.kr((i % pSlots) + 1, 0, pSlots + 1, -1 * panCalibration, panCalibration);
 					});
 				});
 				("automatically panning clients across" + pSlots + "slots").postln;
@@ -323,7 +327,7 @@ AutoPanMix : BaseMix {
 						// create a unique mix for jamulus that excludes itself
 						mix[0] = 0;
 					}, {
-						mix[clientNum] = selfVolume;
+						mix[clientNum] = selfVolume * selfVolumeCalibration;
 					});
 
 					// Since this is executed from within the do-statement, a separate Synth instance
