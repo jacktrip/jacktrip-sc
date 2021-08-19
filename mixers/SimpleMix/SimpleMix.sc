@@ -33,7 +33,8 @@ SimpleMix : BaseMix {
 				});
 			});
 			// send only to jamulus on channel 0
-			Out.ar(0, in * masterVolume * \mul.kr(1));
+			var volumeOpt = VolumeOption(masterVolume * \mul.kr(1));
+			Out.ar(0, volumeOpt.transform(in));
 		}).send(server);
 
 		/*
@@ -55,7 +56,8 @@ SimpleMix : BaseMix {
 			var out = Array.fill(maxClients - 1, { arg n;
 				(n + 1) * outputChannelsPerClient;
 			});
-			Out.ar(out, in * masterVolume * \mul.kr(1));
+			var volumeOpt = VolumeOption(masterVolume * \mul.kr(1));
+			Out.ar(out, volumeOpt.transform(in));
 		}).send(server);
 	}
 

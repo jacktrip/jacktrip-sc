@@ -127,7 +127,8 @@ AutoPanMix : BaseMix {
 			});
 
 			// send sound to output bus
-			Out.ar(\out.ir(0), mix * masterVolume * \mul.kr(1));
+			var volumeOpt = VolumeOption(masterVolume * \mul.kr(1));
+			Out.ar(\out.ir(0), volumeOpt.transform(mix));
 		}).send(server);
 
 		/*
@@ -161,7 +162,8 @@ AutoPanMix : BaseMix {
 			var panned = Pan2.ar(mono, \pan.kr(0));
 
 			// send sound to output bus
-			Out.ar(\out.ir(0), panned * masterVolume * \mul.kr(1));
+			var volumeOpt = VolumeOption(masterVolume * \mul.kr(1));
+			Out.ar(\out.ir(0), volumeOpt.transform(panned));
 		}).send(server);
 
 		/*
@@ -191,7 +193,8 @@ AutoPanMix : BaseMix {
 			});
 
 			// Send audio signal to the client. \mul is determined by the master volume
-			Out.ar(outputChannelsPerClient * \client.ir(0), in * \mul.kr(1));
+			var volumeOpt = VolumeOption(\mul.kr(1));
+			Out.ar(outputChannelsPerClient * \client.ir(0), volumeOpt.transform(in));
 		}).send(server);
 
 		/*
@@ -207,7 +210,8 @@ AutoPanMix : BaseMix {
 				In.ar(b, inputChannelsPerClient);
 			});
 			// send only to jamulus on channel 0
-			Out.ar(0, in * \mul.kr(1));
+			var volumeOpt = VolumeOption(\mul.kr(1));
+			Out.ar(0, volumeOpt.transform(in));
 		}).send(server);
 
 		/*
@@ -224,7 +228,8 @@ AutoPanMix : BaseMix {
 			var out = Array.fill(maxClients - 1, { | clientNum |
 				(clientNum + 1) * outputChannelsPerClient;
 			});
-			Out.ar(out, in * \mul.kr(1));
+			var volumeOpt = VolumeOption(\mul.kr(1));
+			Out.ar(out, volumeOpt.transform(in));
 		}).send(server);
 	}
 
