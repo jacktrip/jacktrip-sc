@@ -33,7 +33,7 @@ SimpleMix : BaseMix {
 
 			signal = SoundInputLink(maxClients, inputChannelsPerClient).getSignal();
 			signal = MultiplyLink(inputLevels).transform(signal);
-			signal = Mix.new(signal);
+			signal = AggregateLink().transform(signal);
 			signal = MultiplyLink(masterVolume * \mul.kr(1)).transform(signal);
 
 			// send only to jamulus on channel 0

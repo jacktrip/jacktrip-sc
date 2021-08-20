@@ -4,6 +4,6 @@ AggregateLink : Link {
 	}
 
     transform { |input|
-        ^Mix.new(input);
+        ^Mix(input);
     }
 }

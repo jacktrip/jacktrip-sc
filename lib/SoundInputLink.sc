@@ -9,8 +9,9 @@ SoundInputLink : Class {
 
     getSignal {
         ^Array.fill(numClients, { arg clientNum;
+            var offset = clientNum * inputChannelsPerClient;
             Array.fill(inputChannelsPerClient, { arg ch;
-                SoundIn.ar(ch);
+                SoundIn.ar(offset + ch);
             });
         });
     }
