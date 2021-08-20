@@ -1,4 +1,4 @@
-Option : Class {
+Link : Class {
     *new {
 		^super.new();
 	}

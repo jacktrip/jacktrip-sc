@@ -25,16 +25,19 @@ SimpleMix : BaseMix {
 		*/
 		"Sending SynthDef: jamulus_simple_out".postln;
 		SynthDef("jamulus_simple_out", {
-			// exclude jamulus input from the mix sent back to jamulus
-			var in = Mix.fill(maxClients - 1, { arg n;
-				var offset = (n + 1) * inputChannelsPerClient;
-				Array.fill(inputChannelsPerClient, { arg ch;
-					SoundIn.ar(offset+ch) * \mix.kr(defaultMix)[n];
-				});
-			});
+
+			var signal, inputLevels;
+
+			inputLevels = \mix.kr(defaultMix);
+			inputLevels[0] = 0;
+
+			signal = SoundInputLink(maxClients, inputChannelsPerClient).getSignal();
+			signal = MultiplyLink(inputLevels).transform(signal);
+			signal = Mix.new(signal);
+			signal = MultiplyLink(masterVolume * \mul.kr(1)).transform(signal);
+
 			// send only to jamulus on channel 0
-			var volumeOpt = VolumeOption(masterVolume * \mul.kr(1));
-			Out.ar(0, volumeOpt.transform(in));
+			Out.ar(0, signal);
 		}).send(server);
 
 		/*
@@ -45,19 +48,20 @@ SimpleMix : BaseMix {
 		*/
 		"Sending SynthDef: jacktrip_simple_out".postln;
 		SynthDef("jacktrip_simple_out", {
-			// mix together all input channels
-			var in = Mix.fill(maxClients, { arg n;
-				var offset = n * inputChannelsPerClient;
-				Array.fill(inputChannelsPerClient, { arg ch;
-					SoundIn.ar(offset+ch) * \mix.kr(defaultMix)[n];
-				});
-			});
-			// exclude sending to jamulus on channel 0 (handled by jamulus_simple_out)
-			var out = Array.fill(maxClients - 1, { arg n;
+
+			var signal, inputLevels, out;
+			inputLevels = \mix.kr(defaultMix);
+
+			signal = SoundInputLink(maxClients, inputChannelsPerClient).getSignal();
+			signal = MultiplyLink(inputLevels).transform(signal);
+			signal = AggregateLink().transform(signal);
+			signal = MultiplyLink(masterVolume * \mul.kr(1)).transform(signal);
+
+			out = Array.fill(maxClients - 1, { arg n;
 				(n + 1) * outputChannelsPerClient;
 			});
-			var volumeOpt = VolumeOption(masterVolume * \mul.kr(1));
-			Out.ar(out, volumeOpt.transform(in));
+
+			Out.ar(out, signal);
 		}).send(server);
 	}
 
