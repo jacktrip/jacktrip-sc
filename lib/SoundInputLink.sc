@@ -3,8 +3,8 @@ SoundInputLink : Class {
     var<> numClients;
     var<> inputChannelsPerClient;
 
-    *new { |numClients, inputChannelsPerClient|
-		^super.new().numClients_(numClients).inputChannelsPerClient_(inputChannelsPerClient);
+    *new { |clients, inputChannelsPerClient|
+		^super.new().clients_(clients).inputChannelsPerClient_(inputChannelsPerClient);
 	}
 
     getSignal {
