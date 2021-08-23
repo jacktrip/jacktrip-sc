@@ -1,6 +1,6 @@
 {
     "label":"Stereo Mix",
-    "class":"SimpleMix",
+    "class":"StereoMix",
     "options":[
        {
           "src":"masterVolume",
