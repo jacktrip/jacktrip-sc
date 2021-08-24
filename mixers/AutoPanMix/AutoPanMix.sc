@@ -206,14 +206,17 @@ AutoPanMix : BaseMix {
 		*/
 		"Sending SynthDef: jamulus_simple_out".postln;
 		SynthDef("jamulus_simple_out", {
-			// always exclude jamulus input from the mix sent back to jamulus
-			var in = Mix.fill(maxClients - 1, { arg n;
-				var b = inputBuses[n + 1];
-				In.ar(b, inputChannelsPerClient);
-			});
-			// send only to jamulus on channel 0
-			var volumeOpt = MultiplyLink(\mul.kr(1));
-			Out.ar(0, volumeOpt.transform(in));
+			var in, signal, volumeOpt, mix;
+
+			mix = 1 ! maxClients;
+			mix[0] = 0;
+
+			signal = InputLink(maxClients, outputChannelsPerClient, false, firstPrivateBus).getSignal();
+			signal = MultiplyLink(signal, mix).transform(signal);
+			signal = AggregateLink().transform(signal);
+			signal = MultiplyLink(\mul.kr(1)).transform(signal);
+			Out.ar(0, signal);
+
 		}).send(server);
 
 		/*
@@ -224,14 +227,18 @@ AutoPanMix : BaseMix {
 		"Sending SynthDef: jacktrip_simple_out".postln;
 		SynthDef("jacktrip_simple_out", {
 			// exclude sending to jamulus on channel 0 (handled by jamulus_simple_out)
-			var in = Mix.fill(maxClients, { arg n;
-				In.ar(inputBuses[n], inputChannelsPerClient);
-			});
-			var out = Array.fill(maxClients - 1, { | clientNum |
+			var signal, out;
+
+			signal = InputLink(maxClients, outputChannelsPerClient, false, firstPrivateBus).getSignal();
+			signal = AggregateLink().transform(signal);
+			signal = MultiplyLink(\mul.kr(1)).transform(signal);
+
+			out = Array.fill(maxClients - 1, { | clientNum |
 				(clientNum + 1) * outputChannelsPerClient;
 			});
-			var volumeOpt = MultiplyLink(\mul.kr(1));
-			Out.ar(out, volumeOpt.transform(in));
+
+			Out.ar(out, signal);
+
 		}).send(server);
 	}
 
