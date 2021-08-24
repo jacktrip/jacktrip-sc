@@ -112,7 +112,7 @@ AutoPanMix : BaseMix {
 		SynthDef("jacktrip_simple_in", {
 			var signal, out;
 
-			signal = SoundInputLink(maxClients, inputChannelsPerClient).getSignal();
+			signal = InputLink(maxClients, inputChannelsPerClient).getSignal();
 			signal = BandPassFilterLink(\low.kr(20), \high.kr(20000)).transform(signal);
 			signal = MultiplyLink(masterVolume * \mul.kr(1)).transform(signal);
 
@@ -158,7 +158,7 @@ AutoPanMix : BaseMix {
 				panValues[i % pSlots];
 			});
 
-			signal = SoundInputLink(maxClients, inputChannelsPerClient).getSignal();
+			signal = InputLink(maxClients, inputChannelsPerClient).getSignal();
 			signal = BandPassFilterLink(\low.kr(20), \high.kr(20000)).transform(signal);
 			signal = SquashToMonoLink(true, false).transform(signal);
 			signal = PanningLink(p).transform(signal);
