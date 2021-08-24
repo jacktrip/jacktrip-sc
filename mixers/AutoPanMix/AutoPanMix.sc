@@ -104,31 +104,21 @@ AutoPanMix : BaseMix {
 		* jacktrip_simple_in is used to apply leveling and filters to a specific client input, 
 		* and send it to an audio bus
 		*
-		* \client : client number to use for bus & input channel offsets
-		* \lpf : frequency to use for low pass filter (default 20000)
-		* \hpf : frequency to use for high pass filter (default 20)
-		* \out : output bus to use for sending audio (default 0)
+		* \high : high frequency to use for bandpass filter (default 20000)
+		* \low : low frequency to use for bandpass filter (default 20)
 		* \mul : amplitude level multiplier (default 1.0)
 		*/
 		"Sending SynthDef: jacktrip_simple_in".postln;
 		SynthDef("jacktrip_simple_in", {
-			var client = \client.ir(0);
+			var signal, out;
 
-			// create an array containing all audio input channels for a specific client
-			var mix = Array.fill(inputChannelsPerClient, { arg channelNum;
-				// start with the raw audio input
-				var in = SoundIn.ar((client*inputChannelsPerClient)+channelNum);
+			signal = SoundInputLink(maxClients, inputChannelsPerClient).getSignal();
+			signal = BandPassFilterLink(\low.kr(20), \high.kr(20000)).transform(signal);
+			signal = MultiplyLink(masterVolume * \mul.kr(1)).transform(signal);
 
-				// add a low pass filter
-				in = LPF.ar(in, \lpf.kr(20000));
-
-				// add a high pass filter
-				HPF.ar(in, \hpf.kr(20));
+			signal.do({ arg item, i;
+				Out.ar(inputBuses[i].index, item);
 			});
-
-			// send sound to output bus
-			var volumeOpt = MultiplyLink(masterVolume * \mul.kr(1));
-			Out.ar(\out.ir(0), volumeOpt.transform(mix));
 		}).send(server);
 
 		/*
@@ -166,6 +156,20 @@ AutoPanMix : BaseMix {
 			Out.ar(\out.ir(0), volumeOpt.transform(panned));
 		}).send(server);
 
+		"Sending SynthDef: jacktrip_panned_in_2".postln;
+		SynthDef("jacktrip_panned_in_2", {
+			var signal, out;
+
+			signal = SoundInputLink(maxClients, inputChannelsPerClient).getSignal();
+			signal = BandPassFilterLink(\low.kr(20), \high.kr(20000)).transform(signal);
+			signal = SquashToMonoLink(true, true).transform(signal);
+			signal = PanningLink(\panValues.kr(0!maxClients)).transform(signal);
+			signal = MultiplyLink(masterVolume * \mul.kr(1)).transform(signal);
+
+			signal.do({ arg item, i;
+				Out.ar(inputBuses[i].index, item);
+			});
+		}).send(server);
 		/*
 		* jacktrip_personalmix_out is used to create a personal mix by combining output from the input buses
 		*
@@ -264,6 +268,8 @@ AutoPanMix : BaseMix {
 			server.sync;
 
 			if (autopan, {
+				var node;
+
 				// automatically pan clients across stereo field
 				if (pSlots > maxClients, { pSlots = maxClients; });
 				if (pSlots < 2, {
@@ -277,7 +283,6 @@ AutoPanMix : BaseMix {
 						LinLin.kr((i % pSlots) + 1, 0, pSlots + 1, -1, 1);
 					});
 				});
-				("automatically panning clients across" + pSlots + "slots").postln;
 
 				// start client input synths
 				// the do command basically acts as a for loop, from 0 to maxClients - 1
@@ -289,18 +294,17 @@ AutoPanMix : BaseMix {
 					var node = Synth("jacktrip_panned_in", [\client, clientNum, \out, b, \hpf, hpf, \lpf, lpf, \pan, p], g, \addToTail);
 					("Created synth" + "jacktrip_panned_in" + node.nodeID + "on bus" + b.index + "pan" + p).postln;
 				};
+				
+				// ("automatically panning clients across" + pSlots + "slots").postln;
+				// panValues.postln;
+				// node = Synth("jacktrip_panned_in_2", [\low, hpf, \high, lpf, \panValues, panValues], g, \addToTail);
+				// ("Created synth" + "jacktrip_panned_in_2").postln;
+
 			}, {
 				// do not pan clients; mix down mono channels instead
-
-				// start client input synths
-				// the do command basically acts as a for loop, from 0 to maxClients - 1
-				// the add to tail means that within the execution group specified by g on the server,
-				// the new Synth will be added to the end of the list of executing nodes.
-				maxClients.do { | clientNum |
-					var b = inputBuses[clientNum];
-					var node = Synth("jacktrip_simple_in", [\client, clientNum, \out, b, \hpf, hpf, \lpf, lpf], g, \addToTail);
-					("Created synth" + "jacktrip_simple_in" + node.nodeID + "on bus" + b.index).postln;
-				};
+				var node;
+				node = Synth("jacktrip_simple_in", [\low, hpf, \high, lpf], g, \addToTail);
+				("Created synth" + "jacktrip_simple_in").postln;
 			});
 
 			g = 200;
