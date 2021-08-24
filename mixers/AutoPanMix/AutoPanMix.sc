@@ -132,38 +132,36 @@ AutoPanMix : BaseMix {
 		* \out : output bus to use for sending audio (default 0)
 		* \mul : amplitude level multiplier (default 1.0)
 		*/
+
 		"Sending SynthDef: jacktrip_panned_in".postln;
 		SynthDef("jacktrip_panned_in", {
-			var client = \client.ir(0);
+			var signal, out;
 
-			// squash stereo input channels into mono
-			// the Mix class sums audio signals together
-			// the argument channelNum is passed the numbers 0 to inputChannelsPerClient - 1
-			// then the function is executed for each argument, and the result is summed to one channel
-			// the SoundIn channel internally handles the offset such that 0 represents the lowest
-			// audio input
-			var mono = Mix.fill(inputChannelsPerClient, { arg channelNum;
-				var in = SoundIn.ar((client*inputChannelsPerClient)+channelNum);
-				in = LPF.ar(in, \lpf.kr(20000));
-				HPF.ar(in, \hpf.kr(20));
+			var pSlots = panSlots;
+			var panValues;
+			var p;
+
+			// automatically pan clients across stereo field
+			if (pSlots > maxClients, { pSlots = maxClients; });
+			if (pSlots < 2, {
+				panValues = [0];
+				pSlots = 1;
+			}, {
+				// LinLin maps a range of input values linearly to a range of
+				// output values
+				panValues = Array.fill(pSlots, { arg i;
+					LinLin.kr((i % pSlots) + 1, 0, pSlots + 1, -1, 1);
+				});
 			});
 
-			// Pan2 pans mono across stereo field
-			var panned = Pan2.ar(mono, \pan.kr(0));
-
-			// send sound to output bus
-			var volumeOpt = MultiplyLink(masterVolume * \mul.kr(1));
-			Out.ar(\out.ir(0), volumeOpt.transform(panned));
-		}).send(server);
-
-		"Sending SynthDef: jacktrip_panned_in_2".postln;
-		SynthDef("jacktrip_panned_in_2", {
-			var signal, out;
+			p = Array.fill(maxClients, { arg i;
+				panValues[i % pSlots];
+			});
 
 			signal = SoundInputLink(maxClients, inputChannelsPerClient).getSignal();
 			signal = BandPassFilterLink(\low.kr(20), \high.kr(20000)).transform(signal);
-			signal = SquashToMonoLink(true, true).transform(signal);
-			signal = PanningLink(\panValues.kr(0!maxClients)).transform(signal);
+			signal = SquashToMonoLink(true, false).transform(signal);
+			signal = PanningLink(p).transform(signal);
 			signal = MultiplyLink(masterVolume * \mul.kr(1)).transform(signal);
 
 			signal.do({ arg item, i;
@@ -244,8 +242,6 @@ AutoPanMix : BaseMix {
 		// a group represents a set of Synths running on the server
 		// two groups are used, one for input Synths (100) and one for output Synths (200)
 		var g = 100;
-		var pSlots = panSlots;
-		var panValues;
 
 		Routine {
 			// wait for server to be ready
@@ -269,36 +265,10 @@ AutoPanMix : BaseMix {
 
 			if (autopan, {
 				var node;
-
-				// automatically pan clients across stereo field
-				if (pSlots > maxClients, { pSlots = maxClients; });
-				if (pSlots < 2, {
-					panValues = [0];
-					pSlots = 1;
-				}, {
-
-					// LinLin maps a range of input values linearly to a range of
-					// output values
-					panValues = Array.fill(pSlots, { arg i;
-						LinLin.kr((i % pSlots) + 1, 0, pSlots + 1, -1, 1);
-					});
-				});
-
-				// start client input synths
-				// the do command basically acts as a for loop, from 0 to maxClients - 1
-				// the add to tail means that within the execution group specified by g on the server,
-				// the new Synth will be added to the end of the list of executing nodes.
-				maxClients.do { | clientNum |
-					var b = inputBuses[clientNum];
-					var p = panValues[clientNum % pSlots];
-					var node = Synth("jacktrip_panned_in", [\client, clientNum, \out, b, \hpf, hpf, \lpf, lpf, \pan, p], g, \addToTail);
-					("Created synth" + "jacktrip_panned_in" + node.nodeID + "on bus" + b.index + "pan" + p).postln;
-				};
 				
-				// ("automatically panning clients across" + pSlots + "slots").postln;
-				// panValues.postln;
-				// node = Synth("jacktrip_panned_in_2", [\low, hpf, \high, lpf, \panValues, panValues], g, \addToTail);
-				// ("Created synth" + "jacktrip_panned_in_2").postln;
+				("automatically panning clients across").postln;
+				node = Synth("jacktrip_panned_in", [\low, hpf, \high, lpf], g, \addToTail);
+				("Created synth" + "jacktrip_panned_in").postln;
 
 			}, {
 				// do not pan clients; mix down mono channels instead
