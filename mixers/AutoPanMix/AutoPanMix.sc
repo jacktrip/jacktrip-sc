@@ -177,26 +177,23 @@ AutoPanMix : BaseMix {
 		* \mix : array of levels used for output mix (default [1 ! maxClients])
 		* \mul : amplitude level multiplier (default 1.0)
 		*/
-		"Sending SynthDef: jacktrip_personalmix_out".postln;
 		SynthDef("jacktrip_personalmix_out", {
+			maxClients.do({ arg clientNum;
+				var signal, mix;
 
-			// the Mix class sums audio signals together
-			// for n = 0 to maxClients - 1, the input is read from the inputBuses
-			// (the inputBuses read from the internal PRIVATE channels) and are then
-			// combined into each client's personal mix
-			var in = Mix.fill(maxClients, { arg n;
-				var b = inputBuses[n];
+				mix = 1 ! maxClients;
+				if (clientNum == 0, {
+					mix[clientNum] = 0;
+				}, {
+					mix[clientNum] = selfVolume;
+				});
 
-				// \mix by default is [1 ! maxClients] but each client can set their
-				// own self volume. Note each running instance of this SynthDef has
-				// a different value of \mix, since each client has a separate instance
-				// of a Synth running this SynthDef. (See AutoPanMix.start method)
-				In.ar(b, inputChannelsPerClient) * \mix.kr(defaultMix)[n];
+				signal = InputLink(maxClients, outputChannelsPerClient, false, firstPrivateBus).getSignal();
+				signal = MultiplyLink(mix).transform(signal);
+				signal = AggregateLink().transform(signal);
+				signal = MultiplyLink(masterVolume * \mul.kr(1)).transform(signal);
+				Out.ar(outputChannelsPerClient * clientNum, signal);
 			});
-
-			// Send audio signal to the client. \mul is determined by the master volume
-			var volumeOpt = MultiplyLink(\mul.kr(1));
-			Out.ar(outputChannelsPerClient * \client.ir(0), volumeOpt.transform(in));
 		}).send(server);
 
 		/*
@@ -212,7 +209,7 @@ AutoPanMix : BaseMix {
 			mix[0] = 0;
 
 			signal = InputLink(maxClients, outputChannelsPerClient, false, firstPrivateBus).getSignal();
-			signal = MultiplyLink(signal, mix).transform(signal);
+			signal = MultiplyLink(mix).transform(signal);
 			signal = AggregateLink().transform(signal);
 			signal = MultiplyLink(\mul.kr(1)).transform(signal);
 			Out.ar(0, signal);
@@ -275,13 +272,13 @@ AutoPanMix : BaseMix {
 				
 				("automatically panning clients across").postln;
 				node = Synth("jacktrip_panned_in", [\low, hpf, \high, lpf], g, \addToTail);
-				("Created synth" + "jacktrip_panned_in").postln;
+				("Created synth" + "jacktrip_panned_in" + node.nodeID).postln;
 
 			}, {
 				// do not pan clients; mix down mono channels instead
 				var node;
 				node = Synth("jacktrip_simple_in", [\low, hpf, \high, lpf], g, \addToTail);
-				("Created synth" + "jacktrip_simple_in").postln;
+				("Created synth" + "jacktrip_simple_in" + node.nodeID).postln;
 			});
 
 			g = 200;
@@ -299,25 +296,12 @@ AutoPanMix : BaseMix {
 				node = Synth("jacktrip_simple_out", [], g, \addToTail);
 				("Created synth" + "jacktrip_simple_out " + node.nodeID).postln;
 			}, {
-				// create a unique output synth for each client to handle personal mixes
-				// the do command basically acts as a for loop, from 0 to maxClients - 1
-				maxClients.do { | clientNum |
-					var mix = 1 ! maxClients;
-					var node;
 
-					if (clientNum == 0, {
-						// create a unique mix for jamulus that excludes itself
-						mix[0] = 0;
-					}, {
-						mix[clientNum] = selfVolume;
-					});
+				var node;
 
-					// Since this is executed from within the do-statement, a separate Synth instance
-					// of type jacktrip_personalmix_out is created for each client. Thus the clientNum
-					// and mix is different for each client.
-					node = Synth("jacktrip_personalmix_out", [\client, clientNum, \mix: mix], g, \addToTail);
-					("Created synth jacktrip_personalmix_out" + node.nodeID).postln;
-				};
+				// create personal mix for all jacktrip clients that includes jamulus
+				node = Synth("jacktrip_personalmix_out", [], g, \addToTail);
+				("Created synth" + "jacktrip_personalmix_out" + node.nodeID).postln;
 			});
 
 			// signal that the mix has started
