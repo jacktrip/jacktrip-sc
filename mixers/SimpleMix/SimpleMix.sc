@@ -31,7 +31,7 @@ SimpleMix : BaseMix {
 			inputLevels = \mix.kr(defaultMix);
 			inputLevels[0] = 0;
 
-			signal = InputLink(maxClients, inputChannelsPerClient).getSignal();
+			signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
 			signal = MultiplyLink(inputLevels).transform(signal);
 			signal = AggregateLink().transform(signal);
 			signal = MultiplyLink(masterVolume * \mul.kr(1)).transform(signal);
@@ -52,7 +52,7 @@ SimpleMix : BaseMix {
 			var signal, inputLevels, out;
 			inputLevels = \mix.kr(defaultMix);
 
-			signal = InputLink(maxClients, inputChannelsPerClient).getSignal();
+			signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
 			signal = MultiplyLink(inputLevels).transform(signal);
 			signal = AggregateLink().transform(signal);
 			signal = MultiplyLink(masterVolume * \mul.kr(1)).transform(signal);

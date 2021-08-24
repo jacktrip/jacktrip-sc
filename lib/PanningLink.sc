@@ -1,3 +1,10 @@
+/* 
+ * PanningLink: pans a signal across a stereo field.
+ *
+ * If the input signal and the pan value are arrays of the same dimension, then
+ * multichannel expansion will be invoked and each channel will be panned according
+ * the corresponding value in the pan array.
+ */
 PanningLink : Link {
     var<> pan;
 

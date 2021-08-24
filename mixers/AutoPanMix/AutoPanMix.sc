@@ -109,7 +109,7 @@ AutoPanMix : BaseMix {
 		SynthDef("jacktrip_simple_in", {
 			var signal, out;
 
-			signal = InputLink(maxClients, inputChannelsPerClient).getSignal();
+			signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
 			signal = BandPassFilterLink(\low.kr(20), \high.kr(20000)).transform(signal);
 			signal = MultiplyLink(masterVolume * \mul.kr(1)).transform(signal);
 
@@ -152,7 +152,7 @@ AutoPanMix : BaseMix {
 				panValues[i % pSlots];
 			});
 
-			signal = InputLink(maxClients, inputChannelsPerClient).getSignal();
+			signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
 			signal = BandPassFilterLink(\low.kr(20), \high.kr(20000)).transform(signal);
 			signal = SquashToMonoLink(true, false).transform(signal);
 			signal = PanningLink(p).transform(signal);
@@ -179,7 +179,7 @@ AutoPanMix : BaseMix {
 					mix[clientNum] = selfVolume;
 				});
 
-				signal = InputLink(maxClients, outputChannelsPerClient, false, firstPrivateBus).getSignal();
+				signal = JackTripInput(maxClients, outputChannelsPerClient, false, firstPrivateBus).getSignal();
 				signal = MultiplyLink(mix).transform(signal);
 				signal = AggregateLink().transform(signal);
 				signal = MultiplyLink(masterVolume * \mul.kr(1)).transform(signal);
@@ -199,7 +199,7 @@ AutoPanMix : BaseMix {
 			mix = defaultMix;
 			mix[0] = 0;
 
-			signal = InputLink(maxClients, outputChannelsPerClient, false, firstPrivateBus).getSignal();
+			signal = JackTripInput(maxClients, outputChannelsPerClient, false, firstPrivateBus).getSignal();
 			signal = MultiplyLink(mix).transform(signal);
 			signal = AggregateLink().transform(signal);
 			signal = MultiplyLink(\mul.kr(1)).transform(signal);
@@ -217,7 +217,7 @@ AutoPanMix : BaseMix {
 			// exclude sending to jamulus on channel 0 (handled by jamulus_simple_out)
 			var signal, out;
 
-			signal = InputLink(maxClients, outputChannelsPerClient, false, firstPrivateBus).getSignal();
+			signal = JackTripInput(maxClients, outputChannelsPerClient, false, firstPrivateBus).getSignal();
 			signal = AggregateLink().transform(signal);
 			signal = MultiplyLink(\mul.kr(1)).transform(signal);
 

@@ -1,3 +1,7 @@
+/* 
+ * BandPassFilterLink: applies a low-pass
+ * and high-pass filter to a signal.
+ */
 BandPassFilterLink : Link {
     var<> low;
     var<> high;
