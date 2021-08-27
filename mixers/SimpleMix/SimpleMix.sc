@@ -18,50 +18,48 @@ SimpleMix : BaseMix {
 		var defaultMix = 1 ! maxClients;
 
 		/*
-		* jamulus_simple_out is used to create a unique mix for output to jamulus bridge
+		* jacktrip_simple_mix is used to create a simple master max.
+		* audio input from jacktrip clients is sent to all output channels.
+		* audio input from jamulus is sent only to jacktrip output channels.
 		*
 		* \mix : array of levels used for output mix (default [1 ! maxClients])
 		* \mul : amplitude level multiplier (default 1.0)
 		*/
-		"Sending SynthDef: jamulus_simple_out".postln;
-		SynthDef("jamulus_simple_out", {
+		"Sending SynthDef: jacktrip_simple_mix".postln;
+		SynthDef("jacktrip_simple_mix", {
 
-			var signal, inputLevels;
+			var jackTripSignal, jackTripOut;
+			var inputLevels = \mix.kr(defaultMix) * \mul.kr(masterVolume);
+			
+			if (withJamulus, {
+				var jamulusSignal, jamulusOut;
+				
+				jamulusSignal = JackTripInput(1, inputChannelsPerClient, true, 0).getSignal();
+				jamulusSignal = MultiplyLink(inputLevels).transform(jamulusSignal);
+				"jamulus is enabled".postln;
 
-			inputLevels = \mix.kr(defaultMix);
-			inputLevels[0] = 0;
+				// send Jamulus signal to JackTrip outputs
+				jamulusOut = Array.fill(maxClients - 1, { arg n;
+					(n + 1) * outputChannelsPerClient;
+				});
+				Out.ar(jamulusOut, jamulusSignal);
 
-			signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
-			signal = MultiplyLink(inputLevels).transform(signal);
-			signal = AggregateLink().transform(signal);
-			signal = MultiplyLink(masterVolume * \mul.kr(1)).transform(signal);
-
-			// send only to jamulus on channel 0
-			Out.ar(0, signal);
-		}).send(server);
-
-		/*
-		* jamulus_simple_out is used to create a single master mix for jacktrip client output
-		*
-		* \mix : array of levels used for output mix (default [1 ! maxClients])
-		* \mul : amplitude level multiplier (default 1.0)
-		*/
-		"Sending SynthDef: jacktrip_simple_out".postln;
-		SynthDef("jacktrip_simple_out", {
-
-			var signal, inputLevels, out;
-			inputLevels = \mix.kr(defaultMix);
-
-			signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
-			signal = MultiplyLink(inputLevels).transform(signal);
-			signal = AggregateLink().transform(signal);
-			signal = MultiplyLink(masterVolume * \mul.kr(1)).transform(signal);
-
-			out = Array.fill(maxClients - 1, { arg n;
-				(n + 1) * outputChannelsPerClient;
+				jackTripSignal = JackTripInput(maxClients - 1, inputChannelsPerClient, true, inputChannelsPerClient).getSignal();
+			}, {
+				"jamulus is disabled".postln;
+				jackTripSignal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
 			});
 
-			Out.ar(out, signal);
+			// adjust levels and aggregate JackTrip signal
+			jackTripSignal = MultiplyLink(inputLevels).transform(jackTripSignal);
+			jackTripSignal = AggregateLink().transform(jackTripSignal);
+
+			// send JackTrip signals to all outputs (including Jamulus)
+			jackTripOut = Array.fill(maxClients, { arg n;
+				n * outputChannelsPerClient;
+			});
+			Out.ar(jackTripOut, jackTripSignal);
+
 		}).send(server);
 	}
 
@@ -86,13 +84,9 @@ SimpleMix : BaseMix {
 			// wait for server to receive synthdefs
 			server.sync;
 
-			// create unique output for jamulus that excludes itself
-			node = Synth("jamulus_simple_out", [], g, \addToTail);
-			("Created synth jamulus_simple_out" + node.nodeID).postln;
-
 			// create output for all jacktrip clients that includes jamulus
-			node = Synth("jacktrip_simple_out", [], g, \addToTail);
-			("Created synth jacktrip_simple_out" + node.nodeID).postln;
+			node = Synth("jacktrip_simple_mix", [], g, \addToTail);
+			("Created synth jacktrip_simple_mix" + node.nodeID).postln;
 
 			// signal that the mix has started
 			this.mixStarted.test = true;
