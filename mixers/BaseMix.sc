@@ -11,12 +11,13 @@ BaseMix : Object {
 	var <>serverPort = 57110;		// port number of remote audio server (default SC port)
 	var <>serverReady, <>server;    // state of the server and the server object
 	var <>mixStarted;				// Condition object used to pause execution until the server is ready
+	var <>defaultMix;				// default master mix is just an array of ones (do nothing)
 	classvar inputChannelsPerClient = 2;	// for stereo audio inputs
 	classvar outputChannelsPerClient = 2;	// for stereo audio outputs
 
 	// create a new instance
 	*new { | maxClients = 16 |
-		^super.newCopyArgs(maxClients).serverReady_(Condition.new).mixStarted_(Condition.new);
+		^super.newCopyArgs(maxClients).serverReady_(Condition.new).mixStarted_(Condition.new).defaultMix_(1 ! maxClients);
 	}
 
 	// connect to a remote server

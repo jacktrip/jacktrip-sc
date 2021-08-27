@@ -71,19 +71,25 @@ AutoPanMix : BaseMix {
 	// the '<' is shorthand for a getter method and '>' is shorthand for a setter method
 	var <>autopan, <>panSlots, <>selfVolume, <>hpf, <>lpf;
 
+	// supercollider doesn't seem to support arrays of arrays as synthdef parameters
+	// (likely a limitation of OSC) so instead we just have a single array with the
+	// personal mixes for every client
+	var <>defaultPersonalMixes;
+
 	// inputBuses is an array (one per client) of stereo audio busses, after applying any processing
 	var inputBuses;
 
 	// create a new instance
 	*new { | maxClients = 16, autopan = true, panSlots = 3, selfVolume = 1.0, hpf = 20, lpf = 20000 |
-		^super.new(maxClients).autopan_(autopan).panSlots_(panSlots).hpf_(hpf).lpf_(lpf);
+		^super.new(maxClients).autopan_(autopan).panSlots_(panSlots).selfVolume_(selfVolume).hpf_(hpf).lpf_(lpf).defaultPersonalMixes_(1 ! (maxClients * maxClients));
 	}
 
 	// sendSynthDefs method sends definitions to the server for use in audio mixing
 	// Note that SynthDef.send() compiles the SynthDef and sends it to the server
 	sendSynthDefs {
-		// default master mix does nothing
-		var defaultMix = 1 ! maxClients;
+
+		// when autopanning is enabled, default pan all clients to center
+		var defaultPan = 0 ! maxClients;
 
 		// allocate a stereo audio bus the handle input from each client
 		// the first maxClients * outputChannelsPerClient channels are reserved for audio outputs
@@ -107,11 +113,11 @@ AutoPanMix : BaseMix {
 		 */
 		"Sending SynthDef: jacktrip_simple_in".postln;
 		SynthDef("jacktrip_simple_in", {
-			var signal, out;
+			var signal;
 
 			signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
 			signal = BandPassFilterLink(\low.kr(20), \high.kr(20000)).transform(signal);
-			signal = MultiplyLink(masterVolume * \mul.kr(1)).transform(signal);
+			signal = MultiplyLink(\mul.kr(1)).transform(signal);
 
 			signal.do({ arg item, i;
 				Out.ar(inputBuses[i].index, item);
@@ -129,34 +135,13 @@ AutoPanMix : BaseMix {
 
 		"Sending SynthDef: jacktrip_panned_in".postln;
 		SynthDef("jacktrip_panned_in", {
-			var signal, out;
-
-			var pSlots = panSlots;
-			var panValues;
-			var p;
-
-			// automatically pan clients across stereo field
-			if (pSlots > maxClients, { pSlots = maxClients; });
-			if (pSlots < 2, {
-				panValues = [0];
-				pSlots = 1;
-			}, {
-				// LinLin maps a range of input values linearly to a range of
-				// output values
-				panValues = Array.fill(pSlots, { arg i;
-					LinLin.kr((i % pSlots) + 1, 0, pSlots + 1, -1, 1);
-				});
-			});
-
-			p = Array.fill(maxClients, { arg i;
-				panValues[i % pSlots];
-			});
+			var signal;
 
 			signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
 			signal = BandPassFilterLink(\low.kr(20), \high.kr(20000)).transform(signal);
 			signal = SquashToMonoLink(true, false).transform(signal);
-			signal = PanningLink(p).transform(signal);
-			signal = MultiplyLink(masterVolume * \mul.kr(1)).transform(signal);
+			signal = PanningLink(\pan.kr(defaultPan)).transform(signal);
+			signal = MultiplyLink(\mul.kr(1)).transform(signal);
 
 			signal.do({ arg item, i;
 				Out.ar(inputBuses[i].index, item);
@@ -169,22 +154,20 @@ AutoPanMix : BaseMix {
 		 * \mul : amplitude level multiplier (default 1.0)
 		 */
 		SynthDef("jacktrip_personalmix_out", {
+			var personalMixes = \mix.kr(defaultPersonalMixes);
+
 			maxClients.do({ arg clientNum;
-				var signal, mix;
-
-				mix = defaultMix;
-				if (clientNum == 0, {
-					mix[clientNum] = 0;
-				}, {
-					mix[clientNum] = selfVolume;
+				var signal = JackTripInput(maxClients, outputChannelsPerClient, false, firstPrivateBus).getSignal();
+				var m = Array.fill(maxClients, { arg n;
+					personalMixes[(clientNum * maxClients) + n];
 				});
-
-				signal = JackTripInput(maxClients, outputChannelsPerClient, false, firstPrivateBus).getSignal();
-				signal = MultiplyLink(mix).transform(signal);
-				signal = AggregateLink().transform(signal);
-				signal = MultiplyLink(masterVolume * \mul.kr(1)).transform(signal);
-				Out.ar(outputChannelsPerClient * clientNum, signal);
+			
+				var s = MultiplyLink(m * \mul.kr(masterVolume)).transform(signal);
+				s = AggregateLink().transform(s);
+			
+				Out.ar(outputChannelsPerClient * clientNum, s);
 			});
+
 		}).send(server);
 
 		/*
@@ -194,15 +177,14 @@ AutoPanMix : BaseMix {
 		 */
 		"Sending SynthDef: jamulus_simple_out".postln;
 		SynthDef("jamulus_simple_out", {
-			var in, signal, volumeOpt, mix;
+			var in, signal, volumeOpt;
+			var mix = \mix.kr(defaultMix) * \mul.kr(masterVolume);
 
-			mix = defaultMix;
 			mix[0] = 0;
 
 			signal = JackTripInput(maxClients, outputChannelsPerClient, false, firstPrivateBus).getSignal();
 			signal = MultiplyLink(mix).transform(signal);
 			signal = AggregateLink().transform(signal);
-			signal = MultiplyLink(\mul.kr(1)).transform(signal);
 			Out.ar(0, signal);
 
 		}).send(server);
@@ -216,10 +198,11 @@ AutoPanMix : BaseMix {
 		SynthDef("jacktrip_simple_out", {
 			// exclude sending to jamulus on channel 0 (handled by jamulus_simple_out)
 			var signal, out;
+			var mix = \mix.kr(defaultMix) * \mul.kr(masterVolume);
 
 			signal = JackTripInput(maxClients, outputChannelsPerClient, false, firstPrivateBus).getSignal();
+			signal = MultiplyLink(mix).transform(signal);
 			signal = AggregateLink().transform(signal);
-			signal = MultiplyLink(\mul.kr(1)).transform(signal);
 
 			out = Array.fill(maxClients - 1, { | clientNum |
 				(clientNum + 1) * outputChannelsPerClient;
@@ -259,12 +242,35 @@ AutoPanMix : BaseMix {
 			server.sync;
 
 			if (autopan, {
+
 				var node;
-				
+				var pSlots = panSlots;
+				var panValues;
+				var p;
+
+				// automatically pan clients across stereo field
+				if (pSlots > maxClients, { pSlots = maxClients; });
+				if (pSlots < 2, {
+					panValues = [0];
+					pSlots = 1;
+				}, {
+					// LinLin maps a range of input values linearly to a range of
+					// output values
+					panValues = Array.fill(pSlots, { arg i;
+						LinLin.kr((i % pSlots) + 1, 0, pSlots + 1, -1, 1);
+					});
+					panValues = [-1, 1];
+				});
+
+				("panning clients across" + pSlots + "slots:" + panValues).postln;
+
+				p = Array.fill(maxClients, { arg i;
+					panValues[i % pSlots];
+				});
+
 				// Squash the clients tracks to mono, then pan them before they reach
 				// the input buses.
-				("automatically panning clients across").postln;
-				node = Synth("jacktrip_panned_in", [\low, hpf, \high, lpf], g, \addToTail);
+				node = Synth("jacktrip_panned_in", [\pan, p, \low, hpf, \high, lpf], g, \addToTail);
 				("Created synth" + "jacktrip_panned_in" + node.nodeID).postln;
 
 			}, {
@@ -294,9 +300,18 @@ AutoPanMix : BaseMix {
 
 				var node;
 
+				// initialize personal mixes to use selfVolume
+				var personalMixes = defaultPersonalMixes;
+				maxClients.do{ arg clientNum;
+					personalMixes[(clientNum * maxClients) + clientNum] = selfVolume;
+				};
+
+				// default selfVolume for Jamulus mix to zero
+				personalMixes[0] = 0;
+
 				// create personal mix for all jacktrip clients that includes jamulus
 				// outputs to all clients including jamulus
-				node = Synth("jacktrip_personalmix_out", [], g, \addToTail);
+				node = Synth("jacktrip_personalmix_out", [\mix, personalMixes], g, \addToTail);
 				("Created synth" + "jacktrip_personalmix_out" + node.nodeID).postln;
 			});
 
@@ -316,10 +331,11 @@ AutoPanMix : BaseMix {
 	}
 
 	// display a graphical user interface for mixing controls
-	gui { | maxSlidersPerRow = 48, maxMultiplier = 5, startNode = 1000 |
+	gui { | maxSlidersPerRow = 48, maxMultiplier = 5 |
 		var in;
 		var out;
-		var mix = 1 ! maxClients;
+		var mix = 1 ! (maxClients * maxClients);
+		var pan = 0 ! maxClients;
 		var rows = 1;
 		var cols = maxClients + 1;
 		var window;
@@ -346,7 +362,6 @@ AutoPanMix : BaseMix {
 				out.set(\mul, 1);
 				master.value = 1.0 / maxMultiplier;
 				maxClients.do({ arg n;
-					var node = Node.basicNew(server, startNode + n);
 					sliders[n].value = 1.0 / maxMultiplier;
 				});
 			};
@@ -378,7 +393,12 @@ AutoPanMix : BaseMix {
 			sliders[n] = Slider.new(window, Rect(20+(x*50), 80+(300*y), 40, 200)).action_( { arg me;
 				var mul = me.value * maxMultiplier;
 				("ch"+n+"vol ="+mul).postln;
-				server.sendMsg("/n_set", startNode + n, \mul, mul);
+				// for now, just set same value for each pos
+				// this ensures it works regardless of whether personal mixes are being used, or not
+				maxClients.do{ arg i;
+					mix[(maxClients * i) + n] = mul;
+				};
+				out.set(\mix, mix)
 			});
 
 			StaticText(window, Rect(30+(x*50), 280+(300*y), 40, 20)).string_(n);
@@ -386,7 +406,8 @@ AutoPanMix : BaseMix {
 			panKnobs[n] = Knob.new(window, Rect(20+(x*50), 305+(300*y), 40, 40)).action_( { arg me;
 				var p = LinLin.kr(me.value, 0, 1, -1, 1);
 				("ch"+n+"pan ="+p).postln;
-				server.sendMsg("/n_set", startNode + n, \pan, p);
+				pan[n] = p;
+				in.set(\pan, pan)
 			});
 		});
 

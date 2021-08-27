@@ -14,8 +14,6 @@ SimpleMix : BaseMix {
 
 	// sendSynthDefs method sends definitions to the server for use in audio mixing
 	sendSynthDefs {
-		// default master mix does nothing
-		var defaultMix = 1 ! maxClients;
 
 		/*
 		* jacktrip_simple_mix is used to create a simple master max.
