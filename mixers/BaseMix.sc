@@ -19,10 +19,10 @@
  *
  * \maxClients: maximum number of clients that may connect to the audio server
  */
- 
+
 BaseMix : Object {
 	var <>maxClients;
-	var <>withJamulus = false;		// create mixes adapted Jamulus being connected on channels 1 & 2
+	var <>withJamulus = true;		// create mixes adapted Jamulus being connected on channels 1 & 2
 	var <>masterVolume = 1.0;		// master volume level multiplier
 	var <>serverIp = "127.0.0.1";	// IP address or hostname of remote audio server
 	var <>serverPort = 57110;		// port number of remote audio server (default SC port)
