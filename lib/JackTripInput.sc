@@ -1,3 +1,19 @@
+/* 
+ * Copyright 2021 JackTrip Labs, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 /*
  * JackTripInput: Reads inputs given the number of clients and the number
  * of input channels per client.
@@ -24,6 +40,7 @@
  * Since these array elements are all UGens, the calling function can take advantage of
  * Supercollider's Multichannel Expansion functionality to process many signals at once.
  */
+
 JackTripInput : Class {
 
     var<> numClients;

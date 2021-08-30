@@ -1,3 +1,19 @@
+/* 
+ * Copyright 2020-2021 JackTrip Labs, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 /*
  * AutoPanMix: automatically pans clients across a stereo sound field,
  *             and supports personal mixes up to 100 clients
@@ -59,7 +75,8 @@
  * \maxClients: maximum number of clients that may connect to the audio server
  * \panSlots: number of panning slots to use across a stereo sound field
  * \selfVolume: default volume level multiplier used for yourself in your personal mix, when enabled
- */ 
+ */
+
 AutoPanMix : BaseMix {
 	
 	// the following parameters are instance variables
@@ -71,146 +88,12 @@ AutoPanMix : BaseMix {
 	// the '<' is shorthand for a getter method and '>' is shorthand for a setter method
 	var <>autopan, <>panSlots, <>selfVolume, <>hpf, <>lpf;
 
-	// supercollider doesn't seem to support arrays of arrays as synthdef parameters
-	// (likely a limitation of OSC) so instead we just have a single array with the
-	// personal mixes for every client
-	var <>defaultPersonalMixes;
-
 	// inputBuses is an array (one per client) of stereo audio busses, after applying any processing
 	var inputBuses;
 
 	// create a new instance
 	*new { | maxClients = 16, autopan = true, panSlots = 3, selfVolume = 1.0, hpf = 20, lpf = 20000 |
-		^super.new(maxClients).autopan_(autopan).panSlots_(panSlots).selfVolume_(selfVolume).hpf_(hpf).lpf_(lpf).defaultPersonalMixes_(1 ! (maxClients * maxClients));
-	}
-
-	// sendSynthDefs method sends definitions to the server for use in audio mixing
-	// Note that SynthDef.send() compiles the SynthDef and sends it to the server
-	sendSynthDefs {
-
-		// when autopanning is enabled, default pan all clients to center
-		var defaultPan = 0 ! maxClients;
-
-		// allocate a stereo audio bus the handle input from each client
-		// the first maxClients * outputChannelsPerClient channels are reserved for audio outputs
-		// the subsequent maxClients * inputChannelsPerClient channels are reserved for audio inputs
-		// audio is read from the audio input channels and is sent back to each client through the
-		// audio output channels
-		// private buses are reserved for internally routing audio signals
-		var firstPrivateBus = (maxClients * (inputChannelsPerClient + outputChannelsPerClient));
-		inputBuses = Array.fill(maxClients, { |n|
-			var i = firstPrivateBus + (n * inputChannelsPerClient);
-			Bus.new('audio', i, inputChannelsPerClient, server);
-		});
-
-		/*
-		 * jacktrip_simple_in is used to apply leveling and filters to a specific client input, 
-		 * and send it to an audio bus
-		 *
-		 * \low : low frequency to use for bandpass filter (default 20)
-		 * \high : high frequency to use for bandpass filter (default 20000)
-		 * \mul : amplitude level multiplier (default 1.0)
-		 */
-		"Sending SynthDef: jacktrip_simple_in".postln;
-		SynthDef("jacktrip_simple_in", {
-			var signal;
-
-			signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
-			signal = BandPassFilterLink(\low.kr(20), \high.kr(20000)).transform(signal);
-			signal = MultiplyLink(\mul.kr(1)).transform(signal);
-
-			signal.do({ arg item, i;
-				Out.ar(inputBuses[i].index, item);
-			});
-		}).send(server);
-
-		/*
-		 * jacktrip_panned_in is used to apply leveling, filters and panning to a specific client input, 
-		 * and send it to an audio bus
-		 *
-		 * \low : frequency to use for lowpass filter (default 20)
-		 * \high : frequency to use for bandpass filter (default 20000)
-		 * \mul : amplitude level multiplier (default 1.0)
-		 */
-
-		"Sending SynthDef: jacktrip_panned_in".postln;
-		SynthDef("jacktrip_panned_in", {
-			var signal;
-
-			signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
-			signal = BandPassFilterLink(\low.kr(20), \high.kr(20000)).transform(signal);
-			signal = SquashToMonoLink(true, false).transform(signal);
-			signal = PanningLink(\pan.kr(defaultPan)).transform(signal);
-			signal = MultiplyLink(\mul.kr(1)).transform(signal);
-
-			signal.do({ arg item, i;
-				Out.ar(inputBuses[i].index, item);
-			});
-		}).send(server);
-
-		/*
-		 * jacktrip_personalmix_out is used to create a personal mix by combining output from the input buses
-		 *
-		 * \mul : amplitude level multiplier (default 1.0)
-		 */
-		SynthDef("jacktrip_personalmix_out", {
-			var personalMixes = \mix.kr(defaultPersonalMixes);
-
-			maxClients.do({ arg clientNum;
-				var signal = JackTripInput(maxClients, outputChannelsPerClient, false, firstPrivateBus).getSignal();
-				var m = Array.fill(maxClients, { arg n;
-					personalMixes[(clientNum * maxClients) + n];
-				});
-			
-				var s = MultiplyLink(m * \mul.kr(masterVolume)).transform(signal);
-				s = AggregateLink().transform(s);
-			
-				Out.ar(outputChannelsPerClient * clientNum, s);
-			});
-
-		}).send(server);
-
-		/*
-		 * jamulus_simple_out is used to create a unique mix for output to jamulus bridge
-		 *
-		 * \mul : amplitude level multiplier (default 1.0)
-		 */
-		"Sending SynthDef: jamulus_simple_out".postln;
-		SynthDef("jamulus_simple_out", {
-			var signal;
-			var mix = \mix.kr(defaultMix) * \mul.kr(masterVolume);
-
-			mix[0] = 0;
-
-			signal = JackTripInput(maxClients, outputChannelsPerClient, false, firstPrivateBus).getSignal();
-			signal = MultiplyLink(mix).transform(signal);
-			signal = AggregateLink().transform(signal);
-			Out.ar(0, signal);
-
-		}).send(server);
-
-		/*
-		 * jacktrip_simple_out is used to create a single master mix for jacktrip client output
-		 *
-		 * \mul : amplitude level multiplier (default 1.0)
-		 */
-		"Sending SynthDef: jacktrip_simple_out".postln;
-		SynthDef("jacktrip_simple_out", {
-			// exclude sending to jamulus on channel 0 (handled by jamulus_simple_out)
-			var signal, out;
-			var mix = \mix.kr(defaultMix) * \mul.kr(masterVolume);
-
-			signal = JackTripInput(maxClients, outputChannelsPerClient, false, firstPrivateBus).getSignal();
-			signal = MultiplyLink(mix).transform(signal);
-			signal = AggregateLink().transform(signal);
-
-			out = Array.fill(maxClients - 1, { | clientNum |
-				(clientNum + 1) * outputChannelsPerClient;
-			});
-
-			Out.ar(out, signal);
-
-		}).send(server);
+		^super.new(maxClients).autopan_(autopan).panSlots_(panSlots).selfVolume_(selfVolume).hpf_(hpf).lpf_(lpf);
 	}
 
 	// starts up all the audio on the server
@@ -229,7 +112,11 @@ AutoPanMix : BaseMix {
 			server.freeAll;
 
 			// send synthDefs
-			this.sendSynthDefs.value;
+			(this.class.filenameSymbol.asString.dirname +/+ "makeInputBusses.scd").load;
+			~makeInputBusses.value(server, maxClients, inputChannelsPerClient, outputChannelsPerClient);
+			this.sendSynthDefs(this.class.filenameSymbol.asString.dirname +/+ "synthDefs.scd");
+			
+			//this.sendSynthDefs(this.class.filenameSymbol.asString.dirname +/+ "../SimpleMix/synthDefs.scd");
 			
 			// use group 100 for client input synths and use group 200 for client output synths
 			// p_new is a server command (see Server Command Reference on SC documentation)
@@ -242,20 +129,15 @@ AutoPanMix : BaseMix {
 			server.sync;
 
 			if (autopan, {
-
-				var node;
-				var p = PanningLink.autoPan(maxClients, panSlots);
-
 				// Squash the clients tracks to mono, then pan them before they reach
 				// the input buses.
-				node = Synth("jacktrip_panned_in", [\pan, p, \low, hpf, \high, lpf], g, \addToTail);
-				("Created synth" + "jacktrip_panned_in" + node.nodeID).postln;
-
+				var p = PanningLink.autoPan(maxClients, panSlots);
+				var node = Synth("JackTripPannedIn", [\pan, p, \low, hpf, \high, lpf], g, \addToTail);
+				("Created synth" + "JackTripPannedIn" + node.nodeID).postln;
 			}, {
 				// do not pan clients and do not squash to mono.
-				var node;
-				node = Synth("jacktrip_simple_in", [\low, hpf, \high, lpf], g, \addToTail);
-				("Created synth" + "jacktrip_simple_in" + node.nodeID).postln;
+				var node = Synth("JackTripSimpleIn", [\low, hpf, \high, lpf], g, \addToTail);
+				("Created synth" + "JackTripSimpleIn" + node.nodeID).postln;
 			});
 
 			g = 200;
@@ -264,33 +146,30 @@ AutoPanMix : BaseMix {
 			// and supernova throws mysterous bad_alloc errors
 			if (maxClients > 100, {
 				var node;
-
-				// create unique output for jamulus that excludes itself
-				// only outputs to jamulus
-				node = Synth("jamulus_simple_out", [], g, \addToTail);
-				("Created synth" + "jamulus_simple_out" + node.nodeID).postln;
-
-				// create output for all jacktrip clients that includes jamulus
-				// outputs to all clients except jamulus
-				node = Synth("jacktrip_simple_out", [], g, \addToTail);
-				("Created synth" + "jacktrip_simple_out " + node.nodeID).postln;
+				node = Synth("JackTripSimpleMix", [\mix, defaultMix, \mul, masterVolume], g, \addToTail);
+				("Created synth JackTripSimpleMix" + node.nodeID).postln;
 			}, {
 
 				var node;
 
 				// initialize personal mixes to use selfVolume
-				var personalMixes = defaultPersonalMixes;
+				// supercollider doesn't seem to support arrays of arrays as synthdef parameters
+				// (likely a limitation of OSC) so instead we just have a single array with the
+				// personal mixes for every client
+				var personalMixes = 1 ! (maxClients * maxClients);
 				maxClients.do{ arg clientNum;
 					personalMixes[(clientNum * maxClients) + clientNum] = selfVolume;
 				};
 
-				// default selfVolume for Jamulus mix to zero
-				personalMixes[0] = 0;
+				if (withJamulus, {
+					// default selfVolume for Jamulus mix to zero
+					personalMixes[0] = 0;
+				});
 
 				// create personal mix for all jacktrip clients that includes jamulus
 				// outputs to all clients including jamulus
-				node = Synth("jacktrip_personalmix_out", [\mix, personalMixes], g, \addToTail);
-				("Created synth" + "jacktrip_personalmix_out" + node.nodeID).postln;
+				node = Synth("JackTripPersonalMixOut", [\mix, personalMixes, \mul, masterVolume], g, \addToTail);
+				("Created synth" + "JackTripPersonalMixOut" + node.nodeID).postln;
 			});
 
 			// signal that the mix has started
