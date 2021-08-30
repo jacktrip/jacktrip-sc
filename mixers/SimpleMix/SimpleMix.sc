@@ -12,55 +12,6 @@ SimpleMix : BaseMix {
 		^super.new(maxClients);
 	}
 
-	// sendSynthDefs method sends definitions to the server for use in audio mixing
-	sendSynthDefs {
-
-		/*
-		* jacktrip_simple_mix is used to create a simple master max.
-		* audio input from jacktrip clients is sent to all output channels.
-		* audio input from jamulus is sent only to jacktrip output channels.
-		*
-		* \mix : array of levels used for output mix (default [1 ! maxClients])
-		* \mul : amplitude level multiplier (default 1.0)
-		*/
-		"Sending SynthDef: jacktrip_simple_mix".postln;
-		SynthDef("jacktrip_simple_mix", {
-
-			var jackTripSignal, jackTripOut;
-			var inputLevels = \mix.kr(defaultMix) * \mul.kr(masterVolume);
-			
-			if (withJamulus, {
-				var jamulusSignal, jamulusOut;
-				
-				jamulusSignal = JackTripInput(1, inputChannelsPerClient, true, 0).getSignal();
-				jamulusSignal = MultiplyLink(inputLevels).transform(jamulusSignal);
-				"jamulus is enabled".postln;
-
-				// send Jamulus signal to JackTrip outputs
-				jamulusOut = Array.fill(maxClients - 1, { arg n;
-					(n + 1) * outputChannelsPerClient;
-				});
-				Out.ar(jamulusOut, jamulusSignal);
-
-				jackTripSignal = JackTripInput(maxClients - 1, inputChannelsPerClient, true, inputChannelsPerClient).getSignal();
-			}, {
-				"jamulus is disabled".postln;
-				jackTripSignal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
-			});
-
-			// adjust levels and aggregate JackTrip signal
-			jackTripSignal = MultiplyLink(inputLevels).transform(jackTripSignal);
-			jackTripSignal = AggregateLink().transform(jackTripSignal);
-
-			// send JackTrip signals to all outputs (including Jamulus)
-			jackTripOut = Array.fill(maxClients, { arg n;
-				n * outputChannelsPerClient;
-			});
-			Out.ar(jackTripOut, jackTripSignal);
-
-		}).send(server);
-	}
-
 	// starts up all the audio on the server
 	start {
 		var node;
@@ -74,7 +25,7 @@ SimpleMix : BaseMix {
 			server.freeAll;
 
 			// send synthDefs
-			this.sendSynthDefs.value;
+			this.sendSynthDefs(this.class.filenameSymbol.asString.dirname +/+ "synthDefs.scd");
 
 			// create group
 			server.sendMsg("/p_new", g, 1, 0);
@@ -83,8 +34,8 @@ SimpleMix : BaseMix {
 			server.sync;
 
 			// create output for all jacktrip clients that includes jamulus
-			node = Synth("jacktrip_simple_mix", [], g, \addToTail);
-			("Created synth jacktrip_simple_mix" + node.nodeID).postln;
+			node = Synth("JackTripSimpleMix", [\mix, defaultMix, \mul, masterVolume], g, \addToTail);
+			("Created synth JackTripSimpleMix" + node.nodeID).postln;
 
 			// signal that the mix has started
 			this.mixStarted.test = true;

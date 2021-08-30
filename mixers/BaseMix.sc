@@ -52,6 +52,16 @@ BaseMix : Object {
 		server.doWhenBooted({waitForServer.value});
 	}
 
+	// sendSynthDefs method sends definitions from a file to the server for use in audio mixing
+	sendSynthDefs { | filename |
+		filename.load;
+		~synthDefs.keysValuesDo{ | name, f |
+			SynthDef(name, {
+				SynthDef.wrap(f, prependArgs: [maxClients, inputChannelsPerClient, outputChannelsPerClient, withJamulus]);
+			}).send();
+		};
+	}
+
 	// wait for mix to start
 	// mixStarted is the Condition object and pauses execution until
 	// the value is set to true and mixStarted is signalled

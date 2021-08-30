@@ -177,7 +177,7 @@ AutoPanMix : BaseMix {
 		 */
 		"Sending SynthDef: jamulus_simple_out".postln;
 		SynthDef("jamulus_simple_out", {
-			var in, signal, volumeOpt;
+			var signal;
 			var mix = \mix.kr(defaultMix) * \mul.kr(masterVolume);
 
 			mix[0] = 0;
