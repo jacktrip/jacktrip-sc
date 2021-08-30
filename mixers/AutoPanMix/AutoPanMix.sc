@@ -244,29 +244,7 @@ AutoPanMix : BaseMix {
 			if (autopan, {
 
 				var node;
-				var pSlots = panSlots;
-				var panValues;
-				var p;
-
-				// automatically pan clients across stereo field
-				if (pSlots > maxClients, { pSlots = maxClients; });
-				if (pSlots < 2, {
-					panValues = [0];
-					pSlots = 1;
-				}, {
-					// LinLin maps a range of input values linearly to a range of
-					// output values
-					panValues = Array.fill(pSlots, { arg i;
-						LinLin.kr((i % pSlots) + 1, 0, pSlots + 1, -1, 1);
-					});
-					panValues = [-1, 1];
-				});
-
-				("panning clients across" + pSlots + "slots:" + panValues).postln;
-
-				p = Array.fill(maxClients, { arg i;
-					panValues[i % pSlots];
-				});
+				var p = PanningLink.autoPan(maxClients, panSlots);
 
 				// Squash the clients tracks to mono, then pan them before they reach
 				// the input buses.
