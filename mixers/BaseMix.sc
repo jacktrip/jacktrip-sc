@@ -73,10 +73,21 @@ BaseMix : Object {
 	sendSynthDefs { | filename |
 		filename.load;
 		~synthDefs.keysValuesDo{ | name, f |
-			("Sending SynthDef:"+name).postln;
-			SynthDef(name, {
+			var sdef, defPath;
+			sdef = SynthDef(name, {
 				SynthDef.wrap(f, prependArgs: [maxClients, inputChannelsPerClient, outputChannelsPerClient, withJamulus]);
-			}).send();
+			});
+
+			defPath = SynthDef.synthDefDir;
+			defPath = defPath ++ name ++ ".scsyndef";
+
+			// if the synthdef file exists already, no need to do anything,
+			// since Synthdefs in the default directory are automatically loaded
+			// by the server on boot. Otherwise, write it to disk at the default
+			// location and send it to the server.
+			if (File.exists(defPath), {}, {
+				sdef.load(server);
+			});
 		};
 	}
 
