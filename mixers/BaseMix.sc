@@ -23,6 +23,7 @@
 BaseMix : Object {
 	var <>maxClients;
 	var <>withJamulus = true;		// create mixes adapted Jamulus being connected on channels 1 & 2
+	var <>useSynthCache = true;		// send each synth definition to the server at most one time
 	var <>masterVolume = 1.0;		// master volume level multiplier
 	var <>serverIp = "127.0.0.1";	// IP address or hostname of remote audio server
 	var <>serverPort = 57110;		// port number of remote audio server (default SC port)
@@ -69,26 +70,30 @@ BaseMix : Object {
 		server.doWhenBooted({waitForServer.value});
 	}
 
-	// sendSynthDefs method sends definitions from a file to the server for use in audio mixing
-	sendSynthDefs { | filename, useCache = true |
-		filename.load;
-		~synthDefs.keysValuesDo{ | name, f |
-			var sdef, defPath;
-			sdef = SynthDef(name, {
-				SynthDef.wrap(f, prependArgs: [maxClients, inputChannelsPerClient, outputChannelsPerClient, withJamulus]);
-			});
+	// sendSynthDef method sends a synth definition from a file to the server for use in audio mixing
+	sendSynthDef { | name |
+		var sdef, defPath;
 
-			defPath = SynthDef.synthDefDir;
-			defPath = defPath ++ name ++ ".scsyndef";
+		(this.class.filenameSymbol.asString.dirname +/+ "../../synthdefs/" ++ name ++ ".scd").load;
+		sdef = SynthDef(name, {
+			SynthDef.wrap(~synthDef, prependArgs: [maxClients, inputChannelsPerClient, outputChannelsPerClient, withJamulus]);
+		});
 
-			// if the synthdef file exists already, no need to do anything,
-			// since Synthdefs in the default directory are automatically loaded
-			// by the server on boot. Otherwise, write it to disk at the default
-			// location and send it to the server.
-			if (File.exists(defPath) && useCache, {}, {
-				sdef.load(server);
-			});
-		};
+		defPath = SynthDef.synthDefDir;
+		defPath = defPath ++ name ++ ".scsyndef";
+
+		// if the synthdef file exists already, no need to do anything,
+		// since Synthdefs in the default directory are automatically loaded
+		// by the server on boot. Otherwise, write it to disk at the default
+		// location and send it to the server.
+		if (useSynthCache && File.exists(defPath), {}, {
+			sdef.load(server);
+		});
+	}
+
+	// sendSynthDefs method sends a list of synth definitions from files to the server for use in audio mixing
+	sendSynthDefs { | names |
+		names.do { | n | this.sendSynthDef(n); };
 	}
 
 	// wait for mix to start

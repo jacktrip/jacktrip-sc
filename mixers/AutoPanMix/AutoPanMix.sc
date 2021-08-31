@@ -111,12 +111,13 @@ AutoPanMix : BaseMix {
 			// free any existing nodes
 			server.freeAll;
 
-			// send synthDefs
-			(this.class.filenameSymbol.asString.dirname +/+ "makeInputBusses.scd").load;
+			// make input busses
+			(this.class.filenameSymbol.asString.dirname +/+ "../../functions/makeInputBusses.scd").load;
 			~makeInputBusses.value(server, maxClients, inputChannelsPerClient, outputChannelsPerClient);
-			this.sendSynthDefs(this.class.filenameSymbol.asString.dirname +/+ "synthDefs.scd");
-			
-			//this.sendSynthDefs(this.class.filenameSymbol.asString.dirname +/+ "../SimpleMix/synthDefs.scd");
+
+			// send synthDefs
+			this.sendSynthDefs(["JackTripPannedIn", "JackTripPersonalMixOut", "JackTripSimpleIn"]);
+			if (maxClients > 100, { this.sendSynthDef("JackTripSimpleMix"); });
 			
 			// use group 100 for client input synths and use group 200 for client output synths
 			// p_new is a server command (see Server Command Reference on SC documentation)
