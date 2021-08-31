@@ -70,7 +70,7 @@ BaseMix : Object {
 	}
 
 	// sendSynthDefs method sends definitions from a file to the server for use in audio mixing
-	sendSynthDefs { | filename |
+	sendSynthDefs { | filename, useCache = true |
 		filename.load;
 		~synthDefs.keysValuesDo{ | name, f |
 			var sdef, defPath;
@@ -85,7 +85,7 @@ BaseMix : Object {
 			// since Synthdefs in the default directory are automatically loaded
 			// by the server on boot. Otherwise, write it to disk at the default
 			// location and send it to the server.
-			if (File.exists(defPath), {}, {
+			if (File.exists(defPath) && useCache, {}, {
 				sdef.load(server);
 			});
 		};
