@@ -17,7 +17,7 @@
 "aggregateAndSendToAll.scd".loadRelative;
 "sendFirstToEveryoneElse.scd".loadRelative;
 
-(Platform.userAppSupportDir ++ "/Extensions/jacktrip-sc/lib/functions/JackTripSimpleMix.scd").load;
+"../../lib/functions/JackTripSimpleMix.scd".loadRelative;
 
 ~synthDefs = (
 	JackTripSimpleMix: ~jacktripSimpleMix

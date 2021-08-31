@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-(Platform.userAppSupportDir ++ "/Extensions/jacktrip-sc/lib/functions/JackTripSimpleIn.scd").load;
-(Platform.userAppSupportDir ++ "/Extensions/jacktrip-sc/lib/functions/JackTripSimpleMix.scd").load;
-(Platform.userAppSupportDir ++ "/Extensions/jacktrip-sc/lib/functions/JackTripPersonalMixOut.scd").load;
-(Platform.userAppSupportDir ++ "/Extensions/jacktrip-sc/lib/functions/JackTripPannedIn.scd").load;
+"../../lib/functions/JackTripSimpleIn.scd".loadRelative;
+"../../lib/functions/JackTripSimpleMix.scd".loadRelative;
+"../../lib/functions/JackTripPersonalMixOut.scd".loadRelative;
+"../../lib/functions/JackTripPannedIn.scd".loadRelative;
 
 
 ~synthDefs = (
