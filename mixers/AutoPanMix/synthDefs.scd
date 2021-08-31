@@ -17,7 +17,7 @@
 (Platform.userAppSupportDir ++ "/Extensions/jacktrip-sc/lib/functions/JackTripSimpleIn.scd").load;
 (Platform.userAppSupportDir ++ "/Extensions/jacktrip-sc/lib/functions/JackTripSimpleMix.scd").load;
 (Platform.userAppSupportDir ++ "/Extensions/jacktrip-sc/lib/functions/JackTripPersonalMixOut.scd").load;
-(Platform.userAppSupportDir ++ "/Extensions/jacktrip-sc/lib/functions/JackTripPersonalMixOut.scd").load;
+(Platform.userAppSupportDir ++ "/Extensions/jacktrip-sc/lib/functions/JackTripPannedIn.scd").load;
 
 
 ~synthDefs = (
