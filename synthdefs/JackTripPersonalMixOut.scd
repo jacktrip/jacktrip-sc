@@ -31,6 +31,7 @@
     
         var s = MultiplyLink(m * \mul.kr(1)).transform(signal);
         s = AggregateLink().transform(s);
+        s = LimiterLink().transform(s);
     
         Out.ar(outputChannelsPerClient * clientNum, s);
     });

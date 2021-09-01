@@ -29,7 +29,8 @@
 
 	// adjust levels
 	var signal = MultiplyLink(levels).transform(in);
-
+	signal = LimiterLink().transform(signal);
+	
 	// send Jamulus signal to JackTrip outputs
 	out = Array.fill(maxClients - 1, { arg n;
 		(n + 1) * outputChannelsPerClient;
