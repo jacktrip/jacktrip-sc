@@ -22,7 +22,7 @@
 LimiterLink : Link {
     var<> dB;
 
-	*new { | limit = -3 |
+	*new { | limit = -2 |
 		^super.new().dB_(limit);
 	}
 
