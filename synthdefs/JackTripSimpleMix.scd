@@ -28,5 +28,5 @@
  */
 
 ~synthDef = { | maxClients, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
-    ~jackTripSimpleMix.value(maxClients, inputChannelsPerClient, outputChannelsPerClient, withJamulus, 0);
+    ~jackTripSimpleMix.value(maxClients, inputChannelsPerClient, outputChannelsPerClient, withJamulus, true, 0);
 };

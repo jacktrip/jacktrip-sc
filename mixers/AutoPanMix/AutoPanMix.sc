@@ -120,9 +120,9 @@ AutoPanMix : BaseMix {
 					this.sendSynthDef("JackTripSimpleIn");
 				});
 				if (maxClients > 100, {
-					this.sendSynthDef("JackTripSimpleMixFromBus", [~firstPrivateBus]);
+					this.sendSynthDef("JackTripSimpleMixFromBus");
 				}, {
-					this.sendSynthDef("JackTripPersonalMixOut", [~firstPrivateBus]);
+					this.sendSynthDef("JackTripPersonalMixOut");
 				});
 				
 				// use group 100 for client input synths and use group 200 for client output synths
