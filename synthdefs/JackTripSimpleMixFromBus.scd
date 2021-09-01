@@ -17,7 +17,7 @@
 "../functions/jackTripSimpleMix.scd".loadRelative;
 
  /*
- * JackTripSimpleMix: a minimal mix that scales well
+ * JackTripSimpleMixFromBus: a minimal mix that scales well and reads from input busses
  *
  * \maxClients: maximum number of clients that may connect to the audio server
  * \inputChannelsPerClient: number of input channels received from each client
@@ -28,5 +28,5 @@
  */
 
 ~synthDef = { | maxClients, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
-    ~jackTripSimpleMix.value(maxClients, inputChannelsPerClient, outputChannelsPerClient, withJamulus, 0);
+    ~jackTripSimpleMix.value(maxClients, inputChannelsPerClient, outputChannelsPerClient, withJamulus, ~firstPrivateBus);
 };

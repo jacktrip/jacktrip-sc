@@ -14,19 +14,31 @@
  * limitations under the License.
  */
  
-"../functions/jackTripSimpleMix.scd".loadRelative;
+"aggregateAndSendToAll.scd".loadRelative;
+"sendFirstToEveryoneElse.scd".loadRelative;
 
  /*
- * JackTripSimpleMix: a minimal mix that scales well
+ * jackTripSimpleMix: a minimal mix that scales well
  *
  * \maxClients: maximum number of clients that may connect to the audio server
  * \inputChannelsPerClient: number of input channels received from each client
  * \outputChannelsPerClient: number of output channels sent to each client
  * \withJamulus: create mixes adapted Jamulus being connected on channels 1 & 2
+ * \offset: input channel offset used for reading audio input
  * \mix : array of amplitude level multipliers (default 1.0) for each client
  * \mul : master amplitude level multiplier (default 1.0)
  */
 
-~synthDef = { | maxClients, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
-    ~jackTripSimpleMix.value(maxClients, inputChannelsPerClient, outputChannelsPerClient, withJamulus, 0);
+~jackTripSimpleMix = { | maxClients, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false, offset = 0 |
+    var levels = \mix.kr([1 ! maxClients]) * \mul.kr(1.0);
+
+    if (withJamulus, {
+        var jackTripSignal = JackTripInput(maxClients - 1, inputChannelsPerClient, true, inputChannelsPerClient + offset).getSignal();
+        var jamulusSignal = JackTripInput(1, inputChannelsPerClient, true, offset).getSignal();
+        ~aggregateAndSendToAll.value(jackTripSignal, levels, maxClients, outputChannelsPerClient);
+        ~sendFirstToEveryoneElse.value(jamulusSignal, levels, maxClients, outputChannelsPerClient);
+    }, {
+        var jackTripSignal = JackTripInput(maxClients, inputChannelsPerClient, true, offset).getSignal();
+        ~aggregateAndSendToAll.value(jackTripSignal, levels, maxClients, outputChannelsPerClient);
+    });
 };
