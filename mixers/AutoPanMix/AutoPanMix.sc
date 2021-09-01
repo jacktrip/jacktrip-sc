@@ -111,7 +111,7 @@ AutoPanMix : BaseMix {
 			g = ParGroup.basicNew(server, 100);
 
 			// create a bundle of commands to execute
-			b = server.makeBundle(1.0, {
+			b = server.makeBundle(nil, {
 				// free any existing nodes
 				server.freeAll;
 

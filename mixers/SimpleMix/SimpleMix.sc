@@ -41,7 +41,7 @@ SimpleMix : BaseMix {
 			g = ParGroup.basicNew(server, 200);
 
 			// create a bundle of commands to execute
-			b = server.makeBundle(1.0, {
+			b = server.makeBundle(nil, {
 				// free any existing nodes
 				server.freeAll;
 
