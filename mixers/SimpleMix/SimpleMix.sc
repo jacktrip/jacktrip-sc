@@ -42,7 +42,7 @@ SimpleMix : BaseMix {
 			server.freeAll;
 
 			// send synthDefs
-			this.sendSynthDefs(this.class.filenameSymbol.asString.dirname +/+ "synthDefs.scd");
+			this.sendSynthDef("JackTripSimpleMix");
 
 			// create group
 			server.sendMsg("/p_new", g, 1, 0);
