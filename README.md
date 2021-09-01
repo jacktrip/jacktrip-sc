@@ -46,7 +46,7 @@ setting `serverIp`.
 
 * `wait`: this will block until the mixer has started processing audio.
 
-* `runAfter`: this can be used to provide a function that is executed after
+* `after`: this can be used to provide a function that is executed after
 the mixer has started processing audio.
 
 By convention, mixers should also implement a `start` method which starts
