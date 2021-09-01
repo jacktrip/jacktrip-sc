@@ -137,6 +137,24 @@
                 "value":true
              }
           ]
-       }
+       },
+       {
+          "src": "hpf",
+          "label": "Bandpass Filter (Lower Limit)",
+          "type": "number",
+          "defaultVal": 20,
+          "field": {
+            "type": "text"
+          }
+       },
+       {
+         "src": "lpf",
+         "label": "Bandpass Filter (Uppder Limit)",
+         "type": "number",
+         "defaultVal": 20000,
+         "field": {
+           "type": "text"
+         }
+      }
     ]
  }
