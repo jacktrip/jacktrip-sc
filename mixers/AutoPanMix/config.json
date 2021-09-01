@@ -140,7 +140,7 @@
        },
        {
           "src": "hpf",
-          "label": "Bandpass Filter (Lower Limit)",
+          "label": "Bandpass Filter - Lower Limit (Hz)",
           "type": "number",
           "defaultVal": 20,
           "field": {
@@ -149,7 +149,7 @@
        },
        {
          "src": "lpf",
-         "label": "Bandpass Filter (Uppder Limit)",
+         "label": "Bandpass Filter - Higher Limit (Hz)",
          "type": "number",
          "defaultVal": 20000,
          "field": {
