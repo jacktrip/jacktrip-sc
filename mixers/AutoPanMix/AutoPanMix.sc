@@ -99,35 +99,40 @@ AutoPanMix : BaseMix {
 	// starts up all the audio on the server
 	start {
 
-		// g represents an identifier for a group number,
-		// a group represents a set of Synths running on the server
-		// two groups are used, one for input Synths (100) and one for output Synths (200)
-		var g = 100;
-
 		Routine {
+			var b, g;
+
 			// wait for server to be ready
 			serverReady.wait;
 
-			// free any existing nodes
-			server.freeAll;
+			// g represents a node group
+			// a group represents a set of Synths running on the server
+			// two groups are used, one for input Synths (100) and one for output Synths (200)
+			g = ParGroup.basicNew(server, 100);
 
-			// make input busses
-			(this.class.filenameSymbol.asString.dirname +/+ "../../functions/makeInputBusses.scd").load;
-			~makeInputBusses.value(server, maxClients, inputChannelsPerClient, outputChannelsPerClient);
+			// create a bundle of commands to execute
+			b = server.makeBundle(1.0, {
+				// free any existing nodes
+				server.freeAll;
 
-			// send synthDefs
-			this.sendSynthDefs(["JackTripPannedIn", "JackTripPersonalMixOut", "JackTripSimpleIn"]);
-			if (maxClients > 100, { this.sendSynthDef("JackTripSimpleMix"); });
-			
-			// use group 100 for client input synths and use group 200 for client output synths
-			// p_new is a server command (see Server Command Reference on SC documentation)
-			// that creates a parallel group, which represents a set of Synths that execute
-			// simultaneously
-			server.sendMsg("/p_new", 100, 1, 0);
-			server.sendMsg("/p_new", 200, 1, 0);
+				// make input busses
+				(this.class.filenameSymbol.asString.dirname +/+ "../../functions/makeInputBusses.scd").load;
+				~makeInputBusses.value(server, maxClients, inputChannelsPerClient, outputChannelsPerClient);
 
-			// wait for server to receive synthdefs
-			server.sync;
+				// send synthDefs
+				this.sendSynthDefs(["JackTripPannedIn", "JackTripPersonalMixOut", "JackTripSimpleIn"]);
+				if (maxClients > 100, { this.sendSynthDef("JackTripSimpleMix"); });
+				
+				// use group 100 for client input synths and use group 200 for client output synths
+				// p_new is a server command (see Server Command Reference on SC documentation)
+				// that creates a parallel group, which represents a set of Synths that execute
+				// simultaneously
+				server.sendMsg("/p_new", 100, 1, 0);
+				server.sendMsg("/p_new", 200, 1, 0);
+			});
+
+			// wait for server to receive bundle
+			server.sync(nil, b);
 
 			if (autopan, {
 				// Squash the clients tracks to mono, then pan them before they reach
@@ -141,7 +146,8 @@ AutoPanMix : BaseMix {
 				("Created synth" + "JackTripSimpleIn" + node.nodeID).postln;
 			});
 
-			g = 200;
+			// use group 200 for client output synths
+			g = ParGroup.basicNew(server, 200);
 
 			// scsynth starts to max out a core after about 100 personal mixes,
 			// and supernova throws mysterous bad_alloc errors

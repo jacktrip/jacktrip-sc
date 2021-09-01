@@ -30,25 +30,30 @@ SimpleMix : BaseMix {
 	}
 
 	// starts up all the audio on the server
-	start {
-		var node;
-		var g = 200;	// use group 200 for client output synths
-		
+	start {		
 		Routine {
+			var b, g, node;
+
 			// wait for server to be ready
 			serverReady.wait;
 
-			// free any existing nodes
-			server.freeAll;
+			// use group 200 for client output synths
+			g = ParGroup.basicNew(server, 200);
 
-			// send synthDefs
-			this.sendSynthDef("JackTripSimpleMix");
+			// create a bundle of commands to execute
+			b = server.makeBundle(1.0, {
+				// free any existing nodes
+				server.freeAll;
 
-			// create group
-			server.sendMsg("/p_new", g, 1, 0);
+				// send synthDefs
+				this.sendSynthDef("JackTripSimpleMix");
 
-			// wait for server to receive synthdefs
-			server.sync;
+				// create group 200 for client output synths
+				server.sendMsg("/p_new", 200, 1, 0);
+			});
+
+			// wait for server to receive bundle
+			server.sync(nil, b);
 
 			// create output for all jacktrip clients that includes jamulus
 			node = Synth("JackTripSimpleMix", [\mix, defaultMix, \mul, masterVolume], g, \addToTail);
