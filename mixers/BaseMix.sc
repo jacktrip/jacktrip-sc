@@ -86,8 +86,17 @@ BaseMix : Object {
 		// since Synthdefs in the default directory are automatically loaded
 		// by the server on boot. Otherwise, write it to disk at the default
 		// location and send it to the server.
-		if (useSynthCache && File.exists(defPath), {}, {
-			sdef.load(server);
+		if (useSynthCache && File.exists(defPath), {
+			("Reusing cached SynthDef:" + name).postln;
+		}, {
+			if (server.isLocal, {
+				("Loading SynthDef:" + name).postln;
+				sdef.load(server);
+			}, {
+				("Sending SynthDef:" + name).postln;
+				sdef.writeDefFile;
+				sdef.send(server);
+			})
 		});
 	}
 
