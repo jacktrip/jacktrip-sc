@@ -15,19 +15,21 @@
  */
 
 /* 
- * LimiterLink: prevents audio output from exceeding a specified volume threshold.
+ * GateLink: if the specified ratio is greater than 1, creates a noise gate such
+ * that no signal is passed through if a minimum volume threshold is not met.
  */
 
-LimiterLink : Link {
+GateLink : Link {
     var<> threshDB;
+    var<> ratio;
 
-	*new { | threshDB = -2 |
-		^super.new().threshDB_(threshDB);
+	*new { | threshDB = 0, ratio = 1 |
+		^super.new().threshDB_(threshDB).ratio_(ratio);
 	}
 
     transform { |input|
         var signal = input;
-        signal = Compander.ar(signal, signal, threshDB.dbamp, 1, 0.1);
+        signal = Compander.ar(signal, signal, threshDB.dbamp, ratio, 1);
         ^signal
     }
 }

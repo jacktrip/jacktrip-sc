@@ -15,19 +15,21 @@
  */
 
 /* 
- * LimiterLink: prevents audio output from exceeding a specified volume threshold.
+ * CompressorLink: applies downward compression to an audio signal if the
+ * specified ratio is between 0 and 1.
  */
 
-LimiterLink : Link {
+CompressorLink : Link {
     var<> threshDB;
+    var<> ratio;
 
-	*new { | threshDB = -2 |
-		^super.new().threshDB_(threshDB);
+	*new { | threshDB = 0, ratio = 1 |
+		^super.new().threshDB_(threshDB).ratio_(ratio);
 	}
 
     transform { |input|
         var signal = input;
-        signal = Compander.ar(signal, signal, threshDB.dbamp, 1, 0.1);
+        signal = Compander.ar(signal, signal, threshDB.dbamp, 1, ratio);
         ^signal
     }
 }
