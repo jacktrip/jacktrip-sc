@@ -1,3 +1,19 @@
+/* 
+ * Copyright 2020-2021 JackTrip Labs, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 /*
  * SimpleMix: a minimal mix that scales well
  *
@@ -5,6 +21,7 @@
  * \serverIp: IP address or hostname of remote audio server
  * \serverPort: port number of remote audio server
  */
+ 
 SimpleMix : BaseMix {
 
 	// create a new instance
@@ -12,81 +29,36 @@ SimpleMix : BaseMix {
 		^super.new(maxClients);
 	}
 
-	// sendSynthDefs method sends definitions to the server for use in audio mixing
-	sendSynthDefs {
-		// default master mix does nothing
-		var defaultMix = 1 ! maxClients;
-
-		/*
-		* jamulus_simple_out is used to create a unique mix for output to jamulus bridge
-		*
-		* \mix : array of levels used for output mix (default [1 ! maxClients])
-		* \mul : amplitude level multiplier (default 1.0)
-		*/
-		"Sending SynthDef: jamulus_simple_out".postln;
-		SynthDef("jamulus_simple_out", {
-			// exclude jamulus input from the mix sent back to jamulus
-			var in = Mix.fill(maxClients - 1, { arg n;
-				var offset = (n + 1) * inputChannelsPerClient;
-				Array.fill(inputChannelsPerClient, { arg ch;
-					SoundIn.ar(offset+ch) * \mix.kr(defaultMix)[n];
-				});
-			});
-			// send only to jamulus on channel 0
-			Out.ar(0, in * masterVolume * \mul.kr(1));
-		}).send(server);
-
-		/*
-		* jamulus_simple_out is used to create a single master mix for jacktrip client output
-		*
-		* \mix : array of levels used for output mix (default [1 ! maxClients])
-		* \mul : amplitude level multiplier (default 1.0)
-		*/
-		"Sending SynthDef: jacktrip_simple_out".postln;
-		SynthDef("jacktrip_simple_out", {
-			// mix together all input channels
-			var in = Mix.fill(maxClients, { arg n;
-				var offset = n * inputChannelsPerClient;
-				Array.fill(inputChannelsPerClient, { arg ch;
-					SoundIn.ar(offset+ch) * \mix.kr(defaultMix)[n];
-				});
-			});
-			// exclude sending to jamulus on channel 0 (handled by jamulus_simple_out)
-			var out = Array.fill(maxClients - 1, { arg n;
-				(n + 1) * outputChannelsPerClient;
-			});
-			Out.ar(out, in * masterVolume * \mul.kr(1));
-		}).send(server);
-	}
-
 	// starts up all the audio on the server
-	start {
-		var node;
-		var g = 200;	// use group 200 for client output synths
-		
+	start {		
 		Routine {
+			var b, g, node;
+
 			// wait for server to be ready
 			serverReady.wait;
 
-			// free any existing nodes
-			server.freeAll;
+			// use group 200 for client output synths
+			g = ParGroup.basicNew(server, 200);
 
-			// send synthDefs
-			this.sendSynthDefs.value;
+			// create a bundle of commands to execute
+			b = server.makeBundle(nil, {
+				// send synthDefs
+				this.sendSynthDef("JackTripSimpleMix");
 
-			// create group
-			server.sendMsg("/p_new", g, 1, 0);
+				// free any existing nodes
+				"Freeing all nodes...".postln;
+				server.freeAll;
 
-			// wait for server to receive synthdefs
-			server.sync;
+				// create group 200 for client output synths
+				server.sendMsg("/p_new", 200, 1, 0);
+			});
 
-			// create unique output for jamulus that excludes itself
-			node = Synth("jamulus_simple_out", [], g, \addToTail);
-			("Created synth jamulus_simple_out" + node.nodeID).postln;
+			// wait for server to receive bundle
+			server.sync(nil, b);
 
 			// create output for all jacktrip clients that includes jamulus
-			node = Synth("jacktrip_simple_out", [], g, \addToTail);
-			("Created synth jacktrip_simple_out" + node.nodeID).postln;
+			node = Synth("JackTripSimpleMix", [\mix, defaultMix, \mul, masterVolume], g, \addToTail);
+			("Created synth JackTripSimpleMix" + node.nodeID).postln;
 
 			// signal that the mix has started
 			this.mixStarted.test = true;
@@ -158,7 +130,7 @@ SimpleMix : BaseMix {
 			Slider.new(window, Rect(20+(x*50), 80+(260*y), 40, 200)).action_( { arg me;
 				mix[n] = me.value * maxMultiplier;
 				("ch"+n+"vol ="+mix[n]).postln;
-				out.set(\mix, mix)
+				out.set(\mix, mix);
 			});
 		});
 
