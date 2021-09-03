@@ -31,15 +31,16 @@
  */
 
 ~jackTripSimpleMix = { | maxClients, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false, useSoundIn = true, offset = 0 |
+    var signal = JackTripInput(maxClients, inputChannelsPerClient, useSoundIn, offset).getSignal();
     var levels = \mix.kr([1 ! maxClients]) * \mul.kr(1.0);
 
+	// adjust levels
+	signal = MultiplyLink(levels).transform(signal);
+
     if (withJamulus, {
-        var jackTripSignal = JackTripInput(maxClients - 1, inputChannelsPerClient, useSoundIn, inputChannelsPerClient + offset).getSignal();
-        var jamulusSignal = JackTripInput(1, inputChannelsPerClient, useSoundIn, offset).getSignal();
-        ~aggregateAndSendToAll.value(jackTripSignal, levels, maxClients, outputChannelsPerClient);
-        ~sendFirstToEveryoneElse.value(jamulusSignal, levels, maxClients, outputChannelsPerClient);
+        ~aggregateAndSendToAll.value(signal, maxClients, outputChannelsPerClient, 1);
+        ~sendFirstToEveryoneElse.value(signal, maxClients, outputChannelsPerClient);
     }, {
-        var jackTripSignal = JackTripInput(maxClients, inputChannelsPerClient, useSoundIn, offset).getSignal();
-        ~aggregateAndSendToAll.value(jackTripSignal, levels, maxClients, outputChannelsPerClient);
+        ~aggregateAndSendToAll.value(signal, maxClients, outputChannelsPerClient);
     });
 };

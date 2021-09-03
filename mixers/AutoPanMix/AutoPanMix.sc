@@ -200,7 +200,7 @@ AutoPanMix : BaseMix {
 	gui { | maxSlidersPerRow = 48, maxMultiplier = 5 |
 		var in;
 		var out;
-		var mix = 1 ! (maxClients * maxClients);
+		var mix = 1 ! maxClients;
 		var pan = 0 ! maxClients;
 		var rows = 1;
 		var cols = maxClients + 1;
@@ -224,11 +224,14 @@ AutoPanMix : BaseMix {
 				// initialize levels to 1.0
 				in = ParGroup.basicNew(server, 100);
 				in.set(\mul, 1);
+				in.set(\mix, mix);
+				in.set(\pan, pan);
 				out = ParGroup.basicNew(server, 200);
 				out.set(\mul, 1);
 				master.value = 1.0 / maxMultiplier;
 				maxClients.do({ arg n;
 					sliders[n].value = 1.0 / maxMultiplier;
+					panKnobs[n].value = 0;
 				});
 			};
 		};
@@ -259,12 +262,10 @@ AutoPanMix : BaseMix {
 			sliders[n] = Slider.new(window, Rect(20+(x*50), 80+(300*y), 40, 200)).action_( { arg me;
 				var mul = me.value * maxMultiplier;
 				("ch"+n+"vol ="+mul).postln;
-				// for now, just set same value for each pos
+				// used mix for JackTripPannedIn (master)
 				// this ensures it works regardless of whether personal mixes are being used, or not
-				maxClients.do{ arg i;
-					mix[(maxClients * i) + n] = mul;
-				};
-				out.set(\mix, mix)
+				mix[n] = mul;
+				in.set(\mix, mix);
 			});
 
 			StaticText(window, Rect(30+(x*50), 280+(300*y), 40, 20)).string_(n);
@@ -273,7 +274,7 @@ AutoPanMix : BaseMix {
 				var p = LinLin.kr(me.value, 0, 1, -1, 1);
 				("ch"+n+"pan ="+p).postln;
 				pan[n] = p;
-				in.set(\pan, pan)
+				in.set(\pan, pan);
 			});
 		});
 

@@ -129,7 +129,7 @@ SimpleMix : BaseMix {
 			Slider.new(window, Rect(20+(x*50), 80+(260*y), 40, 200)).action_( { arg me;
 				mix[n] = me.value * maxMultiplier;
 				("ch"+n+"vol ="+mix[n]).postln;
-				out.set(\mix, mix)
+				out.set(\mix, mix);
 			});
 		});
 
