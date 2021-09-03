@@ -72,12 +72,7 @@ BaseMix : Object {
 
 	// sendSynthDef method sends a synth definition from a file to the server for use in audio mixing
 	sendSynthDef { | name |
-		var sdef, defPath;
-
-		(this.class.filenameSymbol.asString.dirname +/+ "../../synthdefs/" ++ name ++ ".scd").load;
-		sdef = SynthDef(name, {
-			SynthDef.wrap(~synthDef, prependArgs: [maxClients, inputChannelsPerClient, outputChannelsPerClient, withJamulus]);
-		});
+		var defPath;
 
 		defPath = SynthDef.synthDefDir;
 		defPath = defPath ++ name ++ ".scsyndef";
@@ -89,6 +84,13 @@ BaseMix : Object {
 		if (useSynthCache && File.exists(defPath), {
 			("Reusing cached SynthDef:" + name).postln;
 		}, {
+			var sdef;
+
+			(this.class.filenameSymbol.asString.dirname +/+ "../../synthdefs/" ++ name ++ ".scd").load;
+			sdef = SynthDef(name, {
+				SynthDef.wrap(~synthDef, prependArgs: [maxClients, inputChannelsPerClient, outputChannelsPerClient, withJamulus]);
+			});
+
 			if (server.isLocal, {
 				("Loading SynthDef:" + name).postln;
 				sdef.load(server);

@@ -106,9 +106,6 @@ AutoPanMix : BaseMix {
 
 			// create a bundle of commands to execute
 			b = server.makeBundle(nil, {
-				// free any existing nodes
-				server.freeAll;
-
 				// make input busses
 				(this.class.filenameSymbol.asString.dirname +/+ "../../functions/makeInputBusses.scd").load;
 				~makeInputBusses.value(server, maxClients, inputChannelsPerClient, outputChannelsPerClient);
@@ -125,6 +122,10 @@ AutoPanMix : BaseMix {
 					this.sendSynthDef("JackTripPersonalMixOut");
 				});
 				
+				// free any existing nodes
+				"Freeing all nodes...".postln;
+				server.freeAll;
+
 				// use group 100 for client input synths and use group 200 for client output synths
 				// p_new is a server command (see Server Command Reference on SC documentation)
 				// that creates a parallel group, which represents a set of Synths that execute
