@@ -146,7 +146,16 @@
           "field":{
             "type":"slider",
             "fieldOptions":{
-               "marks":[],
+               "marks":[
+                  {
+                     "value":20,
+                     "label":"20"
+                  },
+                  {
+                     "value": 20000,
+                     "label": "20000"
+                  }
+               ],
                "min":20,
                "max":20000,
                "step":5,
@@ -162,7 +171,16 @@
          "field":{
             "type":"slider",
             "fieldOptions":{
-               "marks":[],
+               "marks":[
+                  {
+                     "value":20,
+                     "label":"20"
+                  },
+                  {
+                     "value": 20000,
+                     "label": "20000"
+                  }
+               ],
                "min":20,
                "max":20000,
                "step":5,
