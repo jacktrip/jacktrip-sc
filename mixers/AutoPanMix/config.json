@@ -54,7 +54,7 @@
        },
        {
           "src":"autopan",
-          "label":"Input Chanels",
+          "label":"Input Channels",
           "type":"boolean",
           "defaultVal":true,
           "field":{
@@ -140,20 +140,34 @@
        },
        {
           "src": "hpf",
-          "label": "Bandpass Filter - Lower Limit (Hz)",
+          "label": "High Pass Filter (Hz)",
           "type": "number",
           "defaultVal": 20,
-          "field": {
-            "type": "text"
-          }
+          "field":{
+            "type":"slider",
+            "fieldOptions":{
+               "marks":[],
+               "min":20,
+               "max":20000,
+               "step":5,
+               "scale":1
+            }
+         }
        },
        {
          "src": "lpf",
-         "label": "Bandpass Filter - Higher Limit (Hz)",
+         "label": "Low pass Filter (Hz)",
          "type": "number",
          "defaultVal": 20000,
-         "field": {
-           "type": "text"
+         "field":{
+            "type":"slider",
+            "fieldOptions":{
+               "marks":[],
+               "min":20,
+               "max":20000,
+               "step":5,
+               "scale":1
+            }
          }
       }
     ]
