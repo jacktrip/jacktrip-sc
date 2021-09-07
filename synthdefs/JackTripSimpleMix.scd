@@ -29,5 +29,6 @@
 
 ~synthDef = { | maxClients, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
     var levels = \mix.kr([1 ! maxClients]) * \mul.kr(1.0);
-    ~jackTripSimpleMix.value(maxClients, levels, inputChannelsPerClient, outputChannelsPerClient, withJamulus, true, 0);
+    var pan = \pan.kr([0 ! maxClients]);
+    ~jackTripSimpleMix.value(maxClients, levels, pan, inputChannelsPerClient, outputChannelsPerClient, withJamulus, true, 0);
 };

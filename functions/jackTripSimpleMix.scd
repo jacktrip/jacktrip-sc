@@ -26,15 +26,16 @@
  * \withJamulus: create mixes adapted Jamulus being connected on channels 1 & 2
  * \useSoundIn: if true, use SoundIn() for input channels; otherwise, use In()
  * \offset: input channel offset used for reading audio input
- * \mix : array of amplitude level multipliers (default 1.0) for each client
- * \mul : master amplitude level multiplier (default 1.0)
+ * \levels : array of amplitude level multipliers for each client
+ * \pan : array of pans for each client
  */
 
-~jackTripSimpleMix = { | maxClients, levels, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false, useSoundIn = true, offset = 0 |
+~jackTripSimpleMix = { | maxClients, levels, pan, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false, useSoundIn = true, offset = 0 |
     var signal = JackTripInput(maxClients, inputChannelsPerClient, useSoundIn, offset).getSignal();
 
 	// adjust levels
 	signal = MultiplyLink(levels).transform(signal);
+    signal = PanningLink(pan).transform(signal);
 
     if (withJamulus, {
         ~aggregateAndSendToAll.value(signal, maxClients, outputChannelsPerClient, 1);
