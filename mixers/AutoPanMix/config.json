@@ -140,37 +140,13 @@
              }
           ]
        },
-       {
-          "src": "hpf",
-          "label": "High Pass Filter (Hz)",
-          "type": "number",
-          "defaultVal": 20,
-          "field":{
-            "type":"slider",
-            "fieldOptions":{
-               "marks":[
-                  {
-                     "value":20,
-                     "label":"20"
-                  },
-                  {
-                     "value": 20000,
-                     "label": "20000"
-                  }
-               ],
-               "logarithmic": true,
-               "min":20,
-               "max":20000
-            }
-         }
-       },
-       {
-         "src": "lpf",
-         "label": "Low pass Filter (Hz)",
+      {
+         "src": ["hpf", "lpf"],
+         "label": "Bandpass Filter (Hz)",
          "type": "number",
-         "defaultVal": 20000,
-         "field":{
-            "type":"slider",
+         "defaultVal": [20, 20000],
+         "field": {
+            "type":"range",
             "fieldOptions":{
                "marks":[
                   {
@@ -183,8 +159,8 @@
                   }
                ],
                "logarithmic": true,
-               "min":20,
-               "max":20000
+               "min": 20,
+               "max": 20000
             }
          }
       }
