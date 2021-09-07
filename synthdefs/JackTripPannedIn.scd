@@ -27,7 +27,7 @@
 
 ~synthDef = { | maxClients, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
     var signal;
-    var defaultPan = 0 ! maxClients;
+    var defaultPan = [0 ! maxClients];
     var levels = \mix.kr([1 ! maxClients]) * \mul.kr(1.0);
 
     signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();

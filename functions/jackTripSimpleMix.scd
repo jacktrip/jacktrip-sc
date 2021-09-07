@@ -35,6 +35,7 @@
 
 	// adjust levels
 	signal = MultiplyLink(levels).transform(signal);
+    signal = SquashToMonoLink(true, false).transform(signal);
     signal = PanningLink(pan).transform(signal);
 
     if (withJamulus, {
