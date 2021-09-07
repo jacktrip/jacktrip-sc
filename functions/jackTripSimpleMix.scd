@@ -30,9 +30,8 @@
  * \mul : master amplitude level multiplier (default 1.0)
  */
 
-~jackTripSimpleMix = { | maxClients, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false, useSoundIn = true, offset = 0 |
+~jackTripSimpleMix = { | maxClients, levels, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false, useSoundIn = true, offset = 0 |
     var signal = JackTripInput(maxClients, inputChannelsPerClient, useSoundIn, offset).getSignal();
-    var levels = \mix.kr([1 ! maxClients]) * \mul.kr(1.0);
 
 	// adjust levels
 	signal = MultiplyLink(levels).transform(signal);
