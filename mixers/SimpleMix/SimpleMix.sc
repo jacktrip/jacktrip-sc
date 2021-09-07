@@ -42,11 +42,12 @@ SimpleMix : BaseMix {
 
 			// create a bundle of commands to execute
 			b = server.makeBundle(nil, {
-				// free any existing nodes
-				server.freeAll;
-
 				// send synthDefs
 				this.sendSynthDef("JackTripSimpleMix");
+
+				// free any existing nodes
+				"Freeing all nodes...".postln;
+				server.freeAll;
 
 				// create group 200 for client output synths
 				server.sendMsg("/p_new", 200, 1, 0);
@@ -129,7 +130,7 @@ SimpleMix : BaseMix {
 			Slider.new(window, Rect(20+(x*50), 80+(260*y), 40, 200)).action_( { arg me;
 				mix[n] = me.value * maxMultiplier;
 				("ch"+n+"vol ="+mix[n]).postln;
-				out.set(\mix, mix)
+				out.set(\mix, mix);
 			});
 		});
 

@@ -54,7 +54,7 @@
        },
        {
           "src":"autopan",
-          "label":"Input Chanels",
+          "label":"Input Channels",
           "type":"boolean",
           "defaultVal":true,
           "field":{
@@ -137,6 +137,56 @@
                 "value":true
              }
           ]
-       }
+       },
+       {
+          "src": "hpf",
+          "label": "High Pass Filter (Hz)",
+          "type": "number",
+          "defaultVal": 20,
+          "field":{
+            "type":"slider",
+            "fieldOptions":{
+               "marks":[
+                  {
+                     "value":20,
+                     "label":"20"
+                  },
+                  {
+                     "value": 20000,
+                     "label": "20000"
+                  }
+               ],
+               "min":20,
+               "max":20000,
+               "step":5,
+               "scale":1
+            }
+         }
+       },
+       {
+         "src": "lpf",
+         "label": "Low pass Filter (Hz)",
+         "type": "number",
+         "defaultVal": 20000,
+         "field":{
+            "type":"slider",
+            "fieldOptions":{
+               "marks":[
+                  {
+                     "value":20,
+                     "label":"20"
+                  },
+                  {
+                     "value": 20000,
+                     "label": "20000"
+                  }
+               ],
+               "min":20,
+               "max":20000,
+               "step":5,
+               "scale":1
+            }
+         }
+      }
     ]
  }

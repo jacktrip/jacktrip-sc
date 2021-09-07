@@ -18,22 +18,17 @@
  * sendFirstToEveryoneElse: sends the input audio channels from the first
  * client to all other clients
  *
- * \in: array of input audio channels to aggregate together
- * \levels : array of amplitude level multipliers (default 1.0) for each client
+ * \signal: array of input audio channels to aggregate together
  * \maxClients: maximum number of clients that may connect to the audio server
  * \outputChannelsPerClient: number of output channels sent to each client
  */
  
-~sendFirstToEveryoneElse = { | in, levels, maxClients, outputChannelsPerClient = 2 |
-	var out;
-
-	// adjust levels
-	var signal = MultiplyLink(levels).transform(in);
-	signal = LimiterLink().transform(signal);
-	
+~sendFirstToEveryoneElse = { | signal, maxClients, outputChannelsPerClient = 2 |
 	// send Jamulus signal to JackTrip outputs
-	out = Array.fill(maxClients - 1, { arg n;
+	var out = Array.fill(maxClients - 1, { arg n;
 		(n + 1) * outputChannelsPerClient;
 	});
-	Out.ar(out, signal[0]);
+	var signal = signal[0];
+	var signal = LimitedLink().transform(signal);
+	Out.ar(out, signal);
 };
