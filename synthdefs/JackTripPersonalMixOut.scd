@@ -21,12 +21,20 @@
  */
 
 ~synthDef = { | maxClients, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
-    var personalMixes = \mix.kr(1 ! (maxClients * maxClients));
+    var defaultMixes = 1 ! (maxClients * maxClients);
+    var personalMixes = \mix.kr(defaultMixes);
 
     maxClients.do({ arg clientNum;
         // get personal mix
         var m = Array.fill(maxClients, { arg n;
-            personalMixes[(clientNum * maxClients) + n];
+            if (maxClients == 1, {
+                // work around weird supercollider bug where
+                // an array of size 1 gets converted into a scalar
+                // when used as a control rate parameter
+                personalMixes;
+            }, {
+                personalMixes[(clientNum * maxClients) + n];
+            });
         });
     
         // get input signals from private bus
