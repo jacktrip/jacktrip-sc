@@ -56,7 +56,7 @@ JackTripMixerGUI : BaseMix {
 				g = ParGroup.basicNew(server, 100);
 				g.set(\mul, 1);
 				g.set(\mix, mix);
-				g.set(\pan, pan);
+				//g.set(\pan, pan); // don't reset because this breaks autopan
 				master.value = 1.0 / maxMultiplier;
 				maxClients.do({ arg n;
 					sliders[n].value = 1.0 / maxMultiplier;
