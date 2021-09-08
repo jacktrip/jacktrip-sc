@@ -20,6 +20,7 @@
                       "label":"200%"
                    }
                 ],
+                "logarithmic": false,
                 "min":0,
                 "max":3,
                 "step":0.05,
