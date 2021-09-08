@@ -21,7 +21,8 @@
  */
 
 ~synthDef = { | maxClients, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
-    var personalMixes = \mix.kr(1 ! (maxClients * maxClients));
+    var defaultMixes = 1 ! (maxClients * maxClients);
+    var personalMixes = \mix.kr(defaultMixes);
 
     maxClients.do({ arg clientNum;
         // get personal mix
