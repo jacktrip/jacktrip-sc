@@ -32,6 +32,7 @@
 
 	// aggregate JackTrip signal
 	signal = AggregateLink().transform(signal);
+	signal = LimiterLink().transform(signal);
 
 	// send JackTrip signals to all outputs (including Jamulus)
 	out = Array.fill(maxClients, { arg n;
