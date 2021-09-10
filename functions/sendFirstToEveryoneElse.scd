@@ -28,7 +28,5 @@
 	var out = Array.fill(maxClients - 1, { arg n;
 		(n + 1) * outputChannelsPerClient;
 	});
-	var signal = signal[0];
-	var signal = LimiterLink().transform(signal);
-	Out.ar(out, signal);
+	Out.ar(out, signal[0]);
 };

@@ -41,8 +41,7 @@
         var signal = JackTripInput(maxClients, outputChannelsPerClient, false, ~firstPrivateBus).getSignal();
         signal = MultiplyLink(m * \mul.kr(1)).transform(signal);
         signal = AggregateLink().transform(signal);
-        signal = LimiterLink().transform(signal);
-
+        
         Out.ar(outputChannelsPerClient * clientNum, signal);
     });
 }
