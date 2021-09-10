@@ -37,8 +37,8 @@ SimpleMix : BaseMix {
 			// wait for server to be ready
 			serverReady.wait;
 
-			// use group 200 for client output synths
-			g = ParGroup.basicNew(server, 200);
+			// use group 100 for client output synths
+			g = ParGroup.basicNew(server, 100);
 
 			// create a bundle of commands to execute
 			b = server.makeBundle(nil, {
@@ -49,8 +49,8 @@ SimpleMix : BaseMix {
 				"Freeing all nodes...".postln;
 				server.freeAll;
 
-				// create group 200 for client output synths
-				server.sendMsg("/p_new", 200, 1, 0);
+				// create group 100 for client output synths
+				server.sendMsg("/p_new", 100, 1, 0);
 			});
 
 			// wait for server to receive bundle
@@ -69,78 +69,5 @@ SimpleMix : BaseMix {
 	// stop all audio on the server
 	stop {
 		server.freeAll;
-	}
-
-	// display a graphical user interface for mixing controls
-	gui { | maxSlidersPerRow = 48, maxMultiplier = 5 |
-		var out;
-		var mix = 1 ! maxClients;
-		var rows = 1;
-		var cols = maxClients + 1;
-		var window;
-		var master;
-		var sliders;
-		var serverInput;
-		var connectButton;
-		var x = 0;
-		var y = 0;
-
-		// run this when connect button is clicked
-		var connectToServer = Routine {
-			// update serverIp and connect to remote server
-			serverIp = serverInput.string.stripWhiteSpace;
-			this.connect;
-			serverReady.wait;
-
-			defer {
-				// initialize levels to 1.0
-				out = ParGroup.basicNew(server, 200);
-				out.set(\mul, 1);
-				out.set(\mix, mix);
-				master.value = 1.0 / maxMultiplier;
-				maxClients.do({ arg n;
-					sliders[n].value = 1.0 / maxMultiplier;
-				});
-			};
-		};
-
-		// prepare slider grid
-		if (maxClients >= maxSlidersPerRow, {
-			rows = (maxClients + 1 / maxSlidersPerRow).roundUp;
-			cols = maxSlidersPerRow;
-		});
-
-		// create a new window
-		window = Window.new("JackTrip Simple Mixer", Rect(50,50,(50*cols)+30,(260*rows)+60));
-
-		// add master slider
-		master = Slider.new(window, Rect(20,80,40,200));
-		master.background = "black";
-		master.action_( { arg me;
-			var mul = me.value * maxMultiplier;
-			("master vol ="+mul).postln;
-			out.set(\mul, mul);
-		});
-		StaticText(window, Rect(20, 280, 40, 20)).string_("Master");
-
-		// add channel sliders
-		sliders = Array.fill(maxClients, { arg n;
-			if ((x+1) < cols, { x = x + 1; }, { x = 0; y = y + 1; });
-			StaticText(window, Rect(20+(x*50), 280+(260*y), 40, 20)).string_(n);
-			Slider.new(window, Rect(20+(x*50), 80+(260*y), 40, 200)).action_( { arg me;
-				mix[n] = me.value * maxMultiplier;
-				("ch"+n+"vol ="+mix[n]).postln;
-				out.set(\mix, mix);
-			});
-		});
-
-		// add input box for server and connect button
-		serverInput = TextField(window, Rect(20,20,300,40)).value_(serverIp);
-		connectButton = Button(window, Rect(340,20,100,40));
-		connectButton.states_([["Connect"]]);
-		connectButton.action_(connectToServer);
-
-		// display the window
-		window.front;
 	}
 }

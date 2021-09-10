@@ -28,7 +28,8 @@
 ~synthDef = { | maxClients, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
     var signal;
     var defaultPan = 0 ! maxClients;
-    var levels = \mix.kr([1 ! maxClients]) * \mul.kr(1.0);
+    var defaultMix = 1 ! maxClients;
+    var levels = \mix.kr(defaultMix) * \mul.kr(1.0);
 
     signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
     signal = BandPassFilterLink(\low.kr(20), \high.kr(20000)).transform(signal);
