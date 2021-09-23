@@ -18,7 +18,7 @@
  * JackTripMixerGUI: a simple GUI for remotely controlling mixers
  */
 
-JackTripMixerGUI : BaseMix {
+JackTripMixerGUI : BaseMixer {
 	
 	// create a new instance
 	// * \maxClients: maximum number of clients that may connect to the audio server

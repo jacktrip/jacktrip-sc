@@ -1,6 +1,7 @@
 {
-    "label":"Auto-Pan Mix (Default)",
-    "class":"AutoPanMix",
+    "label":"Mono + Pan (Default)",
+    "class":"MonoPanWithPersonalMixer",
+    "max":100,
     "options":[
        {
           "src":"masterVolume",
@@ -51,27 +52,6 @@
                 "max":3,
                 "step":0.05,
                 "scale":100
-             }
-          }
-       },
-       {
-          "src":"autopan",
-          "label":"Input Channels",
-          "type":"boolean",
-          "defaultVal":true,
-          "field":{
-             "type":"dropdown",
-             "fieldOptions":{
-                "labels":[
-                   {
-                      "value":true,
-                      "label":"Mix-to-Mono (Default)"
-                   },
-                   {
-                      "value":false,
-                      "label":"Stereo"
-                   }
-                ]
              }
           }
        },
@@ -131,14 +111,7 @@
                    }
                 ]
              }
-          },
-          "conditions":[
-             {
-                "variable":"autopan",
-                "operator":"=",
-                "value":true
-             }
-          ]
+          }
        },
       {
          "src": ["hpf", "lpf"],

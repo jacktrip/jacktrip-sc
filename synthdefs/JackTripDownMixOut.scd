@@ -17,7 +17,7 @@
 "../functions/jackTripSimpleMix.scd".loadRelative;
 
  /*
- * JackTripSimpleMixFromBus: a minimal mix that scales well and reads from input busses
+ * JackTripDownMixOut: a minimal mix that scales well and reads from input busses
  *
  * \maxClients: maximum number of clients that may connect to the audio server
  * \inputChannelsPerClient: number of input channels received from each client
@@ -27,8 +27,8 @@
  * \mul : master amplitude level multiplier (default 1.0)
  */
 
-~synthDef = { | maxClients, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
+~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
     var defaultMix = 1 ! maxClients;
     var levels = \mix.kr(defaultMix) * \mul.kr(1.0);
-    ~jackTripSimpleMix.value(maxClients, levels, inputChannelsPerClient, outputChannelsPerClient, withJamulus, false, ~firstPrivateBus);
+    ~jackTripSimpleMix.value(postChain, maxClients, levels, inputChannelsPerClient, outputChannelsPerClient, withJamulus, false, ~firstPrivateBus);
 };

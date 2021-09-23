@@ -15,12 +15,12 @@
  */
 
 /*
- * BaseMix: base class for other JackTrip Virtual Studio mixers
+ * BaseMixer: base class for other JackTrip Virtual Studio mixers
  *
  * \maxClients: maximum number of clients that may connect to the audio server
  */
 
-BaseMix : Object {
+BaseMixer : Object {
 	var <>maxClients;
 	var <>withJamulus = true;		// create mixes adapted Jamulus being connected on channels 1 & 2
 	var <>useSynthCache = true;		// send each synth definition to the server at most one time
@@ -30,12 +30,14 @@ BaseMix : Object {
 	var <>serverReady, <>server;    // state of the server and the server object
 	var <>mixStarted;				// Condition object used to pause execution until the server is ready
 	var <>defaultMix;				// default master mix is just an array of ones (do nothing)
+	var <>preChain, <>postChain;	// signal chains for processing audio before (pre) and after (post) mixing down to stereo
 	classvar inputChannelsPerClient = 2;	// for stereo audio inputs
 	classvar outputChannelsPerClient = 2;	// for stereo audio outputs
 
 	// create a new instance
 	*new { | maxClients = 16 |
-		^super.newCopyArgs(maxClients).serverReady_(Condition.new).mixStarted_(Condition.new).defaultMix_(1 ! maxClients);
+		^super.newCopyArgs(maxClients).serverReady_(Condition.new).mixStarted_(Condition.new).defaultMix_(1 ! maxClients)
+			.preChain_({|signal| signal}).postChain_({|signal| signal});
 	}
 
 	// connect to a remote server
@@ -71,8 +73,10 @@ BaseMix : Object {
 	}
 
 	// sendSynthDef method sends a synth definition from a file to the server for use in audio mixing
-	sendSynthDef { | name |
+	sendSynthDef { | srcName, name = "" |
 		var defPath;
+
+		if (name == "", { name = srcName; });
 
 		defPath = SynthDef.synthDefDir;
 		defPath = defPath ++ name ++ ".scsyndef";
@@ -86,9 +90,9 @@ BaseMix : Object {
 		}, {
 			var sdef;
 
-			(this.class.filenameSymbol.asString.dirname +/+ "../../synthdefs/" ++ name ++ ".scd").load;
+			(this.class.filenameSymbol.asString.dirname +/+ "../../synthdefs/" ++ srcName ++ ".scd").load;
 			sdef = SynthDef(name, {
-				SynthDef.wrap(~synthDef, prependArgs: [maxClients, inputChannelsPerClient, outputChannelsPerClient, withJamulus]);
+				SynthDef.wrap(~synthDef, prependArgs: [maxClients, preChain, postChain, inputChannelsPerClient, outputChannelsPerClient, withJamulus]);
 			});
 
 			if (server.isLocal, {
@@ -100,11 +104,6 @@ BaseMix : Object {
 				sdef.send(server);
 			})
 		});
-	}
-
-	// sendSynthDefs method sends a list of synth definitions from files to the server for use in audio mixing
-	sendSynthDefs { | names |
-		names.do { | n | this.sendSynthDef(n); };
 	}
 
 	// wait for mix to start

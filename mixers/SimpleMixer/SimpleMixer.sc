@@ -15,14 +15,14 @@
  */
 
 /*
- * SimpleMix: a minimal mix that scales well
+ * SimpleMixer: a minimal mixer that scales well
  *
  * \maxClients: maximum number of clients that may connect to the audio server
  * \serverIp: IP address or hostname of remote audio server
  * \serverPort: port number of remote audio server
  */
  
-SimpleMix : BaseMix {
+SimpleMixer : BaseMixer {
 
 	// create a new instance
 	*new { | maxClients = 16 |

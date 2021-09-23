@@ -1,0 +1,115 @@
+{
+    "label":"Large Ensemble (100-300 musicians)",
+    "class":"MonoPanWithoutPersonalMixer",
+    "max":300,
+    "options":[
+       {
+          "src":"masterVolume",
+          "label":"Master Volume",
+          "type":"number",
+          "defaultVal":1,
+          "field":{
+             "type":"slider",
+             "fieldOptions":{
+                "marks":[
+                   {
+                      "value":1,
+                      "label":"100%"
+                   },
+                   {
+                      "value":2,
+                      "label":"200%"
+                   }
+                ],
+                "logarithmic": false,
+                "min":0,
+                "max":3,
+                "step":0.05,
+                "scale":100
+             }
+          }
+       },
+        {
+          "src":"panSlots",
+          "label":"Panning Slots",
+          "type":"number",
+          "defaultVal":1,
+          "field":{
+             "type":"dropdown",
+             "fieldOptions":{
+                "labels":[
+                   {
+                      "value":1,
+                      "label":"1",
+                      "var":1
+                   },
+                   {
+                      "value":2,
+                      "label":"2",
+                      "var":2
+                   },
+                   {
+                      "value":3,
+                      "label":"3",
+                      "var":3
+                   },
+                   {
+                      "value":4,
+                      "label":"4",
+                      "var":4
+                   },
+                   {
+                      "value":5,
+                      "label":"5",
+                      "var":5
+                   },
+                   {
+                      "value":6,
+                      "label":"6",
+                      "var":6
+                   },
+                   {
+                      "value":7,
+                      "label":"7",
+                      "var":7
+                   },
+                   {
+                      "value":8,
+                      "label":"8",
+                      "var":8
+                   },
+                   {
+                      "value":9,
+                      "label":"9",
+                      "var":9
+                   }
+                ]
+             }
+          }
+       },
+      {
+         "src": ["hpf", "lpf"],
+         "label": "Bandpass Filter (Hz)",
+         "type": "number",
+         "defaultVal": [20, 20000],
+         "field": {
+            "type":"range",
+            "fieldOptions":{
+               "marks":[
+                  {
+                     "value":20,
+                     "label":"20"
+                  },
+                  {
+                     "value": 20000,
+                     "label": "20000"
+                  }
+               ],
+               "logarithmic": true,
+               "min": 20,
+               "max": 20000
+            }
+         }
+      }
+    ]
+ }

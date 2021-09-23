@@ -27,8 +27,8 @@
  * \mul : master amplitude level multiplier (default 1.0)
  */
 
-~synthDef = { | maxClients, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
+~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
     var defaultMix = 1 ! maxClients;
     var levels = \mix.kr(defaultMix) * \mul.kr(1.0);
-    ~jackTripSimpleMix.value(maxClients, levels, inputChannelsPerClient, outputChannelsPerClient, withJamulus, true, 0);
+    ~jackTripSimpleMix.value(postChain, maxClients, levels, inputChannelsPerClient, outputChannelsPerClient, withJamulus, true, 0);
 };

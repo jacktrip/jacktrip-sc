@@ -1,0 +1,83 @@
+{
+    "label":"Stereo (<100 musicians)",
+    "class":"StereoMixer",
+    "max":100,
+    "options":[
+       {
+          "src":"masterVolume",
+          "label":"Master Volume",
+          "type":"number",
+          "defaultVal":1,
+          "field":{
+             "type":"slider",
+             "fieldOptions":{
+                "marks":[
+                   {
+                      "value":1,
+                      "label":"100%"
+                   },
+                   {
+                      "value":2,
+                      "label":"200%"
+                   }
+                ],
+                "logarithmic": false,
+                "min":0,
+                "max":3,
+                "step":0.05,
+                "scale":100
+             }
+          }
+       },
+       {
+          "src":"selfVolume",
+          "label":"Self Volume",
+          "type":"number",
+          "defaultVal":0.5,
+          "field":{
+             "type":"slider",
+             "fieldOptions":{
+                "marks":[
+                   {
+                      "value":1,
+                      "label":"100%"
+                   },
+                   {
+                      "value":2,
+                      "label":"200%"
+                   }
+                ],
+                "logarithmic": false,
+                "min":0,
+                "max":3,
+                "step":0.05,
+                "scale":100
+             }
+          }
+       },
+      {
+         "src": ["hpf", "lpf"],
+         "label": "Bandpass Filter (Hz)",
+         "type": "number",
+         "defaultVal": [20, 20000],
+         "field": {
+            "type":"range",
+            "fieldOptions":{
+               "marks":[
+                  {
+                     "value":20,
+                     "label":"20"
+                  },
+                  {
+                     "value": 20000,
+                     "label": "20000"
+                  }
+               ],
+               "logarithmic": true,
+               "min": 20,
+               "max": 20000
+            }
+         }
+      }
+    ]
+ }

@@ -15,23 +15,21 @@
  */
 
 /*
- * JackTripSimpleIn is used to apply leveling and filters to a specific client input, 
- * and send it to an audio bus
+ * JackTripToInputBus is used to apply leveling, and a pre signal chain
+ * to process audio from JackTrip and deliver it to the input audio bus
  *
- * \low : low frequency to use for bandpass filter (default 20)
- * \high : high frequency to use for bandpass filter (default 20000)
  * \mix : array of amplitude level multipliers (default 1.0) for each client
  * \mul : master amplitude level multiplier (default 1.0)
-  */
+ */
 
-~synthDef = { | maxClients, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
+~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
     var signal;
     var defaultMix = 1 ! maxClients;
     var levels = \mix.kr(defaultMix) * \mul.kr(1.0);
 
     signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
-    signal = BandPassFilterLink(\low.kr(20), \high.kr(20000)).transform(signal);
     signal = MultiplyLink(levels).transform(signal);
+    signal = preChain.value(signal);
 
     signal.do({ arg item, i;
         Out.ar(~inputBuses[i].index, item);

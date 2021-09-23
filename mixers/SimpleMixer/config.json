@@ -1,6 +1,7 @@
 {
-    "label":"Stereo Mix",
-    "class":"SimpleMix",
+    "label":"Extra Large Ensemble (>300 musicians)",
+    "class":"SimpleMixer",
+    "max":500,
     "options":[
        {
           "src":"masterVolume",
