@@ -55,17 +55,10 @@
  *
  * \maxClients: maximum number of clients that may connect to the audio server
  * \preChain: signal processing chain applied to each client's audio before it is sent to the bus
- * \preChainName: unique name for the pre signal processing chain
- * \preChainArgs: array specifying initial values for the pre signal chain synth's arguments 
  */
 
 InputBusMixer : BaseMixer {
 
-	// the following parameters are instance variables
-	// the '<' is shorthand for a getter method and '>' is shorthand for a setter method
-	var <>preChainName = "";
-	var <>preChainArgs = nil;
-	
 	// create a new instance
 	*new { | maxClients = 16 |
 		^super.new(maxClients);
@@ -90,7 +83,7 @@ InputBusMixer : BaseMixer {
 				~makeInputBusses.value(server, maxClients, inputChannelsPerClient, outputChannelsPerClient);
 
 				// create synthdef to send audio to the input busses
-				this.sendSynthDef(synthName, synthName ++ preChainName);
+				this.sendSynthDef(synthName, synthName ++ preChain.getName());
 				
 				// free any existing nodes
 				"Freeing all nodes...".postln;
@@ -107,8 +100,8 @@ InputBusMixer : BaseMixer {
 			server.sync(nil, b);
 
 			// create synth to send audio to the input busses
-			node = Synth(synthName ++ preChainName, preChainArgs, g, \addToTail);
-			("Created synth" + (synthName ++ preChainName) + node.nodeID).postln;
+			node = Synth(synthName ++ preChain.getName(), preChain.getArgs(), g, \addToTail);
+			("Created synth" + (synthName ++ preChain.getName()) + node.nodeID).postln;
 		}.run;
 	}
 

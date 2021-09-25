@@ -37,11 +37,8 @@ StereoMixer : PersonalMixer {
 	start {
 
 		// prepare pre processing signal chain
-		this.preChainArgs = [\low, hpf, \high, lpf];
-		this.preChainName = ":BandPassFilter";					
-		this.preChain = { | signal |
-			signal = BandPassFilterLink(\low.kr(20), \high.kr(20000)).transform(signal);
-		};
+		this.preChain.clear().maxClients_(maxClients);
+		this.preChain.append(BandPassFilterLink().low_(hpf).high_(lpf));
 
 		// start InputBusMixer and PersonalMixer base classes
 		super.start();

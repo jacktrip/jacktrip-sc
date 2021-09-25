@@ -37,7 +37,7 @@ BaseMixer : Object {
 	// create a new instance
 	*new { | maxClients = 16 |
 		^super.newCopyArgs(maxClients).serverReady_(Condition.new).mixStarted_(Condition.new).defaultMix_(1 ! maxClients)
-			.preChain_({|signal| signal}).postChain_({|signal| signal});
+			.preChain_(SignalChain.new).postChain_(SignalChain.new);
 	}
 
 	// connect to a remote server

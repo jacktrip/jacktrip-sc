@@ -23,16 +23,21 @@
  */
 
 PanningLink : Link {
-    var<> pan;
+    var<> panSlots;
 
-	*new { | pan=0 |
-		^super.new().pan_(pan);
+	*new { | panSlots = 1 |
+		^super.new().panSlots_(panSlots);
 	}
 
-    transform { |input|
-        var signal;
-        signal = Pan2.ar(input, pan);
-        ^signal;
+    ar { |input|
+        var panValues = PanningLink.autoPan(maxClients, panSlots);
+        ^Pan2.ar(input, \pan.kr(panValues));
+    }
+
+	// returns a list of synth arguments used by this Link
+	getArgs {
+        var panValues = PanningLink.autoPan(maxClients, panSlots);
+        ^[\pan, panValues];
     }
 
     // returns an array of initial pan values for each client, from -1 to 1

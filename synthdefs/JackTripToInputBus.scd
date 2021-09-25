@@ -28,8 +28,8 @@
     var levels = \mix.kr(defaultMix) * \mul.kr(1.0);
 
     signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
-    signal = MultiplyLink(levels).transform(signal);
-    signal = preChain.value(signal);
+    signal = MultiplyLink(levels).ar(signal);
+    signal = preChain.ar(signal);
 
     signal.do({ arg item, i;
         Out.ar(~inputBuses[i].index, item);

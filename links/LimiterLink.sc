@@ -25,7 +25,7 @@ LimiterLink : Link {
 		^super.new().threshDB_(threshDB);
 	}
 
-    transform { |input|
+    ar { |input|
         var signal = input;
         signal = Compander.ar(signal, signal, threshDB.dbamp, 1, 0.1);
         ^signal

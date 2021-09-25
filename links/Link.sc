@@ -19,15 +19,15 @@
  *
  * A Link is an abstract representation of an element or phase in a
  * more complicated signal flow processing chain. A Link is initialized
- * with certain settings passed into the constructor, then the transform
- * function is called. The transform function accepts an audio signal
- * and outputs another audio signal. This allows for transformation to be
- * chained together.
+ * with certain settings passed into the constructor, then the ar
+ * function is called. The ar function accepts an audio signal and
+ * outputs another audio signal. This allows links to be chained together
+ * to create signal flow chains.
  *
  * var signal = SoundIn(inputChannel);
- * signal = Link1().transform(signal);
- * signal = Link2().transform(signal);
- * signal = Link3().transform(signal);
+ * signal = Link1().ar(signal);
+ * signal = Link2().ar(signal);
+ * signal = Link3().ar(signal);
  * Out(outputChannel, signal)
  * 
  * This can be thought of as:
@@ -44,12 +44,20 @@
  */
 
 Link : Class {
-    *new {
-		^super.new();
+    var<> maxClients;
+
+    *new { | maxClients = 16 |
+		^super.new().maxClients_(maxClients);
 	}
 
 	// Override this function!
-	transform { |input|
+	ar { |input|
 		^input
 	}
+
+	// returns a unique name for this Link
+	getName { ^this.class.asString; }
+
+	// returns a list of synth arguments used by this Link
+	getArgs { ^nil }
 }

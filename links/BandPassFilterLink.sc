@@ -27,10 +27,15 @@ BandPassFilterLink : Link {
 		^super.new().low_(low).high_(high);
 	}
 
-    transform { |input|
+    ar { |input|
         var signal = input;
-        signal = LPF.ar(signal, high);
-        signal = HPF.ar(signal, low);
+        signal = LPF.ar(signal, \high.kr(high));
+        signal = HPF.ar(signal, \low.kr(low));
         ^signal
+    }
+
+	// returns a list of synth arguments used by this Link
+	getArgs {
+        ^[\low, low, \high, high];
     }
 }

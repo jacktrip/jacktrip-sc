@@ -40,14 +40,10 @@ MonoPanWithPersonalMixer : PersonalMixer {
 
 		// prepare pre processing signal chain
 		// squash to mono and pan clients
-		var p = PanningLink.autoPan(maxClients, panSlots);
-		this.preChainArgs = [\low, hpf, \high, lpf, \pan, p];
-		this.preChainName = ":BandPassFilter_SquashToMono_Panning";					
-		this.preChain = { | signal |
-			signal = BandPassFilterLink(\low.kr(20), \high.kr(20000)).transform(signal);
-			signal = SquashToMonoLink(true, false).transform(signal);
-			signal = PanningLink(\pan.kr(0)).transform(signal);
-		};
+		this.preChain.clear().maxClients_(maxClients);
+		this.preChain.append(BandPassFilterLink().low_(hpf).high_(lpf));
+		this.preChain.append(SquashToMonoLink(true, false));
+		this.preChain.append(PanningLink().maxClients_(maxClients).panSlots_(panSlots));
 
 		// start InputBusMixer and PersonalMixer base classes
 		super.start();

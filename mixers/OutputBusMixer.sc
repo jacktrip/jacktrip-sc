@@ -20,20 +20,11 @@
  *
  * \maxClients: maximum number of clients that may connect to the audio server
  * \preChain: signal processing chain applied to each client's audio before it is sent to the bus
- * \preChainName: unique name for the pre signal processing chain
- * \preChainArgs: array specifying initial values for the pre signal chain synth's arguments 
  * \postChain: signal processing chain applied to flattened audio before sending to each personal mix
- * \postChainName: unique name for the post signal processing chain
- * \postChainArgs: array specifying initial values for the post signal chain synth's arguments 
  */
 
 OutputBusMixer : InputBusMixer {
 	
-	// the following parameters are instance variables
-	// the '<' is shorthand for a getter method and '>' is shorthand for a setter method
-	var <>postChainName = "";
-	var <>postChainArgs = nil;
-
 	// create a new instance
 	*new { | maxClients = 16 |
 		^super.new(maxClients);
@@ -58,7 +49,7 @@ OutputBusMixer : InputBusMixer {
 
 			// create a bundle of commands to execute
 			b = server.makeBundle(nil, {
-				this.sendSynthDef(synthName, synthName ++ postChainName);
+				this.sendSynthDef(synthName, synthName ++ postChain.getName());
 
 				// use group 100 for client input synths and use group 200 for client output synths
 				// p_new is a server command (see Server Command Reference on SC documentation)
@@ -71,9 +62,9 @@ OutputBusMixer : InputBusMixer {
 			server.sync(nil, b);
 
 			// create a single mix and outputs to all clients including jamulus
-			args = [\mix, defaultMix, \mul, masterVolume] ++ postChainArgs;
-			node = Synth(synthName ++ postChainName, args, g, \addToTail);
-			("Created synth" + (synthName ++ postChainName) + node.nodeID).postln;
+			args = [\mix, defaultMix, \mul, masterVolume] ++ postChain.getArgs();
+			node = Synth(synthName ++ postChain.getName(), args, g, \addToTail);
+			("Created synth" + (synthName ++ postChain.getName()) + node.nodeID).postln;
 
 		}.run;
 	}

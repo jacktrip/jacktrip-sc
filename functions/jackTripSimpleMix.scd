@@ -34,7 +34,7 @@
     var signal = JackTripInput(maxClients, inputChannelsPerClient, useSoundIn, offset).getSignal();
 
 	// adjust levels
-	signal = MultiplyLink(levels).transform(signal);
+	signal = MultiplyLink(levels).ar(signal);
 
     if (withJamulus, {
         ~aggregateAndSendToAll.value(signal, signalChain, maxClients, outputChannelsPerClient, 1);

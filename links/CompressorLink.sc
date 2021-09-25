@@ -27,7 +27,7 @@ CompressorLink : Link {
 		^super.new().threshDB_(threshDB).ratio_(ratio);
 	}
 
-    transform { |input|
+    ar { |input|
         var signal = input;
         signal = Compander.ar(signal, signal, threshDB.dbamp, 1, ratio);
         ^signal

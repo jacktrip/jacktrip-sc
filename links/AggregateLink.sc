@@ -43,7 +43,7 @@ AggregateLink : Link {
 		^super.new();
 	}
 
-    transform { |input|
+    ar { |input|
         ^Mix(input);
     }
 }

@@ -32,8 +32,8 @@
 	signal = (signal.size - offset).collect{ |n| signal[n + offset]; };
 
 	// aggregate JackTrip signal
-	signal = AggregateLink().transform(signal);
-    signal = signalChain.value(signal);
+	signal = AggregateLink().ar(signal);
+    signal = signalChain.ar(signal);
 
 	// send JackTrip signals to all outputs (including Jamulus)
 	out = Array.fill(maxClients, { arg n;
