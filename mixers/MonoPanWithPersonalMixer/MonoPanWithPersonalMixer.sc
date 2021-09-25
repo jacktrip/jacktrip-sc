@@ -47,14 +47,5 @@ MonoPanWithPersonalMixer : PersonalMixer {
 
         // start InputBusMixer and PersonalMixer base classes
         super.start();
-
-        Routine {
-            // signal that the mix has started
-            // signal is defined in the BaseMix class and represents a Condition object
-            // after these two lines are executed, the BaseMix knows that the
-            // proper Synths have been set up, and can execute other routines
-            this.mixStarted.test = true;
-            this.mixStarted.signal;
-        }.run;
     }
 }

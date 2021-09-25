@@ -64,48 +64,45 @@ InputBusMixer : BaseMixer {
         ^super.new(maxClients);
     }
 
-    // starts up all the audio on the server
+    // starts up JackTripToInputBus synth (must be run from a Routine)
     start {
-        var r = Routine {
-            var node;
+        var node, g, b;
+        var synthName = "JackTripToInputBus";
 
-            var synthName = "JackTripToInputBus";
+        // wait for server to be ready
+        serverReady.wait;
 
-            // g represents a node group
-            // a group represents a set of Synths running on the server
-            // two groups are used, one for input Synths (100) and one for output Synths (200)
-            var g = ParGroup.basicNew(server, 100);
+        // g represents a node group
+        // a group represents a set of Synths running on the server
+        // two groups are used, one for input Synths (100) and one for output Synths (200)
+        g = ParGroup.basicNew(server, 100);
 
-            // create a bundle of commands to execute
-            var b = server.makeBundle(nil, {
-                // make input busses
-                (this.class.filenameSymbol.asString.dirname +/+ "../../functions/makeInputBusses.scd").load;
-                ~makeInputBusses.value(server, maxClients, inputChannelsPerClient, outputChannelsPerClient);
+        // create a bundle of commands to execute
+        b = server.makeBundle(nil, {
+            // make input busses
+            (this.class.filenameSymbol.asString.dirname +/+ "../../functions/makeInputBusses.scd").load;
+            ~makeInputBusses.value(server, maxClients, inputChannelsPerClient, outputChannelsPerClient);
 
-                // create synthdef to send audio to the input busses
-                this.sendSynthDef(synthName, synthName ++ preChain.getName());
-                
-                // free any existing nodes
-                "Freeing all nodes...".postln;
-                server.freeAll;
+            // create synthdef to send audio to the input busses
+            this.sendSynthDef(synthName, synthName ++ preChain.getName());
+            
+            // free any existing nodes
+            "Freeing all nodes...".postln;
+            server.freeAll;
 
-                // use group 100 for client input synths and use group 200 for client output synths
-                // p_new is a server command (see Server Command Reference on SC documentation)
-                // that creates a parallel group, which represents a set of Synths that execute
-                // simultaneously
-                server.sendMsg("/p_new", 100, 1, 0);
-            });
+            // use group 100 for client input synths and use group 200 for client output synths
+            // p_new is a server command (see Server Command Reference on SC documentation)
+            // that creates a parallel group, which represents a set of Synths that execute
+            // simultaneously
+            server.sendMsg("/p_new", 100, 1, 0);
+        });
 
-            // wait for server to receive bundle
-            server.sync(nil, b);
+        // wait for server to receive bundle
+        server.sync(nil, b);
 
-            // create synth to send audio to the input busses
-            node = Synth(synthName ++ preChain.getName(), preChain.getArgs(), g, \addToTail);
-            ("Created synth" + (synthName ++ preChain.getName()) + node.nodeID).postln;
-        };
-
-        // wait until routine finishes
-        while ({r.next != nil});
+        // create synth to send audio to the input busses
+        node = Synth(synthName ++ preChain.getName(), preChain.getArgs(), g, \addToTail);
+        ("Created synth" + (synthName ++ preChain.getName()) + node.nodeID).postln;
     }
 
     // stop all audio on the server

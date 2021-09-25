@@ -32,13 +32,12 @@ OutputBusMixer : InputBusMixer {
 
     // starts up all the audio on the server
     start {
-        var r = Routine {
+        Routine {
             var b, g, node, args;
-
             var synthName = "JackTripDownMixOut";
 
-            // wait for server to be ready
-            serverReady.wait;
+            // start input bus mixer first
+            super.start();
 
             // use group 200 for client output synths
             g = ParGroup.basicNew(server, 200);
@@ -62,12 +61,12 @@ OutputBusMixer : InputBusMixer {
             node = Synth(synthName ++ postChain.getName(), args, g, \addToTail);
             ("Created synth" + (synthName ++ postChain.getName()) + node.nodeID).postln;
 
-        };
-
-        // start input bus mixer first
-        super.start();
-
-        // wait until routine finishes
-        while ({r.next != nil});
+            // signal that the mix has started
+            // signal is defined in the BaseMix class and represents a Condition object
+            // after these two lines are executed, the BaseMix knows that the
+            // proper Synths have been set up, and can execute other routines
+            this.mixStarted.test = true;
+            this.mixStarted.signal;
+        }.run;
     }
 }
