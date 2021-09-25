@@ -51,11 +51,7 @@ PersonalMixer : InputBusMixer {
 
     // starts up all the audio on the server
     start {
-
-        // start input bus mixer first
-        super.start();
-
-        Routine {
+        var r = Routine {
             var b, g, p, node, args, personalMixes;
 
             var synthName = "JackTripPersonalMixOut";
@@ -100,6 +96,12 @@ PersonalMixer : InputBusMixer {
             node = Synth(synthName ++ postChain.getName(), args, g, \addToTail);
             ("Created synth" + (synthName ++ postChain.getName()) + node.nodeID).postln;
 
-        }.run;
+        };
+
+        // start input bus mixer first
+        super.start();
+
+        // wait until routine finishes
+        while ({r.next != nil});
     }
 }

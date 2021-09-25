@@ -66,7 +66,7 @@ InputBusMixer : BaseMixer {
 
     // starts up all the audio on the server
     start {
-        Routine {
+        var r = Routine {
             var node;
 
             var synthName = "JackTripToInputBus";
@@ -102,7 +102,10 @@ InputBusMixer : BaseMixer {
             // create synth to send audio to the input busses
             node = Synth(synthName ++ preChain.getName(), preChain.getArgs(), g, \addToTail);
             ("Created synth" + (synthName ++ preChain.getName()) + node.nodeID).postln;
-        }.run;
+        };
+
+        // wait until routine finishes
+        while ({r.next != nil});
     }
 
     // stop all audio on the server

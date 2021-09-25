@@ -32,11 +32,7 @@ OutputBusMixer : InputBusMixer {
 
     // starts up all the audio on the server
     start {
-
-        // start input bus mixer first
-        super.start();
-
-        Routine {
+        var r = Routine {
             var b, g, node, args;
 
             var synthName = "JackTripDownMixOut";
@@ -66,6 +62,12 @@ OutputBusMixer : InputBusMixer {
             node = Synth(synthName ++ postChain.getName(), args, g, \addToTail);
             ("Created synth" + (synthName ++ postChain.getName()) + node.nodeID).postln;
 
-        }.run;
+        };
+
+        // start input bus mixer first
+        super.start();
+
+        // wait until routine finishes
+        while ({r.next != nil});
     }
 }

@@ -52,9 +52,9 @@ SignalChain : Class {
 
     // returns a unique name for this signal chain
     getName {
-        var name = ".";
+        var name = "";
         
-        if (links.size == 0, { ^nil; });
+        if (links.size == 0, { ^name; }, { name = "."; });
 
         links.size.do({ |n|
             name = name ++ links[n].getName();
