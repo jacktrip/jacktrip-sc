@@ -25,9 +25,9 @@
 MultiplyLink : Link {
     var<> factor;
 
-	*new { | factor=1.0 |
-		^super.new().factor_(factor);
-	}
+    *new { | factor=1.0 |
+        ^super.new().factor_(factor);
+    }
 
     ar { |input|
         ^MulAdd(input, factor, 0)

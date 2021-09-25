@@ -33,9 +33,9 @@ SquashToMonoLink : Link {
     var <> nested;
     var <> keepChannels;
 
-	*new { |nested=false, keepChannels=true|
-		^super.new().nested_(nested).keepChannels_(keepChannels);
-	}
+    *new { |nested=false, keepChannels=true|
+        ^super.new().nested_(nested).keepChannels_(keepChannels);
+    }
 
     ar { |input|
         var signal = input;

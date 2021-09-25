@@ -21,9 +21,9 @@
 LimiterLink : Link {
     var<> threshDB;
 
-	*new { | threshDB = -2 |
-		^super.new().threshDB_(threshDB);
-	}
+    *new { | threshDB = -2 |
+        ^super.new().threshDB_(threshDB);
+    }
 
     ar { |input|
         var signal = input;

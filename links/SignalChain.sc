@@ -19,59 +19,59 @@
  */
 
 SignalChain : Class {
-	var <>maxClients;
-	var <>links;
+    var <>maxClients;
+    var <>links;
 
-	// creates a new signal chain object
+    // creates a new signal chain object
     *new { | maxClients = 16 |
-		^super.new().maxClients_(maxClients).links_(Array.new);
-	}
+        ^super.new().maxClients_(maxClients).links_(Array.new);
+    }
 
-	// clears the signal chain
-	clear {
-		links = Array.new;
-		^this;
-	}
+    // clears the signal chain
+    clear {
+        links = Array.new;
+        ^this;
+    }
 
-	// appends a new link to the signal chain, add maxClients salt
-	append { |l|
-		links = links ++ l.maxClients_(maxClients);
-		^this;
-	}
+    // appends a new link to the signal chain, add maxClients salt
+    append { |l|
+        links = links ++ l.maxClients_(maxClients);
+        ^this;
+    }
 
-	// processes audio using the sequence of Links
-	ar { |input|
-		var signal = input;
-		
-		links.size.do({ |n|
-			signal = links[n].ar(signal);
-		});
-		
-		^signal;
-	}
+    // processes audio using the sequence of Links
+    ar { |input|
+        var signal = input;
+        
+        links.size.do({ |n|
+            signal = links[n].ar(signal);
+        });
+        
+        ^signal;
+    }
 
-	// returns a unique name for this signal chain
-	getName {
-		var name = ".";
-		
-		if (links.size == 0, { ^nil; });
+    // returns a unique name for this signal chain
+    getName {
+        var name = ".";
+        
+        if (links.size == 0, { ^nil; });
 
-		links.size.do({ |n|
-			name = name ++ links[n].getName();
-			if (n+1 < links.size, { name = name ++ "_"; });
-		});
+        links.size.do({ |n|
+            name = name ++ links[n].getName();
+            if (n+1 < links.size, { name = name ++ "_"; });
+        });
 
-		^name;
-	}
+        ^name;
+    }
 
-	// returns a list of synth arguments used by this signal chain
-	getArgs {
-		var args = Array.new;
-		
-		links.size.do({ |n|
-			args = args ++ links[n].getArgs();
-		});
+    // returns a list of synth arguments used by this signal chain
+    getArgs {
+        var args = Array.new;
+        
+        links.size.do({ |n|
+            args = args ++ links[n].getArgs();
+        });
 
-		^args;
-	}
+        ^args;
+    }
 }

@@ -23,9 +23,9 @@ BandPassFilterLink : Link {
     var<> low;
     var<> high;
 
-	*new { | low=20, high=20000 |
-		^super.new().low_(low).high_(high);
-	}
+    *new { | low=20, high=20000 |
+        ^super.new().low_(low).high_(high);
+    }
 
     ar { |input|
         var signal = input;
@@ -34,8 +34,8 @@ BandPassFilterLink : Link {
         ^signal
     }
 
-	// returns a list of synth arguments used by this Link
-	getArgs {
+    // returns a list of synth arguments used by this Link
+    getArgs {
         ^[\low, low, \high, high];
     }
 }

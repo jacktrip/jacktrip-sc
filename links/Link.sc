@@ -47,17 +47,17 @@ Link : Class {
     var<> maxClients;
 
     *new { | maxClients = 16 |
-		^super.new().maxClients_(maxClients);
-	}
+        ^super.new().maxClients_(maxClients);
+    }
 
-	// Override this function!
-	ar { |input|
-		^input
-	}
+    // Override this function!
+    ar { |input|
+        ^input
+    }
 
-	// returns a unique name for this Link
-	getName { ^this.class.asString; }
+    // returns a unique name for this Link
+    getName { ^this.class.asString; }
 
-	// returns a list of synth arguments used by this Link
-	getArgs { ^nil }
+    // returns a list of synth arguments used by this Link
+    getArgs { ^nil }
 }

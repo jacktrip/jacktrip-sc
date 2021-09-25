@@ -25,36 +25,36 @@
  */
 
 MonoPanWithoutPersonalMixer : OutputBusMixer {
-	
-	// the following parameters are instance variables
-	// the '<' is shorthand for a getter method and '>' is shorthand for a setter method
-	var <>panSlots, <>hpf, <>lpf;
+    
+    // the following parameters are instance variables
+    // the '<' is shorthand for a getter method and '>' is shorthand for a setter method
+    var <>panSlots, <>hpf, <>lpf;
 
-	// create a new instance
-	*new { | maxClients = 16, panSlots = 1, hpf = 20, lpf = 20000 |
-		^super.new(maxClients).panSlots_(panSlots).hpf_(hpf).lpf_(lpf);
-	}
+    // create a new instance
+    *new { | maxClients = 16, panSlots = 1, hpf = 20, lpf = 20000 |
+        ^super.new(maxClients).panSlots_(panSlots).hpf_(hpf).lpf_(lpf);
+    }
 
-	// starts up all the audio on the server
-	start {
+    // starts up all the audio on the server
+    start {
 
-		// prepare pre processing signal chain
-		// squash to mono and pan clients
-		this.preChain.clear().maxClients_(maxClients);
-		this.preChain.append(BandPassFilterLink().low_(hpf).high_(lpf));
-		this.preChain.append(SquashToMonoLink(true, false));
-		this.preChain.append(PanningLink().maxClients_(maxClients).panSlots_(panSlots));
+        // prepare pre processing signal chain
+        // squash to mono and pan clients
+        this.preChain.clear().maxClients_(maxClients);
+        this.preChain.append(BandPassFilterLink().low_(hpf).high_(lpf));
+        this.preChain.append(SquashToMonoLink(true, false));
+        this.preChain.append(PanningLink().maxClients_(maxClients).panSlots_(panSlots));
 
-		// start InputBusMixer and OutputBusMixer base classes
-		super.start();
+        // start InputBusMixer and OutputBusMixer base classes
+        super.start();
 
-		Routine {
-			// signal that the mix has started
-			// signal is defined in the BaseMix class and represents a Condition object
-			// after these two lines are executed, the BaseMix knows that the
-			// proper Synths have been set up, and can execute other routines
-			this.mixStarted.test = true;
-			this.mixStarted.signal;
-		}.run;
-	}
+        Routine {
+            // signal that the mix has started
+            // signal is defined in the BaseMix class and represents a Condition object
+            // after these two lines are executed, the BaseMix knows that the
+            // proper Synths have been set up, and can execute other routines
+            this.mixStarted.test = true;
+            this.mixStarted.signal;
+        }.run;
+    }
 }

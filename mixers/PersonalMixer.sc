@@ -39,67 +39,67 @@
  */
 
 PersonalMixer : InputBusMixer {
-	
-	// the following parameters are instance variables
-	// the '<' is shorthand for a getter method and '>' is shorthand for a setter method
-	var <>selfVolume = 1.0;
+    
+    // the following parameters are instance variables
+    // the '<' is shorthand for a getter method and '>' is shorthand for a setter method
+    var <>selfVolume = 1.0;
 
-	// create a new instance
-	*new { | maxClients = 16 |
-		^super.new(maxClients);
-	}
+    // create a new instance
+    *new { | maxClients = 16 |
+        ^super.new(maxClients);
+    }
 
-	// starts up all the audio on the server
-	start {
+    // starts up all the audio on the server
+    start {
 
-		// start input bus mixer first
-		super.start();
+        // start input bus mixer first
+        super.start();
 
-		Routine {
-			var b, g, p, node, args, personalMixes;
+        Routine {
+            var b, g, p, node, args, personalMixes;
 
-			var synthName = "JackTripPersonalMixOut";
+            var synthName = "JackTripPersonalMixOut";
 
-			// wait for server to be ready
-			serverReady.wait;
+            // wait for server to be ready
+            serverReady.wait;
 
-			// use group 200 for client output synths
-			g = ParGroup.basicNew(server, 200);
+            // use group 200 for client output synths
+            g = ParGroup.basicNew(server, 200);
 
-			// create a bundle of commands to execute
-			b = server.makeBundle(nil, {
-				this.sendSynthDef(synthName, synthName ++ postChain.getName());
+            // create a bundle of commands to execute
+            b = server.makeBundle(nil, {
+                this.sendSynthDef(synthName, synthName ++ postChain.getName());
 
-				// use group 100 for client input synths and use group 200 for client output synths
-				// p_new is a server command (see Server Command Reference on SC documentation)
-				// that creates a parallel group, which represents a set of Synths that execute
-				// simultaneously
-				server.sendMsg("/p_new", 200, 1, 0);
-			});
+                // use group 100 for client input synths and use group 200 for client output synths
+                // p_new is a server command (see Server Command Reference on SC documentation)
+                // that creates a parallel group, which represents a set of Synths that execute
+                // simultaneously
+                server.sendMsg("/p_new", 200, 1, 0);
+            });
 
-			// wait for server to receive bundle
-			server.sync(nil, b);
+            // wait for server to receive bundle
+            server.sync(nil, b);
 
-			// initialize personal mixes to use selfVolume
-			// supercollider doesn't seem to support arrays of arrays as synthdef parameters
-			// (likely a limitation of OSC) so instead we just have a single array with the
-			// personal mixes for every client
-			personalMixes = 1 ! (maxClients * maxClients);
-			maxClients.do{ arg clientNum;
-				personalMixes[(clientNum * maxClients) + clientNum] = selfVolume;
-			};
+            // initialize personal mixes to use selfVolume
+            // supercollider doesn't seem to support arrays of arrays as synthdef parameters
+            // (likely a limitation of OSC) so instead we just have a single array with the
+            // personal mixes for every client
+            personalMixes = 1 ! (maxClients * maxClients);
+            maxClients.do{ arg clientNum;
+                personalMixes[(clientNum * maxClients) + clientNum] = selfVolume;
+            };
 
-			if (withJamulus, {
-				// default selfVolume for Jamulus mix to zero
-				personalMixes[0] = 0;
-			});
+            if (withJamulus, {
+                // default selfVolume for Jamulus mix to zero
+                personalMixes[0] = 0;
+            });
 
-			// create personal mix for all jacktrip clients that includes jamulus
-			// outputs to all clients including jamulus
-			args = [\mix, personalMixes, \mul, masterVolume] ++ postChain.getArgs();
-			node = Synth(synthName ++ postChain.getName(), args, g, \addToTail);
-			("Created synth" + (synthName ++ postChain.getName()) + node.nodeID).postln;
+            // create personal mix for all jacktrip clients that includes jamulus
+            // outputs to all clients including jamulus
+            args = [\mix, personalMixes, \mul, masterVolume] ++ postChain.getArgs();
+            node = Synth(synthName ++ postChain.getName(), args, g, \addToTail);
+            ("Created synth" + (synthName ++ postChain.getName()) + node.nodeID).postln;
 
-		}.run;
-	}
+        }.run;
+    }
 }

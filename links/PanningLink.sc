@@ -25,17 +25,17 @@
 PanningLink : Link {
     var<> panSlots;
 
-	*new { | panSlots = 1 |
-		^super.new().panSlots_(panSlots);
-	}
+    *new { | panSlots = 1 |
+        ^super.new().panSlots_(panSlots);
+    }
 
     ar { |input|
         var panValues = PanningLink.autoPan(maxClients, panSlots);
         ^Pan2.ar(input, \pan.kr(panValues));
     }
 
-	// returns a list of synth arguments used by this Link
-	getArgs {
+    // returns a list of synth arguments used by this Link
+    getArgs {
         var panValues = PanningLink.autoPan(maxClients, panSlots);
         ^[\pan, panValues];
     }

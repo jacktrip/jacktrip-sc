@@ -25,10 +25,10 @@
  */
  
 ~sendFirstToEveryoneElse = { | signal, signalChain, maxClients, outputChannelsPerClient = 2 |
-	// send Jamulus signal to JackTrip outputs
-	var out = Array.fill(maxClients - 1, { arg n;
-		(n + 1) * outputChannelsPerClient;
-	});
+    // send Jamulus signal to JackTrip outputs
+    var out = Array.fill(maxClients - 1, { arg n;
+        (n + 1) * outputChannelsPerClient;
+    });
     signal = signalChain.ar(signal[0]);
-	Out.ar(out, signal);
+    Out.ar(out, signal);
 };

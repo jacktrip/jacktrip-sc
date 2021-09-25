@@ -23,9 +23,9 @@ GateLink : Link {
     var<> threshDB;
     var<> ratio;
 
-	*new { | threshDB = 0, ratio = 1 |
-		^super.new().threshDB_(threshDB).ratio_(ratio);
-	}
+    *new { | threshDB = 0, ratio = 1 |
+        ^super.new().threshDB_(threshDB).ratio_(ratio);
+    }
 
     ar { |input|
         var signal = input;

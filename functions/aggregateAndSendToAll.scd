@@ -26,18 +26,18 @@
  */
 
 ~aggregateAndSendToAll = { | signal, signalChain, maxClients, outputChannelsPerClient = 2, offset = 0 |
-	var out;
+    var out;
 
-	// handle offset
-	signal = (signal.size - offset).collect{ |n| signal[n + offset]; };
+    // handle offset
+    signal = (signal.size - offset).collect{ |n| signal[n + offset]; };
 
-	// aggregate JackTrip signal
-	signal = AggregateLink().ar(signal);
+    // aggregate JackTrip signal
+    signal = AggregateLink().ar(signal);
     signal = signalChain.ar(signal);
 
-	// send JackTrip signals to all outputs (including Jamulus)
-	out = Array.fill(maxClients, { arg n;
-		n * outputChannelsPerClient;
-	});
-	Out.ar(out, signal);
+    // send JackTrip signals to all outputs (including Jamulus)
+    out = Array.fill(maxClients, { arg n;
+        n * outputChannelsPerClient;
+    });
+    Out.ar(out, signal);
 };

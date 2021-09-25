@@ -33,8 +33,8 @@
 ~jackTripSimpleMix = { | signalChain, maxClients, levels, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false, useSoundIn = true, offset = 0 |
     var signal = JackTripInput(maxClients, inputChannelsPerClient, useSoundIn, offset).getSignal();
 
-	// adjust levels
-	signal = MultiplyLink(levels).ar(signal);
+    // adjust levels
+    signal = MultiplyLink(levels).ar(signal);
 
     if (withJamulus, {
         ~aggregateAndSendToAll.value(signal, signalChain, maxClients, outputChannelsPerClient, 1);
