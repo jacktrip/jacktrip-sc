@@ -42,19 +42,23 @@
                 "fieldOptions": {
                     "marks": [
                         {
-                            "value": 0.025,
-                            "label": "25ms"
+                            "value": 0.020,
+                            "label": "20ms"
                         },
                         {
-                            "value": 0.075,
-                            "label": "75ms"
+                            "value": 0.050,
+                            "label": "50ms"
+                        },
+                        {
+                            "value": 0.080,
+                            "label": "80ms"
                         }
                     ],
                     "logarithmic": false,
                     "min": 0.001,
                     "max": 0.100,
                     "step": 0.001,
-                    "scale": 100
+                    "scale": 1000
                 }
             }
         },
@@ -68,19 +72,23 @@
                 "fieldOptions": {
                     "marks": [
                         {
-                            "value": 0.025,
-                            "label": "25ms"
+                            "value": 0.020,
+                            "label": "20ms"
                         },
                         {
-                            "value": 0.075,
-                            "label": "75ms"
+                            "value": 0.050,
+                            "label": "50ms"
+                        },
+                        {
+                            "value": 0.080,
+                            "label": "80ms"
                         }
                     ],
                     "logarithmic": false,
                     "min": 0.001,
                     "max": 0.100,
                     "step": 0.001,
-                    "scale": 100
+                    "scale": 1000
                 }
             }
         },

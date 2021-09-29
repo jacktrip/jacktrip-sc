@@ -32,7 +32,7 @@ MonoPanWithPersonalMixer : PersonalMixer {
     var <>hpf = 20;
     var <>lpf = 20000;
 
-    var <>gate_thresh = -40;
+    var <>gate_thresh = -50;
     var <>gate_attack = 0.01;
     var <>gate_release = 0.01;
     var <>gate_range = 10;
