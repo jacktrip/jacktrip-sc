@@ -1,11 +1,10 @@
 {
-    "label": "Extra Large Ensemble (>300 musicians)",
-    "class": "SimpleMixer",
-    "max": 500,
+    "label": "Gain",
+    "class": "MultiplyLink",
     "options": [
         {
-            "src": "masterVolume",
-            "label": "Master Volume",
+            "src": "factor",
+            "label": "Gain",
             "type": "number",
             "defaultVal": 1,
             "field": {

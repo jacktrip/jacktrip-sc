@@ -15,27 +15,26 @@
  */
 
 /* 
- * BandPassFilterLink: applies a low-pass
- * and high-pass filter to a signal.
+ * MultiplyLink: multiplies a signal by a provided factor.
+ *
+ * If the input signal and the factor are arrays of the same dimension, then
+ * multichannel expansion will be invoked and the factor array can be thought
+ * of as an array of weights.
  */
 
-BandPassFilterLink : Link {
-    var<> low;
-    var<> high;
+MultiplyLink : Link {
+    var<> factor;
 
-    *new { | low=20, high=20000 |
-        ^super.new().low_(low).high_(high);
+    *new { | factor=1.0 |
+        ^super.new().factor_(factor);
     }
 
     ar { |input|
-        var signal = input;
-        signal = LPF.ar(signal, \high.kr(high));
-        signal = HPF.ar(signal, \low.kr(low));
-        ^signal
+        ^MulAdd(input, \multiply_factor.kr(factor), 0);
     }
 
     // returns a list of synth arguments used by this Link
     getArgs {
-        ^[\low, low, \high, high];
+        ^[\multiply_factor, factor];
     }
 }

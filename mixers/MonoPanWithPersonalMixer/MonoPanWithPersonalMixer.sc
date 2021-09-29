@@ -28,11 +28,28 @@ MonoPanWithPersonalMixer : PersonalMixer {
     
     // the following parameters are instance variables
     // the '<' is shorthand for a getter method and '>' is shorthand for a setter method
-    var <>panSlots, <>hpf, <>lpf;
+    var <>panSlots = 1;
+    var <>hpf = 20;
+    var <>lpf = 20000;
+
+    var <>gate_thresh = -40;
+    var <>gate_attack = 0.01;
+    var <>gate_release = 0.01;
+    var <>gate_range = 10;
+
+    var <>compressor_thresh = -10;
+    var <>compressor_attack = 0.01;
+    var <>compressor_release = 0.02;
+    var <>compressor_ratio = 0.5;
+
+    var <>limiter_thresh = -2;
+    var <>limiter_attack = 0.002;
+    var <>limiter_release = 0.01;
+    var <>limiter_ratio = 0.1;
 
     // create a new instance
-    *new { | maxClients = 16, panSlots = 1, hpf = 20, lpf = 20000 |
-        ^super.new(maxClients).panSlots_(panSlots).hpf_(hpf).lpf_(lpf);
+    *new { | maxClients = 16 |
+        ^super.new(maxClients);
     }
 
     // starts up all the audio on the server
@@ -42,7 +59,9 @@ MonoPanWithPersonalMixer : PersonalMixer {
         // squash to mono and pan clients
         this.preChain.clear().maxClients_(maxClients);
         this.preChain.append(BandPassFilterLink().low_(hpf).high_(lpf));
-        this.preChain.append(SquashToMonoLink(true, false));
+        this.preChain.append(GateLink().thresh_(gate_thresh).attack_(gate_attack).release_(gate_release).range_(gate_range));
+        this.preChain.append(CompressorLink().thresh_(compressor_thresh).attack_(compressor_attack).release_(compressor_release).ratio_(compressor_ratio));
+        this.preChain.append(LimiterLink().thresh_(limiter_thresh).attack_(limiter_attack).release_(limiter_release).ratio_(limiter_ratio));
         this.preChain.append(PanningLink().maxClients_(maxClients).panSlots_(panSlots));
 
         // start InputBusMixer and PersonalMixer base classes

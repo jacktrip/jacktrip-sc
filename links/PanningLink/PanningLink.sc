@@ -20,6 +20,9 @@
  * If the input signal and the pan value are arrays of the same dimension, then
  * multichannel expansion will be invoked and each channel will be panned according
  * the corresponding value in the pan array.
+ *
+ * \panSlots: if > 1, pan values will be initialized by automatically spreading
+ * the audio from each client across this number of positions in the soundstage
  */
 
 PanningLink : Link {
@@ -30,8 +33,12 @@ PanningLink : Link {
     }
 
     ar { |input|
+        var signal = input;
         var panValues = PanningLink.autoPan(maxClients, panSlots);
-        ^Pan2.ar(input, \pan.kr(panValues));
+        
+        signal = SquashToMonoLink(true, false).ar(signal);
+        signal = Pan2.ar(signal, \pan.kr(panValues));
+        ^signal;
     }
 
     // returns a list of synth arguments used by this Link

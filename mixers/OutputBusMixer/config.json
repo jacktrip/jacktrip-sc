@@ -1,7 +1,7 @@
 {
-    "label": "Extra Large Ensemble (>300 musicians)",
-    "class": "SimpleMixer",
-    "max": 500,
+    "label": "Large Ensemble (100-300 musicians)",
+    "class": "OutputBusMixer",
+    "max": 300,
     "options": [
         {
             "src": "masterVolume",

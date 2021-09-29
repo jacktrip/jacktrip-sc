@@ -39,7 +39,7 @@
     
         // get input signals from private bus
         var signal = JackTripInput(maxClients, outputChannelsPerClient, false, ~firstPrivateBus).getSignal();
-        signal = MultiplyLink(m * \mul.kr(1)).ar(signal);
+        signal = MulAdd(signal, m * \mul.kr(1), 0);
         signal = AggregateLink().ar(signal);
         signal = postChain.ar(signal);
         

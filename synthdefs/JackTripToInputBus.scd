@@ -28,7 +28,7 @@
     var levels = \mix.kr(defaultMix) * \mul.kr(1.0);
 
     signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
-    signal = MultiplyLink(levels).ar(signal);
+    signal = MulAdd(signal, levels, 0);
     signal = preChain.ar(signal);
 
     signal.do({ arg item, i;

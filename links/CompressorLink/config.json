@@ -1,0 +1,141 @@
+{
+    "label": "Compressor",
+    "class": "CompressorLink",
+    "options": [
+        {
+            "src": "thresh",
+            "label": "Threshold (dB)",
+            "type": "number",
+            "defaultVal": -10,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": -50,
+                            "label": "-50dB"
+                        },
+                        {
+                            "value": -30,
+                            "label": "-30dB"
+                        },
+                        {
+                            "value": -10,
+                            "label": "-10dB"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": -60,
+                    "max": 0,
+                    "step": 1,
+                    "scale": 1
+                }
+            }
+        },
+        {
+            "src": "attack",
+            "label": "Attack (ms)",
+            "type": "number",
+            "defaultVal": 0.010,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.025,
+                            "label": "25ms"
+                        },
+                        {
+                            "value": 0.075,
+                            "label": "75ms"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0.001,
+                    "max": 0.100,
+                    "step": 0.001,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "release",
+            "label": "Release (ms)",
+            "type": "number",
+            "defaultVal": 0.020,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.025,
+                            "label": "25ms"
+                        },
+                        {
+                            "value": 0.075,
+                            "label": "75ms"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0.001,
+                    "max": 0.100,
+                    "step": 0.001,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "ratio",
+            "label": "Ratio",
+            "type": "number",
+            "defaultVal": 0.5,
+            "field": {
+                "type": "dropdown",
+                "fieldOptions": {
+                    "labels": [
+                        {
+                            "value": 0.5,
+                            "label": "2:1",
+                            "var": 0.5
+                        },
+                        {
+                            "value": 0.333,
+                            "label": "3:1",
+                            "var": 0.333
+                        },
+                        {
+                            "value": 0.25,
+                            "label": "4:1",
+                            "var": 0.25
+                        },
+                        {
+                            "value": 0.167,
+                            "label": "6:1",
+                            "var": 0.167
+                        },
+                        {
+                            "value": 0.143,
+                            "label": "7:1",
+                            "var": 0.143
+                        },
+                        {
+                            "value": 0.125,
+                            "label": "8:1",
+                            "var": 0.125
+                        },
+                        {
+                            "value": 0.111,
+                            "label": "9:1",
+                            "var": 0.111
+                        },
+                        {
+                            "value": 0.1,
+                            "label": "10:1",
+                            "var": 0.1
+                        }
+                    ]
+                }
+            }
+        }        
+    ]
+}
