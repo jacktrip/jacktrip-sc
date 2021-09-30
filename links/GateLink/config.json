@@ -6,7 +6,7 @@
             "src": "thresh",
             "label": "Threshold (dB)",
             "type": "number",
-            "defaultVal": -60,
+            "defaultVal": -48,
             "field": {
                 "type": "slider",
                 "fieldOptions": {
@@ -36,7 +36,7 @@
             "src": "attack",
             "label": "Attack (ms)",
             "type": "number",
-            "defaultVal": 0.005,
+            "defaultVal": 0.050,
             "field": {
                 "type": "slider",
                 "fieldOptions": {
