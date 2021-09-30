@@ -29,7 +29,7 @@ GateLink : Link {
     var<> release;
     var<> range;
 
-    *new { | thresh = -40, attack = 0.01, release = 0.01, range = 10 |
+    *new { | thresh = -60, attack = 0.005, release = 0.01, range = 10 |
         ^super.new().thresh_(thresh).attack_(attack).release_(release).range_(range);
     }
 
