@@ -47,6 +47,10 @@ MonoPanWithPersonalMixer : PersonalMixer {
     var <>limiter_release = 0.01;
     var <>limiter_ratio = 0.1;
 
+    var<> freeverb2_mix = 0.25;
+    var<> freeverb2_room = 0.15;
+    var<> freeverb2_damp = 0.5;
+
     // create a new instance
     *new { | maxClients = 16 |
         ^super.new(maxClients);
@@ -63,6 +67,9 @@ MonoPanWithPersonalMixer : PersonalMixer {
         this.preChain.append(CompressorLink().thresh_(compressor_thresh).attack_(compressor_attack).release_(compressor_release).ratio_(compressor_ratio));
         this.preChain.append(LimiterLink().thresh_(limiter_thresh).attack_(limiter_attack).release_(limiter_release).ratio_(limiter_ratio));
         this.preChain.append(PanningLink().maxClients_(maxClients).panSlots_(panSlots));
+
+        this.postChain.clear().maxClients_(maxClients);
+        this.postChain.append(FreeVerb2Link().mix_(freeverb2_mix).room_(freeverb2_room).damp_(freeverb2_damp));
 
         // start InputBusMixer and PersonalMixer base classes
         super.start();
