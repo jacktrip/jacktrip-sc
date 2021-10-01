@@ -6,7 +6,7 @@
             "src": "thresh",
             "label": "Threshold (dB)",
             "type": "number",
-            "defaultVal": -48,
+            "defaultVal": -60,
             "field": {
                 "type": "slider",
                 "fieldOptions": {
