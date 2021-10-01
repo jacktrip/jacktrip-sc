@@ -1,0 +1,36 @@
+{
+    "label": "Band Pass Filter",
+    "class": "BandPassFilterLink",
+    "options": [
+        {
+            "src": [
+                "low",
+                "high"
+            ],
+            "label": "Bandpass Filter (Hz)",
+            "type": "number",
+            "defaultVal": [
+                20,
+                20000
+            ],
+            "field": {
+                "type": "range",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 20,
+                            "label": "20"
+                        },
+                        {
+                            "value": 20000,
+                            "label": "20000"
+                        }
+                    ],
+                    "logarithmic": true,
+                    "min": 20,
+                    "max": 20000
+                }
+            }
+        }
+    ]
+}

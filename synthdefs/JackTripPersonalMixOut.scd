@@ -20,7 +20,7 @@
  * \mul : amplitude level multiplier (default 1.0)
  */
 
-~synthDef = { | maxClients, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
+~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
     var defaultMixes = 1 ! (maxClients * maxClients);
     var personalMixes = \mix.kr(defaultMixes);
 
@@ -39,8 +39,9 @@
     
         // get input signals from private bus
         var signal = JackTripInput(maxClients, outputChannelsPerClient, false, ~firstPrivateBus).getSignal();
-        signal = MultiplyLink(m * \mul.kr(1)).transform(signal);
-        signal = AggregateLink().transform(signal);
+        signal = MulAdd(signal, m * \mul.kr(1), 0);
+        signal = AggregateLink().ar(signal);
+        signal = postChain.ar(signal);
         
         Out.ar(outputChannelsPerClient * clientNum, signal);
     });

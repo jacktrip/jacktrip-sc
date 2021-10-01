@@ -15,22 +15,29 @@
  */
 
 /* 
- * BandPassFilterLink: applies a low-pass
- * and high-pass filter to a signal.
+ * BandPassFilterLink: applies a low-pass and high-pass filter to a signal.
+ *
+ * \low - low end of allowed frequency range; frequencies below this are removed using a high-pass filter
+ * \high - high end of allowed frequency range; frequencies above this are removed using a low-pass filter
  */
 
 BandPassFilterLink : Link {
     var<> low;
     var<> high;
 
-	*new { | low=20, high=20000 |
-		^super.new().low_(low).high_(high);
-	}
+    *new { | low=20, high=20000 |
+        ^super.new().low_(low).high_(high);
+    }
 
-    transform { |input|
+    ar { |input|
         var signal = input;
-        signal = LPF.ar(signal, high);
-        signal = HPF.ar(signal, low);
+        signal = LPF.ar(signal, \bandPassFilter_high.kr(high));
+        signal = HPF.ar(signal, \bandPassFilter_low.kr(low));
         ^signal
+    }
+
+    // returns a list of synth arguments used by this Link
+    getArgs {
+        ^[\bandPassFilter_low, low, \bandPassFilter_high, high];
     }
 }

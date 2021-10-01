@@ -13,27 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ 
+"../functions/jackTripSimpleMix.scd".loadRelative;
 
-/*
- * JackTripSimpleIn is used to apply leveling and filters to a specific client input, 
- * and send it to an audio bus
+ /*
+ * JackTripDownMixOut: a minimal mix that scales well and reads from input busses
  *
- * \low : low frequency to use for bandpass filter (default 20)
- * \high : high frequency to use for bandpass filter (default 20000)
+ * \maxClients: maximum number of clients that may connect to the audio server
+ * \inputChannelsPerClient: number of input channels received from each client
+ * \outputChannelsPerClient: number of output channels sent to each client
+ * \withJamulus: create mixes adapted Jamulus being connected on channels 1 & 2
  * \mix : array of amplitude level multipliers (default 1.0) for each client
  * \mul : master amplitude level multiplier (default 1.0)
-  */
+ */
 
-~synthDef = { | maxClients, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
-    var signal;
+~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
     var defaultMix = 1 ! maxClients;
     var levels = \mix.kr(defaultMix) * \mul.kr(1.0);
-
-    signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
-    signal = BandPassFilterLink(\low.kr(20), \high.kr(20000)).transform(signal);
-    signal = MultiplyLink(levels).transform(signal);
-
-    signal.do({ arg item, i;
-        Out.ar(~inputBuses[i].index, item);
-    });
-}
+    ~jackTripSimpleMix.value(postChain, maxClients, levels, inputChannelsPerClient, outputChannelsPerClient, withJamulus, false, ~firstPrivateBus);
+};

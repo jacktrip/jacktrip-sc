@@ -15,27 +15,21 @@
  */
 
 /*
- * JackTripPannedIn is used to apply leveling, filters and panning to a specific client input, 
- * and send it to an audio bus
+ * JackTripToInputBus is used to apply leveling, and a pre signal chain
+ * to process audio from JackTrip and deliver it to the input audio bus
  *
- * \low : frequency to use for lowpass filter (default 20)
- * \high : frequency to use for bandpass filter (default 20000)
- * \pan : array of pan values (default 0) for each client
  * \mix : array of amplitude level multipliers (default 1.0) for each client
  * \mul : master amplitude level multiplier (default 1.0)
  */
 
-~synthDef = { | maxClients, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
+~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
     var signal;
-    var defaultPan = 0 ! maxClients;
     var defaultMix = 1 ! maxClients;
     var levels = \mix.kr(defaultMix) * \mul.kr(1.0);
 
     signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
-    signal = BandPassFilterLink(\low.kr(20), \high.kr(20000)).transform(signal);
-    signal = SquashToMonoLink(true, false).transform(signal);
-    signal = PanningLink(\pan.kr(defaultPan)).transform(signal);
-    signal = MultiplyLink(levels).transform(signal);
+    signal = MulAdd(signal, levels, 0);
+    signal = preChain.ar(signal);
 
     signal.do({ arg item, i;
         Out.ar(~inputBuses[i].index, item);

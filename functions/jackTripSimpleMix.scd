@@ -20,6 +20,7 @@
  /*
  * jackTripSimpleMix: a minimal mix that scales well
  *
+ * \signalChain: used to process audio audio before delivery
  * \maxClients: maximum number of clients that may connect to the audio server
  * \inputChannelsPerClient: number of input channels received from each client
  * \outputChannelsPerClient: number of output channels sent to each client
@@ -29,16 +30,16 @@
  * \levels : array of amplitude level multipliers for each client
  */
 
-~jackTripSimpleMix = { | maxClients, levels, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false, useSoundIn = true, offset = 0 |
+~jackTripSimpleMix = { | signalChain, maxClients, levels, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false, useSoundIn = true, offset = 0 |
     var signal = JackTripInput(maxClients, inputChannelsPerClient, useSoundIn, offset).getSignal();
 
-	// adjust levels
-	signal = MultiplyLink(levels).transform(signal);
+    // adjust levels
+    signal = MulAdd(signal, levels, 0);
 
     if (withJamulus, {
-        ~aggregateAndSendToAll.value(signal, maxClients, outputChannelsPerClient, 1);
-        ~sendFirstToEveryoneElse.value(signal, maxClients, outputChannelsPerClient);
+        ~aggregateAndSendToAll.value(signal, signalChain, maxClients, outputChannelsPerClient, 1);
+        ~sendFirstToEveryoneElse.value(signal, signalChain, maxClients, outputChannelsPerClient);
     }, {
-        ~aggregateAndSendToAll.value(signal, maxClients, outputChannelsPerClient);
+        ~aggregateAndSendToAll.value(signal, signalChain, maxClients, outputChannelsPerClient);
     });
 };

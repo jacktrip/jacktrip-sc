@@ -1,0 +1,32 @@
+{
+    "label": "Gain",
+    "class": "MultiplyLink",
+    "options": [
+        {
+            "src": "factor",
+            "label": "Gain",
+            "type": "number",
+            "defaultVal": 1,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 1,
+                            "label": "100%"
+                        },
+                        {
+                            "value": 2,
+                            "label": "200%"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 3,
+                    "step": 0.05,
+                    "scale": 100
+                }
+            }
+        }
+    ]
+}

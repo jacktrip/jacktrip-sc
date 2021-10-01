@@ -1,0 +1,84 @@
+{
+    "label": "FreeVerb",
+    "class": "FreeVerbLink",
+    "options": [
+        {
+            "src": "mix",
+            "label": "Dry/wet Balance",
+            "type": "number",
+            "defaultVal": 0.33,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "Dryer"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "Wetter"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "room",
+            "label": "Room Size",
+            "type": "number",
+            "defaultVal": 0.5,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "Smaller"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "Larger"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "damp",
+            "label": "Damping",
+            "type": "number",
+            "defaultVal": 0.5,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "Less"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "More"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        }
+   ]
+}

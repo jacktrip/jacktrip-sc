@@ -15,21 +15,26 @@
  */
 
 /* 
- * CompressorLink: applies downward compression to an audio signal if the
- * specified ratio is between 0 and 1.
+ * MultiplyLink: multiplies a signal by a provided factor.
+ *
+ * If the input signal and the factor are arrays of the same dimension, then
+ * multichannel expansion will be invoked and the factor array can be thought
+ * of as an array of weights.
  */
 
-CompressorLink : Link {
-    var<> threshDB;
-    var<> ratio;
+MultiplyLink : Link {
+    var<> factor;
 
-	*new { | threshDB = 0, ratio = 1 |
-		^super.new().threshDB_(threshDB).ratio_(ratio);
-	}
+    *new { | factor=1.0 |
+        ^super.new().factor_(factor);
+    }
 
-    transform { |input|
-        var signal = input;
-        signal = Compander.ar(signal, signal, threshDB.dbamp, 1, ratio);
-        ^signal
+    ar { |input|
+        ^MulAdd(input, \multiply_factor.kr(factor), 0);
+    }
+
+    // returns a list of synth arguments used by this Link
+    getArgs {
+        ^[\multiply_factor, factor];
     }
 }
