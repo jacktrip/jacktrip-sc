@@ -66,7 +66,7 @@ BaseMix : Object {
 		// Create a new server object using the IP address and Port
 		// server can be used as one might use the 's' global variable locally
 		("Connecting to server"+serverIp++":"++serverPort).postln;
-		server = Server.remote(\remote, NetAddr(serverIp, serverPort));
+		Server.default = server = Server.remote(\remote, NetAddr(serverIp, serverPort));
 		server.doWhenBooted({waitForServer.value});
 	}
 
