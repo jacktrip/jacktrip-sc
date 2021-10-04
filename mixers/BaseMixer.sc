@@ -69,7 +69,7 @@ BaseMixer : Object {
         // server can be used as one might use the 's' global variable locally
         ("Connecting to server"+serverIp++":"++serverPort).postln;
         // explicitly include empty ServerOptions to work-around 3.12 bug #5568
-        server = Server.remote(\remote, NetAddr(serverIp, serverPort), ServerOptions.new);
+        Server.default = server = Server.remote(\remote, NetAddr(serverIp, serverPort), ServerOptions.new);
         server.doWhenBooted({waitForServer.value});
     }
 
