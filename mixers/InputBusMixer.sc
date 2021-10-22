@@ -83,6 +83,16 @@ InputBusMixer : BaseMixer {
             (this.class.filenameSymbol.asString.dirname +/+ "../../functions/makeInputBusses.scd").load;
             ~makeInputBusses.value(server, maxClients, inputChannelsPerClient, outputChannelsPerClient);
 
+            // initialize ATK decoder
+            (this.class.filenameSymbol.asString.dirname +/+ "../../functions/initATK.scd").load;
+            ~initATKDecoderLargePinnaeDummy.value(server);
+        });
+
+        // wait for server to receive bundle
+        server.sync(nil, b);
+
+        // create a bundle of commands to execute
+        b = server.makeBundle(nil, {
             // create synthdef to send audio to the input busses
             this.sendSynthDef(synthName, synthName ++ preChain.getName());
             
