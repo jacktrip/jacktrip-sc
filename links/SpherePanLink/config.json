@@ -6,7 +6,7 @@
             "src": "panSlots",
             "label": "Auto Pan Slots",
             "type": "number",
-            "defaultVal": 1,
+            "defaultVal": 6,
             "field": {
                 "type": "dropdown",
                 "fieldOptions": {

@@ -28,7 +28,7 @@ SpherePanWithPersonalMixer : PersonalMixer {
     
     // the following parameters are instance variables
     // the '<' is shorthand for a getter method and '>' is shorthand for a setter method
-    var <>panSlots = 1;
+    var <>panSlots = 6;
     var <>hpf = 20;
     var <>lpf = 20000;
 
@@ -66,7 +66,7 @@ SpherePanWithPersonalMixer : PersonalMixer {
         this.preChain.append(GateLink().thresh_(gate_thresh).attack_(gate_attack).release_(gate_release).range_(gate_range));
         this.preChain.append(CompressorLink().thresh_(compressor_thresh).attack_(compressor_attack).release_(compressor_release).ratio_(compressor_ratio));
         this.preChain.append(LimiterLink().thresh_(limiter_thresh).attack_(limiter_attack).release_(limiter_release).ratio_(limiter_ratio));
-        this.preChain.append(SpherePanLink().maxClients_(maxClients).panSlots_(panSlots));
+        this.preChain.append(SpherePanLink().panSlots_(panSlots));
 
         this.postChain.clear().maxClients_(maxClients);
         this.postChain.append(FreeVerb2Link().mix_(freeverb2_mix).room_(freeverb2_room).damp_(freeverb2_damp));
