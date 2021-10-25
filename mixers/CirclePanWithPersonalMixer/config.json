@@ -218,19 +218,19 @@
                 "fieldOptions": {
                     "marks": [
                         {
-                            "value": 0.020,
-                            "label": "20ms"
-                        },
-                        {
-                            "value": 0.100,
-                            "label": "100ms"
+                            "value": 0.200,
+                            "label": "200ms"
                         },
                         {
                             "value": 0.500,
                             "label": "500ms"
+                        },
+                        {
+                            "value": 0.800,
+                            "label": "800ms"
                         }
                     ],
-                    "logarithmic": true,
+                    "logarithmic": false,
                     "min": 0.001,
                     "max": 1.000,
                     "step": 0.001,
