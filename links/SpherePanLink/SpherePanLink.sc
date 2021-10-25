@@ -29,13 +29,16 @@ SpherePanLink : Link {
     }
 
     ar { |input|
-        var signal = input;
         var panValues = PanningLink.autoPan(maxClients, panSlots);
         var elevationValues = SpherePanLink.autoElevation(maxClients);
 
+        var signal = input;
         signal = SquashToMonoLink(true, false).ar(signal);
         signal = PanB.ar(signal, \pan.kr(panValues) * pi, \spherepan_elevation.kr(elevationValues));
-        signal = FoaDecode.ar(signal, ~atkDecoder);
+        signal = Array.fill(maxClients, { |n|
+            FoaDecode.ar(signal[n], ~atkDecoder);
+        });
+        
         ^signal;
     }
 

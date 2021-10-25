@@ -29,12 +29,15 @@ CirclePanLink : Link {
     }
 
     ar { |input|
-        var signal = input;
         var panValues = PanningLink.autoPan(maxClients, panSlots);
         
+        var signal = input;
         signal = SquashToMonoLink(true, false).ar(signal);
         signal = PanB2.ar(signal, \pan.kr(panValues));
-        signal = FoaDecode.ar(signal, ~atkDecoder);
+        signal = Array.fill(maxClients, { |n|
+            FoaDecode.ar(signal[n], ~atkDecoder);
+        });
+
         ^signal;
     }
 
