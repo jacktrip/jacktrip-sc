@@ -36,7 +36,7 @@
             "src": "attack",
             "label": "Attack (ms)",
             "type": "number",
-            "defaultVal": 0.050,
+            "defaultVal": 0.3,
             "field": {
                 "type": "slider",
                 "fieldOptions": {
@@ -46,17 +46,17 @@
                             "label": "20ms"
                         },
                         {
-                            "value": 0.050,
-                            "label": "50ms"
+                            "value": 0.100,
+                            "label": "100ms"
                         },
                         {
-                            "value": 0.080,
-                            "label": "80ms"
+                            "value": 0.500,
+                            "label": "500ms"
                         }
                     ],
-                    "logarithmic": false,
+                    "logarithmic": true,
                     "min": 0.001,
-                    "max": 0.100,
+                    "max": 1.000,
                     "step": 0.001,
                     "scale": 1000
                 }
