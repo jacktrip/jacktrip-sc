@@ -58,6 +58,9 @@ PersonalMixer : InputBusMixer {
             // start input bus mixer first
             super.start();
 
+            // execute postChain before actions
+            postChain.before(server);
+
             // use group 200 for client output synths
             g = ParGroup.basicNew(server, 200);
 
@@ -94,6 +97,9 @@ PersonalMixer : InputBusMixer {
             args = [\mix, personalMixes, \mul, masterVolume] ++ postChain.getArgs();
             node = Synth(synthName ++ postChain.getName(), args, g, \addToTail);
             ("Created synth" + (synthName ++ postChain.getName()) + node.nodeID).postln;
+
+            // execute postChain after actions
+            postChain.after(server, node);
 
             // signal that the mix has started
             // signal is defined in the BaseMix class and represents a Condition object

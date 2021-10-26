@@ -72,6 +72,9 @@ InputBusMixer : BaseMixer {
         // wait for server to be ready
         serverReady.wait;
 
+        // execute preChain before actions
+        preChain.before(server);
+
         // g represents a node group
         // a group represents a set of Synths running on the server
         // two groups are used, one for input Synths (100) and one for output Synths (200)
@@ -113,6 +116,9 @@ InputBusMixer : BaseMixer {
         // create synth to send audio to the input busses
         node = Synth(synthName ++ preChain.getName(), preChain.getArgs(), g, \addToTail);
         ("Created synth" + (synthName ++ preChain.getName()) + node.nodeID).postln;
+
+        // execute preChain after actions
+        preChain.after(server, node);
     }
 
     // stop all audio on the server
