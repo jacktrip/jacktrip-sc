@@ -84,17 +84,18 @@ AutoPanMix : BaseMix {
 	// * lpf sets the default low-pass filter frequency used for all clients
 	// the '<' is shorthand for a getter method and '>' is shorthand for a setter method
 	var <>autopan, <>panSlots, <>selfVolume, <>hpf, <>lpf;
+	var <>gate_thresh, <>gate_attack, <>gate_release, <>gate_range;
 
 	// create a new instance
-	*new { | maxClients = 16, autopan = true, panSlots = 3, selfVolume = 1.0, hpf = 20, lpf = 20000 |
-		^super.new(maxClients).autopan_(autopan).panSlots_(panSlots).selfVolume_(selfVolume).hpf_(hpf).lpf_(lpf);
+	*new { | maxClients = 16, autopan = true, panSlots = 3, selfVolume = 1.0, hpf = 20, lpf = 20000, gate_thresh = -60, gate_attack = 0.3, gate_release = 0.01, gate_range = 10 |
+		^super.new(maxClients).autopan_(autopan).panSlots_(panSlots).selfVolume_(selfVolume).hpf_(hpf).lpf_(lpf).gate_thresh_(gate_thresh).gate_attack_(gate_attack).gate_release_(gate_release).gate_range_(gate_range);
 	}
 
 	// starts up all the audio on the server
 	start {
 
 		Routine {
-			var b, g;
+			var b, g, inOpts;
 
 			// wait for server to be ready
 			serverReady.wait;
@@ -137,15 +138,19 @@ AutoPanMix : BaseMix {
 			// wait for server to receive bundle
 			server.sync(nil, b);
 
+			inOpts = [\low, hpf, \high, lpf];
+			inOpts = inOpts ++ [\gate_thresh, gate_thresh, \gate_release, gate_release, \gate_attack, gate_attack, \gate_range, gate_range];
 			if (autopan, {
 				// Squash the clients tracks to mono, then pan them before they reach
 				// the input buses.
-				var p = PanningLink.autoPan(maxClients, panSlots);
-				var node = Synth("JackTripPannedIn", [\pan, p, \low, hpf, \high, lpf], g, \addToTail);
+				var p, node;
+				p = PanningLink.autoPan(maxClients, panSlots);
+				inOpts = inOpts ++ [\pan, p];
+				node = Synth("JackTripPannedIn", inOpts, g, \addToTail);
 				("Created synth" + "JackTripPannedIn" + node.nodeID).postln;
 			}, {
 				// do not pan clients and do not squash to mono.
-				var node = Synth("JackTripSimpleIn", [\low, hpf, \high, lpf], g, \addToTail);
+				var node = Synth("JackTripSimpleIn", inOpts, g, \addToTail);
 				("Created synth" + "JackTripSimpleIn" + node.nodeID).postln;
 			});
 

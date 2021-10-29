@@ -33,6 +33,7 @@
 
     signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
     signal = BandPassFilterLink(\low.kr(20), \high.kr(20000)).transform(signal);
+    signal = GateLink().transform(signal);
     signal = SquashToMonoLink(true, false).transform(signal);
     signal = PanningLink(\pan.kr(defaultPan)).transform(signal);
     signal = MultiplyLink(levels).transform(signal);

@@ -31,6 +31,7 @@
 
     signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
     signal = BandPassFilterLink(\low.kr(20), \high.kr(20000)).transform(signal);
+    signal = GateLink().transform(signal);
     signal = MultiplyLink(levels).transform(signal);
 
     signal.do({ arg item, i;

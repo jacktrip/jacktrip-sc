@@ -15,21 +15,33 @@
  */
 
 /* 
- * GateLink: if the specified ratio is greater than 1, creates a noise gate such
- * that no signal is passed through if a minimum volume threshold is not met.
+ * GateLink: removes noise by compressing, if signal amplitude falls is below threshold
+ *
+ * \thresh: amplitude trigger threshold, in decibels (< 0)
+ * \attack: how quickly compression is released after amplitude exceeds threshold (in seconds)
+ * \release: how quickly compression is applied after amplitude drops below threshold (in seconds)
+ * \range: indicates how much compression is applied (> 1)
  */
 
 GateLink : Link {
-    var<> threshDB;
-    var<> ratio;
+    var<> thresh;
+    var<> attack;
+    var<> release;
+    var<> range;
 
-	*new { | threshDB = 0, ratio = 1 |
-		^super.new().threshDB_(threshDB).ratio_(ratio);
-	}
+    *new { | thresh = -60, attack = 0.3, release = 0.01, range = 10 |
+        ^super.new().thresh_(thresh).attack_(attack).release_(release).range_(range);
+    }
 
     transform { |input|
         var signal = input;
-        signal = Compander.ar(signal, signal, threshDB.dbamp, ratio, 1);
+        signal = Compander.ar(signal, signal,
+            thresh:     \gate_thresh.kr(thresh).dbamp,  // amplitude trigger threshold [-1, 1]
+            clampTime:  \gate_release.kr(release),      // time (in seconds) before compression is applied
+            relaxTime:  \gate_attack.kr(attack),        // time (in seconds) before compression is removed
+            slopeBelow: \gate_range.kr(range),          // range if gate; otherwise, 1
+            slopeAbove: 1                               // ratio if compression; otherwise, 1
+        );
         ^signal
     }
 }
