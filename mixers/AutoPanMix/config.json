@@ -165,7 +165,7 @@
          }
       },
       {
-         "src": "gate_thresh",
+         "src": "gatethresh",
          "label": "Gate Threshold (dB)",
          "type": "number",
          "defaultVal": -60,
@@ -195,10 +195,10 @@
          }
      },
      {
-         "src": "gate_attack",
+         "src": "gateattack",
          "label": "Gate Attack (ms)",
          "type": "number",
-         "defaultVal": 0.3,
+         "defaultVal": 0.1,
          "field": {
              "type": "slider",
              "fieldOptions": {
@@ -225,7 +225,7 @@
          }
      },
      {
-         "src": "gate_release",
+         "src": "gaterelease",
          "label": "Gate Release (ms)",
          "type": "number",
          "defaultVal": 0.010,
@@ -255,7 +255,7 @@
          }
      },
      {
-         "src": "gate_range",
+         "src": "gaterange",
          "label": "Gate Range",
          "type": "number",
          "defaultVal": 10,

@@ -29,17 +29,17 @@ GateLink : Link {
     var<> release;
     var<> range;
 
-    *new { | thresh = -60, attack = 0.3, release = 0.01, range = 10 |
+    *new { | thresh = -60, attack = 0.1, release = 0.01, range = 10 |
         ^super.new().thresh_(thresh).attack_(attack).release_(release).range_(range);
     }
 
     transform { |input|
         var signal = input;
         signal = Compander.ar(signal, signal,
-            thresh:     \gate_thresh.kr(thresh).dbamp,  // amplitude trigger threshold [-1, 1]
-            clampTime:  \gate_release.kr(release),      // time (in seconds) before compression is applied
-            relaxTime:  \gate_attack.kr(attack),        // time (in seconds) before compression is removed
-            slopeBelow: \gate_range.kr(range),          // range if gate; otherwise, 1
+            thresh:     \gatethresh.kr(thresh).dbamp,   // amplitude trigger threshold [-1, 1]
+            clampTime:  \gaterelease.kr(release),       // time (in seconds) before compression is applied
+            relaxTime:  \gateattack.kr(attack),         // time (in seconds) before compression is removed
+            slopeBelow: \gaterange.kr(range),           // range if gate; otherwise, 1
             slopeAbove: 1                               // ratio if compression; otherwise, 1
         );
         ^signal

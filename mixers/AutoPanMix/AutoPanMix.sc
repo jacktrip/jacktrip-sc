@@ -84,11 +84,11 @@ AutoPanMix : BaseMix {
 	// * lpf sets the default low-pass filter frequency used for all clients
 	// the '<' is shorthand for a getter method and '>' is shorthand for a setter method
 	var <>autopan, <>panSlots, <>selfVolume, <>hpf, <>lpf;
-	var <>gate_thresh, <>gate_attack, <>gate_release, <>gate_range;
+	var <>gatethresh, <>gateattack, <>gaterelease, <>gaterange;
 
 	// create a new instance
-	*new { | maxClients = 16, autopan = true, panSlots = 3, selfVolume = 1.0, hpf = 20, lpf = 20000, gate_thresh = -60, gate_attack = 0.3, gate_release = 0.01, gate_range = 10 |
-		^super.new(maxClients).autopan_(autopan).panSlots_(panSlots).selfVolume_(selfVolume).hpf_(hpf).lpf_(lpf).gate_thresh_(gate_thresh).gate_attack_(gate_attack).gate_release_(gate_release).gate_range_(gate_range);
+	*new { | maxClients = 16, autopan = true, panSlots = 3, selfVolume = 1.0, hpf = 20, lpf = 20000, gatethresh = -60, gateattack = 0.1, gaterelease = 0.01, gaterange = 10 |
+		^super.new(maxClients).autopan_(autopan).panSlots_(panSlots).selfVolume_(selfVolume).hpf_(hpf).lpf_(lpf).gatethresh_(gatethresh).gateattack_(gateattack).gaterelease_(gaterelease).gaterange_(gaterange);
 	}
 
 	// starts up all the audio on the server
@@ -139,7 +139,7 @@ AutoPanMix : BaseMix {
 			server.sync(nil, b);
 
 			inOpts = [\low, hpf, \high, lpf];
-			inOpts = inOpts ++ [\gate_thresh, gate_thresh, \gate_release, gate_release, \gate_attack, gate_attack, \gate_range, gate_range];
+			inOpts = inOpts ++ [\gatethresh, gatethresh, \gaterelease, gaterelease, \gateattack, gateattack, \gaterange, gaterange];
 			if (autopan, {
 				// Squash the clients tracks to mono, then pan them before they reach
 				// the input buses.
