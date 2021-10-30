@@ -165,7 +165,7 @@
          }
       },
       {
-         "src": "thresh",
+         "src": "gate_thresh",
          "label": "Gate Threshold (dB)",
          "type": "number",
          "defaultVal": -60,
@@ -195,7 +195,7 @@
          }
      },
      {
-         "src": "attack",
+         "src": "gate_attack",
          "label": "Gate Attack (ms)",
          "type": "number",
          "defaultVal": 0.3,
@@ -225,7 +225,7 @@
          }
      },
      {
-         "src": "release",
+         "src": "gate_release",
          "label": "Gate Release (ms)",
          "type": "number",
          "defaultVal": 0.010,
@@ -255,7 +255,7 @@
          }
      },
      {
-         "src": "range",
+         "src": "gate_range",
          "label": "Gate Range",
          "type": "number",
          "defaultVal": 10,
