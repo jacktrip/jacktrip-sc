@@ -1,6 +1,6 @@
 {
-    "label": "Mono + Pan (Default)",
-    "class": "MonoPanWithPersonalMixer",
+    "label": "Circular Pan Test",
+    "class": "CirclePanWithPersonalMixer",
     "max": 100,
     "options": [
         {
@@ -59,7 +59,7 @@
             "src": "panSlots",
             "label": "Panning Slots",
             "type": "number",
-            "defaultVal": 1,
+            "defaultVal": 6,
             "field": {
                 "type": "dropdown",
                 "fieldOptions": {
@@ -108,6 +108,41 @@
                             "value": 9,
                             "label": "9",
                             "var": 9
+                        },
+                        {
+                            "value": 10,
+                            "label": "10",
+                            "var": 10
+                        },
+                        {
+                            "value": 11,
+                            "label": "11",
+                            "var": 11
+                        },
+                        {
+                            "value": 12,
+                            "label": "12",
+                            "var": 12
+                        },
+                        {
+                            "value": 13,
+                            "label": "13",
+                            "var": 13
+                        },
+                        {
+                            "value": 14,
+                            "label": "14",
+                            "var": 14
+                        },
+                        {
+                            "value": 15,
+                            "label": "15",
+                            "var": 15
+                        },
+                        {
+                            "value": 16,
+                            "label": "16",
+                            "var": 16
                         }
                     ]
                 }
