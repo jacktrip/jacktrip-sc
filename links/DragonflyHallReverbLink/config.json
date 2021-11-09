@@ -1,7 +1,6 @@
 {
-    "label": "Tal Reverb 4",
-    "class": "TalReverbLink",
-    "enabled": false,
+    "label": "Dragonfly Hall Reverb",
+    "class": "DragonflyHallReverbLink",
     "options": [
         {
             "src": "wet",
