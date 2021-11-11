@@ -6,7 +6,7 @@
             "src": "irPath",
             "label": "Space",
             "type": "string",
-            "defaultVal": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Venues/ConradPrebysConcertHallSeatF111.wav",
+            "defaultVal": "/var/lib/jacktrip/impulses/IMreverbs/Nice Drum Room.wav",
             "field": {
                 "type": "dropdown",
                 "fieldOptions": {
@@ -536,7 +536,7 @@
                             "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/Avenue60UnderpassLARiver.wav"
                         },
                         {
-                            "label": "BoulevardRosemontUnderpass",
+                            "label": "Boulevard Rosemont Underpass",
                             "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/Boulevard Rosemont Underpass.wav"
                         },
                         {
