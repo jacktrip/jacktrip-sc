@@ -1,0 +1,83 @@
+{
+    "label": "Convolution Reverb",
+    "class": "ConvReverbLink",
+    "options": [
+        {
+            "src": "mix",
+            "label": "Dry/wet Balance",
+            "type": "number",
+            "defaultVal": 0.33,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "Dryer"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "Wetter"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": [
+                "low",
+                "high"
+            ],
+            "label": "Wet Filter (Hz)",
+            "type": "number",
+            "defaultVal": [
+                20,
+                20000
+            ],
+            "field": {
+                "type": "range",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 20,
+                            "label": "20"
+                        },
+                        {
+                            "value": 20000,
+                            "label": "20000"
+                        }
+                    ],
+                    "logarithmic": true,
+                    "min": 20,
+                    "max": 20000
+                }
+            }
+        },
+        {
+            "src": "irPath",
+            "label": "Space",
+            "type": "string",
+            "defaultVal": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Venues/MillsGreekTheater.wav",
+            "field": {
+                "type": "dropdown",
+                "fieldOptions": {
+                    "labels": [
+                        {
+                            "label": "Mills Greek Theater",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Venues/MillsGreekTheater.wav"
+                        },
+                        {
+                            "label": "Steinman Hall",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Venues/SteinmanHall.wav"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}
