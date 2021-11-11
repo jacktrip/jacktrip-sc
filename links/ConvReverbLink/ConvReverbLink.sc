@@ -33,15 +33,19 @@ ConvReverbLink : Link {
 
     ar { | input |
         var signal = input;
-        signal = Array.fill(signal.size, { | channelNum |
-            if (signal[channelNum].isArray, {
-                Array.fill(signal[channelNum].size, { | n |
-                    this.process(signal[channelNum][n], n);
+        
+        if(irspectrum.isArray, {
+            signal = Array.fill(signal.size, { | channelNum |
+                if (signal[channelNum].isArray, {
+                    Array.fill(signal[channelNum].size, { | n |
+                        this.process(signal[channelNum][n], n);
+                    });
+                }, {
+                    this.process(signal[channelNum], channelNum);
                 });
-            }, {
-                this.process(signal[channelNum], channelNum);
             });
         });
+        
         ^signal;
     }
 
@@ -61,6 +65,11 @@ ConvReverbLink : Link {
 
     // prepares impulse response spectrums used by PartConv
     before { | server |
+        if(PathName.new(irPath).isFile, { this.initSpectrum(server); });
+    }
+
+    // initialize spectrum variable
+    initSpectrum { | server |
         var numChannels, numFrames, tmpBuffer;
 
         tmpBuffer = Buffer.read(server, irPath, action: {
@@ -92,8 +101,13 @@ ConvReverbLink : Link {
 
     // returns a unique name for this Link
     getName {
-        var filename = PathName.new(irPath).fileNameWithoutExtension;
-        ^("ConvReverbLink-" ++ fftsize ++ "-" ++ filename);
+        var path = PathName.new(irPath);
+
+        if(path.isFile, {
+            ^("ConvReverbLink-" ++ fftsize ++ "-" ++ path.fileNameWithoutExtension);
+        });
+
+        ^("ConvReverbLink-null");
     }
 
     // returns a list of synth arguments used by this Link
