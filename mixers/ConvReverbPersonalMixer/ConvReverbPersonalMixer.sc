@@ -47,7 +47,7 @@ ConvReverbPersonalMixer : PersonalMixer {
     var <>limiter_release = 0.01;
     var <>limiter_ratio = 0.1;
 
-    var<> reverb_mix = 0.33;
+    var<> reverb_mix = 0.1;
     var<> reverb_low = 300;
     var<> reverb_high = 6000;
     var<> reverb_irPath = "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Venues/MillsGreekTheater.wav";

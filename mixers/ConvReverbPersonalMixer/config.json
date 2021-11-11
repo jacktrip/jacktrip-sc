@@ -559,14 +559,14 @@
             "src": "reverb_irPath",
             "label": "Reverb: Space",
             "type": "string",
-            "defaultVal": "/var/lib/jacktrip/impulses/IMreverbs/Nice Drum Room.wav",
+            "defaultVal": "/var/lib/jacktrip/impulses/IMreverbs/French 18th Century Salon.wav",
             "field": {
                 "type": "dropdown",
                 "fieldOptions": {
                     "labels": [
                         {
                             "label": "[Bypass]",
-                            "value": ""
+                            "value": "Bypass"
                         },
                         {
                             "label": "Block Inside",
@@ -1192,7 +1192,7 @@
             "src": "reverb_mix",
             "label": "Reverb: Balance",
             "type": "number",
-            "defaultVal": 0.33,
+            "defaultVal": 0.1,
             "field": {
                 "type": "slider",
                 "fieldOptions": {

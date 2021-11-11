@@ -27,7 +27,7 @@ ConvReverbLink : Link {
     var<> high;
     var irspectrum;
 
-    *new { | irPath, mix = 0.33, low = 300, high = 6000, fftsize = 2048 |
+    *new { | irPath, mix = 0.1, low = 300, high = 6000, fftsize = 2048 |
         ^super.new().irPath_(irPath).mix_(mix).low_(low).high_(high).fftsize_(fftsize);
     }
 
