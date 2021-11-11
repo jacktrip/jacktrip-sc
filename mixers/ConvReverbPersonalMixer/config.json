@@ -1,0 +1,636 @@
+{
+    "label": "Convolution Reverb",
+    "class": "ConvReverbPersonalMixer",
+    "max": 100,
+    "options": [
+        {
+            "src": "masterVolume",
+            "label": "Master Volume",
+            "type": "number",
+            "defaultVal": 1,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 1,
+                            "label": "100%"
+                        },
+                        {
+                            "value": 2,
+                            "label": "200%"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 3,
+                    "step": 0.05,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "selfVolume",
+            "label": "Self Volume",
+            "type": "number",
+            "defaultVal": 0.5,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 1,
+                            "label": "100%"
+                        },
+                        {
+                            "value": 2,
+                            "label": "200%"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 3,
+                    "step": 0.05,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "panSlots",
+            "label": "Panning Slots",
+            "type": "number",
+            "defaultVal": 1,
+            "field": {
+                "type": "dropdown",
+                "fieldOptions": {
+                    "labels": [
+                        {
+                            "value": 1,
+                            "label": "1",
+                            "var": 1
+                        },
+                        {
+                            "value": 2,
+                            "label": "2",
+                            "var": 2
+                        },
+                        {
+                            "value": 3,
+                            "label": "3",
+                            "var": 3
+                        },
+                        {
+                            "value": 4,
+                            "label": "4",
+                            "var": 4
+                        },
+                        {
+                            "value": 5,
+                            "label": "5",
+                            "var": 5
+                        },
+                        {
+                            "value": 6,
+                            "label": "6",
+                            "var": 6
+                        },
+                        {
+                            "value": 7,
+                            "label": "7",
+                            "var": 7
+                        },
+                        {
+                            "value": 8,
+                            "label": "8",
+                            "var": 8
+                        },
+                        {
+                            "value": 9,
+                            "label": "9",
+                            "var": 9
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "src": [
+                "hpf",
+                "lpf"
+            ],
+            "label": "Bandpass Filter (Hz)",
+            "type": "number",
+            "defaultVal": [
+                20,
+                20000
+            ],
+            "field": {
+                "type": "range",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 20,
+                            "label": "20"
+                        },
+                        {
+                            "value": 20000,
+                            "label": "20000"
+                        }
+                    ],
+                    "logarithmic": true,
+                    "min": 20,
+                    "max": 20000
+                }
+            }
+        },
+        {
+            "src": "gate_thresh",
+            "label": "Gate: Threshold (dB)",
+            "type": "number",
+            "defaultVal": -60,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": -72,
+                            "label": "-72dB"
+                        },
+                        {
+                            "value": -48,
+                            "label": "-48dB"
+                        },
+                        {
+                            "value": -24,
+                            "label": "-24dB"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": -96,
+                    "max": 0,
+                    "step": 1,
+                    "scale": 1
+                }
+            }
+        },
+        {
+            "src": "gate_attack",
+            "label": "Gate: Attack (ms)",
+            "type": "number",
+            "defaultVal": 0.3,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.200,
+                            "label": "200ms"
+                        },
+                        {
+                            "value": 0.500,
+                            "label": "500ms"
+                        },
+                        {
+                            "value": 0.800,
+                            "label": "800ms"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0.001,
+                    "max": 1.000,
+                    "step": 0.001,
+                    "scale": 1000
+                }
+            }
+        },
+        {
+            "src": "gate_release",
+            "label": "Gate: Release (ms)",
+            "type": "number",
+            "defaultVal": 0.010,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.020,
+                            "label": "20ms"
+                        },
+                        {
+                            "value": 0.050,
+                            "label": "50ms"
+                        },
+                        {
+                            "value": 0.080,
+                            "label": "80ms"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0.001,
+                    "max": 0.100,
+                    "step": 0.001,
+                    "scale": 1000
+                }
+            }
+        },
+        {
+            "src": "gate_range",
+            "label": "Gate: Range",
+            "type": "number",
+            "defaultVal": 10,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 25,
+                            "label": "Weaker"
+                        },
+                        {
+                            "value": 75,
+                            "label": "Stronger"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 1,
+                    "max": 100,
+                    "step": 5,
+                    "scale": 1
+                }
+            }
+        },
+        {
+            "src": "compressor_thresh",
+            "label": "Compressor: Threshold (dB)",
+            "type": "number",
+            "defaultVal": -10,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": -72,
+                            "label": "-72dB"
+                        },
+                        {
+                            "value": -48,
+                            "label": "-48dB"
+                        },
+                        {
+                            "value": -24,
+                            "label": "-24dB"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": -96,
+                    "max": 0,
+                    "step": 1,
+                    "scale": 1
+                }
+            }
+        },
+        {
+            "src": "compressor_attack",
+            "label": "Compressor: Attack (ms)",
+            "type": "number",
+            "defaultVal": 0.010,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.020,
+                            "label": "20ms"
+                        },
+                        {
+                            "value": 0.050,
+                            "label": "50ms"
+                        },
+                        {
+                            "value": 0.080,
+                            "label": "80ms"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0.001,
+                    "max": 0.100,
+                    "step": 0.001,
+                    "scale": 1000
+                }
+            }
+        },
+        {
+            "src": "compressor_release",
+            "label": "Compressor: Release (ms)",
+            "type": "number",
+            "defaultVal": 0.020,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.020,
+                            "label": "20ms"
+                        },
+                        {
+                            "value": 0.050,
+                            "label": "50ms"
+                        },
+                        {
+                            "value": 0.080,
+                            "label": "80ms"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0.001,
+                    "max": 0.100,
+                    "step": 0.001,
+                    "scale": 1000
+                }
+            }
+        },
+        {
+            "src": "compressor_ratio",
+            "label": "Compressor: Ratio",
+            "type": "number",
+            "defaultVal": 0.5,
+            "field": {
+                "type": "dropdown",
+                "fieldOptions": {
+                    "labels": [
+                        {
+                            "value": 0.667,
+                            "label": "1.5:1",
+                            "var": 0.667
+                        },
+                        {
+                            "value": 0.5,
+                            "label": "2:1",
+                            "var": 0.5
+                        },
+                        {
+                            "value": 0.333,
+                            "label": "3:1",
+                            "var": 0.333
+                        },
+                        {
+                            "value": 0.25,
+                            "label": "4:1",
+                            "var": 0.25
+                        },
+                        {
+                            "value": 0.2,
+                            "label": "5:1",
+                            "var": 0.2
+                        },
+                        {
+                            "value": 0.167,
+                            "label": "6:1",
+                            "var": 0.167
+                        },
+                        {
+                            "value": 0.143,
+                            "label": "7:1",
+                            "var": 0.143
+                        },
+                        {
+                            "value": 0.125,
+                            "label": "8:1",
+                            "var": 0.125
+                        },
+                        {
+                            "value": 0.111,
+                            "label": "9:1",
+                            "var": 0.111
+                        },
+                        {
+                            "value": 0.1,
+                            "label": "10:1",
+                            "var": 0.1
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "src": "limiter_thresh",
+            "label": "Limiter: Threshold (dB)",
+            "type": "number",
+            "defaultVal": -2,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": -72,
+                            "label": "-72dB"
+                        },
+                        {
+                            "value": -48,
+                            "label": "-48dB"
+                        },
+                        {
+                            "value": -24,
+                            "label": "-24dB"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": -96,
+                    "max": 0,
+                    "step": 1,
+                    "scale": 1
+                }
+            }
+        },
+        {
+            "src": "limiter_attack",
+            "label": "Limiter: Attack (ms)",
+            "type": "number",
+            "defaultVal": 0.002,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.020,
+                            "label": "20ms"
+                        },
+                        {
+                            "value": 0.050,
+                            "label": "50ms"
+                        },
+                        {
+                            "value": 0.080,
+                            "label": "80ms"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0.001,
+                    "max": 0.100,
+                    "step": 0.001,
+                    "scale": 1000
+                }
+            }
+        },
+        {
+            "src": "limiter_release",
+            "label": "Limiter: Release (ms)",
+            "type": "number",
+            "defaultVal": 0.01,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.020,
+                            "label": "20ms"
+                        },
+                        {
+                            "value": 0.050,
+                            "label": "50ms"
+                        },
+                        {
+                            "value": 0.080,
+                            "label": "80ms"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0.001,
+                    "max": 0.100,
+                    "step": 0.001,
+                    "scale": 1000
+                }
+            }
+        },
+        {
+            "src": "limiter_ratio",
+            "label": "Limiter: Ratio",
+            "type": "number",
+            "defaultVal": 0.1,
+            "field": {
+                "type": "dropdown",
+                "fieldOptions": {
+                    "labels": [
+                        {
+                            "value": 0.1,
+                            "label": "10:1",
+                            "var": 0.1
+                        },
+                        {
+                            "value": 0.067,
+                            "label": "15:1",
+                            "var": 0.067
+                        },
+                        {
+                            "value": 0.05,
+                            "label": "20:1",
+                            "var": 0.05
+                        },
+                        {
+                            "value": 0.04,
+                            "label": "25:1",
+                            "var": 0.04
+                        },
+                        {
+                            "value": 0.033,
+                            "label": "30:1",
+                            "var": 0.033
+                        },
+                        {
+                            "value": 0.02,
+                            "label": "50:1",
+                            "var": 0.02
+                        },
+                        {
+                            "value": 0.013,
+                            "label": "75:1",
+                            "var": 0.013
+                        },
+                        {
+                            "value": 0.001,
+                            "label": "100:1",
+                            "var": 0.001
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "src": "reverb_mix",
+            "label": "Reverb: Dry/wet Balance",
+            "type": "number",
+            "defaultVal": 0.33,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "Dryer"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "Wetter"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": [
+                "reverb_low",
+                "reverb_high"
+            ],
+            "label": "Reverb: Wet Filter (Hz)",
+            "type": "number",
+            "defaultVal": [
+                20,
+                20000
+            ],
+            "field": {
+                "type": "range",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 20,
+                            "label": "20"
+                        },
+                        {
+                            "value": 20000,
+                            "label": "20000"
+                        }
+                    ],
+                    "logarithmic": true,
+                    "min": 20,
+                    "max": 20000
+                }
+            }
+        },
+        {
+            "src": "reverb_irPath",
+            "label": "Reverb: Space",
+            "type": "string",
+            "defaultVal": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Venues/MillsGreekTheater.wav",
+            "field": {
+                "type": "dropdown",
+                "fieldOptions": {
+                    "labels": [
+                        {
+                            "label": "Mills Greek Theater",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Venues/MillsGreekTheater.wav"
+                        },
+                        {
+                            "label": "Steinman Hall",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Venues/SteinmanHall.wav"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}
