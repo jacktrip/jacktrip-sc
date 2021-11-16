@@ -15,34 +15,34 @@
  */
 
 /* 
- * DragonflyHallReverbLink: wraps the Dragonfly Hall Reverb plugin
+ * DragonflyRoomReverbLink: wraps the Dragonfly Room Reverb plugin
  * See https://michaelwillis.github.io/dragonfly-reverb/
  */
 
-DragonflyHallReverbLink : Link {
+DragonflyRoomReverbLink : Link {
     var<> fx;
     var<> dry;      // dry level 0-1 (percent); default=0.8
     var<> early;    // early level 0-1 (percent); default=0.1
     var<> late;     // late level 0-1 (percent); default=0.2
-    var<> size;     // size 0-1; default=0.28 (24 m)
-    var<> diffuse;  // diffuse 0-1 (percent); default=0.9
-    var<> decay;    // decay 0-1; default=0.12
+    var<> size;     // size 0-1; default=0.167
+    var<> diffuse;  // diffuse 0-1 (percent); default=0.7
+    var<> decay;    // decay 0-1; default=0.03
 
-    *new { | dry = 0.8, early = 0.1, late = 0.2, size = 0.28, diffuse = 0.9, decay = 0.12 |
+    *new { | dry = 0.8, early = 0.1, late = 0.2, size = 0.167, diffuse = 0.7, decay = 0.03 |
         ^super.new().dry_(dry).early_(early).late_(late).size_(size).diffuse_(diffuse).decay_(decay);
     }
 
     ar { |input|
         var signal = input;
         var params = [
-            0, \dragonflyhall_dry.kr(dry),
-            1, \dragonflyhall_early.kr(early),
-            2, \dragonflyhall_late.kr(late),
-            3, \dragonflyhall_size.kr(size),
-            6, \dragonflyhall_diffuse.kr(diffuse),
-            15, \dragonflyhall_decay.kr(decay)
+            0, \dragonflyroom_dry.kr(dry),
+            1, \dragonflyroom_early.kr(early),
+            3, \dragonflyroom_late.kr(late),
+            4, \dragonflyroom_size.kr(size),
+            7, \dragonflyroom_decay.kr(decay),
+            8, \dragonflyroom_diffuse.kr(diffuse)
             ];
-        signal = VSTPlugin.ar(signal, 2, id: \dragonflyhall, params: params);
+        signal = VSTPlugin.ar(signal, 2, id: \dragonflyroom, params: params);
         ^signal;
     }
 
@@ -51,14 +51,14 @@ DragonflyHallReverbLink : Link {
     }
 
     after { | server, synth |
-        fx = VSTPluginController.new(synth, \dragonflyhall).open("Dragonfly Hall Reverb");
+        fx = VSTPluginController.new(synth, \dragonflyroom).open("Dragonfly Room Reverb");
     }
 
     getArgs {
         ^[
-           \dragonflyhall_dry, dry, \dragonflyhall_early, early,
-           \dragonflyhall_late, late, \dragonflyhall_size, size,
-           \dragonflyhall_diffuse, diffuse, \dragonflyhall_decay, decay
+           \dragonflyroom_dry, dry, \dragonflyroom_early, early,
+           \dragonflyroom_late, late, \dragonflyroom_size, size,
+           \dragonflyroom_diffuse, diffuse, \dragonflyroom_decay, decay
         ];
     }
 }

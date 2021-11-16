@@ -1,6 +1,6 @@
 {
-    "label": "Dragonfly Hall Reverb",
-    "class": "DragonflyHallReverbLink",
+    "label": "Dragonfly Room Reverb",
+    "class": "DragonflyRoomReverbLink",
     "options": [
         {
             "src": "dry",
@@ -84,7 +84,7 @@
             "src": "diffuse",
             "label": "Diffuse",
             "type": "number",
-            "defaultVal": 0.9,
+            "defaultVal": 0.7,
             "field": {
                 "type": "slider",
                 "fieldOptions": {
@@ -106,11 +106,11 @@
                 }
             }
         },
-        {
+         {
             "src": "size",
             "label": "Room Size",
             "type": "number",
-            "defaultVal": 0.28,
+            "defaultVal": 0.167,
             "field": {
                 "type": "slider",
                 "fieldOptions": {
@@ -136,7 +136,7 @@
             "src": "decay",
             "label": "Decay",
             "type": "number",
-            "defaultVal": 0.12,
+            "defaultVal": 0.03,
             "field": {
                 "type": "slider",
                 "fieldOptions": {
