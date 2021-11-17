@@ -68,7 +68,7 @@ SignalChain : Class {
     getName {
         var name = "";
         
-        if (links.size == 0, { ^name; }, { name = "."; });
+        if (links.size == 0, { ^name; }, { name = "-"; });
 
         links.size.do({ |n|
             name = name ++ links[n].getName();

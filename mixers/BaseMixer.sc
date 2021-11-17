@@ -88,6 +88,9 @@ BaseMixer : Object {
         // location and send it to the server.
         if (useSynthCache && File.exists(defPath), {
             ("Reusing cached SynthDef:" + name).postln;
+        
+            // load synthdef into global lib (needed by VSTPlugin and other things)
+            SynthDescLib.global.read(defPath);
         }, {
             var sdef;
 
@@ -103,7 +106,7 @@ BaseMixer : Object {
                 ("Sending SynthDef:" + name).postln;
                 sdef.writeDefFile;
                 sdef.send(server);
-            })
+            });
         });
     }
 
