@@ -41,7 +41,7 @@
         var signal = JackTripInput(maxClients, outputChannelsPerClient, false, ~firstPrivateBus).getSignal();
         signal = MulAdd(signal, m * \mul.kr(1), 0);
         signal = AggregateLink().ar(signal);
-        signal = postChain.ar(signal);
+        signal = postChain.ar(signal, clientNum);
         
         Out.ar(outputChannelsPerClient * clientNum, signal);
     });

@@ -32,7 +32,7 @@ DragonflyRoomReverbLink : Link {
         ^super.new().dry_(dry).early_(early).late_(late).size_(size).diffuse_(diffuse).decay_(decay);
     }
 
-    ar { |input|
+    ar { | input, id = "" |
         var signal = input;
         var params = [
             0, \dragonflyroom_dry.kr(dry),
@@ -42,7 +42,7 @@ DragonflyRoomReverbLink : Link {
             7, \dragonflyroom_decay.kr(decay),
             8, \dragonflyroom_diffuse.kr(diffuse)
             ];
-        signal = VSTPlugin.ar(signal, 2, id: \dragonflyroom, params: params);
+        signal = VSTPlugin.ar(signal, 2, id: "dragonflyroom"++id, params: params);
         ^signal;
     }
 
@@ -51,7 +51,11 @@ DragonflyRoomReverbLink : Link {
     }
 
     after { | server, synth |
-        fx = VSTPluginController.new(synth, \dragonflyroom).open("Dragonfly Room Reverb");
+        var pluginName = "Dragonfly Room Reverb";
+        fx = VSTPluginController.collect(synth);
+        fx.do({ |item|
+            item.open(pluginName, editor: false);
+        });
     }
 
     getArgs {

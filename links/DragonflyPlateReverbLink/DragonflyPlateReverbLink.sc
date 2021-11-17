@@ -29,14 +29,14 @@ DragonflyPlateReverbLink : Link {
         ^super.new().dry_(dry).wet_(wet).decay_(decay);
     }
 
-    ar { |input|
+    ar { | input, id = "" |
         var signal = input;
         var params = [
             0, \dragonflyplate_dry.kr(dry),
             1, \dragonflyplate_wet.kr(wet),
             5, \dragonflyplate_decay.kr(decay)
             ];
-        signal = VSTPlugin.ar(signal, 2, id: \dragonflyplate, params: params);
+        signal = VSTPlugin.ar(signal, 2, id: "dragonflyplate"++id, params: params);
         ^signal;
     }
 
@@ -45,7 +45,11 @@ DragonflyPlateReverbLink : Link {
     }
 
     after { | server, synth |
-        fx = VSTPluginController.new(synth, \dragonflyplate).open("Dragonfly Plate Reverb");
+        var pluginName = "Dragonfly Plate Reverb";
+        fx = VSTPluginController.collect(synth);
+        fx.do({ |item|
+            item.open(pluginName, editor: false);
+        });
     }
 
     getArgs {

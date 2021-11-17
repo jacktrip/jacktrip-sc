@@ -29,14 +29,14 @@ DragonflyEarlyReflectionsReverbLink : Link {
         ^super.new().dry_(dry).wet_(wet).size_(size);
     }
 
-    ar { |input|
+    ar { | input, id = "" |
         var signal = input;
         var params = [
             0, \dragonflyearlyreflections_dry.kr(dry),
             1, \dragonflyearlyreflections_wet.kr(wet),
             3, \dragonflyearlyreflections_size.kr(size)
             ];
-        signal = VSTPlugin.ar(signal, 2, id: \dragonflyearlyreflections, params: params);
+        signal = VSTPlugin.ar(signal, 2, id: "dragonflyearlyreflections"++id, params: params);
         ^signal;
     }
 
@@ -45,7 +45,11 @@ DragonflyEarlyReflectionsReverbLink : Link {
     }
 
     after { | server, synth |
-        fx = VSTPluginController.new(synth, \dragonflyearlyreflections).open("Dragonfly Early Reflections");
+        var pluginName = "Dragonfly Early Reflections";
+        fx = VSTPluginController.collect(synth);
+        fx.do({ |item|
+            item.open(pluginName, editor: false);
+        });
     }
 
     getArgs {

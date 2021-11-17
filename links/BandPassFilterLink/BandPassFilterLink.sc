@@ -29,7 +29,7 @@ BandPassFilterLink : Link {
         ^super.new().low_(low).high_(high);
     }
 
-    ar { |input|
+    ar { | input, id = "" |
         var signal = input;
         signal = LPF.ar(signal, \bandPassFilter_high.kr(high));
         signal = HPF.ar(signal, \bandPassFilter_low.kr(low));

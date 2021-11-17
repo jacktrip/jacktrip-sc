@@ -33,7 +33,7 @@ GateLink : Link {
         ^super.new().thresh_(thresh).attack_(attack).release_(release).range_(range);
     }
 
-    ar { |input|
+    ar { | input, id = "" |
         var signal = input;
         signal = Compander.ar(signal, signal,
             thresh:     \gate_thresh.kr(thresh).dbamp,  // amplitude trigger threshold [-1, 1]

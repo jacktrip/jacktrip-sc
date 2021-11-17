@@ -51,7 +51,7 @@ Link : Class {
     }
 
     // Override this function!
-    ar { |input|
+    ar { | input, id = "" |
         ^input
     }
 

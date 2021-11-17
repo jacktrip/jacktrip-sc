@@ -32,7 +32,7 @@ DragonflyHallReverbLink : Link {
         ^super.new().dry_(dry).early_(early).late_(late).size_(size).diffuse_(diffuse).decay_(decay);
     }
 
-    ar { |input|
+    ar { | input, id = "" |
         var signal = input;
         var params = [
             0, \dragonflyhall_dry.kr(dry),
@@ -42,7 +42,7 @@ DragonflyHallReverbLink : Link {
             6, \dragonflyhall_diffuse.kr(diffuse),
             15, \dragonflyhall_decay.kr(decay)
             ];
-        signal = VSTPlugin.ar(signal, 2, id: \dragonflyhall, params: params);
+        signal = VSTPlugin.ar(signal, 2, id: "dragonflyhall"++id, params: params);
         ^signal;
     }
 
@@ -51,7 +51,11 @@ DragonflyHallReverbLink : Link {
     }
 
     after { | server, synth |
-        fx = VSTPluginController.new(synth, \dragonflyhall).open("Dragonfly Hall Reverb");
+        var pluginName = "Dragonfly Hall Reverb";
+        fx = VSTPluginController.collect(synth);
+        fx.do({ |item|
+            item.open(pluginName, editor: false);
+        });
     }
 
     getArgs {

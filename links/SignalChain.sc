@@ -40,11 +40,11 @@ SignalChain : Class {
     }
 
     // processes audio using the sequence of Links
-    ar { |input|
+    ar { | input, id = "" |
         var signal = input;
         
         links.size.do({ |n|
-            signal = links[n].ar(signal);
+            signal = links[n].ar(signal, id);
         });
         
         ^signal;

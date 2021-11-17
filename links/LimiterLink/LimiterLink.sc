@@ -33,7 +33,7 @@ LimiterLink : Link {
         ^super.new().thresh_(thresh).attack_(attack).release_(release).ratio_(ratio);
     }
 
-    ar { |input|
+    ar { | input, id = "" |
         var signal = input;
         signal = Compander.ar(signal, signal,
             thresh:     \limiter_thresh.kr(thresh).dbamp,   // amplitude trigger threshold [-1, 1]

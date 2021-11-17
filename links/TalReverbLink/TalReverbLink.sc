@@ -35,7 +35,7 @@ TalReverbLink : Link {
         ^super.new().wet_(wet).dry_(dry).delay_(delay).size_(size).high_(high).low_(low).modrate_(modrate).moddepth_(moddepth).diffuse_(diffuse);
     }
 
-    ar { |input|
+    ar { | input, id = "" |
         var signal = input;
         var params = [0, 1,
             1, \talreverb_wet.kr(wet),
@@ -47,7 +47,7 @@ TalReverbLink : Link {
             7, \talreverb_modrate.kr(modrate),
             8, \talreverb_moddepth.kr(moddepth),
             9, \talreverb_diffuse.kr(diffuse)];
-        signal = VSTPlugin.ar(signal, 2, id: \talreverb, params: params);
+        signal = VSTPlugin.ar(signal, 2, id: "talreverb"++id, params: params);
         ^signal;
     }
 
@@ -56,7 +56,11 @@ TalReverbLink : Link {
     }
 
     after { | server, synth |
-        fx = VSTPluginController.new(synth, \talreverb).open("TAL Reverb 4 Plugin.vst3");
+        var pluginName = "TAL Reverb 4 Plugin.vst3";
+        fx = VSTPluginController.collect(synth);
+        fx.do({ |item|
+            item.open(pluginName, editor: false);
+        });
     }
 
     getArgs {

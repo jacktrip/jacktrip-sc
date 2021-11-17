@@ -31,7 +31,7 @@ ConvReverbLink : Link {
         ^super.new().irPath_(irPath).mix_(mix).low_(low).high_(high).fftsize_(fftsize);
     }
 
-    ar { | input |
+    ar { | input, id = "" |
         var signal = input;
         
         if(irspectrum.isArray, {

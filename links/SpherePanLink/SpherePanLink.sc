@@ -28,7 +28,7 @@ SpherePanLink : Link {
         ^super.new().panSlots_(panSlots);
     }
 
-    ar { |input|
+    ar { | input, id = "" |
         var panValues = PanningLink.autoPan(maxClients, panSlots);
         var elevationValues = SpherePanLink.autoElevation(maxClients);
 

@@ -32,7 +32,7 @@ PanningLink : Link {
         ^super.new().panSlots_(panSlots);
     }
 
-    ar { |input|
+    ar { | input, id = "" |
         var signal = input;
         var panValues = PanningLink.autoPan(maxClients, panSlots);
         
