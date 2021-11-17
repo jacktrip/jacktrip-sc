@@ -33,7 +33,7 @@
 
     // aggregate JackTrip signal
     signal = AggregateLink().ar(signal);
-    signal = signalChain.ar(signal);
+    signal = signalChain.ar(signal, "aggregateAndSendToAll");
 
     // send JackTrip signals to all outputs (including Jamulus)
     out = Array.fill(maxClients, { arg n;
