@@ -1,0 +1,162 @@
+{
+    "label": "Dragonfly Hall Reverb",
+    "class": "DragonflyHallReverbLink",
+    "options": [
+        {
+            "src": "dry",
+            "label": "Dry",
+            "type": "number",
+            "defaultVal": 0.8,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "20%"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "80%"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "early",
+            "label": "Early",
+            "type": "number",
+            "defaultVal": 0.1,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "20%"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "80%"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "late",
+            "label": "Late",
+            "type": "number",
+            "defaultVal": 0.2,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "20%"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "80%"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "diffuse",
+            "label": "Diffuse",
+            "type": "number",
+            "defaultVal": 0.9,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "20%"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "80%"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "size",
+            "label": "Room Size",
+            "type": "number",
+            "defaultVal": 0.28,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "Smaller"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "Larger"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "decay",
+            "label": "Decay",
+            "type": "number",
+            "defaultVal": 0.12,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "Shorter"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "Longer"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        }
+    ]
+}

@@ -51,9 +51,15 @@ Link : Class {
     }
 
     // Override this function!
-    ar { |input|
+    ar { | input, id = "" |
         ^input
     }
+
+    // runs before a synth using the signal chain is started
+    before { | server | }
+
+    // runs after a synth using the signal chain has started
+    after { | server, synth | }
 
     // returns a unique name for this Link
     getName { ^this.class.asString; }

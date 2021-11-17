@@ -32,7 +32,7 @@ FreeVerbLink : Link {
         ^super.new().mix_(mix).room_(room).damp_(damp);
     }
 
-    ar { |input|
+    ar { | input, id = "" |
         var signal = input;
         signal = FreeVerb.ar(signal,
             mix: \freeverb_mix.kr(mix),     // dry/wet balance. range 0..1.

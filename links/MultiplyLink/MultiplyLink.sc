@@ -29,7 +29,7 @@ MultiplyLink : Link {
         ^super.new().factor_(factor);
     }
 
-    ar { |input|
+    ar { | input, id = "" |
         ^MulAdd(input, \multiply_factor.kr(factor), 0);
     }
 

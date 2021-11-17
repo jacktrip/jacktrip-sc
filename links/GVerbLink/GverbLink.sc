@@ -40,7 +40,7 @@ GVerbLink : Link {
         ^super.new().room_(room).time_(time).damp_(damp).dampin_(dampin).dry_(dry).early_(early).tail_(tail);
     }
 
-    ar { |input|
+    ar { | input, id = "" |
         var signal = input;
         signal = GVerb.ar(signal,
             roomsize: \gverb_room.kr(room),                 // room size, in squared meters

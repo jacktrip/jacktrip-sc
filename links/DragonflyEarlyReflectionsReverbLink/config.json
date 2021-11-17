@@ -1,0 +1,84 @@
+{
+    "label": "Dragonfly Early Reflections Reverb",
+    "class": "DragonflyEarlyReflectionsReverbLink",
+    "options": [
+        {
+            "src": "dry",
+            "label": "Dry",
+            "type": "number",
+            "defaultVal": 0.8,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "20%"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "80%"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "wet",
+            "label": "Wet",
+            "type": "number",
+            "defaultVal": 0.2,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "20%"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "80%"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "size",
+            "label": "Room Size",
+            "type": "number",
+            "defaultVal": 0.2,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "Smaller"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "Larger"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        }
+    ]
+}

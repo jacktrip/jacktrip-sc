@@ -29,6 +29,6 @@
     var out = Array.fill(maxClients - 1, { arg n;
         (n + 1) * outputChannelsPerClient;
     });
-    signal = signalChain.ar(signal[0]);
+    signal = signalChain.ar(signal[0], "sendFirstToEveryoneElse");
     Out.ar(out, signal);
 };

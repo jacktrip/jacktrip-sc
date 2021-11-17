@@ -40,14 +40,28 @@ SignalChain : Class {
     }
 
     // processes audio using the sequence of Links
-    ar { |input|
+    ar { | input, id = "" |
         var signal = input;
         
         links.size.do({ |n|
-            signal = links[n].ar(signal);
+            signal = links[n].ar(signal, id);
         });
         
         ^signal;
+    }
+
+    // runs before a synth using the signal chain is started
+    before { | server |
+        links.size.do({ |n|
+            links[n].before(server);
+        });
+    }
+
+    // runs after a synth using the signal chain has started
+    after { | server, synth |
+        links.size.do({ |n|
+            links[n].after(server, synth);
+        });
     }
 
     // returns a unique name for this signal chain
