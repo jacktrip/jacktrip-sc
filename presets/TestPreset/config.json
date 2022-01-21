@@ -1,5 +1,6 @@
 {
-  "label": "Personal Mixer (Default)",
+  "id": "testPresetID",
+  "label": "Test Preset Label",
   "preChain": [
     {
         "name": "BandPassFilterLink",
