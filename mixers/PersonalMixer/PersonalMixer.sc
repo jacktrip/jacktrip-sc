@@ -60,7 +60,7 @@ PersonalMixer : InputBusMixer {
             super.start();
 
             // execute postChain before actions
-            if(bypassFx, {
+            if(bypassFx==1, {
                 postChainName = "";
             }, {
                 postChainName = postChain.getName();
@@ -100,7 +100,7 @@ PersonalMixer : InputBusMixer {
 
             // create personal mix for all jacktrip clients that includes jamulus
             // outputs to all clients including jamulus
-            if(bypassFx, {
+            if(bypassFx==1, {
                 args = [\mix, personalMixes, \mul, masterVolume];
                 node = Synth(synthName, args, g, \addToTail);
             }, {

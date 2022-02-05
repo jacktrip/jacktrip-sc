@@ -41,7 +41,7 @@ OutputBusMixer : InputBusMixer {
             super.start();
 
             // execute postChain before actions
-            if(bypassFx, {
+            if(bypassFx==1, {
                 postChainName = "";
             }, {
                 postChainName = postChain.getName();
@@ -66,7 +66,7 @@ OutputBusMixer : InputBusMixer {
             server.sync(nil, b);
 
             // create a single mix and outputs to all clients including jamulus
-            if(bypassFx, {
+            if(bypassFx==1, {
                 args = [\mix, defaultMix, \mul, masterVolume];
                 node = Synth(synthName, args, g, \addToTail);
             }, {

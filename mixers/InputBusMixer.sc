@@ -74,7 +74,7 @@ InputBusMixer : BaseMixer {
         serverReady.wait;
 
         // execute preChain before actions
-        if(bypassFx, {
+        if(bypassFx==1, {
             preChainName = "";
         }, {
             preChainName = preChain.getName();
@@ -120,11 +120,10 @@ InputBusMixer : BaseMixer {
         server.sync(nil, b);
 
         // create synth to send audio to the input busses
-        if(bypassFx, {
+        if(bypassFx==1, {
             node = Synth(synthName, nil, g, \addToTail);
         }, {
             node = Synth(synthName ++ preChainName, preChain.getArgs(), g, \addToTail);
-
             // execute preChain after actions
             preChain.after(server, node);
         });
