@@ -68,12 +68,18 @@ InputBusMixer : BaseMixer {
     start {
         var node, g, b;
         var synthName = "JackTripToInputBus";
+        var preChainName;
 
         // wait for server to be ready
         serverReady.wait;
 
         // execute preChain before actions
-        preChain.before(server);
+        if(bypassFx, {
+            preChainName = "";
+        }, {
+            preChainName = preChain.getName();
+            preChain.before(server);
+        });
 
         // g represents a node group
         // a group represents a set of Synths running on the server
@@ -97,7 +103,7 @@ InputBusMixer : BaseMixer {
         // create a bundle of commands to execute
         b = server.makeBundle(nil, {
             // create synthdef to send audio to the input busses
-            this.sendSynthDef(synthName, synthName ++ preChain.getName());
+            this.sendSynthDef(synthName, synthName ++ preChainName);
             
             // free any existing nodes
             "Freeing all nodes...".postln;
@@ -114,11 +120,15 @@ InputBusMixer : BaseMixer {
         server.sync(nil, b);
 
         // create synth to send audio to the input busses
-        node = Synth(synthName ++ preChain.getName(), preChain.getArgs(), g, \addToTail);
-        ("Created synth" + (synthName ++ preChain.getName()) + node.nodeID).postln;
+        if(bypassFx, {
+            node = Synth(synthName, nil, g, \addToTail);
+        }, {
+            node = Synth(synthName ++ preChainName, preChain.getArgs(), g, \addToTail);
 
-        // execute preChain after actions
-        preChain.after(server, node);
+            // execute preChain after actions
+            preChain.after(server, node);
+        });
+        ("Created synth" + (synthName ++ preChainName) + node.nodeID).postln;
     }
 
     // stop all audio on the server

@@ -54,6 +54,29 @@
                     "scale": 100
                 }
             }
+        },
+        {
+            "src": "bypassFx",
+            "label": "Bypass FX",
+            "type": "number",
+            "defaultVal": 0,
+            "field": {
+                "type": "dropdown",
+                "fieldOptions": {
+                    "labels": [
+                        {
+                            "value": 0,
+                            "label": "No",
+                            "var": 0
+                        },
+                        {
+                            "value": 1,
+                            "label": "Yes",
+                            "var": 1
+                        }
+                    ]
+                }
+            }
         }
     ]
 }
