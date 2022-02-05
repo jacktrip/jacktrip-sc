@@ -1,10 +1,10 @@
 {
-    "label": "Gain",
+    "label": "Volume",
     "class": "MultiplyLink",
     "options": [
         {
             "src": "factor",
-            "label": "Gain",
+            "label": "Volume",
             "type": "number",
             "defaultVal": 1,
             "field": {
@@ -12,12 +12,12 @@
                 "fieldOptions": {
                     "marks": [
                         {
-                            "value": 1,
-                            "label": "100%"
+                            "value": 0.5,
+                            "label": "Quieter"
                         },
                         {
-                            "value": 2,
-                            "label": "200%"
+                            "value": 2.5,
+                            "label": "Louder"
                         }
                     ],
                     "logarithmic": false,

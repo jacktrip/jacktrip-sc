@@ -27,14 +27,16 @@
 
 PanningLink : Link {
     var<> panSlots;
+    var<> left;
+    var<> right;
 
-    *new { | panSlots = 1 |
-        ^super.new().panSlots_(panSlots);
+    *new { | panSlots = 1, left = -1, right = 1 |
+        ^super.new().panSlots_(panSlots).left_(left).right_(right);
     }
 
     ar { | input, id = "" |
         var signal = input;
-        var panValues = PanningLink.autoPan(maxClients, panSlots);
+        var panValues = PanningLink.autoPan(maxClients, panSlots, left, right);
         
         signal = SquashToMonoLink(true, false).ar(signal);
         signal = Pan2.ar(signal, \pan.kr(panValues));
@@ -47,8 +49,8 @@ PanningLink : Link {
         ^[\pan, panValues];
     }
 
-    // returns an array of initial pan values for each client, from -1 to 1
-    *autoPan { | maxClients, slots |
+    // returns an array of initial pan values for each client, from left to right (-1 to 1)
+    *autoPan { | maxClients, slots, left, right |
         var panValues;
 
         // automatically pan clients across stereo field
@@ -60,7 +62,7 @@ PanningLink : Link {
             // LinLin maps a range of input values linearly to a range of
             // output values
             panValues = Array.fill(slots, { arg i;
-                LinLin.kr((i % slots) + 1, 0, slots + 1, -1, 1);
+                LinLin.kr(i % slots, 0, slots - 1, left, right);
             });
         });
 
