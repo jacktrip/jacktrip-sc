@@ -94,10 +94,17 @@ BaseMixer : Object {
             SynthDescLib.global.read(defPath);
         }, {
             var sdef;
+            var myPreChain = preChain;
+            var myPostChain = postChain;
+
+            if(bypassFx==1, {
+                myPreChain = SignalChain.new;
+                myPostChain = myPreChain;
+            });
 
             (this.class.filenameSymbol.asString.dirname +/+ "../../synthdefs/" ++ srcName ++ ".scd").load;
             sdef = SynthDef(name, {
-                SynthDef.wrap(~synthDef, prependArgs: [maxClients, preChain, postChain, inputChannelsPerClient, outputChannelsPerClient, withJamulus]);
+                SynthDef.wrap(~synthDef, prependArgs: [maxClients, myPreChain, myPostChain, inputChannelsPerClient, outputChannelsPerClient, withJamulus]);
             });
 
             if (server.isLocal, {
