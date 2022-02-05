@@ -59,6 +59,40 @@
                     ]
                 }
             }
+        },
+        {
+            "src": [
+                "left",
+                "right"
+            ],
+            "label": "Auto Pan Range",
+            "type": "number",
+            "defaultVal": [
+                -0.75,
+                0.25
+            ],
+            "field": {
+                "type": "range",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": -1,
+                            "label": "Left"
+                        },
+                        {
+                            "value": 0,
+                            "label": "Center"
+                        },
+                        {
+                            "value": 1,
+                            "label": "Right"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": -1,
+                    "max": 1
+                }
+            }
         }
     ]
 }

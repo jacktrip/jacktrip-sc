@@ -30,6 +30,7 @@ BaseMixer : Object {
     var <>serverReady, <>server;    // state of the server and the server object
     var <>mixStarted;				// Condition object used to pause execution until the server is ready
     var <>defaultMix;				// default master mix is just an array of ones (do nothing)
+    var <>bypassFx;                 // bypass FX processing (skip preChain and postChain)
     var <>preChain, <>postChain;	// signal chains for processing audio before (pre) and after (post) mixing down to stereo
     classvar inputChannelsPerClient = 2;	// for stereo audio inputs
     classvar outputChannelsPerClient = 2;	// for stereo audio outputs
@@ -37,7 +38,7 @@ BaseMixer : Object {
     // create a new instance
     *new { | maxClients = 16 |
         ^super.newCopyArgs(maxClients).serverReady_(Condition.new).mixStarted_(Condition.new).defaultMix_(1 ! maxClients)
-            .preChain_(SignalChain.new).postChain_(SignalChain.new);
+            .bypassFx_(false).preChain_(SignalChain.new).postChain_(SignalChain.new);
     }
 
     // connect to a remote server
@@ -93,10 +94,17 @@ BaseMixer : Object {
             SynthDescLib.global.read(defPath);
         }, {
             var sdef;
+            var myPreChain = preChain;
+            var myPostChain = postChain;
+
+            if(bypassFx==1, {
+                myPreChain = SignalChain.new;
+                myPostChain = myPreChain;
+            });
 
             (this.class.filenameSymbol.asString.dirname +/+ "../../synthdefs/" ++ srcName ++ ".scd").load;
             sdef = SynthDef(name, {
-                SynthDef.wrap(~synthDef, prependArgs: [maxClients, preChain, postChain, inputChannelsPerClient, outputChannelsPerClient, withJamulus]);
+                SynthDef.wrap(~synthDef, prependArgs: [maxClients, myPreChain, myPostChain, inputChannelsPerClient, outputChannelsPerClient, withJamulus]);
             });
 
             if (server.isLocal, {

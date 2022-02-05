@@ -54,19 +54,25 @@ PersonalMixer : InputBusMixer {
         Routine {
             var b, g, p, node, args, personalMixes;
             var synthName = "JackTripPersonalMixOut";
+            var postChainName;
 
             // start input bus mixer first
             super.start();
 
             // execute postChain before actions
-            postChain.before(server);
+            if(bypassFx==1, {
+                postChainName = "";
+            }, {
+                postChainName = postChain.getName();
+                postChain.before(server);
+            });
 
             // use group 200 for client output synths
             g = ParGroup.basicNew(server, 200);
 
             // create a bundle of commands to execute
             b = server.makeBundle(nil, {
-                this.sendSynthDef(synthName, synthName ++ postChain.getName());
+                this.sendSynthDef(synthName, synthName ++ postChainName);
 
                 // use group 100 for client input synths and use group 200 for client output synths
                 // p_new is a server command (see Server Command Reference on SC documentation)
@@ -94,12 +100,16 @@ PersonalMixer : InputBusMixer {
 
             // create personal mix for all jacktrip clients that includes jamulus
             // outputs to all clients including jamulus
-            args = [\mix, personalMixes, \mul, masterVolume] ++ postChain.getArgs();
-            node = Synth(synthName ++ postChain.getName(), args, g, \addToTail);
-            ("Created synth" + (synthName ++ postChain.getName()) + node.nodeID).postln;
-
-            // execute postChain after actions
-            postChain.after(server, node);
+            if(bypassFx==1, {
+                args = [\mix, personalMixes, \mul, masterVolume];
+                node = Synth(synthName, args, g, \addToTail);
+            }, {
+                args = [\mix, personalMixes, \mul, masterVolume] ++ postChain.getArgs();
+                node = Synth(synthName ++ postChainName, args, g, \addToTail);
+                // execute preChain after actions
+                postChain.after(server, node);
+            });
+            ("Created synth" + (synthName ++ postChainName) + node.nodeID).postln;
 
             // signal that the mix has started
             // signal is defined in the BaseMix class and represents a Condition object
