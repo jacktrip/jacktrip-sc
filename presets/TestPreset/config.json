@@ -1,6 +1,17 @@
 {
   "id": "testPresetID",
   "label": "Test Preset Label",
+  "mixer": "PersonalMixer",
+  "mixerOptions": [
+    {
+        "name": "masterVolume",
+        "value": 1.5
+    },
+    {
+        "name": "selfVolume",
+        "value": 0.2
+    }
+  ],
   "preChain": [
     {
         "name": "BandPassFilterLink",
