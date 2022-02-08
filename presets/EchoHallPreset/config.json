@@ -1,17 +1,30 @@
 {
   "id": "echo-hall",
   "label": "Echo Hall",
-  "mixer": "PersonalMixer",
-  "mixerOptions": [
-      {
-          "name": "masterVolume",
-          "value": 1.5
-      },
-      {
-          "name": "selfVolume",
-          "value": 0.7
-      }
-  ],
+  "mixerOptions": {
+    "PersonalMixer": [
+        {
+            "name": "masterVolume",
+            "value": 1.5
+        },
+        {
+            "name": "selfVolume",
+            "value": 0.7
+        }
+    ],
+    "OuputBusMixer": [
+        {
+            "name": "masterVolume",
+            "value": 1.5
+        }
+    ],
+    "SimpleMixer": [
+        {
+            "name": "masterVolume",
+            "value": 1.5
+        }
+    ]
+  },
   "preChain": [
       {
           "name": "GateLink",

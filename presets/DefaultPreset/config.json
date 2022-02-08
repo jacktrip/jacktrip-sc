@@ -1,17 +1,30 @@
 {
   "id": "default-mix",
   "label": "Standard",
-  "mixer": "PersonalMixer",
-  "mixerOptions": [
-      {
-          "name": "masterVolume",
-          "value": 1.5
-      },
-      {
-          "name": "selfVolume",
-          "value": 0.1
-      }
-  ],
+  "mixerOptions": {
+    "PersonalMixer": [
+        {
+            "name": "masterVolume",
+            "value": 1.5
+        },
+        {
+            "name": "selfVolume",
+            "value": 0.1
+        }
+    ],
+    "OuputBusMixer": [
+        {
+            "name": "masterVolume",
+            "value": 1.5
+        }
+    ],
+    "SimpleMixer": [
+        {
+            "name": "masterVolume",
+            "value": 1.5
+        }
+    ]
+  },
   "preChain": [
       {
           "name": "GateLink",

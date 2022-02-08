@@ -1,17 +1,30 @@
 {
   "id": "mic-test",
   "label": "Microphone Test",
-  "mixer": "PersonalMixer",
-  "mixerOptions": [
-      {
-          "name": "masterVolume",
-          "value": 0.5
-      },
-      {
-          "name": "selfVolume",
-          "value": 3
-      }
-  ],
+  "mixerOptions": {
+    "PersonalMixer": [
+        {
+            "name": "masterVolume",
+            "value": 0.5
+        },
+        {
+            "name": "selfVolume",
+            "value": 3
+        }
+    ],
+    "OuputBusMixer": [
+        {
+            "name": "masterVolume",
+            "value": 1
+        }
+    ],
+    "SimpleMixer": [
+        {
+            "name": "masterVolume",
+            "value": 1
+        }
+    ]
+  },
   "preChain": [
       {
           "name": "PanningLink",

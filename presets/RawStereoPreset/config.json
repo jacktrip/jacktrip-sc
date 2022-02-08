@@ -1,17 +1,30 @@
 {
   "id": "raw-stereo",
   "label": "Raw Stereo",
-  "mixer": "PersonalMixer",
-  "mixerOptions": [
-      {
-          "name": "masterVolume",
-          "value": 1
-      },
-      {
-          "name": "selfVolume",
-          "value": 0
-      }
-  ],
+  "mixerOptions": {
+    "PersonalMixer": [
+        {
+            "name": "masterVolume",
+            "value": 1
+        },
+        {
+            "name": "selfVolume",
+            "value": 0
+        }
+    ],
+    "OuputBusMixer": [
+        {
+            "name": "masterVolume",
+            "value": 1
+        }
+    ],
+    "SimpleMixer": [
+        {
+            "name": "masterVolume",
+            "value": 1
+        }
+    ]
+  },
   "preChain": [],
   "postChain": [
       {

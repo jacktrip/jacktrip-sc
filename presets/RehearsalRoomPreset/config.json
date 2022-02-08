@@ -1,17 +1,30 @@
 {
   "id": "rehearsal-room",
   "label": "Rehearsal Room",
-  "mixer": "PersonalMixer",
-  "mixerOptions": [
-      {
-          "name": "masterVolume",
-          "value": 1.5
-      },
-      {
-          "name": "selfVolume",
-          "value": 0.2
-      }
-  ],
+  "mixerOptions": {
+    "PersonalMixer": [
+        {
+            "name": "masterVolume",
+            "value": 1.5
+        },
+        {
+            "name": "selfVolume",
+            "value": 0.2
+        }
+    ],
+    "OuputBusMixer": [
+        {
+            "name": "masterVolume",
+            "value": 1.5
+        }
+    ],
+    "SimpleMixer": [
+        {
+            "name": "masterVolume",
+            "value": 1.5
+        }
+    ]
+  },
   "preChain": [
       {
           "name": "GateLink",
