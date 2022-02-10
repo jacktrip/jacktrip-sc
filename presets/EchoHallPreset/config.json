@@ -1,0 +1,130 @@
+{
+  "id": "echo-hall",
+  "label": "Echo Hall",
+  "mixerOptions": {
+    "PersonalMixer": [
+        {
+            "name": "masterVolume",
+            "value": 1.5
+        },
+        {
+            "name": "selfVolume",
+            "value": 0.7
+        }
+    ],
+    "OuputBusMixer": [
+        {
+            "name": "masterVolume",
+            "value": 1.5
+        }
+    ],
+    "SimpleMixer": [
+        {
+            "name": "masterVolume",
+            "value": 1.5
+        }
+    ]
+  },
+  "preChain": [
+      {
+          "name": "GateLink",
+          "options": [
+              {
+                  "name": "thresh",
+                  "value": -65
+              },
+              {
+                  "name": "attack",
+                  "value": 0.3
+              },
+              {
+                  "name": "release",
+                  "value": 0.01
+              },
+              {
+                  "name": "range",
+                  "value": 10
+              }
+          ]
+      },
+      {
+          "name": "MultiplyLink",
+          "options": [
+              {
+                  "name": "factor",
+                  "value": 1.5
+              }
+          ]
+      },
+      {
+          "name": "BandPassFilterLink",
+          "options": [
+              {
+                  "names": [
+                      "low",
+                      "high"
+                  ],
+                  "values": [
+                      100.48471382465803,
+                      11992.231400236049
+                  ]
+              }
+          ]
+      },
+      {
+          "name": "PanningLink",
+          "options": [
+              {
+                  "name": "panSlots",
+                  "value": 9
+              }
+          ]
+      }
+  ],
+  "postChain": [
+      {
+          "name": "ConvReverbLink",
+          "options": [
+              {
+                  "name": "irPath",
+                  "value": "/var/lib/jacktrip/impulses/IMreverbs/Large Wide Echo Hall.wav"
+              },
+              {
+                  "name": "mix",
+                  "value": 0.05
+              },
+              {
+                  "names": [
+                      "low",
+                      "high"
+                  ],
+                  "values": [
+                      198.107081487124,
+                      9038.575706601763
+                  ]
+              }
+          ]
+      },
+      {
+          "name": "LimiterLink",
+          "options": [
+              {
+                  "name": "thresh",
+                  "value": -5
+              },
+              {
+                  "name": "attack",
+                  "value": 0.002
+              },
+              {
+                  "name": "release",
+                  "value": 0.01
+              },
+              {
+                  "name": "ratio",
+                  "value": 0.033
+              }
+          ]
+      }
+  ]
+}
