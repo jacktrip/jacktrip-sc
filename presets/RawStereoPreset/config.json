@@ -1,0 +1,52 @@
+{
+  "id": "raw-stereo",
+  "label": "Raw Stereo",
+  "mixerOptions": {
+    "PersonalMixer": [
+        {
+            "name": "masterVolume",
+            "value": 1
+        },
+        {
+            "name": "selfVolume",
+            "value": 0
+        }
+    ],
+    "OuputBusMixer": [
+        {
+            "name": "masterVolume",
+            "value": 1
+        }
+    ],
+    "SimpleMixer": [
+        {
+            "name": "masterVolume",
+            "value": 1
+        }
+    ]
+  },
+  "preChain": [],
+  "postChain": [
+      {
+          "name": "LimiterLink",
+          "options": [
+              {
+                  "name": "thresh",
+                  "value": -10
+              },
+              {
+                  "name": "attack",
+                  "value": 0.002
+              },
+              {
+                  "name": "release",
+                  "value": 0.01
+              },
+              {
+                  "name": "ratio",
+                  "value": 0.033
+              }
+          ]
+      }
+  ]
+}
