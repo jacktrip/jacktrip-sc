@@ -36,36 +36,6 @@
             "src": "attack",
             "label": "Attack (ms)",
             "type": "number",
-            "defaultVal": 0.3,
-            "field": {
-                "type": "slider",
-                "fieldOptions": {
-                    "marks": [
-                        {
-                            "value": 0.200,
-                            "label": "200ms"
-                        },
-                        {
-                            "value": 0.500,
-                            "label": "500ms"
-                        },
-                        {
-                            "value": 0.800,
-                            "label": "800ms"
-                        }
-                    ],
-                    "logarithmic": false,
-                    "min": 0.001,
-                    "max": 1.000,
-                    "step": 0.001,
-                    "scale": 1000
-                }
-            }
-        },
-        {
-            "src": "release",
-            "label": "Release (ms)",
-            "type": "number",
             "defaultVal": 0.010,
             "field": {
                 "type": "slider",
@@ -93,6 +63,36 @@
             }
         },
         {
+            "src": "release",
+            "label": "Release (ms)",
+            "type": "number",
+            "defaultVal": 0.3,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.200,
+                            "label": "200ms"
+                        },
+                        {
+                            "value": 0.500,
+                            "label": "500ms"
+                        },
+                        {
+                            "value": 0.800,
+                            "label": "800ms"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0.001,
+                    "max": 1.000,
+                    "step": 0.001,
+                    "scale": 1000
+                }
+            }
+        },
+        {
             "src": "range",
             "label": "Range",
             "type": "number",
@@ -113,7 +113,7 @@
                     "logarithmic": false,
                     "min": 1,
                     "max": 100,
-                    "step": 5,
+                    "step": 1,
                     "scale": 1
                 }
             }
