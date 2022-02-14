@@ -68,8 +68,8 @@
             "label": "Auto Pan Range",
             "type": "number",
             "defaultVal": [
-                -0.75,
-                0.25
+                -0.5,
+                0.5
             ],
             "field": {
                 "type": "range",

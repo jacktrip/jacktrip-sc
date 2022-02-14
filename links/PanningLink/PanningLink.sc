@@ -30,7 +30,7 @@ PanningLink : Link {
     var<> left;
     var<> right;
 
-    *new { | panSlots = 1, left = -1, right = 1 |
+    *new { | panSlots = 1, left = -0.5, right = 0.5 |
         ^super.new().panSlots_(panSlots).left_(left).right_(right);
     }
 
