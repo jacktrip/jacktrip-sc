@@ -45,7 +45,7 @@ PanningLink : Link {
 
     // returns a list of synth arguments used by this Link
     getArgs {
-        var panValues = PanningLink.autoPan(maxClients, panSlots);
+        var panValues = PanningLink.autoPan(maxClients, panSlots, left, right);
         ^[\pan, panValues];
     }
 
