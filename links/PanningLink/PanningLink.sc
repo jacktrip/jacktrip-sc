@@ -56,7 +56,7 @@ PanningLink : Link {
         // automatically pan clients across stereo field
         if (slots > maxClients, { slots = maxClients; });
         if (slots < 2, {
-            panValues = [0];
+            panValues = [ (left + right) / 2 ];
             slots = 1;
         }, {
             // LinLin maps a range of input values linearly to a range of
