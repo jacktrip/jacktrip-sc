@@ -23,13 +23,15 @@
 
 CirclePanLink : Link {
     var<> panSlots;
+    var<> left;
+    var<> right;
 
-    *new { | panSlots = 1 |
-        ^super.new().panSlots_(panSlots);
+    *new { | panSlots = 1, left = -0.5, right = 0.5 |
+        ^super.new().panSlots_(panSlots).left_(left).right_(right);
     }
 
     ar { | input, id = "" |
-        var panValues = PanningLink.autoPan(maxClients, panSlots);
+        var panValues = PanningLink.autoPan(maxClients, panSlots, left, right);
         
         var signal = input;
         signal = SquashToMonoLink(true, false).ar(signal);
@@ -43,7 +45,7 @@ CirclePanLink : Link {
 
     // returns a list of synth arguments used by this Link
     getArgs {
-        var panValues = PanningLink.autoPan(maxClients, panSlots);
+        var panValues = PanningLink.autoPan(maxClients, panSlots, left, right);
         ^[\pan, panValues];
     }
 }
