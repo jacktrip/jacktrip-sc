@@ -1,6 +1,7 @@
 {
     "label": "Dragonfly Plate Reverb",
     "class": "DragonflyPlateReverbLink",
+    "disallowPreChain": true,
     "options": [
         {
             "src": "dry",

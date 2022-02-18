@@ -1,6 +1,7 @@
 {
     "label": "Dragonfly Hall Reverb",
     "class": "DragonflyHallReverbLink",
+    "disallowPreChain": true,
     "options": [
         {
             "src": "dry",
