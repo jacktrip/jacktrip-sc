@@ -1,6 +1,7 @@
 {
     "label": "Circular Pan",
     "class": "CirclePanLink",
+    "disallowPostChain": true,
     "options": [
         {
             "src": "panSlots",

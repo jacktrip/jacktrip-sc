@@ -1,6 +1,7 @@
 {
     "label": "Pan",
     "class": "PanningLink",
+    "disallowPostChain": true,
     "options": [
         {
             "src": "panSlots",
