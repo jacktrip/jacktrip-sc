@@ -110,7 +110,7 @@
           "options": [
               {
                   "name": "thresh",
-                  "value": -5
+                  "value": -10
               },
               {
                   "name": "attack",
