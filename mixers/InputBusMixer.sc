@@ -127,11 +127,12 @@ InputBusMixer : BaseMixer {
             }, {
                 args = args ++ preChain.getArgs();
                 node = Synth(synthName ++ preChainName, args, g, \addToTail);
-                // execute preChain after actions
-                preChain.after(server, node);
             });
             ("Created synth" + (synthName ++ preChainName) + node.nodeID).postln;
         };
+
+        // execute preChain after actions
+        preChain.after(server, node);
     }
 
     // stop all audio on the server

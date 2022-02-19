@@ -24,12 +24,8 @@
 
 ~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
     var signal;
-    var defaultMix = 1 ! maxClients;
-    var levels = \mix.kr(defaultMix) * \mul.kr(1.0);
-
     signal = JackTripInput(1, inputChannelsPerClient, true, \in.ir(0)).getSignal();
     signal = MulAdd(signal, \mul.kr(1.0), 0);
     signal = preChain.ar(signal);
-
     Out.ar([~masterInputBus, \out.ir(0)], signal);
 }
