@@ -31,15 +31,15 @@
           "options": [
               {
                   "name": "thresh",
-                  "value": -65
+                  "value": -60
               },
               {
                   "name": "attack",
-                  "value": 0.3
+                  "value": 0.01
               },
               {
                   "name": "release",
-                  "value": 0.01
+                  "value": 0.3
               },
               {
                   "name": "range",
@@ -110,7 +110,7 @@
           "options": [
               {
                   "name": "thresh",
-                  "value": -5
+                  "value": -10
               },
               {
                   "name": "attack",
