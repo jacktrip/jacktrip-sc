@@ -1,6 +1,7 @@
 {
     "label": "FreeVerb",
     "class": "FreeVerbLink",
+    "disallowPreChain": true,
     "options": [
         {
             "src": "mix",

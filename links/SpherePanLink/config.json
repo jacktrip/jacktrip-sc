@@ -1,6 +1,7 @@
 {
     "label": "Spherical Pan",
     "class": "SpherePanLink",
+    "disallowPostChain": true,
     "options": [
         {
             "src": "panSlots",

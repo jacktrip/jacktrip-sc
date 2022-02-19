@@ -1,6 +1,7 @@
 {
     "label": "FreeVerb (stereo)",
     "class": "FreeVerb2Link",
+    "disallowPreChain": true,
     "options": [
         {
             "src": "mix",

@@ -1,7 +1,8 @@
 {
     "label": "Tal Reverb 4",
     "class": "TalReverbLink",
-    "enabled": false,
+    "disallowPostChain": true,
+    "disallowPreChain": true,
     "options": [
         {
             "src": "wet",

@@ -1,6 +1,7 @@
 {
     "label": "Convolution Reverb",
     "class": "ConvReverbLink",
+    "disallowPreChain": true,
     "options": [
         {
             "src": "irPath",

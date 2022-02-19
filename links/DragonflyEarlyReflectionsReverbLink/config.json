@@ -1,6 +1,7 @@
 {
     "label": "Dragonfly Early Reflections Reverb",
     "class": "DragonflyEarlyReflectionsReverbLink",
+    "disallowPreChain": true,
     "options": [
         {
             "src": "dry",

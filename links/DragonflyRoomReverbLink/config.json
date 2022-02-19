@@ -1,6 +1,7 @@
 {
     "label": "Dragonfly Room Reverb",
     "class": "DragonflyRoomReverbLink",
+    "disallowPreChain": true,
     "options": [
         {
             "src": "dry",

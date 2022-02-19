@@ -1,6 +1,7 @@
 {
     "label": "GVerb",
     "class": "GVerbLink",
+    "disallowPreChain": true,
     "options": [
         {
             "src": "room",
