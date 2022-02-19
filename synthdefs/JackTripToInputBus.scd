@@ -31,5 +31,5 @@
     signal = MulAdd(signal, \mul.kr(1.0), 0);
     signal = preChain.ar(signal);
 
-    Out.ar(\out.ir(0), signal);
+    Out.ar([~masterInputBus, \out.ir(0)], signal);
 }
