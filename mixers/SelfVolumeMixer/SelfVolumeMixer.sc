@@ -47,7 +47,7 @@ SelfVolumeMixer : InputBusMixer {
     // starts up all the audio on the server
     start {
         Routine {
-            var b, g, p, node;
+            var b, g, p, node, args, extraSelfVolume, extraSelfLevels;
             var synthName = "JackTripSelfVolumeMixOut";
             var postChainName;
 
@@ -79,36 +79,28 @@ SelfVolumeMixer : InputBusMixer {
             // wait for server to receive bundle
             server.sync(nil, b);
 
-            // create personal mix for all jacktrip clients that includes jamulus
-            // outputs to all clients including jamulus
-            maxClients.do{ arg clientNum;
-                var in = ~firstPrivateBus + (inputChannelsPerClient * clientNum);
-                var out = outputChannelsPerClient * clientNum;
-                var args = [\clientNum, clientNum, \masterVolume, masterVolume, \in, in, \out, out];
-                var extraSelfVolume = 0;
+            // calculate self volume levels for each client
+            // convert selfVolume as % into what we want to add into the mix
+            if (selfVolume < 1.0, {
+                extraSelfVolume = (1.0 - selfVolume) * -1;
+            }, {
+                extraSelfVolume = selfVolume - 1.0;
+            });
+            extraSelfLevels = extraSelfVolume ! maxClients;
+            if (withJamulus, {
+                // default selfVolume for Jamulus mix to zero
+                extraSelfLevels[0] = -1.0;
+            });
+            args = [\masterVolume, masterVolume, \extraSelfLevels, extraSelfLevels];
 
-                // convert selfVolume as % into what we want to add into the mix
-                if (withJamulus && clientNum == 0, {
-                    // default selfVolume for Jamulus mix to zero
-                    extraSelfVolume = -1.0;
-                }, {
-                    if (selfVolume < 1.0, {
-                        extraSelfVolume = (1.0 - selfVolume) * -1;
-                    }, {
-                        extraSelfVolume = selfVolume - 1.0;
-                    });
-                });
-                args = args ++ [\extraSelfVolume, extraSelfVolume];
-
-                // create personal output synth
-                if(bypassFx==1, {
-                    node = Synth(synthName, args, g, \addToTail);
-                }, {
-                    args = args ++ postChain.getArgs();
-                    node = Synth(synthName ++ postChainName, args, g, \addToTail);
-                });
-                ("Created synth" + (synthName ++ postChainName) + node.nodeID).postln;
-            };
+            // create self volume output synth
+            if(bypassFx==1, {
+                node = Synth(synthName, args, g, \addToTail);
+            }, {
+                args = args ++ postChain.getArgs();
+                node = Synth(synthName ++ postChainName, args, g, \addToTail);
+            });
+            ("Created synth" + (synthName ++ postChainName) + node.nodeID).postln;
 
             // execute postChain after actions
             postChain.after(server, node);

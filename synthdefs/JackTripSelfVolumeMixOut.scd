@@ -26,11 +26,18 @@
  */
 
 ~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
+    var defaultExtraSelfLevels = 0 ! maxClients;
+    var extraSelfLevels = \extraSelfLevels.kr(defaultExtraSelfLevels);
     var masterSignal = JackTripInput(1, inputChannelsPerClient, false, ~masterInputBus).getSignal();
-    var selfSignal = JackTripInput(1, inputChannelsPerClient, false, \in.ir(0)).getSignal();
-    var signal = masterSignal ++ selfSignal;
-    signal = MulAdd(signal, [\masterVolume.kr(1.0), \extraSelfVolume.kr(0)], 0);
-    signal = AggregateLink().ar(signal);
-    signal = postChain.ar(signal);
-    Out.ar(\out.ir(0), signal);
+
+    maxClients.do({ arg clientNum;
+        var selfLevel = extraSelfLevels[clientNum];
+        var selfOffset = ~firstPrivateBus + (inputChannelsPerClient * clientNum);
+        var selfSignal = JackTripInput(1, inputChannelsPerClient, false, selfOffset).getSignal();
+        var signal = masterSignal ++ selfSignal;
+        signal = MulAdd(signal, [\masterVolume.kr(1.0), selfLevel], 0);
+        signal = AggregateLink().ar(signal);
+        signal = postChain.ar(signal);
+        Out.ar(outputChannelsPerClient * clientNum, signal);
+    });
 };
