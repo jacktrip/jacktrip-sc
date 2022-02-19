@@ -2,6 +2,16 @@
   "id": "echo-hall",
   "label": "Echo Hall",
   "mixerOptions": {
+    "SelfVolumeMixer": [
+        {
+            "name": "masterVolume",
+            "value": 1.5
+        },
+        {
+            "name": "selfVolume",
+            "value": 0.7
+        }
+    ],
     "PersonalMixer": [
         {
             "name": "masterVolume",

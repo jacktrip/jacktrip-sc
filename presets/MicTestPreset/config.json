@@ -2,6 +2,16 @@
   "id": "mic-test",
   "label": "Microphone Test",
   "mixerOptions": {
+    "SelfVolumeMixer": [
+        {
+            "name": "masterVolume",
+            "value": 0.5
+        },
+        {
+            "name": "selfVolume",
+            "value": 3
+        }
+    ],
     "PersonalMixer": [
         {
             "name": "masterVolume",
