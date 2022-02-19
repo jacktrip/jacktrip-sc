@@ -106,11 +106,12 @@ SelfVolumeMixer : InputBusMixer {
                 }, {
                     args = args ++ postChain.getArgs();
                     node = Synth(synthName ++ postChainName, args, g, \addToTail);
-                    // execute postChain after actions
-                    postChain.after(server, node);
                 });
                 ("Created synth" + (synthName ++ postChainName) + node.nodeID).postln;
             };
+
+            // execute postChain after actions
+            postChain.after(server, node);
 
             // signal that the mix has started
             // signal is defined in the BaseMix class and represents a Condition object
