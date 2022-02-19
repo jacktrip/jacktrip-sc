@@ -1,6 +1,6 @@
 {
-    "label": "Personal Mixer",
-    "class": "PersonalMixer",
+    "label": "Self Volume Mixer (Default)",
+    "class": "SelfVolumeMixer",
     "max": 100,
     "options": [
         {

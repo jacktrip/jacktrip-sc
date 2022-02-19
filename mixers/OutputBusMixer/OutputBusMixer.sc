@@ -72,7 +72,7 @@ OutputBusMixer : InputBusMixer {
             }, {
                 args = [\mix, defaultMix, \mul, masterVolume] ++ postChain.getArgs();
                 node = Synth(synthName ++ postChainName, args, g, \addToTail);
-                // execute preChain after actions
+                // execute postChain after actions
                 postChain.after(server, node);
             });
             ("Created synth" + (synthName ++ postChainName) + node.nodeID).postln;

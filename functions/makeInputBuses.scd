@@ -21,9 +21,10 @@
 // audio output channels
 // private buses are reserved for internally routing audio signals
 
-~makeInputBusses = { | server, maxClients, inputChannelsPerClient, outputChannelsPerClient |
+~makeInputBuses = { | server, maxClients, inputChannelsPerClient, outputChannelsPerClient |
     ~firstPrivateBus = (maxClients * (inputChannelsPerClient + outputChannelsPerClient));
-    ~inputBuses = Array.fill(maxClients, { |n|
+    ~masterInputBus = ~firstPrivateBus + (inputChannelsPerClient * maxClients);
+    ~inputBuses = Array.fill(maxClients + 1, { |n|
         var i = ~firstPrivateBus + (n * inputChannelsPerClient);
         Bus.new('audio', i, inputChannelsPerClient, server);
     });

@@ -15,13 +15,13 @@
  */
 
 /*
- * PersonalMixer: creates personal mixes for up to 100 clients
+ * SelfVolumeMixer: creates personal mixes for up to 100 clients (can only customize self)
  *
- * This creates a "JackTripPersonalMixOut" synth. Each client's mix (which
+ * This creates a "JackTripSelfVolumeMixOut" synth. Each client's mix (which
  * accounts for things like self-volume) is used to generate their unique
  * output audio. The mix for each client can also be thought of as an array
  * of weights for the channels each client should hear. The
- * "JackTripPersonalMixOut" Synth computes the weighted sum of all of the clients'
+ * "JackTripSelfVolumeMixOut" Synth computes the weighted sum of all of the clients'
  * audio signals and the resulting 2-channel signal to that particular client's
  * hardware output channel.
  *
@@ -37,7 +37,7 @@
  * \postChain: signal processing chain applied to flattened audio before sending to each personal mix
  */
 
-PersonalMixer : InputBusMixer {
+SelfVolumeMixer : InputBusMixer {
     
     // create a new instance
     *new { | maxClients = 16 |
@@ -47,8 +47,8 @@ PersonalMixer : InputBusMixer {
     // starts up all the audio on the server
     start {
         Routine {
-            var b, g, p, node, args, personalMixes;
-            var synthName = "JackTripPersonalMixOut";
+            var b, g, p, node;
+            var synthName = "JackTripSelfVolumeMixOut";
             var postChainName;
 
             // start input bus mixer first
@@ -79,32 +79,38 @@ PersonalMixer : InputBusMixer {
             // wait for server to receive bundle
             server.sync(nil, b);
 
-            // initialize personal mixes to use selfVolume
-            // supercollider doesn't seem to support arrays of arrays as synthdef parameters
-            // (likely a limitation of OSC) so instead we just have a single array with the
-            // personal mixes for every client
-            personalMixes = 1 ! (maxClients * maxClients);
-            maxClients.do{ arg clientNum;
-                personalMixes[(clientNum * maxClients) + clientNum] = selfVolume;
-            };
-
-            if (withJamulus, {
-                // default selfVolume for Jamulus mix to zero
-                personalMixes[0] = 0;
-            });
-
             // create personal mix for all jacktrip clients that includes jamulus
             // outputs to all clients including jamulus
-            if(bypassFx==1, {
-                args = [\mix, personalMixes, \mul, masterVolume];
-                node = Synth(synthName, args, g, \addToTail);
-            }, {
-                args = [\mix, personalMixes, \mul, masterVolume] ++ postChain.getArgs();
-                node = Synth(synthName ++ postChainName, args, g, \addToTail);
-                // execute postChain after actions
-                postChain.after(server, node);
-            });
-            ("Created synth" + (synthName ++ postChainName) + node.nodeID).postln;
+            maxClients.do{ arg clientNum;
+                var in = ~firstPrivateBus + (inputChannelsPerClient * clientNum);
+                var out = outputChannelsPerClient * clientNum;
+                var args = [\clientNum, clientNum, \masterVolume, masterVolume, \in, in, \out, out];
+                var extraSelfVolume = 0;
+
+                // convert selfVolume as % into what we want to add into the mix
+                if (withJamulus && clientNum == 0, {
+                    // default selfVolume for Jamulus mix to zero
+                    extraSelfVolume = -1.0;
+                }, {
+                    if (selfVolume < 1.0, {
+                        extraSelfVolume = (1.0 - selfVolume) * -1;
+                    }, {
+                        extraSelfVolume = selfVolume - 1.0;
+                    });
+                });
+                args = args ++ [\extraSelfVolume, extraSelfVolume];
+
+                // create personal output synth
+                if(bypassFx==1, {
+                    node = Synth(synthName, args, g, \addToTail);
+                }, {
+                    args = args ++ postChain.getArgs();
+                    node = Synth(synthName ++ postChainName, args, g, \addToTail);
+                    // execute postChain after actions
+                    postChain.after(server, node);
+                });
+                ("Created synth" + (synthName ++ postChainName) + node.nodeID).postln;
+            };
 
             // signal that the mix has started
             // signal is defined in the BaseMix class and represents a Condition object

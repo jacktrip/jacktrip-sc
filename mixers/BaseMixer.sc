@@ -25,6 +25,7 @@ BaseMixer : Object {
     var <>withJamulus = true;		// create mixes adapted Jamulus being connected on channels 1 & 2
     var <>useSynthCache = true;		// send each synth definition to the server at most one time
     var <>masterVolume = 1.0;		// master volume level multiplier
+    var <>selfVolume = 1.0;         // sets the default volume level that each client will hear themselves at (requires personal mixes)
     var <>serverIp = "127.0.0.1";	// IP address or hostname of remote audio server
     var <>serverPort = 57110;		// port number of remote audio server (default SC port)
     var <>serverReady, <>server;    // state of the server and the server object

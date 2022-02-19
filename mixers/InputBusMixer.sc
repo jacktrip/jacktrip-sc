@@ -41,7 +41,7 @@
  *
  * Internally, a "JackTripToInputBus" Synth is created, which reads stereo audio from
  * the hardware input buses to the corresponding private buses, which are also stereo
- * (see the global variable ~inputBuses created by ~makeInputBusses, which is an array
+ * (see the global variable ~inputBuses created by ~makeInputBuses, which is an array
  * of Bus objects that automatically allocates the correct number of private channels).
  * The variable ~inputBuses is used to route audio signals from the hardware input channels
  * to the private channels for each client.
@@ -89,8 +89,8 @@ InputBusMixer : BaseMixer {
         // create a bundle of commands to execute
         b = server.makeBundle(nil, {
             // make input busses
-            (this.class.filenameSymbol.asString.dirname +/+ "../../functions/makeInputBusses.scd").load;
-            ~makeInputBusses.value(server, maxClients, inputChannelsPerClient, outputChannelsPerClient);
+            (this.class.filenameSymbol.asString.dirname +/+ "../../functions/makeInputBuses.scd").load;
+            ~makeInputBuses.value(server, maxClients, inputChannelsPerClient, outputChannelsPerClient);
 
             // initialize ATK decoder
             (this.class.filenameSymbol.asString.dirname +/+ "../../functions/initATK.scd").load;
