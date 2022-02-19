@@ -27,11 +27,9 @@
     var defaultMix = 1 ! maxClients;
     var levels = \mix.kr(defaultMix) * \mul.kr(1.0);
 
-    signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
-    signal = MulAdd(signal, levels, 0);
+    signal = JackTripInput(1, inputChannelsPerClient, true, \in.ir(0)).getSignal();
+    signal = MulAdd(signal, \mul.kr(1.0), 0);
     signal = preChain.ar(signal);
 
-    signal.do({ arg item, i;
-        Out.ar([~masterInputBus, ~inputBuses[i].index], item);
-    });
+    Out.ar(\out.ir(0), signal);
 }

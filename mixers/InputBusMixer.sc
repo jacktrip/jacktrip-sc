@@ -120,14 +120,18 @@ InputBusMixer : BaseMixer {
         server.sync(nil, b);
 
         // create synth to send audio to the input busses
-        if(bypassFx==1, {
-            node = Synth(synthName, nil, g, \addToTail);
-        }, {
-            node = Synth(synthName ++ preChainName, preChain.getArgs(), g, \addToTail);
-            // execute preChain after actions
-            preChain.after(server, node);
-        });
-        ("Created synth" + (synthName ++ preChainName) + node.nodeID).postln;
+        maxClients.do{ arg clientNum;
+            var args = [\in, inputChannelsPerClient * clientNum, \out, ~inputBuses[clientNum].index];
+            if(bypassFx==1, {
+                node = Synth(synthName, args, g, \addToTail);
+            }, {
+                args = args ++ preChain.getArgs();
+                node = Synth(synthName ++ preChainName, args, g, \addToTail);
+                // execute preChain after actions
+                preChain.after(server, node);
+            });
+            ("Created synth" + (synthName ++ preChainName) + node.nodeID).postln;
+        };
     }
 
     // stop all audio on the server
