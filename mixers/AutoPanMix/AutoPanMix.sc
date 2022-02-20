@@ -16,7 +16,7 @@
 
 /*
  * AutoPanMix: automatically pans clients across a stereo sound field,
- *             and supports personal mixes up to 100 clients
+ *             and supports personal mixes up to 50 clients
  *
  * Channels Layout:
  *		Hardware output buses:
@@ -47,7 +47,7 @@
  * to the private channels for each client. This is also where the panning process takes
  * place, using the LinLin UGen.
  *
- * If there are fewer than 100 clients, a "JackTripPersonalMixOut" Synth. Each client's
+ * If there are fewer than 50 clients, a "JackTripPersonalMixOut" Synth. Each client's
  * mix (which accounts for things like self-volume) is used to generate their unique
  * output audio. The mix for each client can also be thought of 
  * as an array of weights for the channels each client should hear. The
@@ -55,11 +55,11 @@
  * audio signals and the resulting 2-channel signal to that particular client's
  * hardware output channel.
  *
- * If there are 100 clients or more, then no personal mixes are created. Rather, a
+ * If there are 50 clients or more, then no personal mixes are created. Rather, a
  * single instance of "JackTripSimpleMix" is created for the server. This creates one
  * mix that sends JackTrip audio to all clients, and another mix that sends Jamulus
  * audio to all JackTrip clients (excluding itself). This only happens when there are
- * greater than 100 clients for performance reasons, though if there are fewer than 100
+ * greater than 50 clients for performance reasons, though if there are fewer than 50
  * clients, personal mixes are generated.
  *
  * Note that SynthDefs are defined in the sendSynthDefs function, but are only
@@ -117,7 +117,7 @@ AutoPanMix : BaseMix {
 				}, {
 					this.sendSynthDef("JackTripSimpleIn");
 				});
-				if (maxClients > 100, {
+				if (maxClients > 50, {
 					this.sendSynthDef("JackTripSimpleMixFromBus");
 				}, {
 					this.sendSynthDef("JackTripPersonalMixOut");
@@ -157,9 +157,9 @@ AutoPanMix : BaseMix {
 			// use group 200 for client output synths
 			g = ParGroup.basicNew(server, 200);
 
-			// scsynth starts to max out a core after about 100 personal mixes,
+			// scsynth starts to max out a core after about 50 personal mixes,
 			// and supernova throws mysterous bad_alloc errors
-			if (maxClients > 100, {
+			if (maxClients > 50, {
 				var node;
 				node = Synth("JackTripSimpleMixFromBus", [\mix, defaultMix, \mul, masterVolume], g, \addToTail);
 				("Created synth JackTripSimpleMixFromBus" + node.nodeID).postln;
