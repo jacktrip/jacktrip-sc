@@ -22,7 +22,7 @@
             "value": 0.7
         }
     ],
-    "OuputBusMixer": [
+    "OutputBusMixer": [
         {
             "name": "masterVolume",
             "value": 1.5
