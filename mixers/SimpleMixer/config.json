@@ -1,7 +1,8 @@
 {
-    "label": "Extra Large Ensemble (>300 musicians)",
+    "label": "Simple Mixer (No signal chains)",
     "class": "SimpleMixer",
-    "max": 500,
+    "disallowPostChain": true,
+    "disallowPreChain": true,
     "options": [
         {
             "src": "masterVolume",

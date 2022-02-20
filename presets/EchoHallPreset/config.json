@@ -1,6 +1,11 @@
 {
   "id": "echo-hall",
   "label": "Echo Hall",
+  "mixerMax": [
+    { "SelfVolumeMixer": 20 },
+    { "OutputBusMixer": 64 },
+    { "SimpleMixer": 500 }
+  ],
   "mixerOptions": {
     "SelfVolumeMixer": [
         {

@@ -1,7 +1,6 @@
 {
-    "label": "Large Ensemble (100-300 musicians)",
+    "label": "Efficient Mixer (with signal chains)",
     "class": "OutputBusMixer",
-    "max": 300,
     "options": [
         {
             "src": "masterVolume",

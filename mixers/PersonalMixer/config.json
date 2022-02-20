@@ -1,7 +1,6 @@
 {
     "label": "Personal Mixer",
     "class": "PersonalMixer",
-    "max": 100,
     "options": [
         {
             "src": "masterVolume",

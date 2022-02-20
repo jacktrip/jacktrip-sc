@@ -1,6 +1,11 @@
 {
   "id": "raw-stereo",
   "label": "Raw Stereo",
+  "mixerMax": [
+    { "SelfVolumeMixer": 20 },
+    { "OutputBusMixer": 80 },
+    { "SimpleMixer": 500 }
+  ],
   "mixerOptions": {
     "SelfVolumeMixer": [
         {

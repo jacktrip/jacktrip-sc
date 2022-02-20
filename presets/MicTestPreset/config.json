@@ -1,6 +1,9 @@
 {
   "id": "mic-test",
   "label": "Microphone Test",
+  "mixerMax": [
+    { "SelfVolumeMixer": 64 }
+  ],
   "mixerOptions": {
     "SelfVolumeMixer": [
         {
