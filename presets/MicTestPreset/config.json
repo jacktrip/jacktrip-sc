@@ -2,7 +2,7 @@
   "id": "mic-test",
   "label": "Microphone Test",
   "mixerMax": [
-    { "SelfVolumeMixer": 64 }
+    { "SelfVolumeMixer": 180 }
   ],
   "mixerOptions": {
     "SelfVolumeMixer": [

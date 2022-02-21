@@ -3,8 +3,7 @@
   "label": "Echo Hall",
   "mixerMax": [
     { "SelfVolumeMixer": 20 },
-    { "OutputBusMixer": 64 },
-    { "SimpleMixer": 500 }
+    { "OutputBusMixer": 80 }
   ],
   "mixerOptions": {
     "SelfVolumeMixer": [

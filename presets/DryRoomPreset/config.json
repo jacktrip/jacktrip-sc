@@ -1,48 +1,48 @@
 {
-  "id": "raw-stereo",
-  "label": "Raw Stereo",
+  "id": "dry-room",
+  "label": "Dry Room",
   "mixerMax": [
-    { "SelfVolumeMixer": 180 },
+    { "SelfVolumeMixer": 120 },
     { "OutputBusMixer": 180 }
   ],
   "mixerOptions": {
     "SelfVolumeMixer": [
         {
             "name": "masterVolume",
-            "value": 1
+            "value": 1.5
         },
         {
             "name": "selfVolume",
-            "value": 0
+            "value": 0.1
         }
     ],
     "PersonalMixer": [
         {
             "name": "masterVolume",
-            "value": 1
+            "value": 1.5
         },
         {
             "name": "selfVolume",
-            "value": 0
+            "value": 0.1
         }
     ],
     "OutputBusMixer": [
         {
             "name": "masterVolume",
-            "value": 1
+            "value": 1.5
         }
     ],
     "SimpleMixer": [
         {
             "name": "masterVolume",
-            "value": 1
+            "value": 1.5
         }
     ]
   },
   "preChain": [
-    {
-        "name": "GateLink",
-        "options": [
+      {
+          "name": "GateLink",
+          "options": [
               {
                   "name": "thresh",
                   "value": -60
@@ -60,27 +60,28 @@
                   "value": 10
               }
           ]
-      }
-  ],
-  "postChain": [
+      },
       {
-          "name": "LimiterLink",
+          "name": "BandPassFilterLink",
           "options": [
               {
-                  "name": "thresh",
-                  "value": -10
-              },
+                  "names": [
+                      "low",
+                      "high"
+                  ],
+                  "values": [
+                      100.66998409579647,
+                      20000.000000000004
+                  ]
+              }
+          ]
+      },
+      {
+          "name": "PanningLink",
+          "options": [
               {
-                  "name": "attack",
-                  "value": 0.002
-              },
-              {
-                  "name": "release",
-                  "value": 0.01
-              },
-              {
-                  "name": "ratio",
-                  "value": 0.033
+                  "name": "panSlots",
+                  "value": 1
               }
           ]
       }
