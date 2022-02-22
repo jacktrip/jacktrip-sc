@@ -1,10 +1,10 @@
 {
   "id": "raw-stereo",
   "label": "Raw Stereo",
-  "mixerMax": [
-    { "SelfVolumeMixer": 180 },
-    { "OutputBusMixer": 180 }
-  ],
+  "mixerMax": {
+      "SelfVolumeMixer": 180,
+      "OutputBusMixer": 180
+  },
   "mixerOptions": {
     "SelfVolumeMixer": [
         {
