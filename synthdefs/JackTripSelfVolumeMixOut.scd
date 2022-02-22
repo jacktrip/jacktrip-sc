@@ -14,10 +14,8 @@
  * limitations under the License.
  */
  
-"../functions/jackTripSimpleMix.scd".loadRelative;
-
  /*
- * JackTripDownMixOut: a minimal mix that scales well and reads from input busses
+ * JackTripSelfVolumeMixOut: uses subtractive synthesis to implement self volume
  *
  * \maxClients: maximum number of clients that may connect to the audio server
  * \inputChannelsPerClient: number of input channels received from each client
@@ -29,23 +27,10 @@
 
 ~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
     var masterSignal = JackTripInput(1, inputChannelsPerClient, false, ~masterInputBus).getSignal();
-    var masterOut = Array.fill(maxClients, { |n| n * outputChannelsPerClient; });
-    var masterVolume = \mul.kr(1.0);
-    var signal;
-
-    if (withJamulus, {
-        var jamulusSignal = JackTripInput(1, inputChannelsPerClient, false, ~firstPrivateBus).getSignal();
-        signal = masterSignal ++ jamulusSignal;
-        signal = MulAdd(signal, [masterVolume, -1.0], 0);
-        signal = AggregateLink().ar(signal);
-        signal = postChain.ar(signal);
-        Out.ar(0, signal);
-        masterOut.removeAt(0);
-    });
-
-    signal = masterSignal;
-    signal = MulAdd(signal, masterVolume, 0);
+    var selfSignal = JackTripInput(1, inputChannelsPerClient, false, \in.ir(0)).getSignal();
+    var signal = masterSignal ++ selfSignal;
+    signal = MulAdd(signal, [\masterVolume.kr(1.0), \extraSelfVolume.kr(0)], 0);
     signal = AggregateLink().ar(signal);
     signal = postChain.ar(signal);
-    Out.ar(masterOut, signal);
+    Out.ar(\out.ir(0), signal);
 };

@@ -32,6 +32,6 @@
     signal = preChain.ar(signal);
 
     signal.do({ arg item, i;
-        Out.ar(~inputBuses[i].index, item);
+        Out.ar([~masterInputBus, ~inputBuses[i].index], item);
     });
 }

@@ -1,7 +1,21 @@
 {
   "id": "rehearsal-room",
   "label": "Rehearsal Room",
+  "mixerMax": [
+    { "SelfVolumeMixer": 20 },
+    { "OutputBusMixer": 80 }
+  ],
   "mixerOptions": {
+    "SelfVolumeMixer": [
+        {
+            "name": "masterVolume",
+            "value": 1.5
+        },
+        {
+            "name": "selfVolume",
+            "value": 0.2
+        }
+    ],
     "PersonalMixer": [
         {
             "name": "masterVolume",
@@ -12,7 +26,7 @@
             "value": 0.2
         }
     ],
-    "OuputBusMixer": [
+    "OutputBusMixer": [
         {
             "name": "masterVolume",
             "value": 1.5

@@ -1,7 +1,20 @@
 {
   "id": "mic-test",
   "label": "Microphone Test",
+  "mixerMax": [
+    { "SelfVolumeMixer": 180 }
+  ],
   "mixerOptions": {
+    "SelfVolumeMixer": [
+        {
+            "name": "masterVolume",
+            "value": 0.5
+        },
+        {
+            "name": "selfVolume",
+            "value": 3
+        }
+    ],
     "PersonalMixer": [
         {
             "name": "masterVolume",
@@ -12,7 +25,7 @@
             "value": 3
         }
     ],
-    "OuputBusMixer": [
+    "OutputBusMixer": [
         {
             "name": "masterVolume",
             "value": 1
