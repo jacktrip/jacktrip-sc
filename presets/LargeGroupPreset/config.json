@@ -2,7 +2,7 @@
   "id": "large-group",
   "label": "Large Group",
   "mixerMax": {
-      "SimpleMixer": 500
+    "SimpleMixer": 500
   },
   "mixerOptions": {
     "SelfVolumeMixer": [

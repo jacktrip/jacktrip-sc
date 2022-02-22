@@ -2,8 +2,8 @@
   "id": "default-mix",
   "label": "Standard",
   "mixerMax": {
-      "SelfVolumeMixer": 20,
-      "OutputBusMixer": 80
+    "SelfVolumeMixer": 20,
+    "OutputBusMixer": 80
   },
   "mixerOptions": {
     "SelfVolumeMixer": [

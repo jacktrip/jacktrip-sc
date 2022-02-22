@@ -2,8 +2,8 @@
   "id": "dry-room",
   "label": "Dry Room",
   "mixerMax": {
-      "SelfVolumeMixer": 120,
-      "OutputBusMixer": 180
+    "SelfVolumeMixer": 120,
+    "OutputBusMixer": 180
   },
   "mixerOptions": {
     "SelfVolumeMixer": [

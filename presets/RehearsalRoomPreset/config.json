@@ -2,8 +2,8 @@
   "id": "rehearsal-room",
   "label": "Rehearsal Room",
   "mixerMax": {
-      "SelfVolumeMixer": 20,
-      "OutputBusMixer": 80
+    "SelfVolumeMixer": 20,
+    "OutputBusMixer": 80
   },
   "mixerOptions": {
     "SelfVolumeMixer": [
