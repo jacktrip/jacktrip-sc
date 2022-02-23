@@ -5,24 +5,6 @@
     { "SimpleMixer": 500 }
   ],
   "mixerOptions": {
-    "SelfVolumeMixer": [
-        {
-            "name": "masterVolume",
-            "value": 1.5
-        }
-    ],
-    "PersonalMixer": [
-        {
-            "name": "masterVolume",
-            "value": 1.5
-        }
-    ],
-    "OutputBusMixer": [
-        {
-            "name": "masterVolume",
-            "value": 1.5
-        }
-    ],
     "SimpleMixer": [
         {
             "name": "masterVolume",

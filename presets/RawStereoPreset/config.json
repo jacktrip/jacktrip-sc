@@ -16,23 +16,7 @@
             "value": 0
         }
     ],
-    "PersonalMixer": [
-        {
-            "name": "masterVolume",
-            "value": 1
-        },
-        {
-            "name": "selfVolume",
-            "value": 0
-        }
-    ],
     "OutputBusMixer": [
-        {
-            "name": "masterVolume",
-            "value": 1
-        }
-    ],
-    "SimpleMixer": [
         {
             "name": "masterVolume",
             "value": 1
