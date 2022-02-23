@@ -1,21 +1,22 @@
 {
   "id": "mic-test",
   "label": "Microphone Test",
-  "mixerMax": [
-    { "SelfVolumeMixer": 180 }
+  "mixers": [
+    {
+        "mixer": "SelfVolumeMixer",
+        "max": 180,
+        "options": [
+            {
+                "name": "masterVolume",
+                "value": 0.5
+            },
+            {
+                "name": "selfVolume",
+                "value": 3
+            }
+        ]
+    }
   ],
-  "mixerOptions": {
-    "SelfVolumeMixer": [
-        {
-            "name": "masterVolume",
-            "value": 0.5
-        },
-        {
-            "name": "selfVolume",
-            "value": 3
-        }
-    ]
-  },
   "preChain": [
     {
         "name": "GateLink",

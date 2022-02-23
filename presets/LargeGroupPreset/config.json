@@ -1,15 +1,16 @@
 {
   "id": "large-group",
   "label": "Large Group",
-  "mixerMax": [
-    { "SimpleMixer": 500 }
-  ],
-  "mixerOptions": {
-    "SimpleMixer": [
-        {
-            "name": "masterVolume",
-            "value": 1.5
-        }
-    ]
-  }
+  "mixers": [
+    {
+        "mixer": "SimpleMixer",
+        "max": 500,
+        "options": [
+            {
+                "name": "masterVolume",
+                "value": 1.5
+            }
+        ]
+    }
+  ]
 }

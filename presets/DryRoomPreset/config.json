@@ -1,28 +1,32 @@
 {
   "id": "dry-room",
   "label": "Dry Room",
-  "mixerMax": [
-    { "SelfVolumeMixer": 120 },
-    { "OutputBusMixer": 180 }
+  "mixers": [
+    {
+        "mixer": "SelfVolumeMixer",
+        "max": 120,
+        "options": [
+            {
+                "name": "masterVolume",
+                "value": 1.5
+            },
+            {
+                "name": "selfVolume",
+                "value": 0.1
+            }
+        ]
+    },
+    {
+        "mixer": "OutputBusMixer",
+        "max": 180,
+        "options": [
+            {
+                "name": "masterVolume",
+                "value": 1.5
+            }
+        ]
+    }
   ],
-  "mixerOptions": {
-    "SelfVolumeMixer": [
-        {
-            "name": "masterVolume",
-            "value": 1.5
-        },
-        {
-            "name": "selfVolume",
-            "value": 0.1
-        }
-    ],
-    "OutputBusMixer": [
-        {
-            "name": "masterVolume",
-            "value": 1.5
-        }
-    ]
-  },
   "preChain": [
       {
           "name": "GateLink",

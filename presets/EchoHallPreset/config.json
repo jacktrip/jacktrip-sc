@@ -1,28 +1,32 @@
 {
   "id": "echo-hall",
   "label": "Echo Hall",
-  "mixerMax": [
-    { "SelfVolumeMixer": 20 },
-    { "OutputBusMixer": 80 }
+  "mixers": [
+    {
+        "mixer": "SelfVolumeMixer",
+        "max": 20,
+        "options": [
+            {
+                "name": "masterVolume",
+                "value": 1.5
+            },
+            {
+                "name": "selfVolume",
+                "value": 0.7
+            }
+        ]
+    },
+    {
+        "mixer": "OutputBusMixer",
+        "max": 80,
+        "options": [
+            {
+                "name": "masterVolume",
+                "value": 1.5
+            }
+        ]
+    }
   ],
-  "mixerOptions": {
-    "SelfVolumeMixer": [
-        {
-            "name": "masterVolume",
-            "value": 1.5
-        },
-        {
-            "name": "selfVolume",
-            "value": 0.7
-        }
-    ],
-    "OutputBusMixer": [
-        {
-            "name": "masterVolume",
-            "value": 1.5
-        }
-    ]
-  },
   "preChain": [
       {
           "name": "GateLink",

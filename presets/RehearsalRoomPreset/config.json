@@ -1,28 +1,32 @@
 {
   "id": "rehearsal-room",
   "label": "Rehearsal Room",
-  "mixerMax": [
-    { "SelfVolumeMixer": 20 },
-    { "OutputBusMixer": 80 }
+  "mixers": [
+    {
+        "mixer": "SelfVolumeMixer",
+        "max": 20,
+        "options": [
+            {
+                "name": "masterVolume",
+                "value": 1.5
+            },
+            {
+                "name": "selfVolume",
+                "value": 0.2
+            }
+        ]
+    },
+    {
+        "mixer": "OutputBusMixer",
+        "max": 80,
+        "options": [
+            {
+                "name": "masterVolume",
+                "value": 1.5
+            }
+        ]
+    }
   ],
-  "mixerOptions": {
-    "SelfVolumeMixer": [
-        {
-            "name": "masterVolume",
-            "value": 1.5
-        },
-        {
-            "name": "selfVolume",
-            "value": 0.2
-        }
-    ],
-    "OutputBusMixer": [
-        {
-            "name": "masterVolume",
-            "value": 1.5
-        }
-    ]
-  },
   "preChain": [
       {
           "name": "GateLink",
