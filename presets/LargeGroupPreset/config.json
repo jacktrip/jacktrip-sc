@@ -1,9 +1,9 @@
 {
   "id": "large-group",
   "label": "Large Group",
-  "mixers": [
+  "mixerConfigs": [
     {
-        "mixer": "SimpleMixer",
+        "name": "SimpleMixer",
         "max": 500,
         "options": [
             {
