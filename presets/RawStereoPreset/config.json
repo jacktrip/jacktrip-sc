@@ -1,44 +1,32 @@
 {
   "id": "raw-stereo",
   "label": "Raw Stereo",
-  "mixerMax": {
-    "SelfVolumeMixer": 180,
-    "OutputBusMixer": 180
-  },
-  "mixerOptions": {
-    "SelfVolumeMixer": [
-        {
-            "name": "masterVolume",
-            "value": 1
-        },
-        {
-            "name": "selfVolume",
-            "value": 0
-        }
-    ],
-    "PersonalMixer": [
-        {
-            "name": "masterVolume",
-            "value": 1
-        },
-        {
-            "name": "selfVolume",
-            "value": 0
-        }
-    ],
-    "OutputBusMixer": [
-        {
-            "name": "masterVolume",
-            "value": 1
-        }
-    ],
-    "SimpleMixer": [
-        {
-            "name": "masterVolume",
-            "value": 1
-        }
-    ]
-  },
+  "mixerConfigs": [
+    {
+        "name": "SelfVolumeMixer",
+        "max": 180,
+        "options": [
+            {
+                "name": "masterVolume",
+                "value": 1
+            },
+            {
+                "name": "selfVolume",
+                "value": 0
+            }
+        ]
+    },
+    {
+        "name": "OutputBusMixer",
+        "max": 180,
+        "options": [
+            {
+                "name": "masterVolume",
+                "value": 1
+            }
+        ]
+    }
+  ],
   "preChain": [
     {
         "name": "GateLink",
