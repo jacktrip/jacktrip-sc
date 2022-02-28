@@ -4,7 +4,7 @@
   "mixerConfigs": [
     {
         "name": "SelfVolumeMixer",
-        "max": 20,
+        "max": 40,
         "options": [
             {
                 "name": "masterVolume",
