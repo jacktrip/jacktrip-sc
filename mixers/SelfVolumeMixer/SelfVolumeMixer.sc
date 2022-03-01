@@ -98,7 +98,7 @@ SelfVolumeMixer : InputBusMixer {
                         extraSelfVolume = selfVolume - 1.0;
                     });
                 });
-                args = args ++ [\extraSelfVolume, extraSelfVolume];
+                args = args ++ [\extraSelfVolume, extraSelfVolume * masterVolume];
 
                 // create personal output synth
                 if(bypassFx==1, {
