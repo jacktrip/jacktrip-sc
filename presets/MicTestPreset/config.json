@@ -13,6 +13,10 @@
             {
                 "name": "selfVolume",
                 "value": 3
+            },
+            {
+                "name": "bypassFx",
+                "value": 0
             }
         ]
     }
