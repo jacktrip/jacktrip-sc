@@ -1,0 +1,20 @@
+{
+  "id": "large-group",
+  "label": "Large Group",
+  "mixerConfigs": [
+    {
+        "name": "SimpleMixer",
+        "max": 500,
+        "options": [
+            {
+                "name": "masterVolume",
+                "value": 1.5
+            },
+            {
+              "name": "bypassFx",
+              "value": 0
+            }
+        ]
+    }
+  ]
+}

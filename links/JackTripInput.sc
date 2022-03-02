@@ -49,8 +49,8 @@ JackTripInput : Class {
     var<> offset;
 
     *new { |numClients, inputChannelsPerClient, useSoundIn=true, offset=0|
-		^super.new().numClients_(numClients).inputChannelsPerClient_(inputChannelsPerClient).useSoundIn_(useSoundIn).offset_(offset);
-	}
+        ^super.new().numClients_(numClients).inputChannelsPerClient_(inputChannelsPerClient).useSoundIn_(useSoundIn).offset_(offset);
+    }
 
     getSignal {
         ^Array.fill(numClients, { arg clientNum;

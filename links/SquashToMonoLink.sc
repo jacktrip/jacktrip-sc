@@ -33,11 +33,11 @@ SquashToMonoLink : Link {
     var <> nested;
     var <> keepChannels;
 
-	*new { |nested=false, keepChannels=true|
-		^super.new().nested_(nested).keepChannels_(keepChannels);
-	}
+    *new { |nested=false, keepChannels=true|
+        ^super.new().nested_(nested).keepChannels_(keepChannels);
+    }
 
-    transform { |input|
+    ar { |input|
         var signal = input;
 
         if (nested, {
@@ -69,7 +69,7 @@ SquashToMonoLink : Link {
             signal = MulAdd(signal, 1 / size, 0);
         });
 
-    // Return the output signal
-    ^signal;
+        // Return the output signal
+        ^signal;
     }
 }

@@ -19,14 +19,16 @@
  * client to all other clients
  *
  * \signal: array of input audio channels to aggregate together
+ * \signalChain: used to process audio audio before delivery
  * \maxClients: maximum number of clients that may connect to the audio server
  * \outputChannelsPerClient: number of output channels sent to each client
  */
  
-~sendFirstToEveryoneElse = { | signal, maxClients, outputChannelsPerClient = 2 |
-	// send Jamulus signal to JackTrip outputs
-	var out = Array.fill(maxClients - 1, { arg n;
-		(n + 1) * outputChannelsPerClient;
-	});
-	Out.ar(out, signal[0]);
+~sendFirstToEveryoneElse = { | signal, signalChain, maxClients, outputChannelsPerClient = 2 |
+    // send Jamulus signal to JackTrip outputs
+    var out = Array.fill(maxClients - 1, { arg n;
+        (n + 1) * outputChannelsPerClient;
+    });
+    signal = signalChain.ar(signal[0], "sendFirstToEveryoneElse");
+    Out.ar(out, signal);
 };

@@ -40,10 +40,10 @@
 
 AggregateLink : Link {
     *new {
-		^super.new();
-	}
+        ^super.new();
+    }
 
-    transform { |input|
+    ar { |input|
         ^Mix(input);
     }
 }

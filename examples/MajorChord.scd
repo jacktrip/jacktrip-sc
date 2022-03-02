@@ -39,9 +39,9 @@ SynthDef("major", {
     // seads all channels, combines them into a mono signal
     in = Mix.fill(~maxClients * 2, { arg channelNum;
         var input;
-		input = SoundIn.ar(channelNum);
+        input = SoundIn.ar(channelNum);
         input = LPF.ar(input, 20000);
-		HPF.ar(input, 20);
+        HPF.ar(input, 20);
     });
     
     // shift the signal up and down to make the harmonics of a major chord

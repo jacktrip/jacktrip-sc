@@ -1,0 +1,242 @@
+{
+    "label": "Tal Reverb 4",
+    "class": "TalReverbLink",
+    "disallowPostChain": true,
+    "disallowPreChain": true,
+    "options": [
+        {
+            "src": "wet",
+            "label": "Wet",
+            "type": "number",
+            "defaultVal": 0.2,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "20%"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "80%"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "dry",
+            "label": "Dry",
+            "type": "number",
+            "defaultVal": 1.0,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "20%"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "80%"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "delay",
+            "label": "Delay",
+            "type": "number",
+            "defaultVal": 0,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "200ms"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "800ms"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "size",
+            "label": "Room Size",
+            "type": "number",
+            "defaultVal": 0.85,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "Smaller"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "Larger"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "high",
+            "label": "High Cut",
+            "type": "number",
+            "defaultVal": 0.8,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "32Hz"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "8192Hz"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "low",
+            "label": "Low Cut",
+            "type": "number",
+            "defaultVal": 0,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "32Hz"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "8192Hz"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "modrate",
+            "label": "Mod Rate",
+            "type": "number",
+            "defaultVal": 0.5,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "20%"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "80%"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "moddepth",
+            "label": "Mod Depth",
+            "type": "number",
+            "defaultVal": 0.2,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "20%"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "80%"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "diffuse",
+            "label": "Difuse",
+            "type": "number",
+            "defaultVal": 0.9,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "20%"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "80%"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        }
+    ]
+}

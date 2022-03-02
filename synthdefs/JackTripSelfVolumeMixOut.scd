@@ -14,10 +14,8 @@
  * limitations under the License.
  */
  
-"../functions/jackTripSimpleMix.scd".loadRelative;
-
  /*
- * JackTripSimpleMix: a minimal mix that scales well
+ * JackTripSelfVolumeMixOut: uses subtractive synthesis to implement self volume
  *
  * \maxClients: maximum number of clients that may connect to the audio server
  * \inputChannelsPerClient: number of input channels received from each client
@@ -28,7 +26,11 @@
  */
 
 ~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
-    var defaultMix = 1 ! maxClients;
-    var levels = \mix.kr(defaultMix) * \mul.kr(1.0);
-    ~jackTripSimpleMix.value(postChain, maxClients, levels, inputChannelsPerClient, outputChannelsPerClient, withJamulus, true, 0);
+    var masterSignal = JackTripInput(1, inputChannelsPerClient, false, ~masterInputBus).getSignal();
+    var selfSignal = JackTripInput(1, inputChannelsPerClient, false, \in.ir(0)).getSignal();
+    var signal = masterSignal ++ selfSignal;
+    signal = MulAdd(signal, [\masterVolume.kr(1.0), \extraSelfVolume.kr(0)], 0);
+    signal = AggregateLink().ar(signal);
+    signal = postChain.ar(signal);
+    Out.ar(\out.ir(0), signal);
 };

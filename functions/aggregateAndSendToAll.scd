@@ -19,23 +19,25 @@
  * and sends audio to all clients
  *
  * \signal: array of input audio channels to aggregate together
+ * \signalChain: used to process audio audio before delivery
  * \maxClients: maximum number of clients that may connect to the audio server
  * \outputChannelsPerClient: number of output channels sent to each client
  * \offset: number of signals to skip for aggregation
  */
 
-~aggregateAndSendToAll = { | signal, maxClients, outputChannelsPerClient = 2, offset = 0 |
-	var out;
+~aggregateAndSendToAll = { | signal, signalChain, maxClients, outputChannelsPerClient = 2, offset = 0 |
+    var out;
 
-	// handle offset
-	signal = (signal.size - offset).collect{ |n| signal[n + offset]; };
+    // handle offset
+    signal = (signal.size - offset).collect{ |n| signal[n + offset]; };
 
-	// aggregate JackTrip signal
-	signal = AggregateLink().transform(signal);
+    // aggregate JackTrip signal
+    signal = AggregateLink().ar(signal);
+    signal = signalChain.ar(signal, "aggregateAndSendToAll");
 
-	// send JackTrip signals to all outputs (including Jamulus)
-	out = Array.fill(maxClients, { arg n;
-		n * outputChannelsPerClient;
-	});
-	Out.ar(out, signal);
+    // send JackTrip signals to all outputs (including Jamulus)
+    out = Array.fill(maxClients, { arg n;
+        n * outputChannelsPerClient;
+    });
+    Out.ar(out, signal);
 };

@@ -1,0 +1,122 @@
+{
+    "label": "Noise Gate",
+    "class": "GateLink",
+    "options": [
+        {
+            "src": "thresh",
+            "label": "Threshold (dB)",
+            "type": "number",
+            "defaultVal": -60,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": -72,
+                            "label": "-72dB"
+                        },
+                        {
+                            "value": -48,
+                            "label": "-48dB"
+                        },
+                        {
+                            "value": -24,
+                            "label": "-24dB"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": -96,
+                    "max": 0,
+                    "step": 1,
+                    "scale": 1
+                }
+            }
+        },
+        {
+            "src": "attack",
+            "label": "Attack (ms)",
+            "type": "number",
+            "defaultVal": 0.010,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.020,
+                            "label": "20ms"
+                        },
+                        {
+                            "value": 0.050,
+                            "label": "50ms"
+                        },
+                        {
+                            "value": 0.080,
+                            "label": "80ms"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0.001,
+                    "max": 0.100,
+                    "step": 0.001,
+                    "scale": 1000
+                }
+            }
+        },
+        {
+            "src": "release",
+            "label": "Release (ms)",
+            "type": "number",
+            "defaultVal": 0.3,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.200,
+                            "label": "200ms"
+                        },
+                        {
+                            "value": 0.500,
+                            "label": "500ms"
+                        },
+                        {
+                            "value": 0.800,
+                            "label": "800ms"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0.001,
+                    "max": 1.000,
+                    "step": 0.001,
+                    "scale": 1000
+                }
+            }
+        },
+        {
+            "src": "range",
+            "label": "Range",
+            "type": "number",
+            "defaultVal": 10,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 25,
+                            "label": "Weaker"
+                        },
+                        {
+                            "value": 75,
+                            "label": "Stronger"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 1,
+                    "max": 100,
+                    "step": 1,
+                    "scale": 1
+                }
+            }
+        }        
+    ]
+}

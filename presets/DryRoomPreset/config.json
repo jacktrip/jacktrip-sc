@@ -1,0 +1,85 @@
+{
+  "id": "dry-room",
+  "label": "Dry Room",
+  "mixerConfigs": [
+    {
+        "name": "SelfVolumeMixer",
+        "max": 120,
+        "options": [
+            {
+                "name": "masterVolume",
+                "value": 1.5
+            },
+            {
+                "name": "selfVolume",
+                "value": 0.1
+            },
+            {
+                "name": "bypassFx",
+                "value": 0
+            }
+        ]
+    },
+    {
+        "name": "OutputBusMixer",
+        "max": 180,
+        "options": [
+            {
+                "name": "masterVolume",
+                "value": 1.5
+            },
+            {
+                "name": "bypassFx",
+                "value": 0
+            }
+        ]
+    }
+  ],
+  "preChain": [
+      {
+          "name": "GateLink",
+          "options": [
+              {
+                  "name": "thresh",
+                  "value": -60
+              },
+              {
+                  "name": "attack",
+                  "value": 0.01
+              },
+              {
+                  "name": "release",
+                  "value": 0.3
+              },
+              {
+                  "name": "range",
+                  "value": 10
+              }
+          ]
+      },
+      {
+          "name": "BandPassFilterLink",
+          "options": [
+              {
+                  "names": [
+                      "low",
+                      "high"
+                  ],
+                  "values": [
+                      100.66998409579647,
+                      20000.000000000004
+                  ]
+              }
+          ]
+      },
+      {
+          "name": "PanningLink",
+          "options": [
+              {
+                  "name": "panSlots",
+                  "value": 1
+              }
+          ]
+      }
+  ]
+}

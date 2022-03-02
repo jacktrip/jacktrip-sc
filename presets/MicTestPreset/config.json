@@ -1,0 +1,79 @@
+{
+  "id": "mic-test",
+  "label": "Microphone Test",
+  "mixerConfigs": [
+    {
+        "name": "SelfVolumeMixer",
+        "max": 180,
+        "options": [
+            {
+                "name": "masterVolume",
+                "value": 0.5
+            },
+            {
+                "name": "selfVolume",
+                "value": 3
+            },
+            {
+                "name": "bypassFx",
+                "value": 0
+            }
+        ]
+    }
+  ],
+  "preChain": [
+    {
+        "name": "GateLink",
+        "options": [
+              {
+                  "name": "thresh",
+                  "value": -60
+              },
+              {
+                  "name": "attack",
+                  "value": 0.01
+              },
+              {
+                  "name": "release",
+                  "value": 0.3
+              },
+              {
+                  "name": "range",
+                  "value": 10
+              }
+          ]
+      },
+      {
+          "name": "PanningLink",
+          "options": [
+              {
+                  "name": "panSlots",
+                  "value": 1
+              }
+          ]
+      }
+  ],
+  "postChain": [
+      {
+          "name": "LimiterLink",
+          "options": [
+              {
+                  "name": "thresh",
+                  "value": -10
+              },
+              {
+                  "name": "attack",
+                  "value": 0.002
+              },
+              {
+                  "name": "release",
+                  "value": 0.01
+              },
+              {
+                  "name": "ratio",
+                  "value": 0.033
+              }
+          ]
+      }
+  ]
+}

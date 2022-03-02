@@ -1,0 +1,32 @@
+{
+    "label": "Volume",
+    "class": "MultiplyLink",
+    "options": [
+        {
+            "src": "factor",
+            "label": "Volume",
+            "type": "number",
+            "defaultVal": 1,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.5,
+                            "label": "Quieter"
+                        },
+                        {
+                            "value": 2.5,
+                            "label": "Louder"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 3,
+                    "step": 0.05,
+                    "scale": 100
+                }
+            }
+        }
+    ]
+}

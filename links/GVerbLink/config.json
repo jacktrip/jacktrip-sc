@@ -1,0 +1,201 @@
+{
+    "label": "GVerb",
+    "class": "GVerbLink",
+    "disallowPreChain": true,
+    "options": [
+        {
+            "src": "room",
+            "label": "Room Size",
+            "type": "number",
+            "defaultVal": 10,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 10,
+                            "label": "Smaller"
+                        },
+                        {
+                            "value": 200,
+                            "label": "Larger"
+                        }
+                    ],
+                    "logarithmic": true,
+                    "min": 0,
+                    "max": 300,
+                    "step": 5,
+                    "scale": 1
+                }
+            }
+        },
+        {
+            "src": "time",
+            "label": "Reverb (s)",
+            "type": "number",
+            "defaultVal": 3,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 1,
+                            "label": "Smaller"
+                        },
+                        {
+                            "value": 50,
+                            "label": "Larger"
+                        }
+                    ],
+                    "logarithmic": true,
+                    "min": 0,
+                    "max": 100,
+                    "step": 0.1,
+                    "scale": 1
+                }
+            }
+        },
+        {
+            "src": "damp",
+            "label": "Damping",
+            "type": "number",
+            "defaultVal": 0.5,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "Less"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "More"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "dampin",
+            "label": "Damping (Input)",
+            "type": "number",
+            "defaultVal": 0.5,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 0.2,
+                            "label": "Less"
+                        },
+                        {
+                            "value": 0.8,
+                            "label": "More"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 1,
+                    "step": 0.01,
+                    "scale": 100
+                }
+            }
+        },
+        {
+            "src": "dry",
+            "label": "Dry Level (dB)",
+            "type": "number",
+            "defaultVal": 0,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": -72,
+                            "label": "-72dB"
+                        },
+                        {
+                            "value": -48,
+                            "label": "-48dB"
+                        },
+                        {
+                            "value": -24,
+                            "label": "-24dB"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": -96,
+                    "max": 0,
+                    "step": 1,
+                    "scale": 1
+                }
+            }
+        },
+        {
+            "src": "early",
+            "label": "Early Reflection Level (dB)",
+            "type": "number",
+            "defaultVal": -3,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": -72,
+                            "label": "-72dB"
+                        },
+                        {
+                            "value": -48,
+                            "label": "-48dB"
+                        },
+                        {
+                            "value": -24,
+                            "label": "-24dB"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": -96,
+                    "max": 0,
+                    "step": 1,
+                    "scale": 1
+                }
+            }
+        },
+        {
+            "src": "tail",
+            "label": "Tail Level (dB)",
+            "type": "number",
+            "defaultVal": -6,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": -72,
+                            "label": "-72dB"
+                        },
+                        {
+                            "value": -48,
+                            "label": "-48dB"
+                        },
+                        {
+                            "value": -24,
+                            "label": "-24dB"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": -96,
+                    "max": 0,
+                    "step": 1,
+                    "scale": 1
+                }
+            }
+        }
+   ]
+}
