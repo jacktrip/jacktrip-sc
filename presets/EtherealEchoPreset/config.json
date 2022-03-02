@@ -1,6 +1,6 @@
 {
-  "id": "default-mix",
-  "label": "Standard",
+  "id": "ethereal-echo-chamber",
+  "label": "Ethereal Echo Chamber",
   "mixerConfigs": [
     {
         "name": "SelfVolumeMixer",
@@ -12,7 +12,7 @@
             },
             {
                 "name": "selfVolume",
-                "value": 0.1
+                "value": 0.5
             },
             {
                 "name": "bypassFx",
@@ -62,7 +62,7 @@
           "options": [
               {
                   "name": "factor",
-                  "value": 2
+                  "value": 1.5
               }
           ]
       },
@@ -75,30 +75,9 @@
                       "high"
                   ],
                   "values": [
-                      100.66998409579647,
-                      20000.000000000004
+                      100.53099940231341,
+                      15488.166189124828
                   ]
-              }
-          ]
-      },
-      {
-          "name": "CompressorLink",
-          "options": [
-              {
-                  "name": "thresh",
-                  "value": -30
-              },
-              {
-                  "name": "attack",
-                  "value": 0.01
-              },
-              {
-                  "name": "release",
-                  "value": 0.02
-              },
-              {
-                  "name": "ratio",
-                  "value": 0.667
               }
           ]
       },
@@ -107,7 +86,17 @@
           "options": [
               {
                   "name": "panSlots",
-                  "value": 1
+                  "value": 9
+              },
+              {
+                "names": [
+                  "left",
+                  "right"
+                ],
+                "values": [
+                  -0.5,
+                  0.5
+                ]
               }
           ]
       }
@@ -118,11 +107,11 @@
           "options": [
               {
                   "name": "irPath",
-                  "value": "/var/lib/jacktrip/impulses/IMreverbs/Nice Drum Room.wav"
+                  "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/EchoBridge.wav"
               },
               {
                   "name": "mix",
-                  "value": 0.02
+                  "value": 0.049670667922342274
               },
               {
                   "names": [
@@ -130,8 +119,8 @@
                       "high"
                   ],
                   "values": [
-                      300.0000000000001,
-                      9993.094630025895
+                      199.52623149688787,
+                      6416.526614874055
                   ]
               }
           ]
