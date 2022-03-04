@@ -48,7 +48,8 @@ SelfVolumeMixer : InputBusMixer {
     start {
         Routine {
             var b, g, p, node;
-            var synthName = "JackTripSelfVolumeMixOut";
+            var jacktripSynthName = "JackTripSelfVolumeMixOut";
+            var jamulusSynthName = "JamulusDownMixOut";
             var postChainName;
 
             // start input bus mixer first
@@ -67,7 +68,10 @@ SelfVolumeMixer : InputBusMixer {
 
             // create a bundle of commands to execute
             b = server.makeBundle(nil, {
-                this.sendSynthDef(synthName, synthName ++ postChainName);
+                this.sendSynthDef(jacktripSynthName, jacktripSynthName ++ postChainName);
+                if (withJamulus, {
+                    this.sendSynthDef(jamulusSynthName, jamulusSynthName ++ postChainName);
+                });
 
                 // use group 100 for client input synths and use group 200 for client output synths
                 // p_new is a server command (see Server Command Reference on SC documentation)
@@ -82,23 +86,26 @@ SelfVolumeMixer : InputBusMixer {
             // create personal mix for all jacktrip clients that includes jamulus
             // outputs to all clients including jamulus
             maxClients.do{ arg clientNum;
-                var in = ~firstPrivateBus + (inputChannelsPerClient * clientNum);
-                var out = outputChannelsPerClient * clientNum;
-                var args = [\clientNum, clientNum, \masterVolume, masterVolume, \in, in, \out, out];
-                var extraSelfVolume = 0;
+                var args = [\masterVolume, masterVolume];
+                var synthName = jacktripSynthName;
 
-                // convert selfVolume as % into what we want to add into the mix
                 if (withJamulus && clientNum == 0, {
-                    // default selfVolume for Jamulus mix to zero
-                    extraSelfVolume = -1.0;
+                    // selfVolume is not supported for Jamulus
+                    synthName = jamulusSynthName;
                 }, {
+                    // convert selfVolume as % into what we want to add into the mix
+                    var in = ~firstPrivateBus + (inputChannelsPerClient * clientNum);
+                    var out = outputChannelsPerClient * clientNum;
+                    var extraSelfVolume = 0;
+
                     if (selfVolume < 1.0, {
                         extraSelfVolume = (1.0 - selfVolume) * -1;
                     }, {
                         extraSelfVolume = selfVolume - 1.0;
                     });
+
+                    args = args ++ [\clientNum, clientNum, \in, in, \out, out, \extraSelfVolume, extraSelfVolume * masterVolume];
                 });
-                args = args ++ [\extraSelfVolume, extraSelfVolume * masterVolume];
 
                 // create personal output synth
                 if(bypassFx==1, {
