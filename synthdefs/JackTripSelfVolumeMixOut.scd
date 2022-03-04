@@ -21,8 +21,8 @@
  * \inputChannelsPerClient: number of input channels received from each client
  * \outputChannelsPerClient: number of output channels sent to each client
  * \withJamulus: create mixes adapted Jamulus being connected on channels 1 & 2
- * \mix : array of amplitude level multipliers (default 1.0) for each client
- * \mul : master amplitude level multiplier (default 1.0)
+ * \masterVolume : master amplitude level multiplier (default 1.0)
+ * \extraSelfVolume : amount of additional volume multiplied by self
  */
 
 ~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
