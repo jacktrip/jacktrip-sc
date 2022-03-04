@@ -37,9 +37,8 @@
         // the fact that jamulus will be echoing back to all users already
         // this ensures that they will hear the same thing as jacktrip users
         var jamulusSignal = JackTripInput(1, inputChannelsPerClient, false, ~firstPrivateBus).getSignal();
-        jamulusSignal = signal ++ jamulusSignal;
-        jamulusSignal = MulAdd(jamulusSignal, [1.0, -1.0], 0);
-        jamulusSignal = AggregateLink().ar(jamulusSignal);
+        jamulusSignal = MulAdd(jamulusSignal, -1.0, 0);
+        jamulusSignal = MulAdd(signal, 1.0, jamulusSignal[0]);
         Out.ar(0, jamulusSignal);
         masterOut.removeAt(0);
     });
