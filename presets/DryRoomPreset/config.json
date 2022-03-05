@@ -85,5 +85,28 @@
                 }
             ]
         }
+    ],
+    "postChain": [
+        {
+            "name": "LimiterLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -10
+                },
+                {
+                    "name": "attack",
+                    "value": 0.002
+                },
+                {
+                    "name": "release",
+                    "value": 0.01
+                },
+                {
+                    "name": "ratio",
+                    "value": 0.033
+                }
+            ]
+        }
     ]
 }
