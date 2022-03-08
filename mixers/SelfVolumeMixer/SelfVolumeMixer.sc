@@ -104,7 +104,7 @@ SelfVolumeMixer : InputBusMixer {
                         extraSelfVolume = selfVolume - 1.0;
                     });
 
-                    args = args ++ [\clientNum, clientNum, \in, in, \out, out, \extraSelfVolume, extraSelfVolume];
+                    args = args ++ [\in, in, \out, out, \extraSelfVolume, extraSelfVolume];
                 });
 
                 // create personal output synth
