@@ -1,5 +1,5 @@
 /* 
- * Copyright 2021 JackTrip Labs, Inc.
+ * Copyright 2021-2022 JackTrip Labs, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,12 +26,19 @@
     var signal;
     var defaultMix = 1 ! maxClients;
     var levels = \mix.kr(defaultMix) * \mul.kr(1.0);
+    var offset = 0;
 
     signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
-    signal = MulAdd(signal, levels, 0);
     signal = preChain.ar(signal);
+    signal = MulAdd(signal, levels, 0);
+
+    if (withJamulus, {
+        levels.removeAt(0);
+        signal.removeAt(0);
+        offset = 1;
+    });
 
     signal.do({ arg item, i;
-        Out.ar([~masterInputBus, ~inputBuses[i].index], item);
+        Out.ar([~masterInputBus, ~inputBuses[i + offset].index], item);
     });
 }

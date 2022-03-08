@@ -1,5 +1,5 @@
 /* 
- * Copyright 2020-2021 JackTrip Labs, Inc.
+ * Copyright 2020-2022 JackTrip Labs, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -96,10 +96,10 @@ PersonalMixer : InputBusMixer {
             // create personal mix for all jacktrip clients that includes jamulus
             // outputs to all clients including jamulus
             if(bypassFx==1, {
-                args = [\mix, personalMixes, \mul, masterVolume];
+                args = [\mix, personalMixes];
                 node = Synth(synthName, args, g, \addToTail);
             }, {
-                args = [\mix, personalMixes, \mul, masterVolume] ++ postChain.getArgs();
+                args = [\mix, personalMixes] ++ postChain.getArgs();
                 node = Synth(synthName ++ postChainName, args, g, \addToTail);
                 // execute postChain after actions
                 postChain.after(server, node);

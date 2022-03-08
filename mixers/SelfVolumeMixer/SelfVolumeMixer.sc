@@ -1,5 +1,5 @@
 /* 
- * Copyright 2020-2021 JackTrip Labs, Inc.
+ * Copyright 2020-2022 JackTrip Labs, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -86,7 +86,7 @@ SelfVolumeMixer : InputBusMixer {
             // create personal mix for all jacktrip clients that includes jamulus
             // outputs to all clients including jamulus
             maxClients.do{ arg clientNum;
-                var args = [\masterVolume, masterVolume];
+                var args = [];
                 var synthName = jacktripSynthName;
 
                 if (withJamulus && clientNum == 0, {
@@ -104,7 +104,7 @@ SelfVolumeMixer : InputBusMixer {
                         extraSelfVolume = selfVolume - 1.0;
                     });
 
-                    args = args ++ [\clientNum, clientNum, \in, in, \out, out, \extraSelfVolume, extraSelfVolume * masterVolume];
+                    args = args ++ [\clientNum, clientNum, \in, in, \out, out, \extraSelfVolume, extraSelfVolume];
                 });
 
                 // create personal output synth

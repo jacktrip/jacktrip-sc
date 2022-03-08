@@ -15,7 +15,7 @@
  */
  
  /*
- * JackTripDownMixOut: a minimal mix that scales well and reads from input busses
+ * BroadcastMixOut: a 2-channel mix for recording and broadcast
  *
  * \maxClients: maximum number of clients that may connect to the audio server
  * \inputChannelsPerClient: number of input channels received from each client
@@ -25,21 +25,8 @@
  */
 
 ~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
-    var masterOut = Array.fill(maxClients, { |n| n * outputChannelsPerClient; });
-
     var signal = JackTripInput(1, inputChannelsPerClient, false, ~masterInputBus).getSignal();
     signal = MulAdd(signal[0], \mul.kr(1.0), 0);
     signal = postChain.ar(signal);
-
-    if (withJamulus, {
-        // remove dry jamulus signal from the result to offset
-        // the fact that jamulus will be echoing back to all users already
-        // this ensures that they will hear the same thing as jacktrip users
-        var jamulusSignal = JackTripInput(1, inputChannelsPerClient, false, ~firstPrivateBus).getSignal();
-        jamulusSignal = MulAdd(jamulusSignal[0], -1.0, signal);
-        Out.ar(0, jamulusSignal);
-        masterOut.removeAt(0);
-    });
-
-    Out.ar(masterOut, signal);
+    Out.ar(0, signal);
 };

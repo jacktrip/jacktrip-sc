@@ -1,5 +1,5 @@
 /* 
- * Copyright 2020-2021 JackTrip Labs, Inc.
+ * Copyright 2020-2022 JackTrip Labs, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +21,12 @@
  * \maxClients: maximum number of clients that may connect to the audio server
  * \preChain: signal processing chain applied to each client's audio before it is sent to the bus
  * \postChain: signal processing chain applied to flattened audio before sending to each personal mix
+ * \broadcast: if true, create a 2-channel mix for recording and broadcast
  */
 
 OutputBusMixer : InputBusMixer {
-    
+    var <>broadcast = false;
+
     // create a new instance
     *new { | maxClients = 16 |
         ^super.new(maxClients);
@@ -36,6 +38,11 @@ OutputBusMixer : InputBusMixer {
             var b, g, node, args;
             var synthName = "JackTripDownMixOut";
             var postChainName;
+
+            // use alternate synth if broadcast is true
+            if (broadcast, {
+                synthName = "BroadcastMixOut";
+            });
 
             // start input bus mixer first
             super.start();
@@ -67,11 +74,9 @@ OutputBusMixer : InputBusMixer {
 
             // create a single mix and outputs to all clients including jamulus
             if(bypassFx==1, {
-                args = [\mix, defaultMix, \mul, masterVolume];
-                node = Synth(synthName, args, g, \addToTail);
+                node = Synth(synthName, nil, g, \addToTail);
             }, {
-                args = [\mix, defaultMix, \mul, masterVolume] ++ postChain.getArgs();
-                node = Synth(synthName ++ postChainName, args, g, \addToTail);
+                node = Synth(synthName ++ postChainName, postChain.getArgs(), g, \addToTail);
                 // execute postChain after actions
                 postChain.after(server, node);
             });

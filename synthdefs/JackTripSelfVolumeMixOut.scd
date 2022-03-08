@@ -1,5 +1,5 @@
 /* 
- * Copyright 2021 JackTrip Labs, Inc.
+ * Copyright 2021-2022 JackTrip Labs, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,15 +21,17 @@
  * \inputChannelsPerClient: number of input channels received from each client
  * \outputChannelsPerClient: number of output channels sent to each client
  * \withJamulus: create mixes adapted Jamulus being connected on channels 1 & 2
- * \masterVolume : master amplitude level multiplier (default 1.0)
+ * \mul : master amplitude level multiplier (default 1.0)
  * \extraSelfVolume : amount of additional volume multiplied by self
+ * \in : input audio bus
+ * \out : output audio bus
  */
 
 ~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
     var masterSignal = JackTripInput(1, inputChannelsPerClient, false, ~masterInputBus).getSignal();
     var selfSignal = JackTripInput(1, inputChannelsPerClient, false, \in.ir(0)).getSignal();
     var signal = masterSignal ++ selfSignal;
-    signal = MulAdd(signal, [\masterVolume.kr(1.0), \extraSelfVolume.kr(0)], 0);
+    signal = MulAdd(signal, [\mul.kr(1.0), \extraSelfVolume.kr(0)], 0);
     signal = AggregateLink().ar(signal);
     signal = postChain.ar(signal);
     Out.ar(\out.ir(0), signal);
