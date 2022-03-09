@@ -22,7 +22,7 @@
     },
     {
         "name": "OutputBusMixer",
-        "max": 180,
+        "max": 120,
         "options": [
             {
                 "name": "masterVolume",
