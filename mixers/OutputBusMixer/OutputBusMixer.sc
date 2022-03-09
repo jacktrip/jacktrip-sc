@@ -34,60 +34,58 @@ OutputBusMixer : InputBusMixer {
 
     // starts up all the audio on the server
     start {
-        Routine {
-            var b, g, node, args;
-            var synthName = "JackTripDownMixOut";
-            var postChainName;
+        var b, g, node, args;
+        var synthName = "JackTripDownMixOut";
+        var postChainName;
 
-            // use alternate synth if broadcast is true
-            if (broadcast, {
-                synthName = "BroadcastMixOut";
-            });
+        // use alternate synth if broadcast is true
+        if (broadcast, {
+            synthName = "BroadcastMixOut";
+        });
 
-            // start input bus mixer first
-            super.start();
+        // start input bus mixer first
+        super.start();
 
-            // execute postChain before actions
-            if(bypassFx==1, {
-                postChainName = "";
-            }, {
-                postChainName = postChain.getName();
-                postChain.before(server);
-            });
+        // execute postChain before actions
+        if(bypassFx==1, {
+            postChainName = "";
+        }, {
+            postChainName = postChain.getName();
+            postChain.before(server);
+        });
 
-            // use group 200 for client output synths
-            g = ParGroup.basicNew(server, 200);
+        // use group 200 for client output synths
+        g = ParGroup.basicNew(server, 200);
 
-            // create a bundle of commands to execute
-            b = server.makeBundle(nil, {
-                this.sendSynthDef(synthName, synthName ++ postChainName);
+        // create a bundle of commands to execute
+        b = server.makeBundle(nil, {
+            this.sendSynthDef(synthName, synthName ++ postChainName);
 
-                // use group 100 for client input synths and use group 200 for client output synths
-                // p_new is a server command (see Server Command Reference on SC documentation)
-                // that creates a parallel group, which represents a set of Synths that execute
-                // simultaneously
-                server.sendMsg("/p_new", 200, 1, 0);
-            });
+            // use group 100 for client input synths and use group 200 for client output synths
+            // p_new is a server command (see Server Command Reference on SC documentation)
+            // that creates a parallel group, which represents a set of Synths that execute
+            // simultaneously
+            server.sendMsg("/p_new", 200, 1, 0);
+        });
 
-            // wait for server to receive bundle
-            server.sync(nil, b);
+        // wait for server to receive bundle
+        server.sync(nil, b);
 
-            // create a single mix and outputs to all clients including jamulus
-            if(bypassFx==1, {
-                node = Synth(synthName, nil, g, \addToTail);
-            }, {
-                node = Synth(synthName ++ postChainName, postChain.getArgs(), g, \addToTail);
-                // execute postChain after actions
-                postChain.after(server, node);
-            });
-            ("Created synth" + (synthName ++ postChainName) + node.nodeID).postln;
+        // create a single mix and outputs to all clients including jamulus
+        if(bypassFx==1, {
+            node = Synth(synthName, nil, g, \addToTail);
+        }, {
+            node = Synth(synthName ++ postChainName, postChain.getArgs(), g, \addToTail);
+            // execute postChain after actions
+            postChain.after(server, node);
+        });
+        ("Created synth" + (synthName ++ postChainName) + node.nodeID).postln;
 
-            // signal that the mix has started
-            // signal is defined in the BaseMix class and represents a Condition object
-            // after these two lines are executed, the BaseMix knows that the
-            // proper Synths have been set up, and can execute other routines
-            this.mixStarted.test = true;
-            this.mixStarted.signal;
-        }.run;
+        // signal that the mix has started
+        // signal is defined in the BaseMix class and represents a Condition object
+        // after these two lines are executed, the BaseMix knows that the
+        // proper Synths have been set up, and can execute other routines
+        this.mixStarted.test = true;
+        this.mixStarted.signal;
     }
 }
