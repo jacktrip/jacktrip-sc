@@ -145,8 +145,10 @@ InputBusMixer : BaseMixer {
             ("Created synth" + (jacktripSynthName ++ preChainName) + node.nodeID).postln;
     
             if (withJamulus, {
+                // always default pan Jamulus to center if using PanningLink
+                var jamulusPan = [ 0 ];
+                args = args ++ [\delay, jamulusDelay, \pan, jamulusPan];
                 // create jamulus synth with effects
-                args = args ++ [\delay, jamulusDelay];
                 node = Synth(jamulusSynthName ++ preChainName, args, g, \addToTail);
                 ("Created synth" + (jamulusSynthName ++ preChainName) + node.nodeID).postln;
             });
