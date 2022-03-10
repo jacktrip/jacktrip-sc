@@ -51,7 +51,7 @@ PanningLink : Link {
 
     // returns an array of initial pan values for each client, from left to right (-1 to 1)
     *autoPan { | maxClients, slots, left, right |
-        var panValues;
+        var panValues = Array.new;
 
         // automatically pan clients across stereo field
         if (slots > maxClients, { slots = maxClients; });
@@ -59,11 +59,23 @@ PanningLink : Link {
             panValues = [ (left + right) / 2 ];
             slots = 1;
         }, {
+            var midpoint = (slots/2).trunc.asInteger;
+
             // LinLin maps a range of input values linearly to a range of
             // output values
-            panValues = Array.fill(slots, { arg i;
+            var unsorted = Array.fill(slots, { arg i;
                 LinLin.kr(i % slots, 0, slots - 1, left, right);
             });
+
+            // start with middle if odd
+            if ((slots/2) != (slots/2).trunc, {
+                panValues = [ unsorted.removeAt(midpoint); ];
+            });
+
+            // expand out from the midpoint
+            midpoint.do{ arg i;
+                panValues = panValues ++ [ unsorted[midpoint - i - 1], unsorted[midpoint + i] ];
+            };
         });
 
         ("panning" + maxClients + "clients across" + slots + "slots:" + panValues).postln;
