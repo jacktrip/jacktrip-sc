@@ -1,6 +1,6 @@
 {
   "label": "Metronome",
-  "class": "LimiterLink",
+  "class": "MetronomeLink",
   "options": [
       {
           "src": "bpm",
