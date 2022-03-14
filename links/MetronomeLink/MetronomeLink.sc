@@ -21,11 +21,10 @@
 
 MetronomeLink : Link {
     var<> bpm;
-    var<> freq;
     var<> vol;
 
-    *new { | bpm = 90, freq=1200, vol=0.5 |
-        ^super.new().bpm_(bpm).freq_(freq).vol_(vol);
+    *new { | bpm = 90, vol = 0.5 |
+        ^super.new().bpm_(bpm).vol_(vol);
     }
 
     ar { | input, id = "" |
@@ -41,6 +40,6 @@ MetronomeLink : Link {
 
     // returns a list of synth arguments used by this Link
     getArgs {
-        ^[\bpm, bpm, \freq, freq, \vol, vol];
+        ^[\bpm, bpm, \vol, vol];
     }
 }
