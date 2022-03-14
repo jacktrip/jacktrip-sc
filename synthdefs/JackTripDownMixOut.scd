@@ -1,5 +1,5 @@
 /* 
- * Copyright 2021 JackTrip Labs, Inc.
+ * Copyright 2021-2022 JackTrip Labs, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,17 +28,15 @@
     var masterOut = Array.fill(maxClients, { |n| n * outputChannelsPerClient; });
 
     var signal = JackTripInput(1, inputChannelsPerClient, false, ~masterInputBus).getSignal();
-    signal = MulAdd(signal, \mul.kr(1.0), 0);
-    signal = AggregateLink().ar(signal);
+    signal = MulAdd(signal[0], \mul.kr(1.0), 0);
     signal = postChain.ar(signal);
 
     if (withJamulus, {
-        // remove source jamulus signal from the result to offset
+        // remove dry jamulus signal from the result to offset
         // the fact that jamulus will be echoing back to all users already
         // this ensures that they will hear the same thing as jacktrip users
         var jamulusSignal = JackTripInput(1, inputChannelsPerClient, false, ~firstPrivateBus).getSignal();
-        jamulusSignal = MulAdd(jamulusSignal, -1.0, 0);
-        jamulusSignal = MulAdd(signal, 1.0, jamulusSignal[0]);
+        jamulusSignal = MulAdd(jamulusSignal[0], -1.0, signal);
         Out.ar(0, jamulusSignal);
         masterOut.removeAt(0);
     });

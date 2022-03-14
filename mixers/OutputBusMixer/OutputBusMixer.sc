@@ -1,5 +1,5 @@
 /* 
- * Copyright 2020-2021 JackTrip Labs, Inc.
+ * Copyright 2020-2022 JackTrip Labs, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +21,12 @@
  * \maxClients: maximum number of clients that may connect to the audio server
  * \preChain: signal processing chain applied to each client's audio before it is sent to the bus
  * \postChain: signal processing chain applied to flattened audio before sending to each personal mix
+ * \broadcast: if true, create a 2-channel mix for recording and broadcast
  */
 
 OutputBusMixer : InputBusMixer {
-    
+    var <>broadcast = false;
+
     // create a new instance
     *new { | maxClients = 16 |
         ^super.new(maxClients);
@@ -32,57 +34,58 @@ OutputBusMixer : InputBusMixer {
 
     // starts up all the audio on the server
     start {
-        Routine {
-            var b, g, node, args;
-            var synthName = "JackTripDownMixOut";
-            var postChainName;
+        var b, g, node, args;
+        var synthName = "JackTripDownMixOut";
+        var postChainName;
 
-            // start input bus mixer first
-            super.start();
+        // use alternate synth if broadcast is true
+        if (broadcast, {
+            synthName = "BroadcastMixOut";
+        });
 
-            // execute postChain before actions
-            if(bypassFx==1, {
-                postChainName = "";
-            }, {
-                postChainName = postChain.getName();
-                postChain.before(server);
-            });
+        // start input bus mixer first
+        super.start();
 
-            // use group 200 for client output synths
-            g = ParGroup.basicNew(server, 200);
+        // execute postChain before actions
+        if(bypassFx==1, {
+            postChainName = "";
+        }, {
+            postChainName = postChain.getName();
+            postChain.before(server);
+        });
 
-            // create a bundle of commands to execute
-            b = server.makeBundle(nil, {
-                this.sendSynthDef(synthName, synthName ++ postChainName);
+        // use group 200 for client output synths
+        g = ParGroup.basicNew(server, 200);
 
-                // use group 100 for client input synths and use group 200 for client output synths
-                // p_new is a server command (see Server Command Reference on SC documentation)
-                // that creates a parallel group, which represents a set of Synths that execute
-                // simultaneously
-                server.sendMsg("/p_new", 200, 1, 0);
-            });
+        // create a bundle of commands to execute
+        b = server.makeBundle(nil, {
+            this.sendSynthDef(synthName, synthName ++ postChainName);
 
-            // wait for server to receive bundle
-            server.sync(nil, b);
+            // use group 100 for client input synths and use group 200 for client output synths
+            // p_new is a server command (see Server Command Reference on SC documentation)
+            // that creates a parallel group, which represents a set of Synths that execute
+            // simultaneously
+            server.sendMsg("/p_new", 200, 1, 0);
+        });
 
-            // create a single mix and outputs to all clients including jamulus
-            if(bypassFx==1, {
-                args = [\mix, defaultMix, \mul, masterVolume];
-                node = Synth(synthName, args, g, \addToTail);
-            }, {
-                args = [\mix, defaultMix, \mul, masterVolume] ++ postChain.getArgs();
-                node = Synth(synthName ++ postChainName, args, g, \addToTail);
-                // execute postChain after actions
-                postChain.after(server, node);
-            });
-            ("Created synth" + (synthName ++ postChainName) + node.nodeID).postln;
+        // wait for server to receive bundle
+        server.sync(nil, b);
 
-            // signal that the mix has started
-            // signal is defined in the BaseMix class and represents a Condition object
-            // after these two lines are executed, the BaseMix knows that the
-            // proper Synths have been set up, and can execute other routines
-            this.mixStarted.test = true;
-            this.mixStarted.signal;
-        }.run;
+        // create a single mix and outputs to all clients including jamulus
+        if(bypassFx==1, {
+            node = Synth(synthName, nil, g, \addToTail);
+        }, {
+            node = Synth(synthName ++ postChainName, postChain.getArgs(), g, \addToTail);
+            // execute postChain after actions
+            postChain.after(server, node);
+        });
+        ("Created synth" + (synthName ++ postChainName) + node.nodeID).postln;
+
+        // signal that the mix has started
+        // signal is defined in the BaseMix class and represents a Condition object
+        // after these two lines are executed, the BaseMix knows that the
+        // proper Synths have been set up, and can execute other routines
+        this.mixStarted.test = true;
+        this.mixStarted.signal;
     }
 }
