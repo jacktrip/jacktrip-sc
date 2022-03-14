@@ -23,20 +23,19 @@
  */
 
 ~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
-    var signal;
     var defaultMix = 1 ! maxClients;
     var levels = \mix.kr(defaultMix) * \mul.kr(1.0);
+    var signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
     var offset = 0;
-
-    signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
-    signal = preChain.ar(signal);
-    signal = MulAdd(signal, levels, 0);
 
     if (withJamulus, {
         levels.removeAt(0);
         signal.removeAt(0);
         offset = 1;
     });
+
+    signal = preChain.ar(signal);
+    signal = MulAdd(signal, levels, 0);
 
     signal.do({ arg item, i;
         Out.ar([~masterInputBus, ~inputBuses[i + offset].index], item);
