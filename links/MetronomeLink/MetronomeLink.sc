@@ -22,9 +22,10 @@
 MetronomeLink : Link {
     var<> bpm;
     var<> freq;
+    var<> vol;
 
-    *new { | bpm = 90, freq=1200 |
-        ^super.new().bpm_(bpm).freq_(freq);
+    *new { | bpm = 90, freq=1200, vol=0.5 |
+        ^super.new().bpm_(bpm).freq_(freq).vol_(vol);
     }
 
     ar { | input, id = "" |
@@ -34,13 +35,12 @@ MetronomeLink : Link {
         trg = Decay2.ar(Impulse.ar(bpm/60, 0, 0.3), 0.01, 0.3);
         osc = {WhiteNoise.ar(trg)}.dup;
 
-        signal = signal + osc
-
+        signal = MulAdd(signal, vol, osc);
         ^signal;
     }
 
     // returns a list of synth arguments used by this Link
     getArgs {
-        ^[\bpm, bpm, \freq, freq];
+        ^[\bpm, bpm, \freq, freq, \vol, vol];
     }
 }

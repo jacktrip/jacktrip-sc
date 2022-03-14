@@ -12,7 +12,7 @@
               "fieldOptions": {
                   "marks": [
                       {
-                          "value": 40,
+                          "value": 60,
                           "label": "40 bpm"
                       },
                       {
@@ -20,7 +20,7 @@
                           "label": "120 bpm"
                       },
                       {
-                        "value": 200,
+                        "value": 180,
                         "label": "200 bpm"
                       }
                   ],
@@ -31,6 +31,56 @@
                   "scale": 1
               }
           }
-      } 
+      },
+      {
+        "src": "freq",
+        "label": "Frequency (Hz)",
+        "type": "number",
+        "defaultVal": 1200,
+        "field": {
+          "type": "slider",
+          "fieldOptions": {
+              "marks": [
+                  {
+                      "value": 20,
+                      "label": "20Hz"
+                  },
+                  {
+                      "value": 20000,
+                      "label": "20kHz"
+                  }
+              ],
+              "logarithmic": true,
+              "min": 20,
+              "max": 20000
+          }
+      }
+    },
+    {
+      "src": "vol",
+      "label": "Volume",
+      "type": "number",
+      "defaultVal": 0.5,
+      "field": {
+        "type": "slider",
+        "fieldOptions": {
+            "marks": [
+                {
+                    "value": 1,
+                    "label": "Quieter"
+                },
+                {
+                    "value": 2,
+                    "label": "Louder"
+                }
+            ],
+            "logarithmic": false,
+            "min": 0,
+            "max": 3,
+            "step": 0.01,
+            "scale": 1
+        }
+      }
+    } 
   ]
 }
