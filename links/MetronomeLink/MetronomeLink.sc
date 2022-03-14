@@ -35,7 +35,7 @@ MetronomeLink : Link {
         trg = Decay2.ar(Impulse.ar(bpm/60, 0, 0.3), 0.01, 0.3);
         osc = {WhiteNoise.ar(trg)}.dup;
 
-        signal = MulAdd(signal, vol, osc);
+        signal = MulAdd(osc, vol, signal);
         ^signal;
     }
 
