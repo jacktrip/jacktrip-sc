@@ -33,54 +33,30 @@
           }
       },
       {
-        "src": "freq",
-        "label": "Frequency (Hz)",
+        "src": "vol",
+        "label": "Volume",
         "type": "number",
-        "defaultVal": 1200,
+        "defaultVal": 0.5,
         "field": {
           "type": "slider",
           "fieldOptions": {
               "marks": [
                   {
-                      "value": 20,
-                      "label": "20Hz"
+                      "value": 1,
+                      "label": "Quieter"
                   },
                   {
-                      "value": 20000,
-                      "label": "20kHz"
+                      "value": 2,
+                      "label": "Louder"
                   }
               ],
-              "logarithmic": true,
-              "min": 20,
-              "max": 20000
+              "logarithmic": false,
+              "min": 0,
+              "max": 3,
+              "step": 0.01,
+              "scale": 1
           }
-      }
-    },
-    {
-      "src": "vol",
-      "label": "Volume",
-      "type": "number",
-      "defaultVal": 0.5,
-      "field": {
-        "type": "slider",
-        "fieldOptions": {
-            "marks": [
-                {
-                    "value": 1,
-                    "label": "Quieter"
-                },
-                {
-                    "value": 2,
-                    "label": "Louder"
-                }
-            ],
-            "logarithmic": false,
-            "min": 0,
-            "max": 3,
-            "step": 0.01,
-            "scale": 1
         }
-      }
-    } 
+      } 
   ]
 }
