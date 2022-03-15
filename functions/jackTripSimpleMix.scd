@@ -30,16 +30,18 @@
  * \levels : array of amplitude level multipliers for each client
  */
 
-~jackTripSimpleMix = { | signalChain, maxClients, levels, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false, useSoundIn = true, offset = 0 |
+~jackTripSimpleMix = { | signalChain, maxClients, levels, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false, useSoundIn = true, offset = 0, oneJackTripOutput = false |
     var signal = JackTripInput(maxClients, inputChannelsPerClient, useSoundIn, offset).getSignal();
 
     // adjust levels
     signal = MulAdd(signal, levels, 0);
 
     if (withJamulus, {
+        if (oneJackTripOutput, { maxClients = 2; });
         ~aggregateAndSendToAll.value(signal, signalChain, maxClients, outputChannelsPerClient, 1);
         ~sendFirstToEveryoneElse.value(signal, signalChain, maxClients, outputChannelsPerClient);
     }, {
+        if (oneJackTripOutput, { maxClients = 1; });
         ~aggregateAndSendToAll.value(signal, signalChain, maxClients, outputChannelsPerClient);
     });
 };

@@ -20,9 +20,11 @@
  * \maxClients: maximum number of clients that may connect to the audio server
  * \serverIp: IP address or hostname of remote audio server
  * \serverPort: port number of remote audio server
+ * \oneJackTripOutput: if true, only send audio to one JackTrip output; if false, send to maxClients outputs
  */
  
 SimpleMixer : BaseMixer {
+    var <>oneJackTripOutput = false;
 
     // create a new instance
     *new { | maxClients = 16 |
@@ -32,6 +34,9 @@ SimpleMixer : BaseMixer {
     // starts up all the audio on the server
     start {		
         var b, g, node;
+        var synthName = "JackTripSimpleMixUniqueOutputs";
+
+        if (oneJackTripOutput, { synthName = "JackTripSimpleMixOneOutput"; });
 
         // wait for server to be ready
         serverReady.wait;
@@ -42,7 +47,7 @@ SimpleMixer : BaseMixer {
         // create a bundle of commands to execute
         b = server.makeBundle(nil, {
             // send synthDefs
-            this.sendSynthDef("JackTripSimpleMix");
+            this.sendSynthDef(synthName);
 
             // free any existing nodes
             "Freeing all nodes...".postln;
@@ -56,8 +61,8 @@ SimpleMixer : BaseMixer {
         server.sync(nil, b);
 
         // create output for all jacktrip clients that includes jamulus
-        node = Synth("JackTripSimpleMix", [\mix, defaultMix, \mul, masterVolume], g, \addToTail);
-        ("Created synth JackTripSimpleMix" + node.nodeID).postln;
+        node = Synth(synthName, [\mix, defaultMix, \mul, masterVolume], g, \addToTail);
+        ("Created synth" + synthName + node.nodeID).postln;
 
         // signal that the mix has started
         this.mixStarted.test = true;
