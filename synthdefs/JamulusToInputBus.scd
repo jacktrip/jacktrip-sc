@@ -23,6 +23,8 @@
  */
 
 ~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
+    var defaultMix = 1 ! maxClients;
+    var levels = \mix.kr(defaultMix) * \mul.kr(1.0);
     var drySignal, wetSignal;
 
     // get raw jamulus signal, and add delay if necessary (for broadcast)
@@ -31,7 +33,7 @@
 
     // generate wet signal by applying effects, and send to master input bus
     wetSignal = preChain.ar(drySignal);
-    wetSignal = MulAdd(wetSignal, \mul.kr(1.0), 0);
+    wetSignal = MulAdd(wetSignal, levels[0], 0);
     Out.ar(~masterInputBus, wetSignal[0]);
 
     // send dry jamulus signal to the private input bus so that
