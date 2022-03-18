@@ -28,17 +28,15 @@
     var levels = \mix.kr(defaultMix) * \mul.kr(1.0);
     var offset = 0;
 
+    if (withJamulus, {
+        offset = 1;
+    });
+
     signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
     signal = preChain.ar(signal);
     signal = MulAdd(signal, levels, 0);
 
-    if (withJamulus, {
-        levels.removeAt(0);
-        signal.removeAt(0);
-        offset = 1;
-    });
-
-    signal.do({ arg item, i;
-        Out.ar([~masterInputBus, ~inputBuses[i + offset].index], item);
+    (maxClients - offset).do({ arg n;
+        Out.ar([~masterInputBus, ~inputBuses[n + offset].index], signal[n + offset]);
     });
 }
