@@ -20,11 +20,12 @@
 
 SignalChain : Class {
     var <>maxClients;
+    var <>withJamulus;
     var <>links;
 
     // creates a new signal chain object
-    *new { | maxClients = 16 |
-        ^super.new().maxClients_(maxClients).links_(Array.new);
+    *new { | maxClients = 16, withJamulus = true |
+        ^super.new().maxClients_(maxClients).withJamulus_(withJamulus).links_(Array.new);
     }
 
     // clears the signal chain
@@ -35,7 +36,7 @@ SignalChain : Class {
 
     // appends a new link to the signal chain, add maxClients salt
     append { |l|
-        links = links ++ l.maxClients_(maxClients);
+        links = links ++ l.maxClients_(maxClients).withJamulus_(withJamulus);
         ^this;
     }
 
