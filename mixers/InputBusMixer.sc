@@ -1,5 +1,5 @@
 /* 
- * Copyright 2020-2021 JackTrip Labs, Inc.
+ * Copyright 2020-2022 JackTrip Labs, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,9 +55,11 @@
  *
  * \maxClients: maximum number of clients that may connect to the audio server
  * \preChain: signal processing chain applied to each client's audio before it is sent to the bus
+ * \jamulusDelay : delay added to dry jamulus signal, in seconds
  */
 
 InputBusMixer : BaseMixer {
+    var <>jamulusDelay = 0;
 
     // create a new instance
     *new { | maxClients = 16 |
@@ -66,8 +68,9 @@ InputBusMixer : BaseMixer {
 
     // starts up JackTripToInputBus synth (must be run from a Routine)
     start {
-        var node, g, b;
-        var synthName = "JackTripToInputBus";
+        var node, g, b, args;
+        var jacktripSynthName = "JackTripToInputBus";
+        var jamulusSynthName = "JamulusToInputBus";
         var preChainName;
 
         // wait for server to be ready
@@ -103,7 +106,10 @@ InputBusMixer : BaseMixer {
         // create a bundle of commands to execute
         b = server.makeBundle(nil, {
             // create synthdef to send audio to the input busses
-            this.sendSynthDef(synthName, synthName ++ preChainName);
+            this.sendSynthDef(jacktripSynthName, jacktripSynthName ++ preChainName);
+            if (withJamulus, {
+                this.sendSynthDef(jamulusSynthName, jamulusSynthName ++ preChainName);
+            });
             
             // free any existing nodes
             "Freeing all nodes...".postln;
@@ -119,15 +125,36 @@ InputBusMixer : BaseMixer {
         // wait for server to receive bundle
         server.sync(nil, b);
 
-        // create synth to send audio to the input busses
+        // create synths to send audio to the input busses
+        args = [\mix, defaultMix, \mul, masterVolume];
         if(bypassFx==1, {
-            node = Synth(synthName, nil, g, \addToTail);
+            // create dry jacktrip synth
+            node = Synth(jacktripSynthName, args, g, \addToTail);
+            ("Created synth" + (jacktripSynthName ++ preChainName) + node.nodeID).postln;
+
+            if (withJamulus, {
+                // create dry jamulus synth
+                args = args ++ [\delay, jamulusDelay];
+                node = Synth(jamulusSynthName, args, g, \addToTail);
+                ("Created synth" + (jamulusSynthName ++ preChainName) + node.nodeID).postln;
+            });
         }, {
-            node = Synth(synthName ++ preChainName, preChain.getArgs(), g, \addToTail);
+            // create jacktrip synth with effects
+            args = args ++ preChain.getArgs();
+            node = Synth(jacktripSynthName ++ preChainName, args, g, \addToTail);
+            ("Created synth" + (jacktripSynthName ++ preChainName) + node.nodeID).postln;
+    
+            if (withJamulus, {
+                // always default pan Jamulus to center if using PanningLink
+                args = args ++ [\delay, jamulusDelay];
+                // create jamulus synth with effects
+                node = Synth(jamulusSynthName ++ preChainName, args, g, \addToTail);
+                ("Created synth" + (jamulusSynthName ++ preChainName) + node.nodeID).postln;
+            });
+
             // execute preChain after actions
             preChain.after(server, node);
         });
-        ("Created synth" + (synthName ++ preChainName) + node.nodeID).postln;
     }
 
     // stop all audio on the server

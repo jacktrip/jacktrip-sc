@@ -1,5 +1,5 @@
 /* 
- * Copyright 2020-2021 JackTrip Labs, Inc.
+ * Copyright 2020-2022 JackTrip Labs, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,86 +46,84 @@ SelfVolumeMixer : InputBusMixer {
 
     // starts up all the audio on the server
     start {
-        Routine {
-            var b, g, p, node;
-            var jacktripSynthName = "JackTripSelfVolumeMixOut";
-            var jamulusSynthName = "JamulusDownMixOut";
-            var postChainName;
+        var b, g, p, node;
+        var jacktripSynthName = "JackTripSelfVolumeMixOut";
+        var jamulusSynthName = "JamulusDownMixOut";
+        var postChainName;
 
-            // start input bus mixer first
-            super.start();
+        // start input bus mixer first
+        super.start();
 
-            // execute postChain before actions
-            if(bypassFx==1, {
-                postChainName = "";
+        // execute postChain before actions
+        if(bypassFx==1, {
+            postChainName = "";
+        }, {
+            postChainName = postChain.getName();
+            postChain.before(server);
+        });
+
+        // use group 200 for client output synths
+        g = ParGroup.basicNew(server, 200);
+
+        // create a bundle of commands to execute
+        b = server.makeBundle(nil, {
+            this.sendSynthDef(jacktripSynthName, jacktripSynthName ++ postChainName);
+            if (withJamulus, {
+                this.sendSynthDef(jamulusSynthName, jamulusSynthName ++ postChainName);
+            });
+
+            // use group 100 for client input synths and use group 200 for client output synths
+            // p_new is a server command (see Server Command Reference on SC documentation)
+            // that creates a parallel group, which represents a set of Synths that execute
+            // simultaneously
+            server.sendMsg("/p_new", 200, 1, 0);
+        });
+
+        // wait for server to receive bundle
+        server.sync(nil, b);
+
+        // create personal mix for all jacktrip clients that includes jamulus
+        // outputs to all clients including jamulus
+        maxClients.do{ arg clientNum;
+            var args = [];
+            var synthName = jacktripSynthName;
+
+            if (withJamulus && clientNum == 0, {
+                // selfVolume is not supported for Jamulus
+                synthName = jamulusSynthName;
             }, {
-                postChainName = postChain.getName();
-                postChain.before(server);
+                // convert selfVolume as % into what we want to add into the mix
+                var in = ~firstPrivateBus + (inputChannelsPerClient * clientNum);
+                var out = outputChannelsPerClient * clientNum;
+                var extraSelfVolume = 0;
+
+                if (selfVolume < 1.0, {
+                    extraSelfVolume = (1.0 - selfVolume) * -1;
+                }, {
+                    extraSelfVolume = selfVolume - 1.0;
+                });
+
+                args = args ++ [\in, in, \out, out, \extraSelfVolume, extraSelfVolume];
             });
 
-            // use group 200 for client output synths
-            g = ParGroup.basicNew(server, 200);
-
-            // create a bundle of commands to execute
-            b = server.makeBundle(nil, {
-                this.sendSynthDef(jacktripSynthName, jacktripSynthName ++ postChainName);
-                if (withJamulus, {
-                    this.sendSynthDef(jamulusSynthName, jamulusSynthName ++ postChainName);
-                });
-
-                // use group 100 for client input synths and use group 200 for client output synths
-                // p_new is a server command (see Server Command Reference on SC documentation)
-                // that creates a parallel group, which represents a set of Synths that execute
-                // simultaneously
-                server.sendMsg("/p_new", 200, 1, 0);
+            // create personal output synth
+            if(bypassFx==1, {
+                node = Synth(synthName, args, g, \addToTail);
+            }, {
+                args = args ++ postChain.getArgs();
+                node = Synth(synthName ++ postChainName, args, g, \addToTail);
             });
+            ("Created synth" + (synthName ++ postChainName) + node.nodeID).postln;
+        };
 
-            // wait for server to receive bundle
-            server.sync(nil, b);
+        // execute postChain after actions
+        postChain.after(server, node);
 
-            // create personal mix for all jacktrip clients that includes jamulus
-            // outputs to all clients including jamulus
-            maxClients.do{ arg clientNum;
-                var args = [\masterVolume, masterVolume];
-                var synthName = jacktripSynthName;
-
-                if (withJamulus && clientNum == 0, {
-                    // selfVolume is not supported for Jamulus
-                    synthName = jamulusSynthName;
-                }, {
-                    // convert selfVolume as % into what we want to add into the mix
-                    var in = ~firstPrivateBus + (inputChannelsPerClient * clientNum);
-                    var out = outputChannelsPerClient * clientNum;
-                    var extraSelfVolume = 0;
-
-                    if (selfVolume < 1.0, {
-                        extraSelfVolume = (1.0 - selfVolume) * -1;
-                    }, {
-                        extraSelfVolume = selfVolume - 1.0;
-                    });
-
-                    args = args ++ [\clientNum, clientNum, \in, in, \out, out, \extraSelfVolume, extraSelfVolume * masterVolume];
-                });
-
-                // create personal output synth
-                if(bypassFx==1, {
-                    node = Synth(synthName, args, g, \addToTail);
-                }, {
-                    args = args ++ postChain.getArgs();
-                    node = Synth(synthName ++ postChainName, args, g, \addToTail);
-                });
-                ("Created synth" + (synthName ++ postChainName) + node.nodeID).postln;
-            };
-
-            // execute postChain after actions
-            postChain.after(server, node);
-
-            // signal that the mix has started
-            // signal is defined in the BaseMix class and represents a Condition object
-            // after these two lines are executed, the BaseMix knows that the
-            // proper Synths have been set up, and can execute other routines
-            this.mixStarted.test = true;
-            this.mixStarted.signal;
-        }.run;
+        // signal that the mix has started
+        // signal is defined in the BaseMix class and represents a Condition object
+        // after these two lines are executed, the BaseMix knows that the
+        // proper Synths have been set up, and can execute other routines
+        this.mixStarted.test = true;
+        this.mixStarted.signal;
     }
 }

@@ -43,7 +43,7 @@ BaseMixer : Object {
     }
 
     // connect to a remote server
-    connect {
+    connect { | serverName = "remote" |
         var waitForServer = Routine {
             var retries = 10;
             server.notify;
@@ -71,7 +71,7 @@ BaseMixer : Object {
         // server can be used as one might use the 's' global variable locally
         ("Connecting to server"+serverIp++":"++serverPort).postln;
         // explicitly include empty ServerOptions to work-around 3.12 bug #5568
-        Server.default = server = Server.remote(\remote, NetAddr(serverIp, serverPort), ServerOptions.new);
+        Server.default = server = Server.remote(serverName, NetAddr(serverIp, serverPort), ServerOptions.new);
         server.doWhenBooted({waitForServer.value});
     }
 

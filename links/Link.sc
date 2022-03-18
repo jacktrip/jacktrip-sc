@@ -45,9 +45,10 @@
 
 Link : Class {
     var<> maxClients;
+    var<> withJamulus;
 
-    *new { | maxClients = 16 |
-        ^super.new().maxClients_(maxClients);
+    *new { | maxClients = 16, withJamulus = true |
+        ^super.new().maxClients_(maxClients).withJamulus_(withJamulus);
     }
 
     // Override this function!

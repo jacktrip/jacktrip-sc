@@ -31,39 +31,37 @@ SimpleMixer : BaseMixer {
 
     // starts up all the audio on the server
     start {		
-        Routine {
-            var b, g, node;
+        var b, g, node;
 
-            // wait for server to be ready
-            serverReady.wait;
+        // wait for server to be ready
+        serverReady.wait;
 
-            // use group 100 for client output synths
-            g = ParGroup.basicNew(server, 100);
+        // use group 100 for client output synths
+        g = ParGroup.basicNew(server, 100);
 
-            // create a bundle of commands to execute
-            b = server.makeBundle(nil, {
-                // send synthDefs
-                this.sendSynthDef("JackTripSimpleMix");
+        // create a bundle of commands to execute
+        b = server.makeBundle(nil, {
+            // send synthDefs
+            this.sendSynthDef("JackTripSimpleMix");
 
-                // free any existing nodes
-                "Freeing all nodes...".postln;
-                server.freeAll;
+            // free any existing nodes
+            "Freeing all nodes...".postln;
+            server.freeAll;
 
-                // create group 100 for client output synths
-                server.sendMsg("/p_new", 100, 1, 0);
-            });
+            // create group 100 for client output synths
+            server.sendMsg("/p_new", 100, 1, 0);
+        });
 
-            // wait for server to receive bundle
-            server.sync(nil, b);
+        // wait for server to receive bundle
+        server.sync(nil, b);
 
-            // create output for all jacktrip clients that includes jamulus
-            node = Synth("JackTripSimpleMix", [\mix, defaultMix, \mul, masterVolume], g, \addToTail);
-            ("Created synth JackTripSimpleMix" + node.nodeID).postln;
+        // create output for all jacktrip clients that includes jamulus
+        node = Synth("JackTripSimpleMix", [\mix, defaultMix, \mul, masterVolume], g, \addToTail);
+        ("Created synth JackTripSimpleMix" + node.nodeID).postln;
 
-            // signal that the mix has started
-            this.mixStarted.test = true;
-            this.mixStarted.signal;
-        }.run;
+        // signal that the mix has started
+        this.mixStarted.test = true;
+        this.mixStarted.signal;
     }
 
     // stop all audio on the server

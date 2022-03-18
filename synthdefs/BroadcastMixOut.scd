@@ -13,30 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-/*
- * JackTripToInputBus is used to apply leveling, and a pre signal chain
- * to process audio from JackTrip and deliver it to the input audio bus
+ 
+ /*
+ * BroadcastMixOut: a 2-channel mix for recording and broadcast
  *
- * \mix : array of amplitude level multipliers (default 1.0) for each client
+ * \maxClients: maximum number of clients that may connect to the audio server
+ * \inputChannelsPerClient: number of input channels received from each client
+ * \outputChannelsPerClient: number of output channels sent to each client
+ * \withJamulus: create mixes adapted Jamulus being connected on channels 1 & 2
  * \mul : master amplitude level multiplier (default 1.0)
  */
 
 ~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
-    var signal;
-    var defaultMix = 1 ! maxClients;
-    var levels = \mix.kr(defaultMix) * \mul.kr(1.0);
-    var offset = 0;
-
-    if (withJamulus, {
-        offset = 1;
-    });
-
-    signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
-    signal = preChain.ar(signal);
-    signal = MulAdd(signal, levels, 0);
-
-    (maxClients - offset).do({ arg n;
-        Out.ar([~masterInputBus, ~inputBuses[n + offset].index], signal[n + offset]);
-    });
-}
+    var signal = JackTripInput(1, inputChannelsPerClient, false, ~masterInputBus).getSignal();
+    signal = MulAdd(signal[0], \mul.kr(1.0), 0);
+    signal = postChain.ar(signal);
+    Out.ar(0, signal);
+};

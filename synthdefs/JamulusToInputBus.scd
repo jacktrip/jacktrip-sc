@@ -15,28 +15,28 @@
  */
 
 /*
- * JackTripToInputBus is used to apply leveling, and a pre signal chain
- * to process audio from JackTrip and deliver it to the input audio bus
+ * JamulusToInputBus is used to apply leveling, and a pre signal chain
+ * to process audio from Jamulus and deliver it to the input audio bus
  *
- * \mix : array of amplitude level multipliers (default 1.0) for each client
  * \mul : master amplitude level multiplier (default 1.0)
+ * \delay : delay added to dry jamulus signal, in seconds
  */
 
 ~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
-    var signal;
     var defaultMix = 1 ! maxClients;
     var levels = \mix.kr(defaultMix) * \mul.kr(1.0);
-    var offset = 0;
+    var drySignal, wetSignal;
 
-    if (withJamulus, {
-        offset = 1;
-    });
+    // get raw jamulus signal, and add delay if necessary (for broadcast)
+    drySignal = JackTripInput(1, inputChannelsPerClient).getSignal();
+    drySignal = DelayN.ar(drySignal, 1.0, \delay.kr(0));
 
-    signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
-    signal = preChain.ar(signal);
-    signal = MulAdd(signal, levels, 0);
+    // generate wet signal by applying effects, and send to master input bus
+    wetSignal = preChain.ar(drySignal);
+    wetSignal = MulAdd(wetSignal, levels[0], 0);
+    Out.ar(~masterInputBus, wetSignal[0]);
 
-    (maxClients - offset).do({ arg n;
-        Out.ar([~masterInputBus, ~inputBuses[n + offset].index], signal[n + offset]);
-    });
+    // send dry jamulus signal to the private input bus so that
+    // it can later be subtracted from the wet signal
+    Out.ar(~firstPrivateBus, drySignal[0]);
 }
