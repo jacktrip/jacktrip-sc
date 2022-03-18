@@ -1,0 +1,60 @@
+{
+  "label": "Tuning Note",
+  "class": "TuningNoteLink",
+  "options": [
+      {
+          "src": "freq",
+          "label": "Frequency",
+          "type": "number",
+          "defaultVal": 440,
+          "field": {
+              "type": "slider",
+              "fieldOptions": {
+                  "marks": [
+                      {
+                          "value": 80,
+                          "label": "80hz"
+                      },
+                      {
+                          "value": 440,
+                          "label": "440hz"
+                      },
+                      {
+                        "value": 880,
+                        "label": "880hz"
+                      }
+                  ],
+                  "logarithmic": true,
+                  "min": 65,
+                  "max": 1050
+              }
+          }
+      },
+      {
+        "src": "vol",
+        "label": "Volume",
+        "type": "number",
+        "defaultVal": 0.5,
+        "field": {
+          "type": "slider",
+          "fieldOptions": {
+              "marks": [
+                  {
+                      "value": 1,
+                      "label": "Quieter"
+                  },
+                  {
+                      "value": 2,
+                      "label": "Louder"
+                  }
+              ],
+              "logarithmic": false,
+              "min": 0,
+              "max": 3,
+              "step": 0.01,
+              "scale": 1
+          }
+        }
+      }
+  ]
+}
