@@ -12,7 +12,7 @@
             },
             {
                 "name": "selfVolume",
-                "value": 0.1
+                "value": 0.5
             },
             {
                 "name": "bypassFx",
