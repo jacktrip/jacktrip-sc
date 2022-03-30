@@ -58,15 +58,6 @@
             ]
         },
         {
-            "name": "MultiplyLink",
-            "options": [
-                {
-                    "name": "factor",
-                    "value": 2
-                }
-            ]
-        },
-        {
             "name": "BandPassFilterLink",
             "options": [
                 {
