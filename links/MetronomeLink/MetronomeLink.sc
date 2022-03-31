@@ -31,15 +31,15 @@ MetronomeLink : Link {
         var signal = input;
         var osc, trg;
 
-        trg = Decay2.ar(Impulse.ar(bpm/60, 0, 0.3), 0.01, 0.3);
+        trg = Decay2.ar(Impulse.ar(\metronome_bpm.ar(bpm)/60, 0, 0.3), 0.01, 0.3);
         osc = {WhiteNoise.ar(trg)}.dup;
 
-        signal = MulAdd(osc, vol, signal);
+        signal = MulAdd(osc, \metronome_vol.ar(vol), signal);
         ^signal;
     }
 
     // returns a list of synth arguments used by this Link
     getArgs {
-        ^[\bpm, bpm, \vol, vol];
+        ^[\metronome_bpm, bpm, \metronome_vol, vol];
     }
 }

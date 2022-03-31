@@ -29,13 +29,13 @@ TuningNoteLink : Link {
 
     ar { | input, id = "" |
         var signal = input;
-        var sine = SinOsc.ar(freq, mul: vol);
+        var sine = SinOsc.ar(\tuning_freq.ar(freq), mul: \tuning_vol.ar(vol));
         signal = MulAdd(signal, 1, sine);
         ^signal;
     }
 
     // returns a list of synth arguments used by this Link
     getArgs {
-        ^[\freq, freq, \vol, vol];
+        ^[\tuning_freq, freq, \tuning_vol, vol];
     }
 }
