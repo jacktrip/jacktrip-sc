@@ -87,7 +87,7 @@
             "src": "vol",
             "label": "Volume",
             "type": "number",
-            "defaultVal": 0.5,
+            "defaultVal": 0.20,
             "field": {
                 "type": "slider",
                 "fieldOptions": {
