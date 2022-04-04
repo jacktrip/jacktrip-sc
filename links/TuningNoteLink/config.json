@@ -1,113 +1,113 @@
 {
-  "label": "Tuning Note",
-  "class": "TuningNoteLink",
-  "options": [
-      {
-          "src": "freq",
-          "label": "Frequency",
-          "type": "number",
-          "defaultVal": 440,
-          "field": {
-              "type": "dropdown",
-              "fieldOptions": {
-                "labels": [
-                    {
-                        "value": 174.61,
-                        "label": "F (174.61 Hz)"
-                    },
-                    {
-                        "value": 185.00,
-                        "label": "F#/Gb (185.00 Hz)"
-                    },
-                    {
-                        "value": 196.00,
-                        "label": "G (196.00 Hz)"
-                    },
-                    {
-                        "value": 207.65,
-                        "label": "G#/Ab (207.65 Hz)"
-                    },
-                    {
-                        "value": 220.00,
-                        "label": "A (220.00 Hz)"
-                    },
-                    {
-                        "value": 233.08,
-                        "label": "A#/Bb (233.08 Hz)"
-                    },
-                    {
-                        "value": 246.94,
-                        "label": "B (246.94 Hz)"
-                    },
-                    {
-                        "value": 261.63,
-                        "label": "C (261.63 Hz)"
-                    },
-                    {
-                        "value": 277.18,
-                        "label": "C#/Db (277.18 Hz)"
-                    },
-                    {
-                        "value": 293.66,
-                        "label": "D (296.66 Hz)"
-                    },
-                    {
-                        "value": 311.13,
-                        "label": "D#/Eb (311.13 Hz)"
-                    },
-                    {
-                        "value": 329.63,
-                        "label": "E (329.63 Hz)"
-                    },
-                    {
-                        "value": 349.23,
-                        "label": "F (349.23 Hz)"
-                    },
-                    {
-                        "value": 369.99,
-                        "label": "F#/Gb (369.99 Hz)"
-                    },
-                    {
-                        "value": 392.00,
-                        "label": "G (392.00 Hz)"
-                    },
-                    {
-                        "value": 415.30,
-                        "label": "G#/Ab (415.30 Hz)"
-                    },
-                    {
-                        "value": 440.00,
-                        "label": "A (440.00 Hz)"
-                    }
-                ]
+    "label": "Tuning Note",
+    "class": "TuningNoteLink",
+    "options": [
+        {
+            "src": "freq",
+            "label": "Frequency",
+            "type": "number",
+            "defaultVal": 440,
+            "field": {
+                "type": "dropdown",
+                "fieldOptions": {
+                    "labels": [
+                        {
+                            "value": 174.61,
+                            "label": "F (174.61 Hz)"
+                        },
+                        {
+                            "value": 185.00,
+                            "label": "F#/Gb (185.00 Hz)"
+                        },
+                        {
+                            "value": 196.00,
+                            "label": "G (196.00 Hz)"
+                        },
+                        {
+                            "value": 207.65,
+                            "label": "G#/Ab (207.65 Hz)"
+                        },
+                        {
+                            "value": 220.00,
+                            "label": "A (220.00 Hz)"
+                        },
+                        {
+                            "value": 233.08,
+                            "label": "A#/Bb (233.08 Hz)"
+                        },
+                        {
+                            "value": 246.94,
+                            "label": "B (246.94 Hz)"
+                        },
+                        {
+                            "value": 261.63,
+                            "label": "C (261.63 Hz)"
+                        },
+                        {
+                            "value": 277.18,
+                            "label": "C#/Db (277.18 Hz)"
+                        },
+                        {
+                            "value": 293.66,
+                            "label": "D (296.66 Hz)"
+                        },
+                        {
+                            "value": 311.13,
+                            "label": "D#/Eb (311.13 Hz)"
+                        },
+                        {
+                            "value": 329.63,
+                            "label": "E (329.63 Hz)"
+                        },
+                        {
+                            "value": 349.23,
+                            "label": "F (349.23 Hz)"
+                        },
+                        {
+                            "value": 369.99,
+                            "label": "F#/Gb (369.99 Hz)"
+                        },
+                        {
+                            "value": 392.00,
+                            "label": "G (392.00 Hz)"
+                        },
+                        {
+                            "value": 415.30,
+                            "label": "G#/Ab (415.30 Hz)"
+                        },
+                        {
+                            "value": 440.00,
+                            "label": "A (440.00 Hz)"
+                        }
+                    ]
+                }
             }
-          }
-      },
-      {
-        "src": "vol",
-        "label": "Volume",
-        "type": "number",
-        "defaultVal": 0.5,
-        "field": {
-          "type": "slider",
-          "fieldOptions": {
-              "marks": [
-                  {
-                      "value": 1,
-                      "label": "Quieter"
-                  },
-                  {
-                      "value": 2,
-                      "label": "Louder"
-                  }
-              ],
-              "logarithmic": false,
-              "min": 0,
-              "max": 3,
-              "step": 0.01,
-              "scale": 1
-          }
+        },
+        {
+            "src": "vol",
+            "label": "Volume",
+            "type": "number",
+            "defaultVal": 0.5,
+            "field": {
+                "type": "slider",
+                "fieldOptions": {
+                    "marks": [
+                        {
+                            "value": 1,
+                            "label": "Quieter"
+                        },
+                        {
+                            "value": 2,
+                            "label": "Louder"
+                        }
+                    ],
+                    "logarithmic": false,
+                    "min": 0,
+                    "max": 3,
+                    "step": 0.01,
+                    "scale": 1
+                }
+            }
         }
-      }
-  ]
+    ]
 }
