@@ -1,6 +1,7 @@
 {
     "id": "raw-stereo",
     "label": "Raw Stereo",
+    "tooltip": "Removes downmixing to mono. Use this if you are sending a full stereo mix",
     "mixerConfigs": [
     {
         "name": "SelfVolumeMixer",
