@@ -1,6 +1,7 @@
 {
     "id": "ethereal-echo-chamber",
     "label": "Ethereal Echo Chamber",
+    "tooltip": "Otherworldly echoes fill up the space",
     "mixerConfigs": [
     {
         "name": "SelfVolumeMixer",
