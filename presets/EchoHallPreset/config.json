@@ -1,6 +1,7 @@
 {
     "id": "echo-hall",
     "label": "Echo Hall",
+    "tooltip": "Long echoes to enhance harmonies",
     "mixerConfigs": [
     {
         "name": "SelfVolumeMixer",

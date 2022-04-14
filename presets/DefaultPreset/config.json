@@ -1,6 +1,7 @@
 {
     "id": "default-mix",
     "label": "Standard",
+    "tooltip": "Recommended",
     "mixerConfigs": [
     {
         "name": "SelfVolumeMixer",

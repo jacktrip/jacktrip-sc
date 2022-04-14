@@ -1,6 +1,7 @@
 {
     "id": "cathedral",
     "label": "Cathedral",
+    "tooltip": "A classic reverberant space",
     "mixerConfigs": [
     {
         "name": "SelfVolumeMixer",

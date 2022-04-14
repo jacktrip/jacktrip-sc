@@ -1,6 +1,7 @@
 {
     "id": "rehearsal-room",
     "label": "Rehearsal Room",
+    "tooltip": "The best option for groups of up to 80 connected musicians",
     "mixerConfigs": [
     {
         "name": "SelfVolumeMixer",

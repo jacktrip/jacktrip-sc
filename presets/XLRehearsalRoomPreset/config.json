@@ -1,6 +1,7 @@
 {
-  "id": "large-group",
-  "label": "Large Group",
+  "id": "xl-rehearsal-room",
+  "label": "XLarge Rehearsal Group",
+  "tooltip": "The best option for the largest groups",
   "mixerConfigs": [
     {
         "name": "SimpleMixer",

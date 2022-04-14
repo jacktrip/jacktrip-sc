@@ -1,6 +1,7 @@
 {
-    "id": "dry-room",
-    "label": "Dry Room",
+    "id": "large-rehearsal-room",
+    "label": "Large Rehearsal Room",
+    "tooltip": "The best option for 80+ connected musicians",
     "mixerConfigs": [
     {
         "name": "SelfVolumeMixer",
