@@ -10,10 +10,6 @@
             {
                 "name": "masterVolume",
                 "value": 1.5
-            },
-            {
-              "name": "bypassFx",
-              "value": 0
             }
         ]
     }
