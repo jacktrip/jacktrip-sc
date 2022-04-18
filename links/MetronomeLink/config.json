@@ -1,0 +1,62 @@
+{
+  "label": "Metronome",
+  "class": "MetronomeLink",
+  "options": [
+      {
+          "src": "bpm",
+          "label": "BPM",
+          "type": "number",
+          "defaultVal": 90,
+          "field": {
+              "type": "slider",
+              "fieldOptions": {
+                  "marks": [
+                      {
+                          "value": 60,
+                          "label": "40 bpm"
+                      },
+                      {
+                          "value": 120,
+                          "label": "120 bpm"
+                      },
+                      {
+                        "value": 180,
+                        "label": "200 bpm"
+                      }
+                  ],
+                  "logarithmic": false,
+                  "min": 40,
+                  "max": 200,
+                  "step": 1,
+                  "scale": 1
+              }
+          }
+      },
+      {
+        "src": "vol",
+        "label": "Volume",
+        "type": "number",
+        "defaultVal": 0.5,
+        "field": {
+          "type": "slider",
+          "fieldOptions": {
+              "marks": [
+                  {
+                      "value": 1,
+                      "label": "Quieter"
+                  },
+                  {
+                      "value": 2,
+                      "label": "Louder"
+                  }
+              ],
+              "logarithmic": false,
+              "min": 0,
+              "max": 3,
+              "step": 0.01,
+              "scale": 1
+          }
+        }
+      } 
+  ]
+}
