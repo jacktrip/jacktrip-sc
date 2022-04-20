@@ -124,6 +124,20 @@ BaseMixer : Object {
     // the value is set to true and mixStarted is signalled
     wait {
         mixStarted.wait;
+        // Add OSC handler for /samples/play
+        OSCFunc({
+            arg msg;
+            var b;
+            "Received OSC message: %\n".postf(msg);
+            b = Buffer.read(server, "/var/lib/jacktrip/samples/" ++ msg[1]);
+            SynthDef("PlaySampleFromBuffer", {
+                arg buffer=0;
+                var snd;
+                ~allChannels = Array.fill(~maxClients, { |n| n * 2; });
+                snd = MulAdd(PlayBuf.ar(2, b, BufRateScale.kr(b), doneAction: Done.freeSelf), msg[2], 0);
+                Out.ar(~allChannels, snd);
+            }).play(server, [\buffer, b]);
+        }, "/samples/play");
     }
 
     // run a routine after mix has started
