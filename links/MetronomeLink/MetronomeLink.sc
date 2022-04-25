@@ -35,6 +35,7 @@ MetronomeLink : Link {
         osc = {WhiteNoise.ar(trg)}.dup;
 
         signal = MulAdd(osc, \metronome_vol.ar(vol), signal);
+        signal = MulAdd(signal, 0.5, 0);
         ^signal;
     }
 
