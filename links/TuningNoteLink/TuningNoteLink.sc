@@ -29,8 +29,8 @@ TuningNoteLink : Link {
 
     ar { | input, id = "" |
         var signal = input;
-        var sine = SinOsc.ar(\tuning_freq.ar(freq), mul: \tuning_vol.ar(vol));
-        signal = MulAdd(signal, 0.1, sine);
+        var sine = SinOsc.ar(\tuning_freq.ar(freq));
+        signal = MulAdd(sine, \tuning_vol.ar(vol), signal);
         ^signal;
     }
 
