@@ -42,11 +42,11 @@
           "fieldOptions": {
               "marks": [
                   {
-                      "value": 1,
+                      "value": 0.3,
                       "label": "Quieter"
                   },
                   {
-                      "value": 2,
+                      "value": 0.7,
                       "label": "Louder"
                   }
               ],
