@@ -1,6 +1,7 @@
 {
     "id": "mic-test",
     "label": "Microphone Test",
+    "tooltip": "High self-volume allows testing microphones more easily",
     "mixerConfigs": [
     {
         "name": "SelfVolumeMixer",
@@ -13,10 +14,6 @@
             {
                 "name": "selfVolume",
                 "value": 3
-            },
-            {
-                "name": "bypassFx",
-                "value": 0
             }
         ]
     }

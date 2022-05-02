@@ -1,6 +1,7 @@
 {
     "id": "cathedral",
     "label": "Cathedral",
+    "tooltip": "A classic reverberant space",
     "mixerConfigs": [
     {
         "name": "SelfVolumeMixer",
@@ -13,10 +14,6 @@
             {
                 "name": "selfVolume",
                 "value": 0.5
-            },
-            {
-                "name": "bypassFx",
-                "value": 0
             }
         ]
     },
@@ -27,10 +24,6 @@
             {
                 "name": "masterVolume",
                 "value": 1.5
-            },
-            {
-                "name": "bypassFx",
-                "value": 0
             }
         ]
     }
