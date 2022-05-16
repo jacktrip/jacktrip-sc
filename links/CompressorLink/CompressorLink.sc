@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2021 JackTrip Labs, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-/* 
+/*
  * CompressorLink: applies downward compression to an audio signal if the
  * specified ratio is between 0 and 1.
  *
- * \thresh: amplitude trigger threshold, in decibels (< 0)
- * \attack: how quickly compression is applied after amplitude exceeds threshold (in seconds)
+ * \thresh:  amplitude trigger threshold, in decibels (< 0)
+ * \attack:  how quickly compression is applied after amplitude exceeds threshold (in seconds)
  * \release: how quickly compression is released after amplitude drops below threshold (in seconds)
- * \ratio: indicates how much compression is applied [0, 1]; default 0.5 = 1:2 compression
+ * \ratio:   indicates how much compression is applied [0, 1]; default 0.5 = 1:2 compression
+ * \makeup:  simple gain (in dB) to make up for the compressed signal, which is often too quiet after compression
  */
 
 CompressorLink : Link {
@@ -29,25 +30,27 @@ CompressorLink : Link {
     var<> attack;
     var<> release;
     var<> ratio;
+	var<> makeup;
 
-    *new { | thresh = -10, attack = 0.01, release = 0.02, ratio = 0.5 |
-        ^super.new().thresh_(thresh).attack_(attack).release_(release).ratio_(ratio);
+    *new { | thresh = -10, attack = 0.01, release = 0.02, ratio = 0.5, makeup = 0 |
+		^super.new().thresh_(thresh).attack_(attack).release_(release).ratio_(ratio).makeup_(makeup);
     }
 
     ar { | input, id = "" |
         var signal = input;
         signal = Compander.ar(signal, signal,
             thresh:     \compressor_thresh.kr(thresh).dbamp,    // amplitude trigger threshold [-1, 1]
-            clampTime:  \compressor_attack.kr(attack),          // time (in seconds) before compression is applied
-            relaxTime:  \compressor_release.kr(release),        // time (in seconds) before compression is removed
+            clampTime:  \compressor_attack.kr(attack),          // time (in seconds) before full compression ratio is applied
+            relaxTime:  \compressor_release.kr(release),        // time (in seconds) before compression is fully removed
             slopeBelow: 1,                                      // range if gate; otherwise, 1
-            slopeAbove: \compressor_ratio.kr(ratio)             // ratio if compression; otherwise, 1
+            slopeAbove: \compressor_ratio.kr(ratio),            // ratio if compression; otherwise, 1
+			makeup:     \compressor_makeup.kr(makeup)           // gain in dB to simply increase volume
         );
         ^signal
     }
 
     // returns a list of synth arguments used by this Link
     getArgs {
-        ^[\compressor_thresh, thresh, \compressor_attack, attack, \compressor_release, release, \compressor_ratio, ratio];
+        ^[\compressor_thresh, thresh, \compressor_attack, attack, \compressor_release, release, \compressor_ratio, ratio, \compressor_makeup, makeup];
     }
 }
