@@ -30,7 +30,7 @@ CompressorLink : Link {
     var<> attack;
     var<> release;
     var<> ratio;
-	var<> makeup;
+    var<> makeup;
 
     *new { | thresh = -10, attack = 0.01, release = 0.02, ratio = 0.5, makeup = 0 |
 		^super.new().thresh_(thresh).attack_(attack).release_(release).ratio_(ratio).makeup_(makeup);
@@ -44,7 +44,7 @@ CompressorLink : Link {
             relaxTime:  \compressor_release.kr(release),        // time (in seconds) before compression is fully removed
             slopeBelow: 1,                                      // range if gate; otherwise, 1
             slopeAbove: \compressor_ratio.kr(ratio),            // ratio if compression; otherwise, 1
-			makeup:     \compressor_makeup.kr(makeup)           // gain in dB to simply increase volume
+            makeup:     \compressor_makeup.kr(makeup)           // gain in dB to simply increase volume
         );
         ^signal
     }

@@ -169,24 +169,12 @@
                             "label": "0dB"
                         },
                         {
-                            "value": 6,
-                            "label": "6dB"
-                        },
-                        {
                             "value": 12,
                             "label": "12dB"
                         },
                         {
-                            "value": 18,
-                            "label": "18dB"
-                        },
-                        {
                             "value": 24,
                             "label": "24dB"
-                        },
-                        {
-                            "value": 30,
-                            "label": "30dB"
                         }
                     ],
                     "logarithmic": false,
