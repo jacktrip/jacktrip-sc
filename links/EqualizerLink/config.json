@@ -12,10 +12,6 @@
                 "fieldOptions": {
                     "marks": [
                         {
-                            "value": 20,
-                            "label": "20Hz"
-                        },
-                        {
                             "value": 100,
                             "label": "100Hz"
                         },
@@ -24,13 +20,14 @@
                             "label": "500Hz"
                         },
                         {
-                            "value": 5000,
+                            "value": 2500,
                             "label": "2.5kHz"
                         }
                     ],
                     "logarithmic": true,
                     "min": 20,
-                    "max": 20000
+                    "max": 20000,
+                    "step": 1
                 }
             }
         },
@@ -59,8 +56,7 @@
                     "logarithmic": false,
                     "min": -30,
                     "max": 30,
-                    "step": 0.100,
-                    "scale": 10
+                    "step": 0.100
                 }
             }
         },
@@ -74,23 +70,15 @@
                 "fieldOptions": {
                     "marks": [
                         {
-                            "value": 0.1,
+                            "value": 0.2,
                             "label": "Narrower"
-                        },
-                        {
-                            "value": 0.5,
-                            "label": "0.5"
                         },
                         {
                             "value": 1,
                             "label": "1"
                         },
                         {
-                            "value": 5,
-                            "label": "5"
-                        },
-                        {
-                            "value": 10,
+                            "value": 7,
                             "label": "Wider"
                         }
                     ],
