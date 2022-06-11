@@ -35,8 +35,8 @@ EqualizerLink : Link {
         var signal = input;
         signal = BPeakEQ.ar(signal,
         freq:       \equalizer_freq.kr(freq),   // center frequency of band (in Hz)
-        gain:       \equalizer_gain.kr(gain),   // gain of that band (can be negative too)
-        q:          \equalizer_q.kr(q)          // width of frequency band affected
+        db:         \equalizer_gain.kr(gain),   // gain of that band (can be negative too)
+			rq:     \equalizer_q.kr(q)          // width of frequency band affected
         );
         ^signal
     }
