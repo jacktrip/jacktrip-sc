@@ -92,6 +92,10 @@
                 {
                     "name": "ratio",
                     "value": 0.667
+                },
+                {
+                    "name": "makeup",
+                    "value": 6
                 }
             ]
         },
