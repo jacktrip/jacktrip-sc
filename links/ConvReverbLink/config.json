@@ -631,6 +631,46 @@
                         {
                             "label": "Steinman Hall",
                             "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Venues/SteinmanHall.wav"
+                        },
+                        {
+                            "label": "JackTrip Echo Faster",
+                            "value": "/var/lib/jacktrip/impulses/JackTrip_IRs_071122_16bitWav_DryWet/JackTrip_Echo_Faster.wav"
+                        },
+                        {
+                            "label": "JackTrip Echo Slower",
+                            "value": "/var/lib/jacktrip/impulses/JackTrip_IRs_071122_16bitWav_DryWet/JackTrip_Echo_Slower.wav"
+                        },
+                        {
+                            "label": "JackTrip Plate Diffuse",
+                            "value": "/var/lib/jacktrip/impulses/JackTrip_IRs_071122_16bitWav_DryWet/JackTrip_Plate_Diffuse.wav"
+                        },
+                        {
+                            "label": "JackTrip Plate Scattered",
+                            "value": "/var/lib/jacktrip/impulses/JackTrip_IRs_071122_16bitWav_DryWet/JackTrip_Plate_Scattered.wav"
+                        },
+                        {
+                            "label": "JackTrip Reverb Large Hall",
+                            "value": "/var/lib/jacktrip/impulses/JackTrip_IRs_071122_16bitWav_DryWet/JackTrip_Reverb_LargeHall.wav"
+                        },
+                        {
+                            "label": "JackTrip Reverb Medium Hall",
+                            "value": "/var/lib/jacktrip/impulses/JackTrip_IRs_071122_16bitWav_DryWet/JackTrip_Reverb_MediumHall.wav"
+                        },
+                        {
+                            "label": "JackTrip Reverb Thickener",
+                            "value": "/var/lib/jacktrip/impulses/JackTrip_IRs_071122_16bitWav_DryWet/JackTrip_Reverb_Thickener.wav"
+                        },
+                        {
+                            "label": "JackTrip Reverb Drums",
+                            "value": "/var/lib/jacktrip/impulses/JackTrip_IRs_071122_16bitWav_DryWet/JackTrip_Room_Drums.wav"
+                        },
+                        {
+                            "label": "JackTrip Room Narrow",
+                            "value": "/var/lib/jacktrip/impulses/JackTrip_IRs_071122_16bitWav_DryWet/JackTrip_Room_Narrow.wav"
+                        },
+                        {
+                            "label": "JackTrip Room Wide",
+                            "value": "/var/lib/jacktrip/impulses/JackTrip_IRs_071122_16bitWav_DryWet/JackTrip_Room_Wide.wav"
                         }
                     ]
                 }
