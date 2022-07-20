@@ -7,7 +7,7 @@
             "src": "irPath",
             "label": "Space",
             "type": "string",
-            "defaultVal": "/var/lib/jacktrip/impulses/IMreverbs/French 18th Century Salon.wav",
+            "defaultVal": "/var/lib/jacktrip/impulses/072022/Echo - Large Echo Hall.wav",
             "field": {
                 "type": "dropdown",
                 "fieldOptions": {
@@ -17,108 +17,72 @@
                             "value": "Bypass"
                         },
                         {
-                            "label": "Reverb - Large Hall",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Reverb - Large Hall.wav"
+                            "label": "Reverb - Royal Hall",
+                            "value": "/var/lib/jacktrip/impulses/IRs_072022/Reverb - Royal Hall.wav"
                         },
                         {
-                            "label": "Reverb - Large Hall 2",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Reverb - Large Hall 2.wav"
+                            "label": "Reverb - Thickener",
+                            "value": "/var/lib/jacktrip/impulses/IRs_072022/Reverb - Thickener.wav"
                         },
                         {
-                            "label": "Reverb - Medium Hall",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Reverb - Medium Hall.wav"
+                            "label": "Reverb - Stage Hall",
+                            "value": "/var/lib/jacktrip/impulses/IRs_072022/Reverb - Stage Hall.wav"
                         },
                         {
-                            "label": "Reverb - Medium Hall 2",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Reverb - Medium Hall 2.wav"
-                        },
-                        {
-                            "label": "Reverb - Medium and Natural",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Reverb - Medium and Natural.wav"
-                        },
-                        {
-                            "label": "Reverb - Medium and Bright",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Reverb - Medium and Bright.wav"
-                        },
-                        {
-                            "label": "Reverb - Thick",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Reverb - Thick.wav"
-                        },
-                        {
-                            "label": "Reverb - Thick 2",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Reverb - Thick 2.wav"
-                        },
-                        {
-                            "label": "Plate - Diffuse",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Plate - Diffuse.wav"
-                        },
-                        {
-                            "label": "Plate - Diffuse 2",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Plate - Diffuse 2.wav"
+                            "label": "Reverb - Big And Bright",
+                            "value": "/var/lib/jacktrip/impulses/IRs_072022/Reverb - Big And Bright.wav"
                         },
                         {
                             "label": "Plate - Scattered",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Plate - Scattered.wav"
+                            "value": "/var/lib/jacktrip/impulses/IRs_072022/Plate - Scattered.wav"
                         },
                         {
-                            "label": "Plate - Scattered 2",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Plate - Scattered 2.wav"
+                            "label": "Plate - Diffuse",
+                            "value": "/var/lib/jacktrip/impulses/IRs_072022/Plate - Diffuse.wav"
                         },
                         {
-                            "label": "Room - Natural and Balanced",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Room - Natural and Balanced.wav"
-                        },
-                        {
-                            "label": "Room - Small",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Room - Small.wav"
-                        },
-                        {
-                            "label": "Room - Wide",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Room - Wide.wav"
+                            "label": "Room - Basement Rehearsal",
+                            "value": "/var/lib/jacktrip/impulses/IRs_072022/Room - Basement Rehearsal.wav"
                         },
                         {
                             "label": "Room - Spaceous",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Room - Spaceous.wav"
+                            "value": "/var/lib/jacktrip/impulses/IRs_072022/Room - Spaceous.wav"
                         },
                         {
-                            "label": "Room - Large and Bright",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Room - Large and Bright.wav"
+                            "label": "Room - Living Room",
+                            "value": "/var/lib/jacktrip/impulses/IRs_072022/Room - Living Room.wav"
                         },
                         {
-                            "label": "Room - Narrow",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Room - Narrow.wav"
+                            "label": "Room - Small Meeting Room",
+                            "value": "/var/lib/jacktrip/impulses/IRs_072022/Room - Small Meeting Room.wav"
                         },
                         {
-                            "label": "Room - Big and Bright",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Room - Big and Bright.wav"
+                            "label": "Room - Bright Walls",
+                            "value": "/var/lib/jacktrip/impulses/IRs_072022/Room - Bright Walls.wav"
                         },
                         {
-                            "label": "Room - Drums",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Room - Drums.wav"
+                            "label": "Room - Wide",
+                            "value": "/var/lib/jacktrip/impulses/IRs_072022/Room - Wide.wav"
                         },
                         {
-                            "label": "Room - Drums 2",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Room - Drums 2.wav"
+                            "label": "Echo - Slow And Clean",
+                            "value": "/var/lib/jacktrip/impulses/IRs_072022/Echo - Slow And Clean.wav"
                         },
                         {
-                            "label": "Echo - Bright and Diffuse",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Echo - Bright and Diffuse.wav"
+                            "label": "Echo - Fast And Clean",
+                            "value": "/var/lib/jacktrip/impulses/IRs_072022/Echo - Fast And Clean.wav"
+                        },
+                        {
+                            "label": "Echo - Vintage",
+                            "value": "/var/lib/jacktrip/impulses/IRs_072022/Echo - Vintage.wav"
                         },
                         {
                             "label": "Echo - Large Echo Hall",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Echo - Large Echo Hall.wav"
+                            "value": "/var/lib/jacktrip/impulses/IRs_072022/Echo - Large Echo Hall.wav"
                         },
                         {
-                            "label": "Echo - Reggae Vibe",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Echo - Reggae Vibe.wav"
-                        },
-                        {
-                            "label": "Echo - Faster",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Echo - Faster.wav"
-                        },
-                        {
-                            "label": "Echo - Slower",
-                            "value": "/var/lib/jacktrip/impulses/IRs_071422/Echo - Slower.wav"
+                            "label": "Echo - Space Filler",
+                            "value": "/var/lib/jacktrip/impulses/IRs_072022/Echo - Space Filler.wav"
                         }
                     ]
                 }
@@ -134,12 +98,12 @@
                 "fieldOptions": {
                     "marks": [
                         {
-                            "value": 0.02,
-                            "label": "Dryer"
+                            "value": 0,
+                            "label": "Dry"
                         },
                         {
-                            "value": 0.5,
-                            "label": "Wetter"
+                            "value": 1,
+                            "label": "Wet"
                         }
                     ],
                     "logarithmic": false,
