@@ -119,11 +119,11 @@
                 "low",
                 "high"
             ],
-            "label": "Wet Filter",
+            "label": "Wet Filter (Bandpass EQ)",
             "type": "number",
             "defaultVal": [
-                300,
-                6000
+                180,
+                10000
             ],
             "field": {
                 "type": "range",
