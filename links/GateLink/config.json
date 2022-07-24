@@ -72,8 +72,8 @@
                 "fieldOptions": {
                     "marks": [
                         {
-                            "value": 0.01,
-                            "label": "10ms"
+                            "value": 0.1,
+                            "label": "100ms"
                         },
                         {
                             "value": 1,
