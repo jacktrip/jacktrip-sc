@@ -106,6 +106,10 @@
                             "label": "Smoother"
                         },
                         {
+                            "value": 2,
+                            "label": "dadada"
+                        },
+                        {
                             "value": 2.5,
                             "label": "Harder"
                         }
