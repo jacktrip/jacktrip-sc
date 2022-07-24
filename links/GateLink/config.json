@@ -57,7 +57,7 @@
                     "logarithmic": false,
                     "min": 0.001,
                     "max": 0.1,
-                    "step": 1,
+                    "step": 0.001,
                     "scale": 1
                 }
             }
@@ -107,7 +107,7 @@
                         },
                         {
                             "value": 2.0,
-                            "label": "xxx_Testing"
+                            "label": "ferrari_test"
                         },
                         {
                             "value": 2.5,
