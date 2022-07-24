@@ -57,8 +57,8 @@
                     "logarithmic": false,
                     "min": 0.001,
                     "max": 0.1,
-                    "step": 1000,
-                    "scale": 1000
+                    "step": 1,
+                    "scale": 1
                 }
             }
         },
@@ -88,7 +88,7 @@
                     "min": 0.001,
                     "max": 3.000,
                     "step": 0.001,
-                    "scale": 0.1
+                    "scale": 1000
                 }
             }
         },
@@ -106,8 +106,8 @@
                             "label": "Smoother"
                         },
                         {
-                            "value": 2,
-                            "label": "dadada"
+                            "value": 2.0,
+                            "label": "Dadada"
                         },
                         {
                             "value": 2.5,
