@@ -36,7 +36,7 @@ GateLink : Link {
     ar { | input, id = "" |
         var signal = input;
         signal = Compander.ar(signal, signal,
-			thresh:     \gate_thresh.kr(thresh).dbamp,  // amplitude trigger threshold [-1, 1]
+            thresh:     \gate_thresh.kr(thresh).dbamp,  // amplitude trigger threshold [-1, 1]
             clampTime:  \gate_attack.kr(attack),        // time (in seconds) before compression is applied
             relaxTime:  \gate_release.kr(release),      // time (in seconds) before compression is removed
             slopeBelow: \gate_range.kr(range),          // range if gate; otherwise, 1
