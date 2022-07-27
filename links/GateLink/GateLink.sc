@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2021 JackTrip Labs, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-/* 
+/*
  * GateLink: removes noise by compressing, if signal amplitude falls is below threshold
  *
  * \thresh: amplitude trigger threshold, in decibels (< 0)
@@ -36,7 +36,7 @@ GateLink : Link {
     ar { | input, id = "" |
         var signal = input;
         signal = Compander.ar(signal, signal,
-            thresh:     \gate_thresh.kr(thresh).dbamp,  // amplitude trigger threshold [-1, 1]
+			thresh:     \gate_thresh.kr(thresh).dbamp,  // amplitude trigger threshold [-1, 1]
             clampTime:  \gate_attack.kr(attack),        // time (in seconds) before compression is applied
             relaxTime:  \gate_release.kr(release),      // time (in seconds) before compression is removed
             slopeBelow: \gate_range.kr(range),          // range if gate; otherwise, 1
