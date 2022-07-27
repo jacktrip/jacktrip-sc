@@ -106,7 +106,7 @@
                             "label": "Smoother"
                         },
                         {
-                            "value": 2.5,
+                            "value": 5,
                             "label": "Harder"
                         }
                     ],
