@@ -235,8 +235,5 @@
                 }
             ]
         }
-    ],
-    "sclang": "",
-    "useCustomCode": false,
-    "preset": null
+    ]
 }

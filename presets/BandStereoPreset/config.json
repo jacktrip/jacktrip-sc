@@ -2,7 +2,6 @@
     "id": "band-stereo",
     "label": "Band (Stereo inputs)",
     "tooltip": "Rock on! (Stereo inputs)",
-    "mixer": "SelfVolumeMixer",
     "mixerConfigs": [
         {
             "name": "PersonalMixer",
@@ -216,8 +215,5 @@
                 }
             ]
         }
-    ],
-    "sclang": "",
-    "useCustomCode": false,
-    "preset": null
+    ]
 }
