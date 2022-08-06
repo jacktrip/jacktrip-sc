@@ -2,7 +2,6 @@
     "id": "band-mono",
     "label": "Band (Mono inputs)",
     "tooltip": "Rock on! (Mono inputs)",
-    "mixer": "SelfVolumeMixer",
     "mixerConfigs": [
         {
             "name": "PersonalMixer",
