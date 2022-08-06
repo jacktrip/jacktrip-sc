@@ -1,7 +1,7 @@
 {
-    "id": "echo-hall",
-    "label": "Echo Hall",
-    "tooltip": "Long echoes to enhance harmonies",
+    "id": "ethereal-echo-chamber",
+    "label": "Ethereal Echo Chamber",
+    "tooltip": "Otherworldly echoes fill up the space",
     "mixerConfigs": [
     {
         "name": "SelfVolumeMixer",
@@ -13,7 +13,7 @@
             },
             {
                 "name": "selfVolume",
-                "value": 0.7
+                "value": 0.5
             }
         ]
     },
@@ -68,8 +68,8 @@
                         "high"
                     ],
                     "values": [
-                        100.48471382465803,
-                        11992.231400236049
+                        100.53099940231341,
+                        15488.166189124828
                     ]
                 }
             ]
@@ -94,11 +94,11 @@
             "options": [
                 {
                     "name": "irPath",
-                    "value": "/var/lib/jacktrip/impulses/IMreverbs/Large Wide Echo Hall.wav"
+                    "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/EchoBridge.wav"
                 },
                 {
                     "name": "mix",
-                    "value": 0.05
+                    "value": 0.049670667922342274
                 },
                 {
                     "names": [
@@ -106,8 +106,8 @@
                         "high"
                     ],
                     "values": [
-                        198.107081487124,
-                        9038.575706601763
+                        199.52623149688787,
+                        6416.526614874055
                     ]
                 }
             ]
@@ -133,8 +133,5 @@
                 }
             ]
         }
-    ],
-    "sclang": "",
-    "useCustomCode": false,
-    "preset": null
+    ]
 }
