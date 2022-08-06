@@ -1,0 +1,242 @@
+{
+    "id": "music-classes-mono",
+    "label": "Music Classes (Mono inputs)",
+    "tooltip": "Ideal for student and teacher, focus on naturalness and clarity. (Mono inputs)",
+    "mixer": "SelfVolumeMixer",
+    "mixerConfigs": [
+        {
+            "name": "PersonalMixer",
+            "options": [
+                {
+                    "name": "masterVolume",
+                    "value": 1
+                },
+                {
+                    "name": "selfVolume",
+                    "value": 0.5
+                }
+            ]
+        },
+        {
+            "name": "SelfVolumeMixer",
+            "options": [
+                {
+                    "name": "masterVolume",
+                    "value": 1.5
+                },
+                {
+                    "name": "selfVolume",
+                    "value": 0.5
+                }
+            ]
+        },
+        {
+            "name": "SimpleMixer",
+            "options": [
+                {
+                    "name": "masterVolume",
+                    "value": 1
+                }
+            ]
+        },
+        {
+            "name": "OutputBusMixer",
+            "options": [
+                {
+                    "name": "masterVolume",
+                    "value": 1
+                }
+            ]
+        }
+    ],
+    "preChain": [
+        {
+            "name": "CirclePanLink",
+            "options": [
+                {
+                    "name": "panSlots",
+                    "value": 1
+                },
+                {
+                    "names": [
+                        "left",
+                        "right"
+                    ],
+                    "values": [
+                        -0.1,
+                        0.1
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "GateLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -40
+                },
+                {
+                    "name": "attack",
+                    "value": 0.001
+                },
+                {
+                    "name": "release",
+                    "value": 0.353
+                },
+                {
+                    "name": "range",
+                    "value": 1.3800664559703322
+                }
+            ]
+        },
+        {
+            "name": "BandPassFilterLink",
+            "options": [
+                {
+                    "names": [
+                        "low",
+                        "high"
+                    ],
+                    "values": [
+                        29.81947547925597,
+                        19952.62314968879
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "CompressorLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -24
+                },
+                {
+                    "name": "attack",
+                    "value": 0.023
+                },
+                {
+                    "name": "release",
+                    "value": 0.027
+                },
+                {
+                    "name": "ratio",
+                    "value": 0.5
+                },
+                {
+                    "name": "makeup",
+                    "value": 12
+                }
+            ]
+        },
+        {
+            "name": "EqualizerLink",
+            "options": [
+                {
+                    "name": "freq",
+                    "value": 180.21876116640487
+                },
+                {
+                    "name": "gain",
+                    "value": -2
+                },
+                {
+                    "name": "q",
+                    "value": 7.196146563265813
+                }
+            ]
+        }
+    ],
+    "postChain": [
+        {
+            "name": "CompressorLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -16
+                },
+                {
+                    "name": "attack",
+                    "value": 0.01
+                },
+                {
+                    "name": "release",
+                    "value": 0.02
+                },
+                {
+                    "name": "ratio",
+                    "value": 0.5
+                },
+                {
+                    "name": "makeup",
+                    "value": 4.8
+                }
+            ]
+        },
+        {
+            "name": "ConvReverbLink",
+            "options": [
+                {
+                    "name": "irPath",
+                    "value": "/var/lib/jacktrip/impulses/IRs_072722/Plate - Diffuse.wav"
+                },
+                {
+                    "name": "mix",
+                    "value": 0.1
+                },
+                {
+                    "names": [
+                        "low",
+                        "high"
+                    ],
+                    "values": [
+                        70.79457843841381,
+                        8383.010304515523
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "EqualizerLink",
+            "options": [
+                {
+                    "name": "freq",
+                    "value": 7040.443214699752
+                },
+                {
+                    "name": "gain",
+                    "value": 2.7
+                },
+                {
+                    "name": "q",
+                    "value": 9.246981739382225
+                }
+            ]
+        },
+        {
+            "name": "LimiterLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -3
+                },
+                {
+                    "name": "attack",
+                    "value": 0.002
+                },
+                {
+                    "name": "release",
+                    "value": 0.008
+                },
+                {
+                    "name": "ratio",
+                    "value": 0.1
+                }
+            ]
+        }
+    ],
+    "sclang": "",
+    "useCustomCode": false,
+    "preset": null
+}

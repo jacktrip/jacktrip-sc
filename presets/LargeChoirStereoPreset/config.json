@@ -1,0 +1,223 @@
+{
+    "id": "large-choir-stereo",
+    "label": "Large Choir (Stereo inputs)",
+    "tooltip": "Long reverb to enhance harmonies. Stronger noise gate. (Stereo inputs)",
+    "mixer": "SelfVolumeMixer",
+    "mixerConfigs": [
+        {
+            "name": "PersonalMixer",
+            "options": [
+                {
+                    "name": "masterVolume",
+                    "value": 1
+                },
+                {
+                    "name": "selfVolume",
+                    "value": 0.5
+                }
+            ]
+        },
+        {
+            "name": "SelfVolumeMixer",
+            "options": [
+                {
+                    "name": "masterVolume",
+                    "value": 1.5
+                },
+                {
+                    "name": "selfVolume",
+                    "value": 0.5
+                }
+            ]
+        },
+        {
+            "name": "SimpleMixer",
+            "options": [
+                {
+                    "name": "masterVolume",
+                    "value": 1
+                }
+            ]
+        },
+        {
+            "name": "OutputBusMixer",
+            "options": [
+                {
+                    "name": "masterVolume",
+                    "value": 1
+                }
+            ]
+        }
+    ],
+    "preChain": [
+        {
+            "name": "GateLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -48
+                },
+                {
+                    "name": "attack",
+                    "value": 0.071
+                },
+                {
+                    "name": "release",
+                    "value": 0.662
+                },
+                {
+                    "name": "range",
+                    "value": 6
+                }
+            ]
+        },
+        {
+            "name": "CompressorLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -24
+                },
+                {
+                    "name": "attack",
+                    "value": 0.023
+                },
+                {
+                    "name": "release",
+                    "value": 0.027
+                },
+                {
+                    "name": "ratio",
+                    "value": 0.5
+                },
+                {
+                    "name": "makeup",
+                    "value": 12
+                }
+            ]
+        },
+        {
+            "name": "EqualizerLink",
+            "options": [
+                {
+                    "name": "freq",
+                    "value": 200.678109001819
+                },
+                {
+                    "name": "gain",
+                    "value": -2
+                },
+                {
+                    "name": "q",
+                    "value": 5.4050535370866895
+                }
+            ]
+        },
+        {
+            "name": "BandPassFilterLink",
+            "options": [
+                {
+                    "names": [
+                        "low",
+                        "high"
+                    ],
+                    "values": [
+                        75.30087105475894,
+                        19952.62314968879
+                    ]
+                }
+            ]
+        }
+    ],
+    "postChain": [
+        {
+            "name": "CompressorLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -14
+                },
+                {
+                    "name": "attack",
+                    "value": 0.01
+                },
+                {
+                    "name": "release",
+                    "value": 0.02
+                },
+                {
+                    "name": "ratio",
+                    "value": 0.5
+                },
+                {
+                    "name": "makeup",
+                    "value": 1.6
+                }
+            ]
+        },
+        {
+            "name": "ConvReverbLink",
+            "options": [
+                {
+                    "name": "irPath",
+                    "value": "/var/lib/jacktrip/impulses/IRs_072722/Plate - Scattered.wav"
+                },
+                {
+                    "name": "mix",
+                    "value": 0.31
+                },
+                {
+                    "names": [
+                        "low",
+                        "high"
+                    ],
+                    "values": [
+                        97.72372209558107,
+                        2042.2081263346354
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "EqualizerLink",
+            "options": [
+                {
+                    "name": "freq",
+                    "value": 6409.143566447763
+                },
+                {
+                    "name": "gain",
+                    "value": 2.4
+                },
+                {
+                    "name": "q",
+                    "value": 8.607955238694604
+                }
+            ]
+        },
+        {
+            "name": "LimiterLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -4
+                },
+                {
+                    "name": "attack",
+                    "value": 0.002
+                },
+                {
+                    "name": "release",
+                    "value": 0.008
+                },
+                {
+                    "name": "ratio",
+                    "value": 0.1
+                }
+            ]
+        }
+    ],
+    "sclang": "",
+    "useCustomCode": false,
+    "preset": null
+}
