@@ -1,8 +1,7 @@
 {
-    "id": "cathedral",
-    "label": "Cathedral",
-    "tooltip": "A classic reverberant space",
-    "mixer": "SelfVolumeMixer",
+    "id": "echo-hall",
+    "label": "Echo Hall",
+    "tooltip": "Long echoes to enhance harmonies",
     "mixerConfigs": [
     {
         "name": "SelfVolumeMixer",
@@ -14,7 +13,7 @@
             },
             {
                 "name": "selfVolume",
-                "value": 0.5
+                "value": 0.7
             }
         ]
     },
@@ -69,8 +68,8 @@
                         "high"
                     ],
                     "values": [
-                        95.49925860214358,
-                        11481.536214968817
+                        100.48471382465803,
+                        11992.231400236049
                     ]
                 }
             ]
@@ -95,11 +94,11 @@
             "options": [
                 {
                     "name": "irPath",
-                    "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/SquareVictoriaDome.wav"
+                    "value": "/var/lib/jacktrip/impulses/IMreverbs/Large Wide Echo Hall.wav"
                 },
                 {
                     "name": "mix",
-                    "value": 0.029546088884793393
+                    "value": 0.05
                 },
                 {
                     "names": [
@@ -107,8 +106,8 @@
                         "high"
                     ],
                     "values": [
-                        199.52623149688787,
-                        6416.526614874055
+                        198.107081487124,
+                        9038.575706601763
                     ]
                 }
             ]
@@ -134,5 +133,8 @@
                 }
             ]
         }
-    ]
+    ],
+    "sclang": "",
+    "useCustomCode": false,
+    "preset": null
 }
