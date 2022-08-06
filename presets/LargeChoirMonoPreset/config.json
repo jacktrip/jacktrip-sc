@@ -1,6 +1,6 @@
 {
-    "id": "raw-stereo",
-    "label": "Raw Stereo",
+    "id": "large-choir-mono",
+    "label": "Large Choir (Mono inputs)",
     "tooltip": "Long reverb to enhance harmonies. Stronger noise gate. (Mono inputs)",
     "mixer": "SelfVolumeMixer",
     "mixerConfigs": [
@@ -235,5 +235,8 @@
                 }
             ]
         }
-    ]
+    ],
+    "sclang": "",
+    "useCustomCode": false,
+    "preset": null
 }
