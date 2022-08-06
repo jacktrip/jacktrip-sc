@@ -1,92 +1,61 @@
 {
-    "id": "band-mono",
-    "label": "Band (Mono inputs)",
-    "tooltip": "Rock on! (Mono inputs)",
-    "mixer": "SelfVolumeMixer",
+    "id": "cathedral",
+    "label": "Cathedral",
+    "tooltip": "A classic reverberant space",
     "mixerConfigs": [
-        {
-            "name": "PersonalMixer",
-            "options": [
-                {
-                    "name": "masterVolume",
-                    "value": 1
-                },
-                {
-                    "name": "selfVolume",
-                    "value": 0.5
-                }
-            ]
-        },
-        {
-            "name": "SelfVolumeMixer",
-            "options": [
-                {
-                    "name": "masterVolume",
-                    "value": 1.5
-                },
-                {
-                    "name": "selfVolume",
-                    "value": 0.5
-                }
-            ]
-        },
-        {
-            "name": "SimpleMixer",
-            "options": [
-                {
-                    "name": "masterVolume",
-                    "value": 1
-                }
-            ]
-        },
-        {
-            "name": "OutputBusMixer",
-            "options": [
-                {
-                    "name": "masterVolume",
-                    "value": 1
-                }
-            ]
-        }
+    {
+        "name": "SelfVolumeMixer",
+        "max": 30,
+        "options": [
+            {
+                "name": "masterVolume",
+                "value": 1.5
+            },
+            {
+                "name": "selfVolume",
+                "value": 0.5
+            }
+        ]
+    },
+    {
+        "name": "OutputBusMixer",
+        "max": 80,
+        "options": [
+            {
+                "name": "masterVolume",
+                "value": 1.5
+            }
+        ]
+    }
     ],
     "preChain": [
-        {
-            "name": "CirclePanLink",
-            "options": [
-                {
-                    "name": "panSlots",
-                    "value": 10
-                },
-                {
-                    "names": [
-                        "left",
-                        "right"
-                    ],
-                    "values": [
-                        -0.3,
-                        0.3
-                    ]
-                }
-            ]
-        },
         {
             "name": "GateLink",
             "options": [
                 {
                     "name": "thresh",
-                    "value": -40
+                    "value": -60
                 },
                 {
                     "name": "attack",
-                    "value": 0.013
+                    "value": 0.01
                 },
                 {
                     "name": "release",
-                    "value": 0.023
+                    "value": 0.3
                 },
                 {
                     "name": "range",
-                    "value": 1.4164459272385135
+                    "value": 10
+                }
+            ]
+        },
+        {
+            "name": "MultiplyLink",
+            "options": [
+                {
+                    "name": "factor",
+                    "value": 1.5
                 }
             ]
         },
@@ -99,91 +68,37 @@
                         "high"
                     ],
                     "values": [
-                        33.643409364322984,
-                        19952.62314968879
+                        95.49925860214358,
+                        11481.536214968817
                     ]
                 }
             ]
         },
         {
-            "name": "CompressorLink",
+            "name": "PanningLink",
             "options": [
                 {
-                    "name": "thresh",
-                    "value": -26
+                    "name": "panSlots",
+                    "value": 9
                 },
                 {
-                    "name": "attack",
-                    "value": 0.024
-                },
-                {
-                    "name": "release",
-                    "value": 0.026
-                },
-                {
-                    "name": "ratio",
-                    "value": 0.5
-                },
-                {
-                    "name": "makeup",
-                    "value": 12
-                }
-            ]
-        },
-        {
-            "name": "EqualizerLink",
-            "options": [
-                {
-                    "name": "freq",
-                    "value": 192.75249131909368
-                },
-                {
-                    "name": "gain",
-                    "value": -2
-                },
-                {
-                    "name": "q",
-                    "value": 6.34892212337701
+                    "names": ["left", "right"],
+                    "values": [-0.5, 0.5]
                 }
             ]
         }
     ],
     "postChain": [
         {
-            "name": "CompressorLink",
-            "options": [
-                {
-                    "name": "thresh",
-                    "value": -16
-                },
-                {
-                    "name": "attack",
-                    "value": 0.03
-                },
-                {
-                    "name": "release",
-                    "value": 0.035
-                },
-                {
-                    "name": "ratio",
-                    "value": 0.667
-                },
-                {
-                    "name": "makeup",
-                    "value": 2
-                }
-            ]
-        },
-        {
             "name": "ConvReverbLink",
             "options": [
                 {
                     "name": "irPath",
-                    "value": "/var/lib/jacktrip/impulses/IRs_072722/Reverb - Thickener.wav"
+                    "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/SquareVictoriaDome.wav"
                 },
                 {
                     "name": "mix",
-                    "value": 0.07
+                    "value": 0.029546088884793393
                 },
                 {
                     "names": [
@@ -191,26 +106,9 @@
                         "high"
                     ],
                     "values": [
-                        120.4758502534953,
-                        2398.83291901949
+                        199.52623149688787,
+                        6416.526614874055
                     ]
-                }
-            ]
-        },
-        {
-            "name": "EqualizerLink",
-            "options": [
-                {
-                    "name": "freq",
-                    "value": 6409.143566447763
-                },
-                {
-                    "name": "gain",
-                    "value": 2.2
-                },
-                {
-                    "name": "q",
-                    "value": 8.607955238694604
                 }
             ]
         },
@@ -219,7 +117,7 @@
             "options": [
                 {
                     "name": "thresh",
-                    "value": -4
+                    "value": -10
                 },
                 {
                     "name": "attack",
@@ -227,16 +125,13 @@
                 },
                 {
                     "name": "release",
-                    "value": 0.008
+                    "value": 0.01
                 },
                 {
                     "name": "ratio",
-                    "value": 0.1
+                    "value": 0.033
                 }
             ]
         }
-    ],
-    "sclang": "",
-    "useCustomCode": false,
-    "preset": null
+    ]
 }
