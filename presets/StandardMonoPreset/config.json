@@ -1,7 +1,7 @@
 {
-    "id": "default-stereo",
-    "label": "Default (Stereo inputs)",
-    "tooltip": "A true all-rounder. (Stereo inputs)",
+    "id": "standard-mono",
+    "label": "Standard (Mono inputs)",
+    "tooltip": "A true all-rounder. (Mono inputs)",
     "mixer": "SelfVolumeMixer",
     "mixerConfigs": [
         {
@@ -50,6 +50,25 @@
         }
     ],
     "preChain": [
+        {
+            "name": "CirclePanLink",
+            "options": [
+                {
+                    "name": "panSlots",
+                    "value": 10
+                },
+                {
+                    "names": [
+                        "left",
+                        "right"
+                    ],
+                    "values": [
+                        -0.3,
+                        0.3
+                    ]
+                }
+            ]
+        },
         {
             "name": "GateLink",
             "options": [
