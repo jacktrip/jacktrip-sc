@@ -1,11 +1,11 @@
 {
-    "id": "ethereal-echo-chamber",
-    "label": "Ethereal Echo Chamber",
-    "tooltip": "Otherworldly echoes fill up the space",
+    "id": "large-rehearsal-room",
+    "label": "Large Rehearsal Room",
+    "tooltip": "The best option for 80+ connected musicians",
     "mixerConfigs": [
     {
         "name": "SelfVolumeMixer",
-        "max": 30,
+        "max": 120,
         "options": [
             {
                 "name": "masterVolume",
@@ -19,7 +19,7 @@
     },
     {
         "name": "OutputBusMixer",
-        "max": 80,
+        "max": 120,
         "options": [
             {
                 "name": "masterVolume",
@@ -51,15 +51,6 @@
             ]
         },
         {
-            "name": "MultiplyLink",
-            "options": [
-                {
-                    "name": "factor",
-                    "value": 1.5
-                }
-            ]
-        },
-        {
             "name": "BandPassFilterLink",
             "options": [
                 {
@@ -68,8 +59,8 @@
                         "high"
                     ],
                     "values": [
-                        100.53099940231341,
-                        15488.166189124828
+                        100.66998409579647,
+                        20000.000000000004
                     ]
                 }
             ]
@@ -79,7 +70,7 @@
             "options": [
                 {
                     "name": "panSlots",
-                    "value": 9
+                    "value": 1
                 },
                 {
                     "names": ["left", "right"],
@@ -89,29 +80,6 @@
         }
     ],
     "postChain": [
-        {
-            "name": "ConvReverbLink",
-            "options": [
-                {
-                    "name": "irPath",
-                    "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/EchoBridge.wav"
-                },
-                {
-                    "name": "mix",
-                    "value": 0.049670667922342274
-                },
-                {
-                    "names": [
-                        "low",
-                        "high"
-                    ],
-                    "values": [
-                        199.52623149688787,
-                        6416.526614874055
-                    ]
-                }
-            ]
-        },
         {
             "name": "LimiterLink",
             "options": [
