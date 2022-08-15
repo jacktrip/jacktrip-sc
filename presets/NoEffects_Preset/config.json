@@ -6,6 +6,7 @@
     "mixerConfigs": [
         {
             "name": "PersonalMixer",
+            "max": 1000,
             "options": [
                 {
                     "name": "masterVolume",

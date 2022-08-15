@@ -6,6 +6,7 @@
     "mixerConfigs": [
         {
             "name": "PersonalMixer",
+            "max": 30,
             "options": [
                 {
                     "name": "masterVolume",
@@ -235,5 +236,8 @@
                 }
             ]
         }
-    ]
+    ],
+    "sclang": "",
+    "useCustomCode": false,
+    "preset": null
 }
