@@ -7,7 +7,7 @@
             "src": "irPath",
             "label": "Space",
             "type": "string",
-            "defaultVal": "/var/lib/jacktrip/impulses/072722/Echo - Large Echo Hall.wav",
+            "defaultVal": "/var/lib/jacktrip/impulses/IMreverbs/French 18th Century Salon.wav",
             "field": {
                 "type": "dropdown",
                 "fieldOptions": {
@@ -17,96 +17,644 @@
                             "value": "Bypass"
                         },
                         {
-                            "label": "Reverb - Royal Hall",
-                            "value": "/var/lib/jacktrip/impulses/IRs_072722/Reverb - Royal Hall.wav"
+                            "label": "Block Inside",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Block Inside.wav"
                         },
                         {
-                            "label": "Reverb - Thickener",
-                            "value": "/var/lib/jacktrip/impulses/IRs_072722/Reverb - Thickener.wav"
+                            "label": "Bottle Hall",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Bottle Hall.wav"
                         },
                         {
-                            "label": "Reverb - Stage Hall",
-                            "value": "/var/lib/jacktrip/impulses/IRs_072722/Reverb - Stage Hall.wav"
+                            "label": "Cement Blocks 1",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Cement Blocks 1.wav"
                         },
                         {
-                            "label": "Reverb - Big And Bright",
-                            "value": "/var/lib/jacktrip/impulses/IRs_072722/Reverb - Big And Bright.wav"
+                            "label": "Cement Blocks 2",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Cement Blocks 2.wav"
                         },
                         {
-                            "label": "Plate - Scattered",
-                            "value": "/var/lib/jacktrip/impulses/IRs_072722/Plate - Scattered.wav"
+                            "label": "Chateau de Logne, Outside",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Chateau de Logne, Outside.wav"
                         },
                         {
-                            "label": "Plate - Diffuse",
-                            "value": "/var/lib/jacktrip/impulses/IRs_072722/Plate - Diffuse.wav"
+                            "label": "Conic Long Echo Hall",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Conic Long Echo Hall.wav"
                         },
                         {
-                            "label": "Room - Basement Rehearsal",
-                            "value": "/var/lib/jacktrip/impulses/IRs_072722/Room - Basement Rehearsal.wav"
+                            "label": "Deep Space",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Deep Space.wav"
                         },
                         {
-                            "label": "Room - Spaceous",
-                            "value": "/var/lib/jacktrip/impulses/IRs_072722/Room - Spaceous.wav"
+                            "label": "Derlon Sanctuary",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Derlon Sanctuary.wav"
                         },
                         {
-                            "label": "Room - Living Room",
-                            "value": "/var/lib/jacktrip/impulses/IRs_072722/Room - Living Room.wav"
+                            "label": "Direct Cabinet N1",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Direct Cabinet N1.wav"
                         },
                         {
-                            "label": "Room - Small Meeting Room",
-                            "value": "/var/lib/jacktrip/impulses/IRs_072722/Room - Small Meeting Room.wav"
+                            "label": "Direct Cabinet N2",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Direct Cabinet N2.wav"
                         },
                         {
-                            "label": "Room - Bright Walls",
-                            "value": "/var/lib/jacktrip/impulses/IRs_072722/Room - Bright Walls.wav"
+                            "label": "Direct Cabinet N3",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Direct Cabinet N3.wav"
                         },
                         {
-                            "label": "Room - Wide",
-                            "value": "/var/lib/jacktrip/impulses/IRs_072722/Room - Wide.wav"
+                            "label": "Direct Cabinet N4",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Direct Cabinet N4.wav"
                         },
                         {
-                            "label": "Echo - Slow And Clean",
-                            "value": "/var/lib/jacktrip/impulses/IRs_072722/Echo - Slow And Clean.wav"
+                            "label": "Five Columns Long",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Five Columns Long.wav"
                         },
                         {
-                            "label": "Echo - Fast And Clean",
-                            "value": "/var/lib/jacktrip/impulses/IRs_072722/Echo - Fast And Clean.wav"
+                            "label": "Five Columns",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Five Columns.wav"
                         },
                         {
-                            "label": "Echo - Vintage",
-                            "value": "/var/lib/jacktrip/impulses/IRs_072722/Echo - Vintage.wav"
+                            "label": "French 18th Century Salon",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/French 18th Century Salon.wav"
                         },
                         {
-                            "label": "Echo - Large Echo Hall",
-                            "value": "/var/lib/jacktrip/impulses/IRs_072722/Echo - Large Echo Hall.wav"
+                            "label": "Going Home",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Going Home.wav"
                         },
                         {
-                            "label": "Echo - Space Filler",
-                            "value": "/var/lib/jacktrip/impulses/IRs_072722/Echo - Space Filler.wav"
+                            "label": "Greek 7 Echo Hall",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Greek 7 Echo Hall.wav"
+                        },
+                        {
+                            "label": "Highly Damped Large Room",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Highly Damped Large Room.wav"
+                        },
+                        {
+                            "label": "In The Silo Revised",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/In The Silo Revised.wav"
+                        },
+                        {
+                            "label": "In The Silo",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/In The Silo.wav"
+                        },
+                        {
+                            "label": "Large Bottle Hall",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Large Bottle Hall.wav"
+                        },
+                        {
+                            "label": "Large Long Echo Hall",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Large Long Echo Hall.wav"
+                        },
+                        {
+                            "label": "Large Wide Echo Hall",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Large Wide Echo Hall.wav"
+                        },
+                        {
+                            "label": "Masonic Lodge",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Masonic Lodge.wav"
+                        },
+                        {
+                            "label": "Musikvereinsaal",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Musikvereinsaal.wav"
+                        },
+                        {
+                            "label": "Narrow Bumpy Space",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Narrow Bumpy Space.wav"
+                        },
+                        {
+                            "label": "Nice Drum Room",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Nice Drum Room.wav"
+                        },
+                        {
+                            "label": "On a Star",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/On a Star.wav"
+                        },
+                        {
+                            "label": "Parking Garage",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Parking Garage.wav"
+                        },
+                        {
+                            "label": "Rays",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Rays.wav"
+                        },
+                        {
+                            "label": "Right Glass Triangle",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Right Glass Triangle.wav"
+                        },
+                        {
+                            "label": "Ruby Room",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Ruby Room.wav"
+                        },
+                        {
+                            "label": "Scala Milan Opera Hall",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Scala Milan Opera Hall.wav"
+                        },
+                        {
+                            "label": "Small Drum Room",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Small Drum Room.wav"
+                        },
+                        {
+                            "label": "Small Prehistoric Cave",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Small Prehistoric Cave.wav"
+                        },
+                        {
+                            "label": "St Nicolaes Church",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/St Nicolaes Church.wav"
+                        },
+                        {
+                            "label": "Trig Room",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Trig Room.wav"
+                        },
+                        {
+                            "label": "Vocal Duo",
+                            "value": "/var/lib/jacktrip/impulses/IMreverbs/Vocal Duo.wav"
+                        },
+                        {
+                            "label": "Biomedical Sciences",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Brutalism/BiomedicalSciences.wav"
+                        },
+                        {
+                            "label": "Carpenter Center",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Brutalism/CarpenterCenter.wav"
+                        },
+                        {
+                            "label": "Galbraith Hall",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Brutalism/GalbraithHall.wav"
+                        },
+                        {
+                            "label": "Geisel Library",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Brutalism/GeiselLibrary.wav"
+                        },
+                        {
+                            "label": "Graffiti Hallway",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Brutalism/GraffitiHallway.wav"
+                        },
+                        {
+                            "label": "Humanities Social Sciences Courtyard",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Brutalism/HumanitiesSocialSciencesCourtyard.wav"
+                        },
+                        {
+                            "label": "Love Library",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Brutalism/LoveLibrary.wav"
+                        },
+                        {
+                            "label": "Natural Sciences",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Brutalism/NaturalSciences.wav"
+                        },
+                        {
+                            "label": "Pacific Hall",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Brutalism/PacificHall.wav"
+                        },
+                        {
+                            "label": "Pepper Canyon Hall",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Brutalism/PepperCanyonHall.wav"
+                        },
+                        {
+                            "label": "San Diego Supercomputer Center",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Brutalism/SanDiegoSupercomputerCenter.wav"
+                        },
+                        {
+                            "label": "Brutalism",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Brutalism/XXX.wav"
+                        },
+                        {
+                            "label": "Academic Quadrangle",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/AcademicQuadrangle.wav"
+                        },
+                        {
+                            "label": "Amaranth",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/Amaranth.wav"
+                        },
+                        {
+                            "label": "Bar Monsieur Ricard",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/BarMonsieurRicard.wav"
+                        },
+                        {
+                            "label": "CPMC 264",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/CPMC264.wav"
+                        },
+                        {
+                            "label": "Castillo De Los Tres Reyes Del Morro",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/CastilloDeLosTresReyesDelMorro.wav"
+                        },
+                        {
+                            "label": "Castillo De Los Tres Reyes Del Morro Arch",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/CastilloDeLosTresReyesDelMorroArch.wav"
+                        },
+                        {
+                            "label": "Castillo De Los Tres Reyes Del Morro Courtyard",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/CastilloDeLosTresReyesDelMorroCourtyard.wav"
+                        },
+                        {
+                            "label": "Castillo De Los Tres Reyes Del Morro Salas De Exposicion",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/CastilloDeLosTresReyesDelMorroSalasDeExposicion.wav"
+                        },
+                        {
+                            "label": "Cedar Creek Winery",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/CedarCreekWinery.wav"
+                        },
+                        {
+                            "label": "Convocation Mall",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/ConvocationMall.wav"
+                        },
+                        {
+                            "label": "Fortaleza De San Carlos De La Cabana",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/FortalezaDeSanCarlosDeLaCabana.wav"
+                        },
+                        {
+                            "label": "Four Points Room 270",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/FourPointsRoom270.wav"
+                        },
+                        {
+                            "label": "Hartwell Tavern",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/HartwellTavern.wav"
+                        },
+                        {
+                            "label": "Hawxhurst",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/Hawxhurst.wav"
+                        },
+                        {
+                            "label": "Hepner Hall",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/HepnerHall.wav"
+                        },
+                        {
+                            "label": "LittlefieldLobby",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/Littlefield Lobby.wav"
+                        },
+                        {
+                            "label": "Mills Art Museum",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/MillsArtMuseum.wav"
+                        },
+                        {
+                            "label": "Pabellon Cultural De La Republica",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/PabellonCulturalDeLaRepublica.wav"
+                        },
+                        {
+                            "label": "Pabst Brewery",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/PabstBrewery.wav"
+                        },
+                        {
+                            "label": "Quadracci Pavilion",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/QuadracciPavilion.wav"
+                        },
+                        {
+                            "label": "Red Bridge",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/RedBridge.wav"
+                        },
+                        {
+                            "label": "Steinman Foundation Recording Suite",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/SteinmanFoundationRecordingSuite.wav"
+                        },
+                        {
+                            "label": "Storage Tank No 7",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/StorageTankNo7.wav"
+                        },
+                        {
+                            "label": "Tijuana Mall",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/TijuanaMall.wav"
+                        },
+                        {
+                            "label": "Wangenheim Rare Books Room",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/WangenheimRareBooksRoom.wav"
+                        },
+                        {
+                            "label": "Warren Lecture Hall 2005",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Miscellaneous/WarrenLectureHall2005.wav"
+                        },
+                        {
+                            "label": "Byron Glacier",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Nature/ByronGlacier.wav"
+                        },
+                        {
+                            "label": "Cliff Of The Dawn",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Nature/CliffOfTheDawn.wav"
+                        },
+                        {
+                            "label": "Devils Punchbowl",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Nature/DevilsPunchbowl.wav"
+                        },
+                        {
+                            "label": "Divorce Beach",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Nature/DivorceBeach.wav"
+                        },
+                        {
+                            "label": "Fat Mans Misery",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Nature/FatMansMisery.wav"
+                        },
+                        {
+                            "label": "Fat Mans Squeeze",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Nature/FatMansSqueeze.wav"
+                        },
+                        {
+                            "label": "Isla Mujeres Cave",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Nature/IslaMujeresCave.wav"
+                        },
+                        {
+                            "label": "Purgatory Chasm",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Nature/PurgatoryChasm.wav"
+                        },
+                        {
+                            "label": "Stanley Park Cliffs",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Nature/StanleyParkCliffs.wav"
+                        },
+                        {
+                            "label": "The Slot",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Nature/TheSlot.wav"
+                        },
+                        {
+                            "label": "Woodruff Lane",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Nature/WoodruffLane.wav"
+                        },
+                        {
+                            "label": "Cranbrook Art Museum",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Recreation/Cranbrook Art Museum.wav"
+                        },
+                        {
+                            "label": "Hale Holistic Yoga Studio",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Recreation/HaleHolisticYogaStudio.wav"
+                        },
+                        {
+                            "label": "Natatorium",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Recreation/Natatorium.wav"
+                        },
+                        {
+                            "label": "Outback Climbing Center",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Recreation/OutbackClimbingCenter.wav"
+                        },
+                        {
+                            "label": "Racquetball Court",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Recreation/RacquetballCourt.wav"
+                        },
+                        {
+                            "label": "Seward Waterfront Park",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Recreation/SewardWaterfrontPark.wav"
+                        },
+                        {
+                            "label": "Sleeping Giant Tower",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Recreation/Sleeping Giant Tower.wav"
+                        },
+                        {
+                            "label": "3000 C Street Garage Stairwell",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Stairwells/3000CStreetGarageStairwell.wav"
+                        },
+                        {
+                            "label": "CCRMA Stairwell",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Stairwells/CCRMAStairwell.wav"
+                        },
+                        {
+                            "label": "CPMC North Stairwell",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Stairwells/CPMCNorthStairwell.wav"
+                        },
+                        {
+                            "label": "Convention Center Steps",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Stairwells/ConventionCenterSteps.wav"
+                        },
+                        {
+                            "label": "Exercise And Nutrition Sciences",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Stairwells/ExerciseAndNutritionSciences.wav"
+                        },
+                        {
+                            "label": "Strathcona Stairwell McGill",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Stairwells/StrathconaStairwellMcGill.wav"
+                        },
+                        {
+                            "label": "Transit Center",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Stairwells/TransitCenter.wav"
+                        },
+                        {
+                            "label": "Batcave",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/Batcave.wav"
+                        },
+                        {
+                            "label": "Battery Benson",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/BatteryBenson.wav"
+                        },
+                        {
+                            "label": "Battery Brannan",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/BatteryBrannan.wav"
+                        },
+                        {
+                            "label": "Battery Powell",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/BatteryPowell.wav"
+                        },
+                        {
+                            "label": "Battery Quarles",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/BatteryQuarles.wav"
+                        },
+                        {
+                            "label": "Battery Randol",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/BatteryRandol.wav"
+                        },
+                        {
+                            "label": "Battery Tolles",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/BatteryTolles.wav"
+                        },
+                        {
+                            "label": "Cathedral Room",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/CathedralRoom.wav"
+                        },
+                        {
+                            "label": "Discovery Room",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/DiscoveryRoom.wav"
+                        },
+                        {
+                            "label": "Drainage Tunnel",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/DrainageTunnel.wav"
+                        },
+                        {
+                            "label": "Fort Worden Pillbox",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/FortWordenPillbox.wav"
+                        },
+                        {
+                            "label": "Fort Worden Tunnel",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/FortWordenTunnel.wav"
+                        },
+                        {
+                            "label": "Harbor Entrance Control Post",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/HarborEntranceControlPost.wav"
+                        },
+                        {
+                            "label": "Lake Merritt BART",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/LakeMerrittBART.wav"
+                        },
+                        {
+                            "label": "Lawrence Welk Cave",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/LawrenceWelkCave.wav"
+                        },
+                        {
+                            "label": "Nancy Lake Tunnel",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/NancyLakeTunnel.wav"
+                        },
+                        {
+                            "label": "Port Townsend Skatepark",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/PortTownsendSkatepark.wav"
+                        },
+                        {
+                            "label": "Portage Creek Tunnel",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/PortageCreekTunnel.wav"
+                        },
+                        {
+                            "label": "Qasgiq",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/Qasgiq.wav"
+                        },
+                        {
+                            "label": "Salton Sea Drainage Pipe",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/SaltonSeaDrainagePipe.wav"
+                        },
+                        {
+                            "label": "Square Victoria Dome",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/SquareVictoriaDome.wav"
+                        },
+                        {
+                            "label": "Tijuana Aqueduct Tunnel",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/TijuanaAqueductTunnel.wav"
+                        },
+                        {
+                            "label": "Tony Knowles Coastal Trail Tunnel",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/TonyKnowlesCoastalTrailTunnel.wav"
+                        },
+                        {
+                            "label": "Tunnel To Heaven",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/TunnelToHeaven.wav"
+                        },
+                        {
+                            "label": "Tunnel To Hell",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underground/TunnelToHell.wav"
+                        },
+                        {
+                            "label": "5 Underpass Valencia",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/5UnderpassValencia.wav"
+                        },
+                        {
+                            "label": "Arroyo Ensenada",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/ArroyoEnsenada.wav"
+                        },
+                        {
+                            "label": "Avenue 52 Underpass LA River",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/Avenue52UnderpassLARiver.wav"
+                        },
+                        {
+                            "label": "Avenue 60 Underpass LA River",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/Avenue60UnderpassLARiver.wav"
+                        },
+                        {
+                            "label": "Boulevard Rosemont Underpass",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/Boulevard Rosemont Underpass.wav"
+                        },
+                        {
+                            "label": "Cariboo Rd Under Gaglardi Way",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/CaribooRdUnderGaglardiWay.wav"
+                        },
+                        {
+                            "label": "Cleft Ridge Arch",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/CleftRidgeArch.wav"
+                        },
+                        {
+                            "label": "Commerical & 5 Underpass",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/Commerical&5Underpass.wav"
+                        },
+                        {
+                            "label": "Dipway Arch",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/DipwayArch.wav"
+                        },
+                        {
+                            "label": "Echo Bridge",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/EchoBridge.wav"
+                        },
+                        {
+                            "label": "Fish Creek Trestle Bridge",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/FishCreekTrestleBridge.wav"
+                        },
+                        {
+                            "label": "Fremont Troll",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/FremontTroll.wav"
+                        },
+                        {
+                            "label": "Hopkins Drive Underpass",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/HopkinsDriveUnderpass.wav"
+                        },
+                        {
+                            "label": "JFK Underpass",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/JFKUnderpass.wav"
+                        },
+                        {
+                            "label": "Lions Gate Bridge",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/LionsGateBridge.wav"
+                        },
+                        {
+                            "label": "Old South Bridge",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/OldSouthBridge.wav"
+                        },
+                        {
+                            "label": "River Mountains Loop Trail Aqueduct",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/RiverMountainsLoopTrailAqueduct.wav"
+                        },
+                        {
+                            "label": "Stanley Park Causeway",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/StanleyParkCauseway.wav"
+                        },
+                        {
+                            "label": "Stanley Park Drive Underpass",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/StanleyParkDriveUnderpass.wav"
+                        },
+                        {
+                            "label": "Switzer St Under E Harbor Dr",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/SwitzerStUnderEHarborDr.wav"
+                        },
+                        {
+                            "label": "Telephone Wash",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/TelephoneWash.wav"
+                        },
+                        {
+                            "label": "Walkway Under E Campus Dr",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/WalkwayUnderECampusDr.wav"
+                        },
+                        {
+                            "label": "Waterplace Park",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Underpasses/WaterplacePark.wav"
+                        },
+                        {
+                            "label": "Conrad Prebys Concert Hall Seat F111",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Venues/ConradPrebysConcertHallSeatF111.wav"
+                        },
+                        {
+                            "label": "Mills Greek Theater",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Venues/MillsGreekTheater.wav"
+                        },
+                        {
+                            "label": "Naumburg Bandshell",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Venues/NaumburgBandshell.wav"
+                        },
+                        {
+                            "label": "Space 4 Art Gallery",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Venues/Space4ArtGallery.wav"
+                        },
+                        {
+                            "label": "Steinman Hall",
+                            "value": "/var/lib/jacktrip/impulses/EchoThiefImpulseResponseLibrary/Venues/SteinmanHall.wav"
                         }
                     ]
                 }
             }
-        },
+        },        
         {
             "src": "mix",
             "label": "Dry/wet Balance",
             "type": "number",
-            "defaultVal": 0.15,
+            "defaultVal": 0.1,
             "field": {
                 "type": "slider",
                 "fieldOptions": {
                     "marks": [
                         {
-                            "value": 0,
-                            "label": "Dry"
+                            "value": 0.02,
+                            "label": "Dryer"
                         },
                         {
-                            "value": 1,
-                            "label": "Wet"
+                            "value": 0.5,
+                            "label": "Wetter"
                         }
                     ],
-                    "logarithmic": false,
+                    "logarithmic": true,
                     "min": 0,
                     "max": 1,
                     "step": 0.01,
@@ -119,11 +667,11 @@
                 "low",
                 "high"
             ],
-            "label": "Wet Filter (Bandpass EQ)",
+            "label": "Wet Filter",
             "type": "number",
             "defaultVal": [
-                180,
-                10000
+                300,
+                6000
             ],
             "field": {
                 "type": "range",
