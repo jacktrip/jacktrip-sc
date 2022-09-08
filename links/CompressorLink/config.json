@@ -165,16 +165,16 @@
                 "fieldOptions": {
                     "marks": [
                         {
-                            "value": 1.5,
-                            "label": "+3dB"
+                            "value": 1.2,
+                            "label": "+1dB"
                         },
                         {
                             "value": 2,
                             "label": "+6dB"
                         },
                         {
-                            "value": 9,
-                            "label": "+10dB"
+                            "value": 6,
+                            "label": "+8dB"
                         }
                     ],
                     "logarithmic": true,
