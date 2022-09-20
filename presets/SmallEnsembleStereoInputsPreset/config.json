@@ -1,0 +1,206 @@
+{
+    "id": "small-ensemble-stereo",
+    "label": "Small Ensemble (Stereo inputs)",
+    "tooltip": "Set the stage for a natural, aesthetic sound for your acoustic ensemble. (Stereo inputs)",
+    "mixer": "SelfVolumeMixer",
+    "mixerConfigs": [
+        {
+            "name": "PersonalMixer",
+            "options": [
+                {
+                    "name": "masterVolume",
+                    "value": 1
+                },
+                {
+                    "name": "selfVolume",
+                    "value": 0.5
+                }
+            ]
+        },
+        {
+            "name": "SelfVolumeMixer",
+            "options": [
+                {
+                    "name": "masterVolume",
+                    "value": 1.5
+                },
+                {
+                    "name": "selfVolume",
+                    "value": 0.5
+                }
+            ]
+        },
+        {
+            "name": "SimpleMixer",
+            "options": [
+                {
+                    "name": "masterVolume",
+                    "value": 1
+                }
+            ]
+        },
+        {
+            "name": "OutputBusMixer",
+            "options": [
+                {
+                    "name": "masterVolume",
+                    "value": 1
+                }
+            ]
+        }
+    ],
+    "preChain": [
+        {
+            "name": "GateLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -50
+                },
+                {
+                    "name": "attack",
+                    "value": 0.01
+                },
+                {
+                    "name": "release",
+                    "value": 0.218
+                },
+                {
+                    "name": "range",
+                    "value": 1.66571232806881
+                }
+            ]
+        },
+        {
+            "name": "CompressorLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -20
+                },
+                {
+                    "name": "attack",
+                    "value": 0.028
+                },
+                {
+                    "name": "release",
+                    "value": 0.047
+                },
+                {
+                    "name": "ratio",
+                    "value": 0.5
+                },
+                {
+                    "name": "makeup",
+                    "value": 12
+                }
+            ]
+        },
+        {
+            "name": "BandPassFilterLink",
+            "options": [
+                {
+                    "names": [
+                        "low",
+                        "high"
+                    ],
+                    "values": [
+                        40.73802778041129,
+                        20000.000000000004
+                    ]
+                }
+            ]
+        }
+    ],
+    "postChain": [
+        {
+            "name": "CompressorLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -10
+                },
+                {
+                    "name": "attack",
+                    "value": 0.01
+                },
+                {
+                    "name": "release",
+                    "value": 0.02
+                },
+                {
+                    "name": "ratio",
+                    "value": 0.5
+                },
+                {
+                    "name": "makeup",
+                    "value": 1.6
+                }
+            ]
+        },
+        {
+            "name": "ConvReverbLink",
+            "options": [
+                {
+                    "name": "irPath",
+                    "value": "/var/lib/jacktrip/impulses/IRs_090822/Reverb - Thickener.wav"
+                },
+                {
+                    "name": "mix",
+                    "value": 0.12
+                },
+                {
+                    "names": [
+                        "low",
+                        "high"
+                    ],
+                    "values": [
+                        112.2018454301963,
+                        8053.784411990669
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "EqualizerLink",
+            "options": [
+                {
+                    "name": "freq",
+                    "value": 6409.143566447763
+                },
+                {
+                    "name": "gain",
+                    "value": 2.4
+                },
+                {
+                    "name": "q",
+                    "value": 8.607955238694604
+                }
+            ]
+        },
+        {
+            "name": "LimiterLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -3
+                },
+                {
+                    "name": "attack",
+                    "value": 0.002
+                },
+                {
+                    "name": "release",
+                    "value": 0.008
+                },
+                {
+                    "name": "ratio",
+                    "value": 0.1
+                }
+            ]
+        }
+    ],
+    "sclang": "",
+    "useCustomCode": false,
+    "preset": null
+}
