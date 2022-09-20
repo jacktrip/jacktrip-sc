@@ -7,7 +7,7 @@
             "src": "irPath",
             "label": "Space",
             "type": "string",
-            "defaultVal": "/var/lib/jacktrip/impulses/IMreverbs/French 18th Century Salon.wav",
+            "defaultVal": "/var/lib/jacktrip/impulses/080422/Reverb - Royal Hall.wav",
             "field": {
                 "type": "dropdown",
                 "fieldOptions": {
@@ -15,6 +15,70 @@
                         {
                             "label": "[Bypass]",
                             "value": "Bypass"
+                        },
+                        {
+                            "label": "Reverb - Royal Hall",
+                            "value": "/var/lib/jacktrip/impulses/IRs_090822/Reverb - Royal Hall.wav"
+                        },
+                        {
+                            "label": "Reverb - Thickener",
+                            "value": "/var/lib/jacktrip/impulses/IRs_090822/Reverb - Thickener.wav"
+                        },
+                        {
+                            "label": "Reverb - Stage Hall",
+                            "value": "/var/lib/jacktrip/impulses/IRs_090822/Reverb - Stage Hall.wav"
+                        },
+                        {
+                            "label": "Reverb - Large Echo Cathedral",
+                            "value": "/var/lib/jacktrip/impulses/IRs_090822/Reverb - Large Echo Cathedral.wav"
+                        },
+                        {
+                            "label": "Reverb - Big And Bright",
+                            "value": "/var/lib/jacktrip/impulses/IRs_090822/Reverb - Big And Bright.wav"
+                        },
+                        {
+                            "label": "Plate - Scattered",
+                            "value": "/var/lib/jacktrip/impulses/IRs_090822/Plate - Scattered.wav"
+                        },
+                        {
+                            "label": "Plate - Diffuse",
+                            "value": "/var/lib/jacktrip/impulses/IRs_090822/Plate - Diffuse.wav"
+                        },
+                        {
+                            "label": "Room - Basement Rehearsal",
+                            "value": "/var/lib/jacktrip/impulses/IRs_090822/Room - Basement Rehearsal.wav"
+                        },
+                        {
+                            "label": "Room - Spaceous",
+                            "value": "/var/lib/jacktrip/impulses/IRs_090822/Room - Spaceous.wav"
+                        },
+                        {
+                            "label": "Room - Living Room",
+                            "value": "/var/lib/jacktrip/impulses/IRs_090822/Room - Living Room.wav"
+                        },
+                        {
+                            "label": "Room - Bright Walls",
+                            "value": "/var/lib/jacktrip/impulses/IRs_090822/Room - Bright Walls.wav"
+                        },
+                        {
+                            "label": "Room - Wide",
+                            "value": "/var/lib/jacktrip/impulses/IRs_090822/Room - Wide.wav"
+                        },
+                        {
+                            "label": "Echo - Slow And Clean",
+                            "value": "/var/lib/jacktrip/impulses/IRs_090822/Echo - Slow And Clean.wav"
+                        },
+                        {
+                            "label": "Echo - Fast And Clean",
+                            "value": "/var/lib/jacktrip/impulses/IRs_090822/Echo - Fast And Clean.wav"
+                        },
+                        {
+                            "label": "Echo - Vintage",
+                            "value": "/var/lib/jacktrip/impulses/IRs_090822/Echo - Vintage.wav"
+                        },
+                        {
+                            "label": "Echo - Space Filler",
+                            "value": "/var/lib/jacktrip/impulses/IRs_090822/Echo - Space Filler.wav"
                         },
                         {
                             "label": "Block Inside",
@@ -635,26 +699,26 @@
                     ]
                 }
             }
-        },        
+        },
         {
             "src": "mix",
             "label": "Dry/wet Balance",
             "type": "number",
-            "defaultVal": 0.1,
+            "defaultVal": 0.15,
             "field": {
                 "type": "slider",
                 "fieldOptions": {
                     "marks": [
                         {
-                            "value": 0.02,
-                            "label": "Dryer"
+                            "value": 0,
+                            "label": "Dry"
                         },
                         {
-                            "value": 0.5,
-                            "label": "Wetter"
+                            "value": 1,
+                            "label": "Wet"
                         }
                     ],
-                    "logarithmic": true,
+                    "logarithmic": false,
                     "min": 0,
                     "max": 1,
                     "step": 0.01,
@@ -667,11 +731,11 @@
                 "low",
                 "high"
             ],
-            "label": "Wet Filter",
+            "label": "Wet Filter (Bandpass EQ)",
             "type": "number",
             "defaultVal": [
-                300,
-                6000
+                180,
+                10000
             ],
             "field": {
                 "type": "range",
