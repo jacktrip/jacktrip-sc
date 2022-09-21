@@ -1,10 +1,12 @@
 {
     "label": "Limiter",
     "class": "LimiterLink",
+    "tooltip": "Example tooltip limiter with no comma"
     "options": [
         {
             "src": "thresh",
             "label": "Threshold (dB)",
+            "tooltip": "Example tooltip limiter THRESH with no comma"
             "type": "number",
             "defaultVal": -2,
             "field": {
