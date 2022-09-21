@@ -6,7 +6,6 @@
     "mixerConfigs": [
         {
             "name": "PersonalMixer",
-            "max": 30,
             "options": [
                 {
                     "name": "masterVolume",
@@ -20,6 +19,7 @@
         },
         {
             "name": "SelfVolumeMixer",
+            "max": 70,
             "options": [
                 {
                     "name": "masterVolume",

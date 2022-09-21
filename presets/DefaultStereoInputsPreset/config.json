@@ -19,6 +19,7 @@
         },
         {
             "name": "SelfVolumeMixer",
+            "max": 6,
             "options": [
                 {
                     "name": "masterVolume",
@@ -72,21 +73,6 @@
             ]
         },
         {
-            "name": "BandPassFilterLink",
-            "options": [
-                {
-                    "names": [
-                        "low",
-                        "high"
-                    ],
-                    "values": [
-                        25.04378691873344,
-                        19952.62314968879
-                    ]
-                }
-            ]
-        },
-        {
             "name": "CompressorLink",
             "options": [
                 {
@@ -110,26 +96,24 @@
                     "value": 12
                 }
             ]
-        },
+        }
+        ],
+    "postChain": [
         {
-            "name": "EqualizerLink",
+            "name": "BandPassFilterLink",
             "options": [
                 {
-                    "name": "freq",
-                    "value": 200.678109001819
-                },
-                {
-                    "name": "gain",
-                    "value": -2
-                },
-                {
-                    "name": "q",
-                    "value": 5.4050535370866895
+                    "names": [
+                        "low",
+                        "high"
+                    ],
+                    "values": [
+                        25.04378691873344,
+                        19952.62314968879
+                    ]
                 }
             ]
-        }
-    ],
-    "postChain": [
+        },
         {
             "name": "CompressorLink",
             "options": [

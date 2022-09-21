@@ -19,6 +19,7 @@
         },
         {
             "name": "SelfVolumeMixer",
+            "max": 8,
             "options": [
                 {
                     "name": "masterVolume",
@@ -72,31 +73,6 @@
             ]
         },
         {
-            "name": "CompressorLink",
-            "options": [
-                {
-                    "name": "thresh",
-                    "value": -24
-                },
-                {
-                    "name": "attack",
-                    "value": 0.023
-                },
-                {
-                    "name": "release",
-                    "value": 0.027
-                },
-                {
-                    "name": "ratio",
-                    "value": 0.5
-                },
-                {
-                    "name": "makeup",
-                    "value": 12
-                }
-            ]
-        },
-        {
             "name": "EqualizerLink",
             "options": [
                 {
@@ -110,21 +86,6 @@
                 {
                     "name": "q",
                     "value": 5.4050535370866895
-                }
-            ]
-        },
-        {
-            "name": "BandPassFilterLink",
-            "options": [
-                {
-                    "names": [
-                        "low",
-                        "high"
-                    ],
-                    "values": [
-                        75.30087105475894,
-                        19952.62314968879
-                    ]
                 }
             ]
         }
@@ -174,6 +135,21 @@
                     "values": [
                         97.72372209558107,
                         2042.2081263346354
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "BandPassFilterLink",
+            "options": [
+                {
+                    "names": [
+                        "low",
+                        "high"
+                    ],
+                    "values": [
+                        75.30087105475894,
+                        19952.62314968879
                     ]
                 }
             ]

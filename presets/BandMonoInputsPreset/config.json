@@ -19,6 +19,7 @@
         },
         {
             "name": "SelfVolumeMixer",
+            "max": 12,
             "options": [
                 {
                     "name": "masterVolume",
