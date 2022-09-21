@@ -5,10 +5,12 @@
         {
             "src": "thresh",
             "label": "Threshold (dB)",
+            "tooltip": "Jan's test tooltip limiter",
             "type": "number",
             "defaultVal": -2,
             "field": {
                 "type": "slider",
+                "tooltip": "jan's tooltip limiter SLIDER",
                 "fieldOptions": {
                     "marks": [
                         {
