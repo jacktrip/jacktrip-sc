@@ -1,12 +1,10 @@
 {
   "label": "Metronome",
   "class": "MetronomeLink",
-  "tooltip": "Example tooltip metronome without comma"
   "options": [
       {
           "src": "bpm",
           "label": "BPM",
-          "tooltip": "Example tooltip metronome BPM without comma"
           "type": "number",
           "defaultVal": 90,
           "field": {
