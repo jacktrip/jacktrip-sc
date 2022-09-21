@@ -1,10 +1,12 @@
 {
     "label": "Noise Gate",
     "class": "GateLink",
+    "tooltip": "Reduces unwanted noise/hum in your signal when you're not playing.",
     "options": [
         {
             "src": "thresh",
             "label": "Threshold (dB)",
+            "tooltip": "Whenever your signal falls below this threshold, it gets even quieter to suppress the unwanted noise, since you're not playing. Make sure that, whenever you play or talk, you're louder than this threshold. That way, the noise gate allows the desired audio to pass through unaltered.",
             "type": "number",
             "defaultVal": -65,
             "field": {
@@ -35,6 +37,7 @@
         {
             "src": "attack",
             "label": "Attack (ms)",
+            "tooltip": "Determines how quickly the noise gate opens back up after noise suppression (once it's louder than the threshold again). A relatively small value is recommended for most instruments and voice, since consonants and attack transients might be cut off as the gate doesn't open back up fast enough.",
             "type": "number",
             "defaultVal": 0.010,
             "field": {
@@ -65,6 +68,7 @@
         {
             "src": "release",
             "label": "Release (ms)",
+            "tooltip": "Time it takes the noise gate to reach its maximum suppression after the signal falls below the threshold. The smaller the value, the faster and more aggressively the noise gate reacts.",
             "type": "number",
             "defaultVal": 0.4,
             "field": {
@@ -95,6 +99,7 @@
         {
             "src": "range",
             "label": "Range",
+            "tooltip": "Determines the amount of noise suppression. Note that this parameter also affects the slope of the reduction (how smooth/fast the reduction happens). The higher you set this, the faster and dramatic the effect.",
             "type": "number",
             "defaultVal": 1.5,
             "field": {

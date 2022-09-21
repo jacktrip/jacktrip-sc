@@ -1,11 +1,13 @@
 {
     "label": "FreeVerb",
     "class": "FreeVerbLink",
+    "tooltip": "A simple reverb with customizable room size. (Mono)",
     "disallowPreChain": true,
     "options": [
         {
             "src": "mix",
             "label": "Dry/wet Balance",
+            "tooltip": "Set the amount of reverb you want to apply. Dry (0%) means no reverb at all, where Wet (100%) is essentially reverb only.",
             "type": "number",
             "defaultVal": 0.33,
             "field": {
@@ -32,6 +34,7 @@
         {
             "src": "room",
             "label": "Room Size",
+            "tooltip": "Change the size of the simulated acoustics here. Larger rooms tend to have a longer decay time.",
             "type": "number",
             "defaultVal": 0.5,
             "field": {
@@ -58,6 +61,7 @@
         {
             "src": "damp",
             "label": "Damping",
+            "tooltip": "Sets the amount of high-frequency damping over time. As in the real world, the different materials in a room absorb frequencies differently, making this a rather aesthetic decision. More damping creates a 'darker' reverb sound.",
             "type": "number",
             "defaultVal": 0.5,
             "field": {

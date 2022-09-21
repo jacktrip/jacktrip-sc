@@ -1,10 +1,12 @@
 {
     "label": "Volume",
     "class": "MultiplyLink",
+    "tooltip": "A simple volume slider to make you signal louder or quieter.",
     "options": [
         {
             "src": "factor",
             "label": "Volume",
+            "tooltip": "Allows you to increase or decrease the volume between 0% and 300%.",
             "type": "number",
             "defaultVal": 1,
             "field": {

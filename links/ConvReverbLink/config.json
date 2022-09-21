@@ -1,11 +1,13 @@
 {
     "label": "Convolution Reverb",
     "class": "ConvReverbLink",
+    "tooltip": "An advanced reverb, allowing you to choose from a list of high-quality measurements of real-world spaces and gear.",
     "disallowPreChain": true,
     "options": [
         {
             "src": "irPath",
             "label": "Space",
+            "tooltip": "Choose between a variety of high-quality reverbs, rooms, and echoes from the menu. We put our favorite reverbs on the very top of the menu for you.",
             "type": "string",
             "defaultVal": "/var/lib/jacktrip/impulses/080422/Reverb - Royal Hall.wav",
             "field": {
@@ -703,6 +705,7 @@
         {
             "src": "mix",
             "label": "Dry/wet Balance",
+            "tooltip": "Set the amount of reverb you want to apply. Dry (0%) means no reverb at all, where Wet (100%) adds the maximum amount of reverb.",
             "type": "number",
             "defaultVal": 0.15,
             "field": {
@@ -732,6 +735,7 @@
                 "high"
             ],
             "label": "Wet Filter (Bandpass EQ)",
+            "tooltip": "Cut off high and low frequencies of the reverb, allowing only a specific frequency band to pass through. Note that this does not affect the dry audio portion but solely the reverb effect itself.",
             "type": "number",
             "defaultVal": [
                 180,

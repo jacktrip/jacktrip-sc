@@ -1,10 +1,12 @@
 {
   "label": "Metronome",
   "class": "MetronomeLink",
+  "tooltip": "Generates a pulse at a specific tempo.",
   "options": [
       {
           "src": "bpm",
           "label": "BPM",
+          "tooltip": "Set the tempo for the metronome in BPM (Beats Per Minute).",
           "type": "number",
           "defaultVal": 90,
           "field": {
@@ -35,8 +37,9 @@
       {
         "src": "vol",
         "label": "Volume",
+        "tooltip": "Set the volume of the metronome.",
         "type": "number",
-        "defaultVal": 0.25,
+        "defaultVal": 0.1,
         "field": {
           "type": "slider",
           "fieldOptions": {

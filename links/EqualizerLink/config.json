@@ -1,10 +1,12 @@
 {
     "label": "Equalizer",
     "class": "EqualizerLink",
+    "tooltip": "A simple 1-band equalizer to help you either boost a frequency region or cut certain frequencies out.",
     "options": [
         {
             "src": "freq",
             "label": "Frequency (Hz)",
+            "tooltip": "Select the center frequency of the band you'd like to boost or cut.",
             "type": "number",
             "defaultVal": 300,
             "field": {
@@ -34,6 +36,7 @@
         {
             "src": "gain",
             "label": "Gain (dB)",
+            "tooltip": "The amount of decibels by which you would like to increase (move slider to the right) or decrease (move slider to the left) your frequency band.",
             "type": "number",
             "defaultVal": 0,
             "field": {
@@ -62,7 +65,8 @@
         },
         {
             "src": "q",
-            "label": "Q Shape",
+            "label": "Band width",
+            "tooltip": "Determines the Q shape of your bell curve, which represents the width of your frequency band. E.g., if you would like to cut out a resonance, we recommend a narrow band. If you would like to generally boost a frequency region, a wider shape is recommended.",
             "type": "number",
             "defaultVal": 1,
             "field": {

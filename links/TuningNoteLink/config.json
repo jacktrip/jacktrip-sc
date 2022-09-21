@@ -1,10 +1,12 @@
 {
   "label": "Tuning Note",
   "class": "TuningNoteLink",
+  "tooltip": "Plays a frequency to help you tune your instrument to any musical note.",
   "options": [
       {
           "src": "freq",
           "label": "Frequency",
+          "tooltip": "Choose a musical note with its correspondent frequency on the equal-tempered scale.",
           "type": "number",
           "defaultVal": 440,
           "field": {
@@ -86,6 +88,7 @@
       {
           "src": "vol",
           "label": "Volume",
+          "tooltip": "Adjust the volume of the tuning tone.",
           "type": "number",
           "defaultVal": 0.10,
           "field": {

@@ -1,16 +1,16 @@
 {
     "label": "Limiter",
     "class": "LimiterLink",
+    "tooltip": "Prevents clipping by heavily compressing the audio signal once it gets louder than the threshold. Use carefully.",
     "options": [
         {
             "src": "thresh",
             "label": "Threshold (dB)",
-            "tooltip": "Jan's test tooltip limiter",
+            "tooltip": "Starts limiting whenever the audio signal gets louder than this threshold. The lower you set it, the more you will hear it compress (and potentially distort) your signal.",
             "type": "number",
             "defaultVal": -2,
             "field": {
                 "type": "slider",
-                "tooltip": "jan's tooltip limiter SLIDER",
                 "fieldOptions": {
                     "marks": [
                         {
@@ -37,6 +37,7 @@
         {
             "src": "attack",
             "label": "Attack (ms)",
+            "tooltip": "Determines how long (in milliseconds) it takes this limiter to fully kick in. Larger values allow more signal peaks to pass through.",
             "type": "number",
             "defaultVal": 0.002,
             "field": {
@@ -67,6 +68,7 @@
         {
             "src": "release",
             "label": "Release (ms)",
+            "tooltip": "After loud parts of the signal have been limited, this value determines how long it takes the limiter to fully stop its compression and allow the audio to pass through unaltered again.",
             "type": "number",
             "defaultVal": 0.01,
             "field": {
@@ -97,6 +99,7 @@
         {
             "src": "ratio",
             "label": "Ratio",
+            "tooltip": "Once your signal gets louder than the threshold, it gets compressed by this ratio. E.g., if your signal was 10dB louder than the threshold, a 10:1 ratio would result in the signal only being 1dB louder than the threshold.",
             "type": "number",
             "defaultVal": 0.1,
             "field": {
