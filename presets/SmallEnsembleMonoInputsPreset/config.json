@@ -115,7 +115,9 @@
                     "value": 12
                 }
             ]
-        },
+        }
+    ],
+    "postChain": [
         {
             "name": "BandPassFilterLink",
             "options": [
@@ -130,9 +132,7 @@
                     ]
                 }
             ]
-        }
-    ],
-    "postChain": [
+        },
         {
             "name": "CompressorLink",
             "options": [

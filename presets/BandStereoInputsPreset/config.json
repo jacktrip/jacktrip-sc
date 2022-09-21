@@ -73,21 +73,6 @@
             ]
         },
         {
-            "name": "BandPassFilterLink",
-            "options": [
-                {
-                    "names": [
-                        "low",
-                        "high"
-                    ],
-                    "values": [
-                        33.643409364322984,
-                        19952.62314968879
-                    ]
-                }
-            ]
-        },
-        {
             "name": "CompressorLink",
             "options": [
                 {
@@ -131,6 +116,21 @@
         }
     ],
     "postChain": [
+        {
+            "name": "BandPassFilterLink",
+            "options": [
+                {
+                    "names": [
+                        "low",
+                        "high"
+                    ],
+                    "values": [
+                        33.643409364322984,
+                        19952.62314968879
+                    ]
+                }
+            ]
+        },
         {
             "name": "CompressorLink",
             "options": [
