@@ -146,7 +146,7 @@ BaseMixer : Object {
             SynthDef("PlaySampleFromBuffer", {
                 arg buffer=0;
                 var snd;
-                ~allChannels = Array.fill(~maxClients, { |n| n * 2; });
+                ~allChannels = Array.fill(~maxClients-1, { |n| n * 2; });
                 snd = MulAdd(PlayBuf.ar(2, b, BufRateScale.kr(b), doneAction: Done.freeSelf), msg[2], 0);
                 Out.ar(~allChannels, snd);
             }).play(server, [\buffer, b]);
