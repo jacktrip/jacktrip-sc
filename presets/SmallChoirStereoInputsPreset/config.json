@@ -1,7 +1,7 @@
 {
-    "id": "large-choir-stereo",
-    "label": "Large Choir (Stereo inputs)",
-    "tooltip": "Long reverb to enhance harmonies. Stronger noise gate. (Stereo inputs)",
+    "id": "small-choir-stereo",
+    "label": "Small Choir (Stereo inputs)",
+    "tooltip": "Great for up to 8 singers. Long reverb to enhance harmonies. Stronger noise gate. (Stereo inputs)",
     "mixer": "SelfVolumeMixer",
     "mixerConfigs": [
         {

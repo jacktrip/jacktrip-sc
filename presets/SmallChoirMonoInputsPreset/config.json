@@ -1,7 +1,7 @@
 {
     "id": "small-choir-mono",
-    "label": "Large Choir (Mono inputs)",
-    "tooltip": "Long reverb to enhance harmonies. Stronger noise gate. (Mono inputs)",
+    "label": "Small Choir (Mono inputs)",
+    "tooltip": "Great for up to 8 singers. Long reverb to enhance harmonies. Stronger noise gate. (Mono inputs)",
     "mixer": "SelfVolumeMixer",
     "mixerConfigs": [
         {
