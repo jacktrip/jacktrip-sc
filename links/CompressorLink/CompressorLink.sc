@@ -44,7 +44,7 @@ CompressorLink : Link {
             relaxTime:  \compressor_release.kr(release),        // time (in seconds) before compression is fully removed
             slopeBelow: 1,                                      // range if gate; otherwise, 1
             slopeAbove: \compressor_ratio.kr(ratio),            // ratio if compression; otherwise, 1
-            makeup:     \compressor_makeup.kr(makeup)           // gain in dB to simply increase volume
+            mul:        \compressor_makeup.kr(makeup)           // multiplier to gain output volume
         );
         ^signal
     }
