@@ -32,7 +32,7 @@ CompressorLink : Link {
     var<> ratio;
     var<> makeup;
 
-    *new { | thresh = -10, attack = 0.01, release = 0.02, ratio = 0.5, makeup = 0 |
+    *new { | thresh = -10, attack = 0.01, release = 0.02, ratio = 0.5, makeup = 1.0 |
 		^super.new().thresh_(thresh).attack_(attack).release_(release).ratio_(ratio).makeup_(makeup);
     }
 
