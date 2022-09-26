@@ -19,7 +19,7 @@
         },
         {
             "name": "SelfVolumeMixer",
-            "max": 6,
+            "max": 10,
             "options": [
                 {
                     "name": "masterVolume",
@@ -42,6 +42,7 @@
         },
         {
             "name": "OutputBusMixer",
+            "max": 10,
             "options": [
                 {
                     "name": "masterVolume",
