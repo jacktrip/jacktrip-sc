@@ -76,6 +76,23 @@
     ],
     "postChain": [
         {
+            "name": "FreeVerb2Link",
+            "options": [
+                {
+                    "name": "mix",
+                    "value": 0.030157823836531962
+                },
+                {
+                    "name": "room",
+                    "value": 0.7
+                },
+                {
+                    "name": "damp",
+                    "value": 0.73
+                }
+            ]
+        },
+        {
             "name": "LimiterLink",
             "options": [
                 {
@@ -93,23 +110,6 @@
                 {
                     "name": "ratio",
                     "value": 0.1
-                }
-            ]
-        },
-        {
-            "name": "FreeVerb2Link",
-            "options": [
-                {
-                    "name": "mix",
-                    "value": 0.030157823836531962
-                },
-                {
-                    "name": "room",
-                    "value": 0.7
-                },
-                {
-                    "name": "damp",
-                    "value": 0.73
                 }
             ]
         }
