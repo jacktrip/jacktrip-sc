@@ -91,23 +91,6 @@
                     "value": 6
                 }
             ]
-        },
-        {
-            "name": "EqualizerLink",
-            "options": [
-                {
-                    "name": "freq",
-                    "value": 200.678109001819
-                },
-                {
-                    "name": "gain",
-                    "value": -2
-                },
-                {
-                    "name": "q",
-                    "value": 5.4050535370866895
-                }
-            ]
         }
     ],
     "postChain": [
