@@ -91,33 +91,8 @@
                     "value": 1.6626467968935361
                 }
             ]
-        },
-        {
-            "name": "CompressorLink",
-            "options": [
-                {
-                    "name": "thresh",
-                    "value": -20
-                },
-                {
-                    "name": "attack",
-                    "value": 0.023
-                },
-                {
-                    "name": "release",
-                    "value": 0.027
-                },
-                {
-                    "name": "ratio",
-                    "value": 0.5
-                },
-                {
-                    "name": "makeup",
-                    "value": 1.2
-                }
-            ]
         }
-  	  ],
+    ],
     "postChain": [
         {
             "name": "BandPassFilterLink",
