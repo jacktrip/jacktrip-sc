@@ -72,31 +72,6 @@
                     "value": 1.66571232806881
                 }
             ]
-        },
-        {
-            "name": "CompressorLink",
-            "options": [
-                {
-                    "name": "thresh",
-                    "value": -20
-                },
-                {
-                    "name": "attack",
-                    "value": 0.028
-                },
-                {
-                    "name": "release",
-                    "value": 0.047
-                },
-                {
-                    "name": "ratio",
-                    "value": 0.5
-                },
-                {
-                    "name": "makeup",
-                    "value": 1.2
-                }
-            ]
         }
     ],
     "postChain": [
