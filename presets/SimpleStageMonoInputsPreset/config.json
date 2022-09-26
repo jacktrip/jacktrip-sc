@@ -1,7 +1,7 @@
 {
-    "id": "clean-rehearsal-room-mono",
-    "label": "Clean Rehearsal Room (Mono inputs)",
-    "tooltip": "Simple and clean preset, that might just be enough for your next rehearsal. (Mono inputs)",
+    "id": "simple-stage-mono",
+    "label": "Simple Stage (Mono inputs)",
+    "tooltip": "Simple and clean room, which might just be enough for your next rehearsal. (Mono inputs)",
     "mixer": "SelfVolumeMixer",
     "mixerConfigs": [
         {

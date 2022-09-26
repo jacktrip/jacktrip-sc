@@ -1,7 +1,7 @@
 {
-    "id": "clean-rehearsal-room-stereo",
-    "label": "Clean Rehearsal Room (Stereo inputs)",
-    "tooltip": "Simple and clean preset, that might just be enough for your next rehearsal. (Stereo inputs)",
+    "id": "simple-stage-stereo",
+    "label": "Simple Stage (Stereo inputs)",
+    "tooltip": "Simple and clean room, which might just be enough for your next rehearsal. (Stereo inputs)",
     "mixer": "SelfVolumeMixer",
     "mixerConfigs": [
         {
