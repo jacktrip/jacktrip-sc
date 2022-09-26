@@ -1,6 +1,6 @@
 {
-    "id": "small-ensemble-stereo",
-    "label": "Small Ensemble (Stereo inputs)",
+    "id": "ensemble-stereo",
+    "label": "Ensemble (Stereo inputs)",
     "tooltip": "Set the stage for a natural, aesthetic sound for your acoustic ensemble. (Stereo inputs)",
     "mixer": "SelfVolumeMixer",
     "mixerConfigs": [
@@ -19,7 +19,7 @@
         },
         {
             "name": "SelfVolumeMixer",
-            "max": 14,
+            "max": 480,
             "options": [
                 {
                     "name": "masterVolume",
@@ -42,6 +42,7 @@
         },
         {
             "name": "OutputBusMixer",
+            "max": 480,
             "options": [
                 {
                     "name": "masterVolume",

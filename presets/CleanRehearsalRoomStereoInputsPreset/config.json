@@ -1,7 +1,7 @@
 {
-    "id": "ensemble-mono",
-    "label": "Ensemble (Mono inputs)",
-    "tooltip": "Set the stage for a natural, aesthetic sound for your acoustic ensemble. (Mono inputs)",
+    "id": "clean-rehearsal-room-stereo",
+    "label": "Clean Rehearsal Room (Stereo inputs)",
+    "tooltip": "Simple and clean preset, that might just be enough for your next rehearsal. (Stereo inputs)",
     "mixer": "SelfVolumeMixer",
     "mixerConfigs": [
         {
@@ -53,11 +53,11 @@
     ],
     "preChain": [
         {
-            "name": "CirclePanLink",
+            "name": "PanningLink",
             "options": [
                 {
                     "name": "panSlots",
-                    "value": 6
+                    "value": 9
                 },
                 {
                     "names": [
@@ -65,8 +65,8 @@
                         "right"
                     ],
                     "values": [
-                        -0.3,
-                        0.3
+                        -0.5,
+                        0.5
                     ]
                 }
             ]
@@ -76,7 +76,7 @@
             "options": [
                 {
                     "name": "thresh",
-                    "value": -50
+                    "value": -47
                 },
                 {
                     "name": "attack",
@@ -84,83 +84,26 @@
                 },
                 {
                     "name": "release",
-                    "value": 0.218
+                    "value": 0.356
                 },
                 {
                     "name": "range",
-                    "value": 1.66571232806881
+                    "value": 1.6626467968935361
                 }
             ]
         }
     ],
     "postChain": [
         {
-            "name": "BandPassFilterLink",
-            "options": [
-                {
-                    "names": [
-                        "low",
-                        "high"
-                    ],
-                    "values": [
-                        40.73802778041129,
-                        20000.000000000004
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "CompressorLink",
-            "options": [
-                {
-                    "name": "thresh",
-                    "value": -12
-                },
-                {
-                    "name": "attack",
-                    "value": 0.02
-                },
-                {
-                    "name": "release",
-                    "value": 0.02
-                },
-                {
-                    "name": "ratio",
-                    "value": 0.5
-                },
-                {
-                    "name": "makeup",
-                    "value": 1.4
-                }
-            ]
-        },
-        {
-            "name": "FreeVerb2Link",
-            "options": [
-                {
-                    "name": "mix",
-                    "value": 0.049693547378030695
-                },
-                {
-                    "name": "room",
-                    "value": 0.79
-                },
-                {
-                    "name": "damp",
-                    "value": 0.69
-                }
-            ]
-        },
-        {
             "name": "LimiterLink",
             "options": [
                 {
                     "name": "thresh",
-                    "value": -3
+                    "value": -5
                 },
                 {
                     "name": "attack",
-                    "value": 0.002
+                    "value": 0.006
                 },
                 {
                     "name": "release",
@@ -169,6 +112,23 @@
                 {
                     "name": "ratio",
                     "value": 0.1
+                }
+            ]
+        },
+        {
+            "name": "FreeVerb2Link",
+            "options": [
+                {
+                    "name": "mix",
+                    "value": 0.030157823836531962
+                },
+                {
+                    "name": "room",
+                    "value": 0.7
+                },
+                {
+                    "name": "damp",
+                    "value": 0.73
                 }
             ]
         }
