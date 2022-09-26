@@ -53,25 +53,6 @@
     ],
     "preChain": [
         {
-            "name": "PanningLink",
-            "options": [
-                {
-                    "name": "panSlots",
-                    "value": 9
-                },
-                {
-                    "names": [
-                        "left",
-                        "right"
-                    ],
-                    "values": [
-                        -0.5,
-                        0.5
-                    ]
-                }
-            ]
-        },
-        {
             "name": "GateLink",
             "options": [
                 {
