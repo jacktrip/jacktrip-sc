@@ -5,19 +5,6 @@
     "mixer": "SelfVolumeMixer",
     "mixerConfigs": [
         {
-            "name": "PersonalMixer",
-            "options": [
-                {
-                    "name": "masterVolume",
-                    "value": 1
-                },
-                {
-                    "name": "selfVolume",
-                    "value": 0.5
-                }
-            ]
-        },
-        {
             "name": "SelfVolumeMixer",
             "max": 10,
             "options": [
@@ -28,25 +15,6 @@
                 {
                     "name": "selfVolume",
                     "value": 0.5
-                }
-            ]
-        },
-        {
-            "name": "SimpleMixer",
-            "options": [
-                {
-                    "name": "masterVolume",
-                    "value": 1
-                }
-            ]
-        },
-        {
-            "name": "OutputBusMixer",
-            "max": 10,
-            "options": [
-                {
-                    "name": "masterVolume",
-                    "value": 1
                 }
             ]
         }
