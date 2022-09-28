@@ -1,0 +1,151 @@
+{
+    "id": "default-stereo",
+    "label": "Default (Stereo inputs)",
+    "tooltip": "A true all-rounder. (Stereo inputs)",
+    "mixer": "SelfVolumeMixer",
+    "mixerConfigs": [
+        {
+            "name": "SelfVolumeMixer",
+            "max": 10,
+            "options": [
+                {
+                    "name": "masterVolume",
+                    "value": 1.5
+                },
+                {
+                    "name": "selfVolume",
+                    "value": 0.5
+                }
+            ]
+        }
+    ],
+    "preChain": [
+        {
+            "name": "GateLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -40
+                },
+                {
+                    "name": "attack",
+                    "value": 0.01
+                },
+                {
+                    "name": "release",
+                    "value": 0.356
+                },
+                {
+                    "name": "range",
+                    "value": 1.6626467968935361
+                }
+            ]
+        }
+    ],
+    "postChain": [
+        {
+            "name": "BandPassFilterLink",
+            "options": [
+                {
+                    "names": [
+                        "low",
+                        "high"
+                    ],
+                    "values": [
+                        25.04378691873344,
+                        19952.62314968879
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "CompressorLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -10
+                },
+                {
+                    "name": "attack",
+                    "value": 0.01
+                },
+                {
+                    "name": "release",
+                    "value": 0.02
+                },
+                {
+                    "name": "ratio",
+                    "value": 0.5
+                },
+                {
+                    "name": "makeup",
+                    "value": 1.4
+                }
+            ]
+        },
+        {
+            "name": "ConvReverbLink",
+            "options": [
+                {
+                    "name": "irPath",
+                    "value": "/var/lib/jacktrip/impulses/IRs_090822/Reverb - Royal Hall.wav"
+                },
+                {
+                    "name": "mix",
+                    "value": 0.03
+                },
+                {
+                    "names": [
+                        "low",
+                        "high"
+                    ],
+                    "values": [
+                        98.94640051300763,
+                        4466.835921509631
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "EqualizerLink",
+            "options": [
+                {
+                    "name": "freq",
+                    "value": 6409.143566447763
+                },
+                {
+                    "name": "gain",
+                    "value": 2.4
+                },
+                {
+                    "name": "q",
+                    "value": 8.607955238694604
+                }
+            ]
+        },
+        {
+            "name": "LimiterLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -3
+                },
+                {
+                    "name": "attack",
+                    "value": 0.002
+                },
+                {
+                    "name": "release",
+                    "value": 0.008
+                },
+                {
+                    "name": "ratio",
+                    "value": 0.1
+                }
+            ]
+        }
+    ],
+    "sclang": "",
+    "useCustomCode": false,
+    "preset": null
+}

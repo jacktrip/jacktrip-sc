@@ -1,11 +1,13 @@
 {
     "label": "Spherical Pan",
     "class": "SpherePanLink",
+    "tooltip": "Positions each musician in a fully spatially surrounding sphere. Note that incoming stereo signals will be summed to mono before panning applies.",
     "disallowPostChain": true,
     "options": [
         {
             "src": "panSlots",
             "label": "Auto Pan Slots",
+            "tooltip": "Set the number of different spatial position slots available around you, one of which will then automatically be assigned to each participating musician. Once the maximum is reached, new musicians will be re-assigned to existing positions, starting at 1 again.",
             "type": "number",
             "defaultVal": 6,
             "field": {
@@ -102,6 +104,7 @@
                 "right"
             ],
             "label": "Auto Pan Range",
+            "tooltip": "Choose the spatial range of your virtual seats. Since this is fully spherical panning, each musician will be positioned at a different angle and height around you, based on the range you select.",
             "type": "number",
             "defaultVal": [
                 -0.75,

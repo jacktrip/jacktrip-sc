@@ -1,0 +1,75 @@
+{
+    "id": "dry-room-mono",
+    "label": "Dry Room (Mono inputs)",
+    "tooltip": "Nothing fancy here, just a room for you to connect with many people! (Mono inputs)",
+    "mixer": "SelfVolumeMixer",
+    "mixerConfigs": [
+        {
+            "name": "SelfVolumeMixer",
+            "max": 110,
+            "options": [
+                {
+                    "name": "masterVolume",
+                    "value": 1.5
+                },
+                {
+                    "name": "selfVolume",
+                    "value": 0.5
+                }
+            ]
+        },
+        {
+            "name": "OutputBusMixer",
+            "max": 170,
+            "options": [
+                {
+                    "name": "masterVolume",
+                    "value": 1
+                }
+            ]
+        }
+    ],
+    "preChain": [
+        {
+            "name": "PanningLink",
+            "options": [
+                {
+                    "name": "panSlots",
+                    "value": 9
+                },
+                {
+                    "names": [
+                        "left",
+                        "right"
+                    ],
+                    "values": [
+                        -0.75,
+                        0.75
+                    ]
+                }
+            ]
+        }
+    ],
+    "postChain": [
+        {
+            "name": "FreeVerb2Link",
+            "options": [
+                {
+                    "name": "mix",
+                    "value": 0.015
+                },
+                {
+                    "name": "room",
+                    "value": 0.36
+                },
+                {
+                    "name": "damp",
+                    "value": 0.88
+                }
+            ]
+        }
+    ],
+    "sclang": "",
+    "useCustomCode": false,
+    "preset": null
+}

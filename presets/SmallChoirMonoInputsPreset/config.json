@@ -1,0 +1,170 @@
+{
+    "id": "small-choir-mono",
+    "label": "Small Choir (Mono inputs)",
+    "tooltip": "Great for up to 8 singers. Long reverb to enhance harmonies. Stronger noise gate. (Mono inputs)",
+    "mixer": "SelfVolumeMixer",
+    "mixerConfigs": [
+        {
+            "name": "SelfVolumeMixer",
+            "max": 10,
+            "options": [
+                {
+                    "name": "masterVolume",
+                    "value": 1.5
+                },
+                {
+                    "name": "selfVolume",
+                    "value": 0.5
+                }
+            ]
+        }
+    ],
+    "preChain": [
+        {
+            "name": "CirclePanLink",
+            "options": [
+                {
+                    "name": "panSlots",
+                    "value": 16
+                },
+                {
+                    "names": [
+                        "left",
+                        "right"
+                    ],
+                    "values": [
+                        -1,
+                        1
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "GateLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -48
+                },
+                {
+                    "name": "attack",
+                    "value": 0.071
+                },
+                {
+                    "name": "release",
+                    "value": 0.662
+                },
+                {
+                    "name": "range",
+                    "value": 6
+                }
+            ]
+        }
+    ],
+    "postChain": [
+        {
+            "name": "BandPassFilterLink",
+            "options": [
+                {
+                    "names": [
+                        "low",
+                        "high"
+                    ],
+                    "values": [
+                        75.30087105475894,
+                        19952.62314968879
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "CompressorLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -14
+                },
+                {
+                    "name": "attack",
+                    "value": 0.01
+                },
+                {
+                    "name": "release",
+                    "value": 0.02
+                },
+                {
+                    "name": "ratio",
+                    "value": 0.5
+                },
+                {
+                    "name": "makeup",
+                    "value": 1.4
+                }
+            ]
+        },
+        {
+            "name": "ConvReverbLink",
+            "options": [
+                {
+                    "name": "irPath",
+                    "value": "/var/lib/jacktrip/impulses/IRs_090822/Plate - Scattered.wav"
+                },
+                {
+                    "name": "mix",
+                    "value": 0.2
+                },
+                {
+                    "names": [
+                        "low",
+                        "high"
+                    ],
+                    "values": [
+                        97.72372209558107,
+                        2042.2081263346354
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "EqualizerLink",
+            "options": [
+                {
+                    "name": "freq",
+                    "value": 6409.143566447763
+                },
+                {
+                    "name": "gain",
+                    "value": 2.4
+                },
+                {
+                    "name": "q",
+                    "value": 8.607955238694604
+                }
+            ]
+        },
+        {
+            "name": "LimiterLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -4
+                },
+                {
+                    "name": "attack",
+                    "value": 0.002
+                },
+                {
+                    "name": "release",
+                    "value": 0.008
+                },
+                {
+                    "name": "ratio",
+                    "value": 0.1
+                }
+            ]
+        }
+    ],
+    "sclang": "",
+    "useCustomCode": false,
+    "preset": null
+}

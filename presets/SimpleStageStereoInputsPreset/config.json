@@ -1,0 +1,98 @@
+{
+    "id": "simple-stage-stereo",
+    "label": "Simple Stage (Stereo inputs)",
+    "tooltip": "Simple and clean room, which might just be enough for your next rehearsal. (Stereo inputs)",
+    "mixer": "SelfVolumeMixer",
+    "mixerConfigs": [
+        {
+            "name": "SelfVolumeMixer",
+            "max": 90,
+            "options": [
+                {
+                    "name": "masterVolume",
+                    "value": 1.5
+                },
+                {
+                    "name": "selfVolume",
+                    "value": 0.5
+                }
+            ]
+        },
+        {
+            "name": "OutputBusMixer",
+            "max": 130,
+            "options": [
+                {
+                    "name": "masterVolume",
+                    "value": 1
+                }
+            ]
+        }
+    ],
+    "preChain": [
+        {
+            "name": "GateLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -47
+                },
+                {
+                    "name": "attack",
+                    "value": 0.01
+                },
+                {
+                    "name": "release",
+                    "value": 0.356
+                },
+                {
+                    "name": "range",
+                    "value": 1.6626467968935361
+                }
+            ]
+        }
+    ],
+    "postChain": [
+        {
+            "name": "FreeVerb2Link",
+            "options": [
+                {
+                    "name": "mix",
+                    "value": 0.030157823836531962
+                },
+                {
+                    "name": "room",
+                    "value": 0.7
+                },
+                {
+                    "name": "damp",
+                    "value": 0.73
+                }
+            ]
+        },
+        {
+            "name": "LimiterLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -5
+                },
+                {
+                    "name": "attack",
+                    "value": 0.006
+                },
+                {
+                    "name": "release",
+                    "value": 0.008
+                },
+                {
+                    "name": "ratio",
+                    "value": 0.1
+                }
+            ]
+        }
+    ],
+    "sclang": "",
+    "useCustomCode": false,
+    "preset": null
+}
