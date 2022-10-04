@@ -1,5 +1,5 @@
 {
-    "id": "default-mono",
+    "id": "default-mix",
     "label": "Default (Mono inputs)",
     "tooltip": "A true all-rounder. (Mono inputs)",
     "mixer": "SelfVolumeMixer",
