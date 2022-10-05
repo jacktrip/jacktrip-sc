@@ -1,7 +1,7 @@
 {
-    "id": "simple-stage-stereo",
-    "label": "Simple Stage (Stereo inputs)",
-    "tooltip": "Simple and clean room, which might just be enough for your next rehearsal. (Stereo inputs)",
+    "id": "simple-stage",
+    "label": "Simple Stage",
+    "tooltip": "Simple and clean room, which might just be enough for your next rehearsal. (If all participants are sending stereo signals, try removing the Pan link)",
     "mixer": "SelfVolumeMixer",
     "mixerConfigs": [
         {
@@ -30,6 +30,25 @@
         }
     ],
     "preChain": [
+        {
+            "name": "PanningLink",
+            "options": [
+                {
+                    "name": "panSlots",
+                    "value": 9
+                },
+                {
+                    "names": [
+                        "left",
+                        "right"
+                    ],
+                    "values": [
+                        -0.5,
+                        0.5
+                    ]
+                }
+            ]
+        },
         {
             "name": "GateLink",
             "options": [

@@ -1,7 +1,7 @@
 {
-    "id": "default-stereo",
-    "label": "Default (Stereo inputs)",
-    "tooltip": "A true all-rounder. (Stereo inputs)",
+    "id": "default-mix",
+    "label": "Default",
+    "tooltip": "A true all-rounder. (If all participants are sending stereo signals, try removing the Circular Pan link)",
     "mixer": "SelfVolumeMixer",
     "mixerConfigs": [
         {
@@ -20,6 +20,25 @@
         }
     ],
     "preChain": [
+        {
+            "name": "CirclePanLink",
+            "options": [
+                {
+                    "name": "panSlots",
+                    "value": 10
+                },
+                {
+                    "names": [
+                        "left",
+                        "right"
+                    ],
+                    "values": [
+                        -0.3,
+                        0.3
+                    ]
+                }
+            ]
+        },
         {
             "name": "GateLink",
             "options": [
