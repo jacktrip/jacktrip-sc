@@ -1,13 +1,13 @@
 {
     "label": "Pan",
     "class": "PanningLink",
-    "tooltip": "Positions each musician in a simple stereo field. Note that incoming stereo signals will be summed to mono before panning applies.",
+    "tooltip": "Positions each musician in a simple stereo field. Note that incoming stereo signals will be summed to mono before panning applies. If all participants are sending stereo signals, try removing this link.",
     "disallowPostChain": true,
     "options": [
         {
             "src": "panSlots",
             "label": "Auto Pan Slots",
-            "tooltip": "Set the number of different spatial positions, one of which will then automatically be assigned to each participating musician. Once the maximum is reached, new musicians will be re-assigned to existing positions, starting at 1 again.",
+            "tooltip": "Set the number of different panning positions, one of which will then automatically be assigned to each participating musician. Once the maximum is reached, new musicians will be re-assigned to existing positions, starting at 1 again.",
             "type": "number",
             "defaultVal": 1,
             "field": {
