@@ -1,7 +1,7 @@
 {
     "id": "large-choir-stereo",
     "label": "Large Choir (Stereo inputs)",
-    "tooltip": "Long reverb to enhance harmonies. Stronger noise gate. CPU-friendly, allowing a high number of participants. (Stereo inputs)",
+    "tooltip": "Long reverb to enhance harmonies. Stronger noise gate. Allows for a large number of participants. (Stereo inputs)",
     "mixer": "PersonalMixer",
     "mixerConfigs": [
         {
