@@ -35,7 +35,7 @@ LimiterLink : Link {
 
     ar { | input, id = "" |
         var signal = input;
-		var monomix = Mix(input);
+		var monomix = Mix(input); // Mix signal to mono, preventing stereo imaging distortion (same compression for both channels)
         signal = Compander.ar(signal, monomix,
             thresh:     \limiter_thresh.kr(thresh).dbamp,   // amplitude trigger threshold [-1, 1]
             clampTime:  \limiter_attack.kr(attack),         // time (in seconds) before compression is applied
