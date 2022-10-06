@@ -1,7 +1,7 @@
 {
-    "label": "Circular Pan",
+    "label": "Circular Pan (Mono->Stereo)",
     "class": "CirclePanLink",
-    "tooltip": "Positions each musician circularly in a spatial stereo field. Note that incoming stereo signals will be summed to mono before panning applies. If all participants are sending stereo signals, try removing this link.",
+    "tooltip": "Positions each musician circularly in a spatial stereo field. Note that all participants with stereo signals will be mixed to mono, and then panned in the stereo field (Clients->Mono->Stereo). If all participants are sending stereo signals, try removing this link.",
     "disallowPostChain": true,
     "options": [
         {

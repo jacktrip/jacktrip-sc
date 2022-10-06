@@ -1,7 +1,7 @@
 {
-    "label": "Spherical Pan",
+    "label": "Spherical Pan (Mono->Stereo)",
     "class": "SpherePanLink",
-    "tooltip": "Positions each musician in a fully spatially surrounding sphere. Note that incoming stereo signals will be summed to mono before panning applies. If all participants are sending stereo signals, try removing this link.",
+    "tooltip": "Positions each musician in a fully spatially surrounding sphere. Note that all incoming clients with stereo signals will be summed to mono, and then panned in the stereo field (Clients->Mono->Stereo). If all participants are sending stereo signals, try removing this link.",
     "disallowPostChain": true,
     "options": [
         {
