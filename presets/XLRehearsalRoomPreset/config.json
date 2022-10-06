@@ -1,7 +1,7 @@
 {
-    "id": "dry-room",
-    "label": "Dry Room",
-    "tooltip": "Nothing fancy here, just a room for you to connect with many people! (If all participants are sending stereo signals, try removing the Pan link)",
+    "id": "xl-rehearsal-room",
+    "label": "XL Rehearsal Room",
+    "tooltip": "If you have huge group of participants, this preset might be for you! Nothing fancy here, just a room for you to connect with many people! (If all participants are sending stereo signals, try removing the Pan link)",
     "mixer": "SelfVolumeMixer",
     "mixerConfigs": [
         {
