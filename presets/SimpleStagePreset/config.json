@@ -1,12 +1,12 @@
 {
-    "id": "large-choir-mono",
-    "label": "Large Choir (Mono inputs)",
-    "tooltip": "Long reverb to enhance harmonies. Stronger noise gate. CPU-friendly, allowing a high number of participants. (Mono inputs)",
-    "mixer": "PersonalMixer",
+    "id": "simple-stage",
+    "label": "Simple Stage",
+    "tooltip": "Simple and clean room, which might just be enough for your next rehearsal. (If all participants are sending stereo signals, try removing the Pan link)",
+    "mixer": "SelfVolumeMixer",
     "mixerConfigs": [
         {
             "name": "SelfVolumeMixer",
-            "max": 70,
+            "max": 90,
             "options": [
                 {
                     "name": "masterVolume",
@@ -20,7 +20,7 @@
         },
         {
             "name": "OutputBusMixer",
-            "max": 150,
+            "max": 130,
             "options": [
                 {
                     "name": "masterVolume",
@@ -43,8 +43,8 @@
                         "right"
                     ],
                     "values": [
-                        -1,
-                        1
+                        -0.5,
+                        0.5
                     ]
                 }
             ]
@@ -54,63 +54,59 @@
             "options": [
                 {
                     "name": "thresh",
-                    "value": -50
+                    "value": -47
                 },
                 {
                     "name": "attack",
-                    "value": 0.023
+                    "value": 0.01
                 },
                 {
                     "name": "release",
-                    "value": 0.754
+                    "value": 0.356
                 },
                 {
                     "name": "range",
-                    "value": 1.6289209165525322
+                    "value": 1.6626467968935361
                 }
             ]
         }
     ],
     "postChain": [
         {
-            "name": "CompressorLink",
-            "options": [
-                {
-                    "name": "thresh",
-                    "value": -20
-                },
-                {
-                    "name": "attack",
-                    "value": 0.028
-                },
-                {
-                    "name": "release",
-                    "value": 0.058
-                },
-                {
-                    "name": "ratio",
-                    "value": 0.667
-                },
-                {
-                    "name": "makeup",
-                    "value": 1.4
-                }
-            ]
-        },
-        {
             "name": "FreeVerb2Link",
             "options": [
                 {
                     "name": "mix",
-                    "value": 0.15254571048863236
+                    "value": 0.030157823836531962
                 },
                 {
                     "name": "room",
-                    "value": 0.83
+                    "value": 0.7
                 },
                 {
                     "name": "damp",
-                    "value": 0.4
+                    "value": 0.73
+                }
+            ]
+        },
+        {
+            "name": "LimiterLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -5
+                },
+                {
+                    "name": "attack",
+                    "value": 0.006
+                },
+                {
+                    "name": "release",
+                    "value": 0.008
+                },
+                {
+                    "name": "ratio",
+                    "value": 0.1
                 }
             ]
         }

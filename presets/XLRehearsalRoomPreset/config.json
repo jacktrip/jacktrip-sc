@@ -1,7 +1,7 @@
 {
-    "id": "dry-room-stereo",
-    "label": "Dry Room (Stereo inputs)",
-    "tooltip": "Nothing fancy here, just a room for you to connect with many people! (Stereo inputs)",
+    "id": "xl-rehearsal-room",
+    "label": "XL Rehearsal Room",
+    "tooltip": "If you have huge group of participants, this preset might be for you! Nothing fancy here, just a room for you to connect with many people! (If all participants are sending stereo signals, try removing the Pan link)",
     "mixer": "SelfVolumeMixer",
     "mixerConfigs": [
         {
@@ -29,7 +29,27 @@
             ]
         }
     ],
-    "preChain": [],
+    "preChain": [
+        {
+            "name": "PanningLink",
+            "options": [
+                {
+                    "name": "panSlots",
+                    "value": 9
+                },
+                {
+                    "names": [
+                        "left",
+                        "right"
+                    ],
+                    "values": [
+                        -0.75,
+                        0.75
+                    ]
+                }
+            ]
+        }
+    ],
     "postChain": [
         {
             "name": "FreeVerb2Link",

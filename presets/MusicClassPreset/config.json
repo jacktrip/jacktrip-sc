@@ -1,7 +1,7 @@
 {
-    "id": "music-classes-stereo",
-    "label": "Music Classes (Stereo inputs)",
-    "tooltip": "Ideal for student and teacher, focus on naturalness and clarity. (Stereo inputs)",
+    "id": "music-class",
+    "label": "Music Class",
+    "tooltip": "Ideal for student and teacher, focus on naturalness and clarity. (If all participants are sending stereo signals, try removing the Circular Pan link)",
     "mixer": "SelfVolumeMixer",
     "mixerConfigs": [
         {
@@ -21,6 +21,25 @@
     ],
     "preChain": [
         {
+            "name": "CirclePanLink",
+            "options": [
+                {
+                    "name": "panSlots",
+                    "value": 1
+                },
+                {
+                    "names": [
+                        "left",
+                        "right"
+                    ],
+                    "values": [
+                        -0.1,
+                        0.1
+                    ]
+                }
+            ]
+        },
+        {
             "name": "GateLink",
             "options": [
                 {
@@ -37,7 +56,7 @@
                 },
                 {
                     "name": "range",
-                    "value": 1.503488117168986
+                    "value": 1.3800664559703322
                 }
             ]
         },
