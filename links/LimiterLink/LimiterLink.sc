@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2021 JackTrip Labs, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-/* 
+/*
  * LimiterLink: prevents audio output from exceeding a specified volume threshold.
  *
  * \thresh: amplitude trigger threshold, in decibels (< 0)
@@ -35,7 +35,8 @@ LimiterLink : Link {
 
     ar { | input, id = "" |
         var signal = input;
-        signal = Compander.ar(signal, signal,
+		var monomix = Mix(input); // Mix signal to mono, preventing stereo imaging distortion (same compression for both channels)
+        signal = Compander.ar(signal, monomix,
             thresh:     \limiter_thresh.kr(thresh).dbamp,   // amplitude trigger threshold [-1, 1]
             clampTime:  \limiter_attack.kr(attack),         // time (in seconds) before compression is applied
             relaxTime:  \limiter_release.kr(release),       // time (in seconds) before compression is removed
