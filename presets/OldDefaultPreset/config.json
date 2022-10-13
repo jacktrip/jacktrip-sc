@@ -1,50 +1,40 @@
 {
-    "id": "default",
-    "label": "Default",
-    "tooltip": "A true all-rounder. (If all participants are sending stereo signals, try removing the Circular Pan link)",
-    "mixer": "SelfVolumeMixer",
+    "id": "default-mix",
+    "label": "Old Standard",
+    "tooltip": "The preset previously known as Standard",
     "mixerConfigs": [
-        {
-            "name": "SelfVolumeMixer",
-            "max": 10,
-            "options": [
-                {
-                    "name": "masterVolume",
-                    "value": 1.5
-                },
-                {
-                    "name": "selfVolume",
-                    "value": 0.5
-                }
-            ]
-        }
+    {
+        "name": "SelfVolumeMixer",
+        "max": 30,
+        "options": [
+            {
+                "name": "masterVolume",
+                "value": 1.5
+            },
+            {
+                "name": "selfVolume",
+                "value": 0.5
+            }
+        ]
+    },
+    {
+        "name": "OutputBusMixer",
+        "max": 80,
+        "options": [
+            {
+                "name": "masterVolume",
+                "value": 1.5
+            }
+        ]
+    }
     ],
     "preChain": [
-        {
-            "name": "CirclePanLink",
-            "options": [
-                {
-                    "name": "panSlots",
-                    "value": 10
-                },
-                {
-                    "names": [
-                        "left",
-                        "right"
-                    ],
-                    "values": [
-                        -0.3,
-                        0.3
-                    ]
-                }
-            ]
-        },
         {
             "name": "GateLink",
             "options": [
                 {
                     "name": "thresh",
-                    "value": -40
+                    "value": -60
                 },
                 {
                     "name": "attack",
@@ -52,16 +42,23 @@
                 },
                 {
                     "name": "release",
-                    "value": 0.356
+                    "value": 0.3
                 },
                 {
                     "name": "range",
-                    "value": 1.6626467968935361
+                    "value": 10
                 }
             ]
-        }
-    ],
-    "postChain": [
+        },
+        {
+            "name": "MultiplyLink",
+            "options": [
+                {
+                    "name": "factor",
+                    "value": 2
+                }
+            ]
+        },
         {
             "name": "BandPassFilterLink",
             "options": [
@@ -71,8 +68,8 @@
                         "high"
                     ],
                     "values": [
-                        25.04378691873344,
-                        19952.62314968879
+                        100.66998409579647,
+                        20000.000000000004
                     ]
                 }
             ]
@@ -82,7 +79,7 @@
             "options": [
                 {
                     "name": "thresh",
-                    "value": -10
+                    "value": -30
                 },
                 {
                     "name": "attack",
@@ -94,24 +91,39 @@
                 },
                 {
                     "name": "ratio",
-                    "value": 0.5
+                    "value": 0.667
                 },
                 {
                     "name": "makeup",
-                    "value": 1.4
+                    "value": 1.6
                 }
             ]
         },
+        {
+            "name": "PanningLink",
+            "options": [
+                {
+                    "name": "panSlots",
+                    "value": 1
+                },
+                {
+                    "names": ["left", "right"],
+                    "values": [-0.5, 0.5]
+                }
+            ]
+        }
+    ],
+    "postChain": [
         {
             "name": "ConvReverbLink",
             "options": [
                 {
                     "name": "irPath",
-                    "value": "/var/lib/jacktrip/impulses/IRs_090822/Reverb - Royal Hall.wav"
+                    "value": "/var/lib/jacktrip/impulses/IMreverbs/Nice Drum Room.wav"
                 },
                 {
                     "name": "mix",
-                    "value": 0.03
+                    "value": 0.02
                 },
                 {
                     "names": [
@@ -119,26 +131,9 @@
                         "high"
                     ],
                     "values": [
-                        98.94640051300763,
-                        4466.835921509631
+                        300.0000000000001,
+                        9993.094630025895
                     ]
-                }
-            ]
-        },
-        {
-            "name": "EqualizerLink",
-            "options": [
-                {
-                    "name": "freq",
-                    "value": 6409.143566447763
-                },
-                {
-                    "name": "gain",
-                    "value": 2.4
-                },
-                {
-                    "name": "q",
-                    "value": 8.607955238694604
                 }
             ]
         },
@@ -147,7 +142,7 @@
             "options": [
                 {
                     "name": "thresh",
-                    "value": -3
+                    "value": -10
                 },
                 {
                     "name": "attack",
@@ -155,16 +150,13 @@
                 },
                 {
                     "name": "release",
-                    "value": 0.008
+                    "value": 0.01
                 },
                 {
                     "name": "ratio",
-                    "value": 0.1
+                    "value": 0.033
                 }
             ]
         }
-    ],
-    "sclang": "",
-    "useCustomCode": false,
-    "preset": null
+    ]
 }
