@@ -1,10 +1,12 @@
 {
     "label": "Compressor",
     "class": "CompressorLink",
+    "tooltip": "Makes loud sections of your signal a little quieter, limiting the dynamic range of your instrument/mix. Great to keep control of your overall volume!",
     "options": [
         {
             "src": "thresh",
             "label": "Threshold (dB)",
+            "tooltip": "Set the threshold to the level at which you want the compressor to start working. Whenever the audio signal gets louder than this threshold, it will be compressed by a selectable ratio.",
             "type": "number",
             "defaultVal": -10,
             "field": {
@@ -35,6 +37,7 @@
         {
             "src": "attack",
             "label": "Attack (ms)",
+            "tooltip": "Determines how long (in milliseconds) it takes this compressor to fully kick in. Higher values allow more signal peaks to pass through, lower values make the compressor react quickly.",
             "type": "number",
             "defaultVal": 0.010,
             "field": {
@@ -65,6 +68,7 @@
         {
             "src": "release",
             "label": "Release (ms)",
+            "tooltip": "Determines how quickly the compression stops once the signal falls below the threshold again. High values make the compressor work longer. Small values let the signal go back to normal quickly.",
             "type": "number",
             "defaultVal": 0.020,
             "field": {
@@ -95,6 +99,7 @@
         {
             "src": "ratio",
             "label": "Ratio",
+            "tooltip": "Once your signal gets louder than the threshold, it gets compressed by this ratio. The higher the ratio, the stronger the volume will be compressed after crossing the threshold.",
             "type": "number",
             "defaultVal": 0.5,
             "field": {
@@ -158,6 +163,7 @@
         {
             "src": "makeup",
             "label": "Output volume",
+            "tooltip": "A simple volume gain slider applied after compression (0-300%). Since compression normally makes loud parts of the signal less loud, this can be used to make up for the overall volume loss.",
             "type": "number",
             "defaultVal": 1,
             "field": {

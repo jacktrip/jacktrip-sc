@@ -1,7 +1,7 @@
 {
-    "id": "default",
-    "label": "Default",
-    "tooltip": "A true all-rounder. (If all participants are sending stereo signals, try removing the Circular Pan link)",
+    "id": "music-class",
+    "label": "Music Class",
+    "tooltip": "Ideal for student and teacher, focus on naturalness and clarity. (If all participants are sending stereo signals, try removing the Circular Pan link)",
     "mixer": "SelfVolumeMixer",
     "mixerConfigs": [
         {
@@ -25,7 +25,7 @@
             "options": [
                 {
                     "name": "panSlots",
-                    "value": 10
+                    "value": 1
                 },
                 {
                     "names": [
@@ -33,8 +33,8 @@
                         "right"
                     ],
                     "values": [
-                        -0.3,
-                        0.3
+                        -0.1,
+                        0.1
                     ]
                 }
             ]
@@ -48,15 +48,57 @@
                 },
                 {
                     "name": "attack",
-                    "value": 0.01
+                    "value": 0.001
                 },
                 {
                     "name": "release",
-                    "value": 0.356
+                    "value": 0.353
                 },
                 {
                     "name": "range",
-                    "value": 1.6626467968935361
+                    "value": 1.3800664559703322
+                }
+            ]
+        },
+        {
+            "name": "CompressorLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -24
+                },
+                {
+                    "name": "attack",
+                    "value": 0.023
+                },
+                {
+                    "name": "release",
+                    "value": 0.027
+                },
+                {
+                    "name": "ratio",
+                    "value": 0.5
+                },
+                {
+                    "name": "makeup",
+                    "value": 1.2
+                }
+            ]
+        },
+        {
+            "name": "EqualizerLink",
+            "options": [
+                {
+                    "name": "freq",
+                    "value": 180.21876116640487
+                },
+                {
+                    "name": "gain",
+                    "value": -2
+                },
+                {
+                    "name": "q",
+                    "value": 7.196146563265813
                 }
             ]
         }
@@ -71,7 +113,7 @@
                         "high"
                     ],
                     "values": [
-                        25.04378691873344,
+                        29.81947547925597,
                         19952.62314968879
                     ]
                 }
@@ -82,7 +124,7 @@
             "options": [
                 {
                     "name": "thresh",
-                    "value": -10
+                    "value": -16
                 },
                 {
                     "name": "attack",
@@ -98,7 +140,7 @@
                 },
                 {
                     "name": "makeup",
-                    "value": 1.4
+                    "value": 1.3
                 }
             ]
         },
@@ -107,11 +149,11 @@
             "options": [
                 {
                     "name": "irPath",
-                    "value": "/var/lib/jacktrip/impulses/IRs_090822/Reverb - Royal Hall.wav"
+                    "value": "/var/lib/jacktrip/impulses/IRs_090822/Plate - Diffuse.wav"
                 },
                 {
                     "name": "mix",
-                    "value": 0.03
+                    "value": 0.04
                 },
                 {
                     "names": [
@@ -119,8 +161,8 @@
                         "high"
                     ],
                     "values": [
-                        98.94640051300763,
-                        4466.835921509631
+                        70.79457843841381,
+                        8383.010304515523
                     ]
                 }
             ]
@@ -130,15 +172,15 @@
             "options": [
                 {
                     "name": "freq",
-                    "value": 6409.143566447763
+                    "value": 7040.443214699752
                 },
                 {
                     "name": "gain",
-                    "value": 2.4
+                    "value": 2.7
                 },
                 {
                     "name": "q",
-                    "value": 8.607955238694604
+                    "value": 9.246981739382225
                 }
             ]
         },

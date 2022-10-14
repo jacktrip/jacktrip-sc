@@ -1,11 +1,13 @@
 {
-    "label": "Circular Pan",
+    "label": "Circular Pan (Mono->Stereo)",
     "class": "CirclePanLink",
+    "tooltip": "Positions each musician circularly in a spatial stereo field. Note that all participants with stereo signals will be mixed to mono, and then panned in the stereo field (Clients->Mono->Stereo). If all participants are sending stereo signals, try removing this link.",
     "disallowPostChain": true,
     "options": [
         {
             "src": "panSlots",
             "label": "Auto Pan Slots",
+            "tooltip": "Set the number of different spatial position slots available around you, one of which will then automatically be assigned to each participating musician. Once the maximum is reached, new musicians will be re-assigned to existing positions, starting at 1 again.",
             "type": "number",
             "defaultVal": 6,
             "field": {
@@ -102,6 +104,7 @@
                 "right"
             ],
             "label": "Auto Pan Range",
+            "tooltip": "Choose the spatial range of your virtual seats. Remember this is circular panning, so imagine a 360°-circle around you.",
             "type": "number",
             "defaultVal": [
                 -0.75,

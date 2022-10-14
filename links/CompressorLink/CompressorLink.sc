@@ -38,7 +38,8 @@ CompressorLink : Link {
 
     ar { | input, id = "" |
         var signal = input;
-        signal = Compander.ar(signal, signal,
+		var monomix = Mix(input); // Mix signal to mono, preventing stereo imaging distortion (same compression for both channels)
+        signal = Compander.ar(signal, monomix,
             thresh:     \compressor_thresh.kr(thresh).dbamp,    // amplitude trigger threshold [-1, 1]
             clampTime:  \compressor_attack.kr(attack),          // time (in seconds) before full compression ratio is applied
             relaxTime:  \compressor_release.kr(release),        // time (in seconds) before compression is fully removed

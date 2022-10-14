@@ -1,6 +1,7 @@
 {
     "label": "Band Pass Filter",
     "class": "BandPassFilterLink",
+    "tooltip": "A simple low-cut and high-cut equalizer, allowing you to get rid of low-end rumble or dampen high frequencies.",
     "options": [
         {
             "src": [
@@ -8,6 +9,7 @@
                 "high"
             ],
             "label": "Bandpass Filter",
+            "tooltip": "Cut off high and low frequencies, allowing only a specific frequency band to pass through. The left slider represents a low-cut filter and the right slider is a high-cut filter, trimming off all frequencies outside of their combined range.",
             "type": "number",
             "defaultVal": [
                 20,

@@ -1,7 +1,7 @@
 {
-    "id": "default",
-    "label": "Default",
-    "tooltip": "A true all-rounder. (If all participants are sending stereo signals, try removing the Circular Pan link)",
+    "id": "small-choir",
+    "label": "Small Choir",
+    "tooltip": "Great for up to 8 singers. Long reverb to enhance harmonies. Stronger noise gate. (If all participants are sending stereo signals, try removing the Circular Pan link)",
     "mixer": "SelfVolumeMixer",
     "mixerConfigs": [
         {
@@ -25,7 +25,7 @@
             "options": [
                 {
                     "name": "panSlots",
-                    "value": 10
+                    "value": 16
                 },
                 {
                     "names": [
@@ -33,8 +33,8 @@
                         "right"
                     ],
                     "values": [
-                        -0.3,
-                        0.3
+                        -1,
+                        1
                     ]
                 }
             ]
@@ -44,19 +44,19 @@
             "options": [
                 {
                     "name": "thresh",
-                    "value": -40
+                    "value": -48
                 },
                 {
                     "name": "attack",
-                    "value": 0.01
+                    "value": 0.071
                 },
                 {
                     "name": "release",
-                    "value": 0.356
+                    "value": 0.662
                 },
                 {
                     "name": "range",
-                    "value": 1.6626467968935361
+                    "value": 6
                 }
             ]
         }
@@ -71,7 +71,7 @@
                         "high"
                     ],
                     "values": [
-                        25.04378691873344,
+                        75.30087105475894,
                         19952.62314968879
                     ]
                 }
@@ -82,7 +82,7 @@
             "options": [
                 {
                     "name": "thresh",
-                    "value": -10
+                    "value": -14
                 },
                 {
                     "name": "attack",
@@ -107,11 +107,11 @@
             "options": [
                 {
                     "name": "irPath",
-                    "value": "/var/lib/jacktrip/impulses/IRs_090822/Reverb - Royal Hall.wav"
+                    "value": "/var/lib/jacktrip/impulses/IRs_090822/Plate - Scattered.wav"
                 },
                 {
                     "name": "mix",
-                    "value": 0.03
+                    "value": 0.2
                 },
                 {
                     "names": [
@@ -119,8 +119,8 @@
                         "high"
                     ],
                     "values": [
-                        98.94640051300763,
-                        4466.835921509631
+                        97.72372209558107,
+                        2042.2081263346354
                     ]
                 }
             ]
@@ -147,7 +147,7 @@
             "options": [
                 {
                     "name": "thresh",
-                    "value": -3
+                    "value": -4
                 },
                 {
                     "name": "attack",

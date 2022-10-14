@@ -1,11 +1,13 @@
 {
     "label": "GVerb",
     "class": "GVerbLink",
+    "tooltip": "A largely customizable reverb effect, allowing you to tweak the acoustic environment entirely to your desired taste.",
     "disallowPreChain": true,
     "options": [
         {
             "src": "room",
             "label": "Room Size",
+            "tooltip": "Changes the overall character of the reverb, like resonances and tonal timbre.",
             "type": "number",
             "defaultVal": 10,
             "field": {
@@ -31,7 +33,8 @@
         },
         {
             "src": "time",
-            "label": "Reverb (s)",
+            "label": "Reverb Decay Time (s)",
+            "tooltip": "Sets the decay time of the reverb in seconds. Bigger values result in a longer diffuse reverb tail.",
             "type": "number",
             "defaultVal": 3,
             "field": {
@@ -58,6 +61,7 @@
         {
             "src": "damp",
             "label": "Damping",
+            "tooltip": "Sets the amount of high-frequency damping over time. As in the real world, the different materials in a room absorb frequencies differently, making this a rather aesthetic decision. More damping creates a 'darker' reverb sound.",
             "type": "number",
             "defaultVal": 0.5,
             "field": {
@@ -84,6 +88,7 @@
         {
             "src": "dampin",
             "label": "Damping (Input)",
+            "tooltip": "Determines the amount of high-frequency attenuation. Unlike the above 'Damping' parameter, this damping is a fixed filter and does not occur over time.",
             "type": "number",
             "defaultVal": 0.5,
             "field": {
@@ -110,6 +115,7 @@
         {
             "src": "dry",
             "label": "Dry Level (dB)",
+            "tooltip": "Determines how much of the unaffected (dry) signal is passed through this reverb effect.",
             "type": "number",
             "defaultVal": 0,
             "field": {
@@ -140,6 +146,7 @@
         {
             "src": "early",
             "label": "Early Reflection Level (dB)",
+            "tooltip": "Determines the amount of early reflections that are added by this reverb effect. Early reflections convey a lot of spatial information of the space that one is in.",
             "type": "number",
             "defaultVal": -3,
             "field": {
@@ -170,6 +177,7 @@
         {
             "src": "tail",
             "label": "Tail Level (dB)",
+            "tooltip": "Determines the amount of late reverb (tail). This tail usually needs more time to build up than the early reflections and has a higher reflection density.",
             "type": "number",
             "defaultVal": -6,
             "field": {

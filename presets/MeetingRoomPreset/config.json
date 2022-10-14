@@ -1,7 +1,7 @@
 {
-    "id": "default",
-    "label": "Default",
-    "tooltip": "A true all-rounder. (If all participants are sending stereo signals, try removing the Circular Pan link)",
+    "id": "meeting-room",
+    "label": "Meeting Room",
+    "tooltip": "Fantastic for communication, like meetings or gaming. Focus on speech intelligibility. (If all participants are sending stereo signals, try removing the Circular Pan link)",
     "mixer": "SelfVolumeMixer",
     "mixerConfigs": [
         {
@@ -33,8 +33,8 @@
                         "right"
                     ],
                     "values": [
-                        -0.3,
-                        0.3
+                        -0.4,
+                        0.4
                     ]
                 }
             ]
@@ -48,15 +48,40 @@
                 },
                 {
                     "name": "attack",
-                    "value": 0.01
+                    "value": 0.001
                 },
                 {
                     "name": "release",
-                    "value": 0.356
+                    "value": 0.336
                 },
                 {
                     "name": "range",
-                    "value": 1.6626467968935361
+                    "value": 1.700199953642358
+                }
+            ]
+        },
+        {
+            "name": "CompressorLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -20
+                },
+                {
+                    "name": "attack",
+                    "value": 0.026
+                },
+                {
+                    "name": "release",
+                    "value": 0.027
+                },
+                {
+                    "name": "ratio",
+                    "value": 0.5
+                },
+                {
+                    "name": "makeup",
+                    "value": 1.2
                 }
             ]
         }
@@ -71,7 +96,7 @@
                         "high"
                     ],
                     "values": [
-                        25.04378691873344,
+                        80.0018444855099,
                         19952.62314968879
                     ]
                 }
@@ -86,7 +111,7 @@
                 },
                 {
                     "name": "attack",
-                    "value": 0.01
+                    "value": 0.02
                 },
                 {
                     "name": "release",
@@ -107,7 +132,7 @@
             "options": [
                 {
                     "name": "irPath",
-                    "value": "/var/lib/jacktrip/impulses/IRs_090822/Reverb - Royal Hall.wav"
+                    "value": "/var/lib/jacktrip/impulses/IRs_090822/Room - Bright Walls.wav"
                 },
                 {
                     "name": "mix",
@@ -119,8 +144,8 @@
                         "high"
                     ],
                     "values": [
-                        98.94640051300763,
-                        4466.835921509631
+                        161.88253626421067,
+                        5248.074602497729
                     ]
                 }
             ]
@@ -130,15 +155,15 @@
             "options": [
                 {
                     "name": "freq",
-                    "value": 6409.143566447763
+                    "value": 8271.799518641346
                 },
                 {
                     "name": "gain",
-                    "value": 2.4
+                    "value": 2
                 },
                 {
                     "name": "q",
-                    "value": 8.607955238694604
+                    "value": 10
                 }
             ]
         },
@@ -151,15 +176,15 @@
                 },
                 {
                     "name": "attack",
-                    "value": 0.002
+                    "value": 0.004
                 },
                 {
                     "name": "release",
-                    "value": 0.008
+                    "value": 0.001
                 },
                 {
                     "name": "ratio",
-                    "value": 0.1
+                    "value": 0.067
                 }
             ]
         }

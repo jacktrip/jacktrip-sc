@@ -1,0 +1,37 @@
+{
+    "id": "no-effects",
+    "label": "No Effects (Clean slate)",
+    "tooltip": "No audio effects applied in Soundscapes. Feel free to add some yourself!",
+    "mixer": "SelfVolumeMixer",
+    "mixerConfigs": [
+        {
+            "name": "SelfVolumeMixer",
+            "max": 330,
+            "options": [
+                {
+                    "name": "masterVolume",
+                    "value": 1.5
+                },
+                {
+                    "name": "selfVolume",
+                    "value": 0.5
+                }
+            ]
+        },
+        {
+            "name": "SimpleMixer",
+            "max": 480,
+            "options": [
+                {
+                    "name": "masterVolume",
+                    "value": 1
+                }
+            ]
+        }
+    ],
+    "preChain": [],
+    "postChain": [],
+    "sclang": "",
+    "useCustomCode": false,
+    "preset": null
+}

@@ -1,11 +1,11 @@
 {
-    "id": "large-rehearsal-room",
-    "label": "Large Rehearsal Room",
-    "tooltip": "The best option for 80+ connected musicians",
+    "id": "default-mix",
+    "label": "Old Standard",
+    "tooltip": "The preset previously known as Standard",
     "mixerConfigs": [
     {
         "name": "SelfVolumeMixer",
-        "max": 120,
+        "max": 30,
         "options": [
             {
                 "name": "masterVolume",
@@ -19,7 +19,7 @@
     },
     {
         "name": "OutputBusMixer",
-        "max": 120,
+        "max": 80,
         "options": [
             {
                 "name": "masterVolume",
@@ -51,6 +51,15 @@
             ]
         },
         {
+            "name": "MultiplyLink",
+            "options": [
+                {
+                    "name": "factor",
+                    "value": 2
+                }
+            ]
+        },
+        {
             "name": "BandPassFilterLink",
             "options": [
                 {
@@ -62,6 +71,31 @@
                         100.66998409579647,
                         20000.000000000004
                     ]
+                }
+            ]
+        },
+        {
+            "name": "CompressorLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -30
+                },
+                {
+                    "name": "attack",
+                    "value": 0.01
+                },
+                {
+                    "name": "release",
+                    "value": 0.02
+                },
+                {
+                    "name": "ratio",
+                    "value": 0.667
+                },
+                {
+                    "name": "makeup",
+                    "value": 1.6
                 }
             ]
         },
@@ -80,6 +114,29 @@
         }
     ],
     "postChain": [
+        {
+            "name": "ConvReverbLink",
+            "options": [
+                {
+                    "name": "irPath",
+                    "value": "/var/lib/jacktrip/impulses/IMreverbs/Nice Drum Room.wav"
+                },
+                {
+                    "name": "mix",
+                    "value": 0.02
+                },
+                {
+                    "names": [
+                        "low",
+                        "high"
+                    ],
+                    "values": [
+                        300.0000000000001,
+                        9993.094630025895
+                    ]
+                }
+            ]
+        },
         {
             "name": "LimiterLink",
             "options": [

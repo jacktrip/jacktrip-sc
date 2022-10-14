@@ -1,11 +1,13 @@
 {
-    "label": "Pan",
+    "label": "Pan (Mono->Stereo)",
     "class": "PanningLink",
+    "tooltip": "Positions each musician in a simple stereo field. Note that all incoming clients with stereo signals will be summed to mono, and then panned in the stereo field (Clients->Mono->Stereo). If all participants are sending stereo signals, try removing this link.",
     "disallowPostChain": true,
     "options": [
         {
             "src": "panSlots",
             "label": "Auto Pan Slots",
+            "tooltip": "Set the number of different panning positions, one of which will then automatically be assigned to each participating musician. Once the maximum is reached, new musicians will be re-assigned to existing positions, starting at 1 again.",
             "type": "number",
             "defaultVal": 1,
             "field": {
@@ -67,6 +69,7 @@
                 "right"
             ],
             "label": "Auto Pan Range",
+            "tooltip": "Choose the spatial range of your virtual seats from left to right. While a broader range separates each musician more distinctly from the others, it can sound unnatural to have your instruments panned all over the place.",
             "type": "number",
             "defaultVal": [
                 -0.5,
