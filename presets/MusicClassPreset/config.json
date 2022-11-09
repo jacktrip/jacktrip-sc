@@ -21,7 +21,7 @@
     ],
     "preChain": [
         {
-            "name": "CirclePanLink",
+            "name": "PanningLink",
             "options": [
                 {
                     "name": "panSlots",
