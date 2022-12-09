@@ -71,7 +71,7 @@ InputBusMixer : BaseMixer {
         var node, g, b, args;
         var jacktripSynthName = "JackTripToInputBus";
         var jamulusSynthName = "JamulusToInputBus";
-        var preChainName;
+        var preChainName, preChainSynthName;
 
         // wait for server to be ready
         serverReady.wait;
@@ -79,8 +79,10 @@ InputBusMixer : BaseMixer {
         // execute preChain before actions
         if(bypassFx==1, {
             preChainName = "";
+            preChainSynthName = "";
         }, {
             preChainName = preChain.getName();
+            preChainSynthName = preChain.getSynthName();
             preChain.before(server);
         });
 
@@ -106,9 +108,9 @@ InputBusMixer : BaseMixer {
         // create a bundle of commands to execute
         b = server.makeBundle(nil, {
             // create synthdef to send audio to the input busses
-            this.sendSynthDef(jacktripSynthName, jacktripSynthName ++ preChainName);
+            this.sendSynthDef(jacktripSynthName, jacktripSynthName ++ preChainSynthName);
             if (withJamulus, {
-                this.sendSynthDef(jamulusSynthName, jamulusSynthName ++ preChainName);
+                this.sendSynthDef(jamulusSynthName, jamulusSynthName ++ preChainSynthName);
             });
             
             // free any existing nodes
@@ -130,26 +132,26 @@ InputBusMixer : BaseMixer {
         if(bypassFx==1, {
             // create dry jacktrip synth
             node = Synth(jacktripSynthName, args, g, \addToTail);
-            ("Created synth" + (jacktripSynthName ++ preChainName) + node.nodeID).postln;
+            ("Created synth" + (jacktripSynthName ++ preChainSynthName) + preChainName + node.nodeID).postln;
 
             if (withJamulus, {
                 // create dry jamulus synth
                 args = args ++ [\delay, jamulusDelay];
                 node = Synth(jamulusSynthName, args, g, \addToTail);
-                ("Created synth" + (jamulusSynthName ++ preChainName) + node.nodeID).postln;
+                ("Created synth" + (jamulusSynthName ++ preChainSynthName) + preChainName + node.nodeID).postln;
             });
         }, {
             // create jacktrip synth with effects
             args = args ++ preChain.getArgs();
-            node = Synth(jacktripSynthName ++ preChainName, args, g, \addToTail);
-            ("Created synth" + (jacktripSynthName ++ preChainName) + node.nodeID).postln;
+            node = Synth(jacktripSynthName ++ preChainSynthName, args, g, \addToTail);
+            ("Created synth" + (jacktripSynthName ++ preChainSynthName) + preChainName + node.nodeID).postln;
     
             if (withJamulus, {
                 // always default pan Jamulus to center if using PanningLink
                 args = args ++ [\delay, jamulusDelay];
                 // create jamulus synth with effects
-                node = Synth(jamulusSynthName ++ preChainName, args, g, \addToTail);
-                ("Created synth" + (jamulusSynthName ++ preChainName) + node.nodeID).postln;
+                node = Synth(jamulusSynthName ++ preChainSynthName, args, g, \addToTail);
+                ("Created synth" + (jamulusSynthName ++ preChainSynthName) + preChainName + node.nodeID).postln;
             });
 
             // execute preChain after actions

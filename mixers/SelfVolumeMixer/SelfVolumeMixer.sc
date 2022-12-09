@@ -49,7 +49,7 @@ SelfVolumeMixer : InputBusMixer {
         var b, g, p, node;
         var jacktripSynthName = "JackTripSelfVolumeMixOut";
         var jamulusSynthName = "JamulusDownMixOut";
-        var postChainName;
+        var postChainName, postChainSynthName;
 
         // start input bus mixer first
         super.start();
@@ -57,8 +57,10 @@ SelfVolumeMixer : InputBusMixer {
         // execute postChain before actions
         if(bypassFx==1, {
             postChainName = "";
+            postChainSynthName = "";
         }, {
             postChainName = postChain.getName();
+            postChainSynthName = postChain.getSynthName();
             postChain.before(server);
         });
 
@@ -67,9 +69,9 @@ SelfVolumeMixer : InputBusMixer {
 
         // create a bundle of commands to execute
         b = server.makeBundle(nil, {
-            this.sendSynthDef(jacktripSynthName, jacktripSynthName ++ postChainName);
+            this.sendSynthDef(jacktripSynthName, jacktripSynthName ++ postChainSynthName);
             if (withJamulus, {
-                this.sendSynthDef(jamulusSynthName, jamulusSynthName ++ postChainName);
+                this.sendSynthDef(jamulusSynthName, jamulusSynthName ++ postChainSynthName);
             });
 
             // use group 100 for client input synths and use group 200 for client output synths
@@ -111,9 +113,9 @@ SelfVolumeMixer : InputBusMixer {
                 node = Synth(synthName, args, g, \addToTail);
             }, {
                 args = args ++ postChain.getArgs();
-                node = Synth(synthName ++ postChainName, args, g, \addToTail);
+                node = Synth(synthName ++ postChainSynthName, args, g, \addToTail);
             });
-            ("Created synth" + (synthName ++ postChainName) + node.nodeID).postln;
+            ("Created synth" + (synthName ++ postChainSynthName) + postChainName + node.nodeID).postln;
         };
 
         // execute postChain after actions

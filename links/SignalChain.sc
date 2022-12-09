@@ -69,14 +69,32 @@ SignalChain : Class {
     getName {
         var name = "";
         
-        if (links.size == 0, { ^name; }, { name = "-"; });
-
         links.size.do({ |n|
             name = name ++ links[n].getName();
             if (n+1 < links.size, { name = name ++ "_"; });
         });
 
         ^name;
+    }
+
+    // returns a unique synth name for this signal chain
+    // note that we hash the name, since SC is limited to 128 bytes
+    getSynthName {
+        // djb2 hash algo from http://www.cse.yorku.ca/~oz/hash.html
+        var str = this.getName.value;
+        var hash = 5381;
+        var i = 0;
+        var c;
+
+        if (links.size == 0, { ^""; });
+
+        while ( { i < str.size }, {
+            c = str.at(i);
+            i = i + 1;
+            hash = ((hash << 5) + hash) + c.asInteger;
+        });
+
+        ^"-"++hash.asHexString;
     }
 
     // returns a list of synth arguments used by this signal chain

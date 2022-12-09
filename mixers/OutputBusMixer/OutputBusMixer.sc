@@ -36,7 +36,7 @@ OutputBusMixer : InputBusMixer {
     start {
         var b, g, node, args;
         var synthName = "JackTripDownMixOut";
-        var postChainName;
+        var postChainName, postChainSynthName;
 
         // use alternate synth if broadcast is true
         if (broadcast, {
@@ -49,8 +49,10 @@ OutputBusMixer : InputBusMixer {
         // execute postChain before actions
         if(bypassFx==1, {
             postChainName = "";
+            postChainSynthName = "";
         }, {
             postChainName = postChain.getName();
+            postChainSynthName = postChain.getSynthName();
             postChain.before(server);
         });
 
@@ -59,7 +61,7 @@ OutputBusMixer : InputBusMixer {
 
         // create a bundle of commands to execute
         b = server.makeBundle(nil, {
-            this.sendSynthDef(synthName, synthName ++ postChainName);
+            this.sendSynthDef(synthName, synthName ++ postChainSynthName);
 
             // use group 100 for client input synths and use group 200 for client output synths
             // p_new is a server command (see Server Command Reference on SC documentation)
@@ -75,11 +77,11 @@ OutputBusMixer : InputBusMixer {
         if(bypassFx==1, {
             node = Synth(synthName, nil, g, \addToTail);
         }, {
-            node = Synth(synthName ++ postChainName, postChain.getArgs(), g, \addToTail);
+            node = Synth(synthName ++ postChainSynthName, postChain.getArgs(), g, \addToTail);
             // execute postChain after actions
             postChain.after(server, node);
         });
-        ("Created synth" + (synthName ++ postChainName) + node.nodeID).postln;
+        ("Created synth" + (synthName ++ postChainSynthName) + postChainName + node.nodeID).postln;
 
         // signal that the mix has started
         // signal is defined in the BaseMix class and represents a Condition object
