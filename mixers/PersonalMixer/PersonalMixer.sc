@@ -48,7 +48,7 @@ PersonalMixer : InputBusMixer {
     start {
         var b, g, p, node, args, personalMixes;
         var synthName = "JackTripPersonalMixOut";
-        var postChainName;
+        var postChainName, postChainSynthName;
 
         // start input bus mixer first
         super.start();
@@ -56,8 +56,10 @@ PersonalMixer : InputBusMixer {
         // execute postChain before actions
         if(bypassFx==1, {
             postChainName = "";
+            postChainSynthName = "";
         }, {
             postChainName = postChain.getName();
+            postChainSynthName = postChain.getSynthName();
             postChain.before(server);
         });
 
@@ -66,7 +68,7 @@ PersonalMixer : InputBusMixer {
 
         // create a bundle of commands to execute
         b = server.makeBundle(nil, {
-            this.sendSynthDef(synthName, synthName ++ postChainName);
+            this.sendSynthDef(synthName, synthName ++ postChainSynthName);
 
             // use group 100 for client input synths and use group 200 for client output synths
             // p_new is a server command (see Server Command Reference on SC documentation)
@@ -99,11 +101,11 @@ PersonalMixer : InputBusMixer {
             node = Synth(synthName, args, g, \addToTail);
         }, {
             args = [\mix, personalMixes] ++ postChain.getArgs();
-            node = Synth(synthName ++ postChainName, args, g, \addToTail);
+            node = Synth(synthName ++ postChainSynthName, args, g, \addToTail);
             // execute postChain after actions
             postChain.after(server, node);
         });
-        ("Created synth" + (synthName ++ postChainName) + node.nodeID).postln;
+        ("Created synth" + (synthName ++ postChainSynthName) + postChainName + node.nodeID).postln;
 
         // signal that the mix has started
         // signal is defined in the BaseMix class and represents a Condition object
