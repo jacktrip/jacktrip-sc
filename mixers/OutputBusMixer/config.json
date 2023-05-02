@@ -4,7 +4,7 @@
     "options": [
         {
             "src": "masterVolume",
-            "label": "Master Volume",
+            "label": "Studio Master Volume",
             "type": "number",
             "defaultVal": 1,
             "field": {
