@@ -4,7 +4,7 @@
     "options": [
         {
             "src": "masterVolume",
-            "label": "Master Volume",
+            "label": "Studio Master Volume",
             "type": "number",
             "defaultVal": 1,
             "field": {
@@ -30,7 +30,7 @@
         },
         {
             "src": "selfVolume",
-            "label": "Self Volume",
+            "label": "Studio Loopback Volume",
             "type": "number",
             "defaultVal": 0.5,
             "field": {
