@@ -30,7 +30,7 @@
         },
         {
             "src": "selfVolume",
-            "label": "Studio Loopback Volume",
+            "label": "Studio Echo Volume",
             "type": "number",
             "defaultVal": 0.5,
             "field": {
