@@ -103,29 +103,6 @@
             ]
         },
         {
-            "name": "ConvReverbLink",
-            "options": [
-                {
-                    "name": "irPath",
-                    "value": "/var/lib/jacktrip/impulses/IRs_090822/Reverb - Royal Hall.wav"
-                },
-                {
-                    "name": "mix",
-                    "value": 0.03
-                },
-                {
-                    "names": [
-                        "low",
-                        "high"
-                    ],
-                    "values": [
-                        98.94640051300763,
-                        4466.835921509631
-                    ]
-                }
-            ]
-        },
-        {
             "name": "EqualizerLink",
             "options": [
                 {
