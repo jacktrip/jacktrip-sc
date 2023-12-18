@@ -23,10 +23,11 @@
 ~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
     var defaultMixes = 1 ! (maxClients * maxClients);
     var personalMixes = \mix.kr(defaultMixes);
+    var speakerSignal = JackTripInput(1, inputChannelsPerClient, false, ~speakerInputBus).getSignal();
 
     maxClients.do({ arg clientNum;
         // get personal mix
-        var m = Array.fill(maxClients, { arg n;
+        var m = Array.fill(maxClients - 1, { arg n;
             if (maxClients == 1, {
                 // work around weird supercollider bug where
                 // an array of size 1 gets converted into a scalar
@@ -38,10 +39,15 @@
         });
     
         // get input signals from private bus
-        var signal = JackTripInput(maxClients, outputChannelsPerClient, false, ~firstPrivateBus).getSignal();
+        var signal = JackTripInput(maxClients - 1, outputChannelsPerClient, false, ~firstPrivateBus).getSignal();
         signal = MulAdd(signal, m * \mul.kr(1), 0);
         signal = AggregateLink().ar(signal);
         signal = postChain.ar(signal, clientNum);
+
+        speakerSignal = MulAdd(speakerSignal, personalMixes[(clientNum + 1) * maxClients - 1] * \mul.kr(1), 0);
+        speakerSignal = DelayN.ar(speakerSignal, 1.0, \speakerDelay.kr(0));
+        signal = speakerSignal ++ signal;
+        signal = AggregateLink().ar(signal);
         
         Out.ar(outputChannelsPerClient * clientNum, signal);
     });

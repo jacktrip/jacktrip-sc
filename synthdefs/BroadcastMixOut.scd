@@ -26,7 +26,14 @@
 
 ~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
     var signal = JackTripInput(1, inputChannelsPerClient, false, ~masterInputBus).getSignal();
+    var speakerSignal = JackTripInput(1, inputChannelsPerClient, false, ~speakerInputBus).getSignal();
     signal = MulAdd(signal[0], \mul.kr(1.0), 0);
     signal = postChain.ar(signal);
+
+    speakerSignal = MulAdd(speakerSignal, \mul.kr(1.0), 0);
+    speakerSignal = DelayN.ar(speakerSignal, 1.0, \speakerDelay.kr(0));
+    signal = speakerSignal ++ signal;
+    signal = AggregateLink().ar(signal);
+
     Out.ar(0, signal);
 };

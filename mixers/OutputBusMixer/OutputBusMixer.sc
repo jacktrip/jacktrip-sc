@@ -34,9 +34,10 @@ OutputBusMixer : InputBusMixer {
 
     // starts up all the audio on the server
     start {
-        var b, g, node, args;
+        var b, g, node;
         var synthName = "JackTripDownMixOut";
         var postChainName, postChainSynthName;
+        var args = [\speakerDelay, jamulusDelay];
 
         // use alternate synth if broadcast is true
         if (broadcast, {
@@ -75,9 +76,10 @@ OutputBusMixer : InputBusMixer {
 
         // create a single mix and outputs to all clients including jamulus
         if(bypassFx==1, {
-            node = Synth(synthName, nil, g, \addToTail);
+            node = Synth(synthName, args, g, \addToTail);
         }, {
-            node = Synth(synthName ++ postChainSynthName, postChain.getArgs(), g, \addToTail);
+            args = args ++ postChain.getArgs();
+            node = Synth(synthName ++ postChainSynthName, args, g, \addToTail);
             // execute postChain after actions
             postChain.after(server, node);
         });
