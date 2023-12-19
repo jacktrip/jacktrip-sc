@@ -26,10 +26,16 @@
 
 ~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
     var masterOut = Array.fill(maxClients, { |n| n * outputChannelsPerClient; });
+    var speakerSignal = JackTripInput(1, inputChannelsPerClient, false, ~speakerInputBus).getSignal();
 
     var signal = JackTripInput(1, inputChannelsPerClient, false, ~masterInputBus).getSignal();
     signal = MulAdd(signal[0], \mul.kr(1.0), 0);
     signal = postChain.ar(signal);
+
+    speakerSignal = MulAdd(speakerSignal, \mul.kr(1.0), 0);
+    speakerSignal = DelayN.ar(speakerSignal, 1.0, \speakerDelay.kr(0));
+    signal = speakerSignal ++ signal;
+    signal = AggregateLink().ar(signal);
 
     if (withJamulus, {
         // remove dry jamulus signal from the result to offset

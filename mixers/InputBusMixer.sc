@@ -71,6 +71,7 @@ InputBusMixer : BaseMixer {
         var node, g, b, args;
         var jacktripSynthName = "JackTripToInputBus";
         var jamulusSynthName = "JamulusToInputBus";
+        var speakerSynthName = "SpeakerToInputBus";
         var preChainName, preChainSynthName;
 
         // wait for server to be ready
@@ -109,6 +110,7 @@ InputBusMixer : BaseMixer {
         b = server.makeBundle(nil, {
             // create synthdef to send audio to the input busses
             this.sendSynthDef(jacktripSynthName, jacktripSynthName ++ preChainSynthName);
+            this.sendSynthDef(speakerSynthName);
             if (withJamulus, {
                 this.sendSynthDef(jamulusSynthName, jamulusSynthName ++ preChainSynthName);
             });
@@ -129,6 +131,11 @@ InputBusMixer : BaseMixer {
 
         // create synths to send audio to the input busses
         args = [\mix, defaultMix, \mul, masterVolume];
+
+        // create dry speaker synth
+        node = Synth(speakerSynthName, args, g, \addToTail);
+        ("Created synth" + speakerSynthName + node.nodeID).postln;
+
         if(bypassFx==1, {
             // create dry jacktrip synth
             node = Synth(jacktripSynthName, args, g, \addToTail);
