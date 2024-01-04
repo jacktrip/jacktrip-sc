@@ -34,8 +34,7 @@
 
     speakerSignal = MulAdd(speakerSignal, \mul.kr(1.0), 0);
     speakerSignal = DelayN.ar(speakerSignal, 1.0, \speakerDelay.kr(0));
-    signal = speakerSignal ++ signal;
-    signal = AggregateLink().ar(signal);
+    signal = Mix([signal, speakerSignal]);
 
     if (withJamulus, {
         // remove dry jamulus signal from the result to offset
