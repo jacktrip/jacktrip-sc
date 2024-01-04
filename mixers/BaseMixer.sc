@@ -152,4 +152,18 @@ BaseMixer : Object {
             }).play(server, [\buffer, b]);
         }, oscPath);
     }
+
+    // add OSC listeners for each synth control available
+    addOSCControls { | oscpath, synthName, node |
+        SynthDescLib.global.match(synthName).controlNames.do({ |c|
+            var path = "/" ++ oscpath ++ "/" ++ c;
+            OSCFunc({ |args|
+                if (args.size == 2, {
+                    (oscpath ++ ": setting" + c + "to" + args[1]).postln;
+                    node.set(c, args[1]);
+                });
+            }, path);
+            ("Added OSC endpoint for" + path).postln;
+        });
+    }
 }

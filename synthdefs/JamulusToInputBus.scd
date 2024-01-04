@@ -29,7 +29,7 @@
 
     // get raw jamulus signal, and add delay if necessary (for broadcast)
     drySignal = JackTripInput(1, inputChannelsPerClient).getSignal();
-    drySignal = DelayN.ar(drySignal, 1.0, \delay.kr(0));
+    drySignal = DelayN.ar(drySignal, 1.0, \jamulusDelay.kr(0));
 
     // generate wet signal by applying effects, and send to master input bus
     wetSignal = preChain.ar(drySignal);
