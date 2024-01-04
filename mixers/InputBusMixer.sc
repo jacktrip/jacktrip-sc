@@ -68,12 +68,12 @@ InputBusMixer : BaseMixer {
 
     // starts up JackTripToInputBus synth (must be run from a Routine)
     start {
-        var node, g, b, args;
+        var g, b, args;
         var jacktripSynthName = "JackTripToInputBus";
         var jamulusSynthName = "JamulusToInputBus";
         var speakerSynthName = "SpeakerToInputBus";
         var preChainName, preChainSynthName;
-        var jackTripNode, jamulusNode;
+        var speakerNode, jackTripNode, jamulusNode;
 
         // wait for server to be ready
         serverReady.wait;
@@ -134,8 +134,8 @@ InputBusMixer : BaseMixer {
         args = [\mix, defaultMix, \mul, masterVolume];
 
         // create dry speaker synth
-        node = Synth(speakerSynthName, args, g, \addToTail);
-        ("Created synth" + speakerSynthName + node.nodeID).postln;
+        speakerNode = Synth(speakerSynthName, args, g, \addToTail);
+        ("Created synth" + speakerSynthName + speakerNode.nodeID).postln;
 
         if(bypassFx==1, {
             // create dry jacktrip synth
@@ -163,10 +163,16 @@ InputBusMixer : BaseMixer {
             });
 
             // execute preChain after actions
-            preChain.after(server, node);
+            preChain.after(server, speakerNode);
         });
 
         // add osc paths for the mixer
+        OSCFunc({ |args|
+            if (args.size == 3, {
+                ("speaker: setting" + args[1] + "to" + args[2]).postln;
+                speakerNode.set(args[1], args[2]);
+            });
+        }, "/speaker");
         OSCFunc({ |args|
             if (args.size == 3, {
                 ("input: setting" + args[1] + "to" + args[2]).postln;
