@@ -56,10 +56,12 @@
  * \maxClients: maximum number of clients that may connect to the audio server
  * \preChain: signal processing chain applied to each client's audio before it is sent to the bus
  * \jamulusDelay : delay added to dry jamulus signal, in seconds
+ * \speakerDelay : delay added to dry speaker signal, in seconds
  */
 
 InputBusMixer : BaseMixer {
     var <>jamulusDelay = 0;
+    var <>speakerDelay = 0.5;   // default to 1/2 second
 
     // create a new instance
     *new { | maxClients = 16 |

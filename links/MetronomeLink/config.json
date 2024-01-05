@@ -14,7 +14,7 @@
               "fieldOptions": {
                   "marks": [
                       {
-                          "value": 60,
+                          "value": 40,
                           "label": "40 bpm"
                       },
                       {
@@ -22,7 +22,7 @@
                           "label": "120 bpm"
                       },
                       {
-                        "value": 180,
+                        "value": 200,
                         "label": "200 bpm"
                       }
                   ],

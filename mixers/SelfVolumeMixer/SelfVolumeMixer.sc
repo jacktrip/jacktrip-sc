@@ -88,7 +88,7 @@ SelfVolumeMixer : InputBusMixer {
         // create personal mix for all jacktrip clients that includes jamulus
         // outputs to all clients including jamulus
         maxClients.do{ arg clientNum;
-            var args = [];
+            var args = [\speakerDelay, speakerDelay];
             var synthName = jacktripSynthName;
 
             if (withJamulus && clientNum == 0, {
