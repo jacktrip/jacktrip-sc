@@ -27,7 +27,7 @@
  * \out : output audio bus
  */
 
-~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
+~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false, broadcast = false |
     var masterSignal = JackTripInput(1, inputChannelsPerClient, false, ~masterInputBus).getSignal();
     var selfSignal = JackTripInput(1, inputChannelsPerClient, false, \in.ir(0)).getSignal();
     var speakerSignal = JackTripInput(1, inputChannelsPerClient, false, ~speakerInputBus).getSignal();
