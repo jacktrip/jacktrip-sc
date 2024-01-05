@@ -37,7 +37,7 @@ OutputBusMixer : InputBusMixer {
         var b, g, node;
         var synthName = "JackTripDownMixOut";
         var postChainName, postChainSynthName;
-        var args = [\speakerDelay, jamulusDelay];
+        var args = [\speakerDelay, speakerDelay];
 
         // use alternate synth if broadcast is true
         if (broadcast, {
