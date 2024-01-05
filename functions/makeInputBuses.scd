@@ -24,6 +24,7 @@
 ~makeInputBuses = { | server, maxClients, inputChannelsPerClient, outputChannelsPerClient |
     ~firstPrivateBus = (maxClients * (inputChannelsPerClient + outputChannelsPerClient));
     ~masterInputBus = ~firstPrivateBus + (inputChannelsPerClient * maxClients);
+    ~speakerInputBus = ~masterInputBus - inputChannelsPerClient;
     ~inputBuses = Array.fill(maxClients + 1, { |n|
         var i = ~firstPrivateBus + (n * inputChannelsPerClient);
         Bus.new('audio', i, inputChannelsPerClient, server);

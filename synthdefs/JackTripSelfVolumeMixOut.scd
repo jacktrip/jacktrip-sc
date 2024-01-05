@@ -27,12 +27,19 @@
  * \out : output audio bus
  */
 
-~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
+~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false, broadcast = false |
     var masterSignal = JackTripInput(1, inputChannelsPerClient, false, ~masterInputBus).getSignal();
     var selfSignal = JackTripInput(1, inputChannelsPerClient, false, \in.ir(0)).getSignal();
+    var speakerSignal = JackTripInput(1, inputChannelsPerClient, false, ~speakerInputBus).getSignal();
+
     var signal = masterSignal ++ selfSignal;
     signal = MulAdd(signal, [\mul.kr(1.0), \extraSelfVolume.kr(0)], 0);
     signal = AggregateLink().ar(signal);
     signal = postChain.ar(signal);
+
+    speakerSignal = MulAdd(speakerSignal, \mul.kr(1.0), 0);
+    speakerSignal = DelayN.ar(speakerSignal, 1.0, \speakerDelay.kr(0));
+    signal = Mix([signal, speakerSignal]);
+
     Out.ar(\out.ir(0), signal);
 };

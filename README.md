@@ -56,13 +56,21 @@ For example, to start a simple mixer on your local SuperCollider server for
 two clients, run:
 
 ```
-SimpleMix(2).connect.start;
+~maxClients = 1;
+
+~mixer = SimpleMixer(~maxClients).withJamulus_(false);
+
+Routine {
+    ~mixer.connect.start.wait;
+}.run;
 ```
 
 To start a simple mixer on a remote audio server with IP address 10.20.1.10:
 
 ```
-SimpleMix(2).serverIp_("10.20.1.10").connect.start;
+Routine {
+    SimpleMixer(2).serverIp_("10.20.1.10").connect.start;
+}.run
 ```
 
 Note that you can use `serverIp` to connect to and run mixers on remote

@@ -56,10 +56,12 @@
  * \maxClients: maximum number of clients that may connect to the audio server
  * \preChain: signal processing chain applied to each client's audio before it is sent to the bus
  * \jamulusDelay : delay added to dry jamulus signal, in seconds
+ * \speakerDelay : delay added to dry speaker signal, in seconds
  */
 
 InputBusMixer : BaseMixer {
     var <>jamulusDelay = 0;
+    var <>speakerDelay = 0;
 
     // create a new instance
     *new { | maxClients = 16 |
@@ -68,10 +70,12 @@ InputBusMixer : BaseMixer {
 
     // starts up JackTripToInputBus synth (must be run from a Routine)
     start {
-        var node, g, b, args;
+        var g, b, args;
         var jacktripSynthName = "JackTripToInputBus";
         var jamulusSynthName = "JamulusToInputBus";
+        var speakerSynthName = "SpeakerToInputBus";
         var preChainName, preChainSynthName;
+        var speakerNode, jackTripNode, jamulusNode;
 
         // wait for server to be ready
         serverReady.wait;
@@ -109,6 +113,7 @@ InputBusMixer : BaseMixer {
         b = server.makeBundle(nil, {
             // create synthdef to send audio to the input busses
             this.sendSynthDef(jacktripSynthName, jacktripSynthName ++ preChainSynthName);
+            this.sendSynthDef(speakerSynthName);
             if (withJamulus, {
                 this.sendSynthDef(jamulusSynthName, jamulusSynthName ++ preChainSynthName);
             });
@@ -129,34 +134,54 @@ InputBusMixer : BaseMixer {
 
         // create synths to send audio to the input busses
         args = [\mix, defaultMix, \mul, masterVolume];
+
+        // create dry speaker synth
+        speakerNode = Synth(speakerSynthName, args, g, \addToTail);
+        ("Created synth" + speakerSynthName + speakerNode.nodeID).postln;
+
         if(bypassFx==1, {
             // create dry jacktrip synth
-            node = Synth(jacktripSynthName, args, g, \addToTail);
-            ("Created synth" + (jacktripSynthName ++ preChainSynthName) + preChainName + node.nodeID).postln;
+            jackTripNode = Synth(jacktripSynthName, args, g, \addToTail);
+            ("Created synth" + (jacktripSynthName ++ preChainSynthName) + preChainName + jackTripNode.nodeID).postln;
 
             if (withJamulus, {
                 // create dry jamulus synth
-                args = args ++ [\delay, jamulusDelay];
-                node = Synth(jamulusSynthName, args, g, \addToTail);
-                ("Created synth" + (jamulusSynthName ++ preChainSynthName) + preChainName + node.nodeID).postln;
+                args = args ++ [\jamulusDelay, jamulusDelay];
+                jamulusNode = Synth(jamulusSynthName, args, g, \addToTail);
+                ("Created synth" + (jamulusSynthName ++ preChainSynthName) + preChainName + jamulusNode.nodeID).postln;
             });
         }, {
             // create jacktrip synth with effects
             args = args ++ preChain.getArgs();
-            node = Synth(jacktripSynthName ++ preChainSynthName, args, g, \addToTail);
-            ("Created synth" + (jacktripSynthName ++ preChainSynthName) + preChainName + node.nodeID).postln;
+            jackTripNode = Synth(jacktripSynthName ++ preChainSynthName, args, g, \addToTail);
+            ("Created synth" + (jacktripSynthName ++ preChainSynthName) + preChainName + jackTripNode.nodeID).postln;
     
             if (withJamulus, {
                 // always default pan Jamulus to center if using PanningLink
-                args = args ++ [\delay, jamulusDelay];
+                args = args ++ [\jamulusDelay, jamulusDelay];
                 // create jamulus synth with effects
-                node = Synth(jamulusSynthName ++ preChainSynthName, args, g, \addToTail);
-                ("Created synth" + (jamulusSynthName ++ preChainSynthName) + preChainName + node.nodeID).postln;
+                jamulusNode = Synth(jamulusSynthName ++ preChainSynthName, args, g, \addToTail);
+                ("Created synth" + (jamulusSynthName ++ preChainSynthName) + preChainName + jamulusNode.nodeID).postln;
             });
 
             // execute preChain after actions
-            preChain.after(server, node);
+            preChain.after(server, speakerNode);
         });
+
+        // add osc paths for the mixer
+        OSCFunc({ |args|
+            if (args.size == 3, {
+                ("speaker: setting" + args[1] + "to" + args[2]).postln;
+                speakerNode.set(args[1], args[2]);
+            });
+        }, "/speaker");
+        OSCFunc({ |args|
+            if (args.size == 3, {
+                ("input: setting" + args[1] + "to" + args[2]).postln;
+                jackTripNode.set(args[1], args[2]);
+                if (withJamulus, { jamulusNode.set(args[1], args[2]); });
+            });
+        }, "/input");
     }
 
     // stop all audio on the server

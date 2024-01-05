@@ -22,7 +22,7 @@
  * \mul : master amplitude level multiplier (default 1.0)
  */
 
-~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
+~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false, broadcast = false |
     var signal;
     var defaultMix = 1 ! maxClients;
     var levels = \mix.kr(defaultMix) * \mul.kr(1.0);
@@ -32,11 +32,11 @@
         offset = 1;
     });
 
-    signal = JackTripInput(maxClients, inputChannelsPerClient).getSignal();
+    // don't send last (speaker) signal to master input bus
+    signal = JackTripInput(maxClients - 1, inputChannelsPerClient).getSignal();
     signal = preChain.ar(signal);
     signal = MulAdd(signal, levels, 0);
-
-    (maxClients - offset).do({ arg n;
+    (maxClients - offset - 1).do({ arg n;
         Out.ar([~masterInputBus, ~inputBuses[n + offset].index], signal[n + offset]);
     });
 }

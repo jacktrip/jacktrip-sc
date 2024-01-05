@@ -46,9 +46,10 @@ PersonalMixer : InputBusMixer {
 
     // starts up all the audio on the server
     start {
-        var b, g, p, node, args, personalMixes;
+        var b, g, p, node, personalMixes;
         var synthName = "JackTripPersonalMixOut";
         var postChainName, postChainSynthName;
+        var args = [\speakerDelay, speakerDelay];
 
         // start input bus mixer first
         super.start();
@@ -93,14 +94,14 @@ PersonalMixer : InputBusMixer {
             // default selfVolume for Jamulus mix to zero
             personalMixes[0] = 0;
         });
+        args = args ++ [\mix, personalMixes];
 
         // create personal mix for all jacktrip clients that includes jamulus
         // outputs to all clients including jamulus
         if(bypassFx==1, {
-            args = [\mix, personalMixes];
             node = Synth(synthName, args, g, \addToTail);
         }, {
-            args = [\mix, personalMixes] ++ postChain.getArgs();
+            args = args ++ postChain.getArgs();
             node = Synth(synthName ++ postChainSynthName, args, g, \addToTail);
             // execute postChain after actions
             postChain.after(server, node);

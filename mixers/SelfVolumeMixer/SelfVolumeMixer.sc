@@ -47,6 +47,7 @@ SelfVolumeMixer : InputBusMixer {
     // starts up all the audio on the server
     start {
         var b, g, p, node;
+        var nodes = [];
         var jacktripSynthName = "JackTripSelfVolumeMixOut";
         var jamulusSynthName = "JamulusDownMixOut";
         var postChainName, postChainSynthName;
@@ -87,7 +88,7 @@ SelfVolumeMixer : InputBusMixer {
         // create personal mix for all jacktrip clients that includes jamulus
         // outputs to all clients including jamulus
         maxClients.do{ arg clientNum;
-            var args = [];
+            var args = [\speakerDelay, speakerDelay];
             var synthName = jacktripSynthName;
 
             if (withJamulus && clientNum == 0, {
@@ -116,10 +117,25 @@ SelfVolumeMixer : InputBusMixer {
                 node = Synth(synthName ++ postChainSynthName, args, g, \addToTail);
             });
             ("Created synth" + (synthName ++ postChainSynthName) + postChainName + node.nodeID).postln;
+
+            // execute postChain after actions
+            postChain.after(server, node);
+            nodes = nodes.add(node);
         };
 
-        // execute postChain after actions
-        postChain.after(server, node);
+        // add osc paths for the mixer
+        OSCFunc({ |args|
+            if (args.size == 3, {
+                ("output: setting" + args[1] + "to" + args[2]).postln;
+                g.set(args[1], args[2]);
+            });
+        }, "/output");
+        OSCFunc({ |args|
+            if ((args.size == 4) && (args[1] < maxClients), {
+                ("clients[" ++ args[1] ++ "]: setting" + args[2] + "to" + args[3]).postln;
+                nodes[args[1]].set(args[2], args[3]);
+            });
+        }, "/clients");
 
         // signal that the mix has started
         // signal is defined in the BaseMix class and represents a Condition object

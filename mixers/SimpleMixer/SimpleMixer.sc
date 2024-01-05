@@ -59,6 +59,14 @@ SimpleMixer : BaseMixer {
         node = Synth("JackTripSimpleMix", [\mix, defaultMix, \mul, masterVolume], g, \addToTail);
         ("Created synth JackTripSimpleMix" + node.nodeID).postln;
 
+        // add osc paths for the mixer
+        OSCFunc({ |args|
+            if (args.size == 3, {
+                ("input: setting" + args[1] + "to" + args[2]).postln;
+                node.set(args[1], args[2]);
+            });
+        }, "/input");
+
         // signal that the mix has started
         this.mixStarted.test = true;
         this.mixStarted.signal;

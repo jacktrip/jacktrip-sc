@@ -25,8 +25,6 @@
  */
 
 OutputBusMixer : InputBusMixer {
-    var <>broadcast = false;
-
     // create a new instance
     *new { | maxClients = 16 |
         ^super.new(maxClients);
@@ -34,9 +32,10 @@ OutputBusMixer : InputBusMixer {
 
     // starts up all the audio on the server
     start {
-        var b, g, node, args;
+        var b, g, node;
         var synthName = "JackTripDownMixOut";
         var postChainName, postChainSynthName;
+        var args = [\speakerDelay, speakerDelay];
 
         // use alternate synth if broadcast is true
         if (broadcast, {
@@ -75,13 +74,22 @@ OutputBusMixer : InputBusMixer {
 
         // create a single mix and outputs to all clients including jamulus
         if(bypassFx==1, {
-            node = Synth(synthName, nil, g, \addToTail);
+            node = Synth(synthName, args, g, \addToTail);
         }, {
-            node = Synth(synthName ++ postChainSynthName, postChain.getArgs(), g, \addToTail);
+            args = args ++ postChain.getArgs();
+            node = Synth(synthName ++ postChainSynthName, args, g, \addToTail);
             // execute postChain after actions
             postChain.after(server, node);
         });
         ("Created synth" + (synthName ++ postChainSynthName) + postChainName + node.nodeID).postln;
+
+        // add osc paths for the mixer
+        OSCFunc({ |args|
+            if (args.size == 3, {
+                ("output: setting" + args[1] + "to" + args[2]).postln;
+                node.set(args[1], args[2]);
+            });
+        }, "/output");
 
         // signal that the mix has started
         // signal is defined in the BaseMix class and represents a Condition object

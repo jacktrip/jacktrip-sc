@@ -24,6 +24,7 @@ BaseMixer : Object {
     var <>maxClients;
     var <>withJamulus = true;		// create mixes adapted Jamulus being connected on channels 1 & 2
     var <>useSynthCache = true;		// send each synth definition to the server at most one time
+    var <>broadcast = false;        // true if this mixer is used to generate a broadcast/recording signal
     var <>masterVolume = 1.0;		// master volume level multiplier
     var <>selfVolume = 1.0;         // sets the default volume level that each client will hear themselves at (requires personal mixes)
     var <>serverIp = "127.0.0.1";	// IP address or hostname of remote audio server
@@ -105,7 +106,7 @@ BaseMixer : Object {
 
             (this.class.filenameSymbol.asString.dirname +/+ "../../synthdefs/" ++ srcName ++ ".scd").load;
             sdef = SynthDef(name, {
-                SynthDef.wrap(~synthDef, prependArgs: [maxClients, myPreChain, myPostChain, inputChannelsPerClient, outputChannelsPerClient, withJamulus]);
+                SynthDef.wrap(~synthDef, prependArgs: [maxClients, myPreChain, myPostChain, inputChannelsPerClient, outputChannelsPerClient, withJamulus, broadcast]);
             });
 
             if (server.isLocal, {
@@ -151,5 +152,19 @@ BaseMixer : Object {
                 Out.ar(~allChannels, snd);
             }).play(server, [\buffer, b]);
         }, oscPath);
+    }
+
+    // add OSC listeners for each synth control available
+    addOSCControls { | oscpath, synthName, node |
+        SynthDescLib.global.match(synthName).controlNames.do({ |c|
+            var path = "/" ++ oscpath ++ "/" ++ c;
+            OSCFunc({ |args|
+                if (args.size == 2, {
+                    (oscpath ++ ": setting" + c + "to" + args[1]).postln;
+                    node.set(c, args[1]);
+                });
+            }, path);
+            ("Added OSC endpoint for" + path).postln;
+        });
     }
 }
