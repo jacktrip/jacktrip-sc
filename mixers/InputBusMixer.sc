@@ -61,7 +61,7 @@
 
 InputBusMixer : BaseMixer {
     var <>jamulusDelay = 0;
-    var <>speakerDelay = 0.5;   // default to 1/2 second
+    var <>speakerDelay = 0;
 
     // create a new instance
     *new { | maxClients = 16 |

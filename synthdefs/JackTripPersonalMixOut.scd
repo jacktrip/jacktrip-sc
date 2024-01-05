@@ -20,7 +20,7 @@
  * \mul : amplitude level multiplier (default 1.0)
  */
 
-~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
+~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false, broadcast = false |
     var defaultMixes = 1 ! (maxClients * maxClients);
     var personalMixes = \mix.kr(defaultMixes);
     var speakerSignal = JackTripInput(1, inputChannelsPerClient, false, ~speakerInputBus).getSignal();

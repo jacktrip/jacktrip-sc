@@ -22,14 +22,16 @@
  * \mul : master amplitude level multiplier (default 1.0)
  */
 
-~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false |
+~synthDef = { | maxClients, preChain, postChain, inputChannelsPerClient = 2, outputChannelsPerClient = 2, withJamulus = false, broadcast = false |
     var defaultMix = 1 ! maxClients;
     var levels = \mix.kr(defaultMix) * \mul.kr(1.0);
     var signal = JackTripInput(1, inputChannelsPerClient, true, (maxClients - 1) * inputChannelsPerClient).getSignal();
-    var metronome = MetronomeLink.new.vol_(0);
-    var tuningNote = TuningNoteLink.new.vol_(0);
-    signal = metronome.ar(signal);
-    signal = tuningNote.ar(signal);
+    if (broadcast.not, {
+        var metronome = MetronomeLink.new.vol_(0);
+        var tuningNote = TuningNoteLink.new.vol_(0);
+        signal = metronome.ar(signal);
+        signal = tuningNote.ar(signal);
+    });
     signal = MulAdd(signal[0], levels[maxClients - 1], 0);
     Out.ar(~inputBuses[maxClients - 1].index, signal);
 }

@@ -24,6 +24,7 @@ BaseMixer : Object {
     var <>maxClients;
     var <>withJamulus = true;		// create mixes adapted Jamulus being connected on channels 1 & 2
     var <>useSynthCache = true;		// send each synth definition to the server at most one time
+    var <>broadcast = false;        // true if this mixer is used to generate a broadcast/recording signal
     var <>masterVolume = 1.0;		// master volume level multiplier
     var <>selfVolume = 1.0;         // sets the default volume level that each client will hear themselves at (requires personal mixes)
     var <>serverIp = "127.0.0.1";	// IP address or hostname of remote audio server
@@ -105,7 +106,7 @@ BaseMixer : Object {
 
             (this.class.filenameSymbol.asString.dirname +/+ "../../synthdefs/" ++ srcName ++ ".scd").load;
             sdef = SynthDef(name, {
-                SynthDef.wrap(~synthDef, prependArgs: [maxClients, myPreChain, myPostChain, inputChannelsPerClient, outputChannelsPerClient, withJamulus]);
+                SynthDef.wrap(~synthDef, prependArgs: [maxClients, myPreChain, myPostChain, inputChannelsPerClient, outputChannelsPerClient, withJamulus, broadcast]);
             });
 
             if (server.isLocal, {

@@ -25,8 +25,6 @@
  */
 
 OutputBusMixer : InputBusMixer {
-    var <>broadcast = false;
-
     // create a new instance
     *new { | maxClients = 16 |
         ^super.new(maxClients);
