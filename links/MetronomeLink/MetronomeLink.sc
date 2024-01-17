@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 JackTrip Labs, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-/* 
+/*
  * MetronomeLink: Adds a metronome to a signal
  *
  */
@@ -29,10 +29,9 @@ MetronomeLink : Link {
 
     ar { | input, id = "" |
         var signal = input;
-        var osc, trg;
+        var osc;
 
-        trg = Decay2.ar(Impulse.ar(\metronome_bpm.ar(bpm)/60, 0, 0.3), 0.01, 0.3);
-        osc = {WhiteNoise.ar(trg)}.dup;
+        osc = SinOsc.ar.dup * Pulse.ar(\metronome_bpm.ar(bpm)/60, 0.01).lag;
 
         signal = MulAdd(osc, \metronome_vol.ar(vol), signal);
         ^signal;
