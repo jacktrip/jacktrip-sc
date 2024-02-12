@@ -10,7 +10,7 @@
             "options": [
                 {
                     "name": "masterVolume",
-                    "value": 1.5
+                    "value": 1.0
                 },
                 {
                     "name": "selfVolume",

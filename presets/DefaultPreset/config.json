@@ -1,16 +1,16 @@
 {
     "id": "default",
     "label": "Default",
-    "tooltip": "A true all-rounder. (If all participants are sending stereo signals, try removing the Circular Pan link)",
+    "tooltip": "A true all-rounder.",
     "mixer": "SelfVolumeMixer",
     "mixerConfigs": [
         {
             "name": "SelfVolumeMixer",
-            "max": 10,
+            "max": 30,
             "options": [
                 {
                     "name": "masterVolume",
-                    "value": 1.5
+                    "value": 1.0
                 },
                 {
                     "name": "selfVolume",
