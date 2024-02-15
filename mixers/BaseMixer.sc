@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2020-2021 JackTrip Labs, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -91,7 +91,7 @@ BaseMixer : Object {
         // location and send it to the server.
         if (useSynthCache && File.exists(defPath), {
             ("Reusing cached SynthDef:" + name).postln;
-        
+
             // load synthdef into global lib (needed by VSTPlugin and other things)
             SynthDescLib.global.read(defPath);
         }, {
@@ -139,6 +139,8 @@ BaseMixer : Object {
 
     // add OSC listener to play sample files to all clients
     addSamplePlayer { | sampleDir, oscPath |
+        var vsAgent;
+        vsAgent = NetAddr.new("127.0.0.1", 1029);
         OSCFunc({
             arg msg;
             var b;
@@ -152,6 +154,7 @@ BaseMixer : Object {
                 Out.ar(~allChannels, snd);
             }).play(server, [\buffer, b]);
         }, oscPath);
+        vsAgent.sendMsg("/ready", $T);
     }
 
     // add OSC listeners for each synth control available
