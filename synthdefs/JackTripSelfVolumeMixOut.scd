@@ -37,7 +37,7 @@
     signal = AggregateLink().ar(signal);
     signal = postChain.ar(signal);
 
-    speakerSignal = MulAdd(speakerSignal, \mul.kr(1.0), 0);
+    speakerSignal = MulAdd(speakerSignal[0], \mul.kr(1.0), 0);
     speakerSignal = DelayN.ar(speakerSignal, 1.0, \speakerDelay.kr(0));
     signal = Mix([signal, speakerSignal]);
 
