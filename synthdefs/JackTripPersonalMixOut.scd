@@ -44,7 +44,7 @@
         signal = AggregateLink().ar(signal);
         signal = postChain.ar(signal, clientNum);
 
-        speakerSignal = MulAdd(speakerSignal, personalMixes[(clientNum + 1) * maxClients - 1] * \mul.kr(1), 0);
+        speakerSignal = MulAdd(speakerSignal[0], personalMixes[(clientNum + 1) * maxClients - 1] * \mul.kr(1), 0);
         speakerSignal = DelayN.ar(speakerSignal, 1.0, \speakerDelay.kr(0));
         signal = Mix([signal, speakerSignal]);
         
