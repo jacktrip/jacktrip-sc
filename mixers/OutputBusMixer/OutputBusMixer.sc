@@ -34,12 +34,14 @@ OutputBusMixer : InputBusMixer {
     start {
         var b, g, node;
         var synthName = "JackTripDownMixOut";
+        var oscPath = "/output";
         var postChainName, postChainSynthName;
         var args = [\speakerDelay, speakerDelay];
 
         // use alternate synth if broadcast is true
         if (broadcast, {
             synthName = "BroadcastMixOut";
+            oscPath = "/broadcast";
         });
 
         // start input bus mixer first
@@ -89,7 +91,7 @@ OutputBusMixer : InputBusMixer {
                 ("output: setting" + args[1] + "to" + args[2]).postln;
                 node.set(args[1], args[2]);
             });
-        }, "/output");
+        }, oscPath);
 
         // signal that the mix has started
         // signal is defined in the BaseMix class and represents a Condition object
