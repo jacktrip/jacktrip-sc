@@ -40,6 +40,31 @@
                     "value": 1.6626467968935361
                 }
             ]
+        },
+        {
+            "name": "CompressorLink",
+            "options": [
+                {
+                    "name": "thresh",
+                    "value": -20
+                },
+                {
+                    "name": "attack",
+                    "value": 0.021
+                },
+                {
+                    "name": "release",
+                    "value": 0.03
+                },
+                {
+                    "name": "ratio",
+                    "value": 0.667
+                },
+                {
+                    "name": "makeup",
+                    "value": 1.2
+                }
+            ]
         }
     ],
     "postChain": [
@@ -79,7 +104,7 @@
                 },
                 {
                     "name": "makeup",
-                    "value": 1.4
+                    "value": 1.55
                 }
             ]
         },
@@ -117,7 +142,7 @@
                 },
                 {
                     "name": "ratio",
-                    "value": 0.1
+                    "value": 0.04
                 }
             ]
         }
